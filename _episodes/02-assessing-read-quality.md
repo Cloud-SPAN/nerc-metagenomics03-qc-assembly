@@ -728,54 +728,6 @@ FAIL    Adapter Content JC1A_R1.fastq.gz
 The summary file gives us a list of tests that FastQC ran, and tells
 us whether this sample passed, failed, or is borderline (`WARN`). Remember, to quit from `less` you must type `q`.
 
-## Documenting our work
-
-We can make a record of the results we obtained for all our samples
-by concatenating all of our `summary.txt` files into a single file
-using the `cat` command. We'll call this `fastqc_summaries.txt` and store
-it to `~/dc_workshop/docs`.
-
-~~~
-$ mkdir -p ~/dc_workshop/docs
-$ cat */summary.txt > ~/dc_workshop/docs/fastqc_summaries.txt
-~~~
-{: .bash}
-
-> ## Exercise 4: Quality tests
->
-> Which samples failed at least one of FastQC's quality tests? What
-> test(s) did those samples failed
->
->> ## Solution
->>
->> We can get the list of all failed tests using `grep`.
->>
->> ~~~
->> $ cd ~/dc_workshop/docs
->> $ grep FAIL fastqc_summaries.txt
->> ~~~
->> {: .bash}
->>
->> ~~~
->> FAIL    Per base sequence quality       JC1A_R1.fastq.gz             
->> FAIL    Per sequence GC content JC1A_R1.fastq.gz                     
->> FAIL    Sequence Duplication Levels     JC1A_R1.fastq.gz             
->> FAIL    Adapter Content JC1A_R1.fastq.gz                             
->> FAIL    Per base sequence quality       JC1A_R2.fastq.gz             
->> FAIL    Per sequence GC content JC1A_R2.fastq.gz                     
->> FAIL    Sequence Duplication Levels     JC1A_R2.fastq.gz             
->> FAIL    Adapter Content JC1A_R2.fastq.gz                             
->> FAIL    Per base sequence content       JP4D_R1.fastq     
->> FAIL    Adapter Content JP4D_R1.fastq                     
->> FAIL    Per base sequence quality       JP4D_R2.fastq.gz  
->> FAIL    Per base sequence content       JP4D_R2.fastq.gz  
->> FAIL    Adapter Content JP4D_R2.fastq.gz
->> ~~~
->> {: .output}
->>
-> {: .solution}
-{: .challenge}
-
 
 > ## Quality Encodings Vary
 >
@@ -790,49 +742,3 @@ $ cat */summary.txt > ~/dc_workshop/docs/fastqc_summaries.txt
 > to use. If you choose the wrong encoding, you run the risk of throwing away good reads or
 > (even worse) not throwing away bad reads!
 {: .callout}
-
-
-> ## Bonus Exercise: Automating a quality control workflow
->
-> Chepiche lost their FastQC analyses results. How can they do it again but faster than the first time?
-> As we have seen in a previous lesson, making scripts for repetitive tasks is a very efficient practice during bioinformatic pipelines.  
->
-> > ## Solution
-> > Make a new script with nano
-> > ~~~
-> > nano quality_control.sh
-> > ~~~
-> > {: .bash}
-> >
-> > Paste inside the commands that we used along with `echo` commands that shows you how the script is running.
-> > ~~~
-> > set -e # This will ensure that our script will exit if an error occurs
-> > cd ~/dc_workshop/data/untrimmed_fastq/
-> >
-> > echo "Running FastQC ..."
-> > fastqc .fastq
-> >
-> > mkdir -p ~/dc_workshop/results/fastqc_untrimmed_reads
-> >
-> > echo "Saving FastQC results..."
-> > mv *.zip ~/dc_workshop/results/fastqc_untrimmed_reads/
-> > mv *.html ~/dc_workshop/results/fastqc_untrimmed_reads/
-> >
-> > cd ~/dc_workshop/results/fastqc_untrimmed_reads/
-> >
-> > echo "Unzipping..."
-> > for filename in *.zip
-> >     do
-> >     unzip $filename
-> >     done
-> >
-> > echo "Saving summary..."
-> > mkdir -p ~/dc_workshop/docs
-> > cat */summary.txt > ~/dc_workshop/docs/fastqc_summaries.txt
-> > ~~~
-> > {: .bash}
-> >
-> > If we were to run this script it would ask us for confirmation of redoing several steps because we already did all of these steps. If you want you can run it to check that it works, but it is not necessary if you did every step of the previous episode.
-> {: .solution}
->
-{: .challenge}
