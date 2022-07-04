@@ -29,11 +29,11 @@ metagenome assembly so we need to use a metagenome assembler appropriate for thi
 for assembling large and complex metagenomics data, and it is one of the
 most used and recommended.
 
-Some of the problems faced by metagenomics assembly are: i) the differences in coverage between the genomes, due to the differences in abundance in the sample, ii) the fact that different species often share conserved regions, iii) and the presence of several strains of a single species in the community. <How flye deals with this>.
+Some of the problems faced by metagenomics assembly are: i) the differences in coverage between the genomes, due to the differences in abundance in the sample, ii) the fact that different species often share conserved regions, iii) and the presence of several strains of a single species in the community. How flye deals with this.
 
-<How flye deals with long read sequences>
+How flye deals with long read sequences
 
-> Refresher on command line programs
+> ## Refresher on command line programs
 > To fill!
 {: .callout}
 
