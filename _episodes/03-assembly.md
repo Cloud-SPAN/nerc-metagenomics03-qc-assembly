@@ -1,20 +1,17 @@
 ---
 title: "Metagenome Assembly"
 teaching: 30
-exercises: 10
+exercises: 30
 questions:
-- "Why genomic data should be assembled?"
-- "What is the difference between reads and contigs?"
+- "Why do raw reads need to be assembled?"
 - "How can we assemble a metagenome?"
 objectives:
-- "Understand what is an assembly."  
+- "Understand the difference between reads and contigs."  
 - "Run a metagenomics assembly workflow."
-- "Use an enviroment in a bioinformatic pipeline."
 keypoints:
-- "Assembly groups reads into contigs."
-- "De Brujin Graphs use Kmers to assembly cleaned reads"
-- "MetaSPAdes is a metagenomes assembler."
-- "Assemblers take FastQ files as input and produce a Fasta file as output."
+- "Assembly merges reads into contigs."
+- "Flye can be used as a metagenomes assembler."
+- "Assemblers take FASTQ files as input and produce a FASTA file as output."
 ---
 
 ## Assembling reads
