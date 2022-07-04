@@ -15,109 +15,141 @@ keypoints:
 ---
 
 ## Assembling reads
-The assembly process groups reads into contigs and contigs into
-scaffolds, in order to obtain (ideally) the sequence of a whole
-chromosome. There are many programs devoted to
-[genome](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/) and
-metagenome assembly, some of the main strategies they use are: Greedy
-extension, OLC and De Bruijn charts. Contrary to metabarcoding, shotgun metagenomics needs an assembly step. This does not mean that metabarcoding never uses an assembly step, but
-sometimes is not needed.
 
-<a href="{{ page.root }}/fig/03-04-01.png">
-  <img src="{{ page.root }}/fig/03-04-01.png" width="868" height="777" alt="Three diagrams depicting the three assembly algorithms" />
-</a>
+<span style="color:red"> Introduction to assembly - jigsaw analogy + image
+One genome assembly is one jigsaw puzzle but a metagenome is 500+ puzzles, without pictures.
+This makes assembly and further analysis a challenge - must first assembly which parts of the puzzle (sequences) we can with assembly. Then separate these larger parts into different "puzzles" / organisms using binning.
+</span>
 
-[MetaSPAdes](https://github.com/ablab/spades) is a NGS de novo assembler
+The assembly strategy differs based on the sequencing technology used to generate the raw reads.
+Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this
+metagenome assembly so we need to use a metagenome assembler appropriate for this problem.
+
+[Flye](https://github.com/fenderglass/Flye) is a long-read de novo assembler
 for assembling large and complex metagenomics data, and it is one of the
-most used and recommended. It is part of the SPAdes toolkit, that
-contains several assembly pipelines.
+most used and recommended.
 
-Some of the problems faced by metagenomics assembly are: i) the differences in coverage between the genomes, due to the differences in abundance in the sample, ii) the fact that different species often share conserved regions, iii) and the presence of several strains of a single species in the community. SPAdes already deals with the non-uniform coverage problem in its algorithm, so it is useful for the assembly of simple communities, but the [metaSPAdes](https://pubmed.ncbi.nlm.nih.gov/28298430/) algorithm deals with the other problems as well, allowing it to assemble metagenomes from complex communities.
+Some of the problems faced by metagenomics assembly are: i) the differences in coverage between the genomes, due to the differences in abundance in the sample, ii) the fact that different species often share conserved regions, iii) and the presence of several strains of a single species in the community. <How flye deals with this>.
 
-Let's see what happens if we enter the metaspades.py command on our terminal.
+<How flye deals with long read sequences>
+
+> Refresher on command line programs
+> To fill!
+{: .callout}
+
+## Flye is a metagenomics assembler
+
+Let's see what happens if we enter the `flye` command on our terminal.
 
 ~~~
-$ metaspades.py
+ flye
 ~~~
 {: .source}
 
 ~~~
-$ metaspades.py: command not found   
-~~~
-{: .error}
+$ flye
+usage: flye (--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw |
+      --nano-corr | --nano-hq ) file1 [file_2 ...]
+      --out-dir PATH
 
-The reason is because we are not located in our environmnet where we can
-call Spades, but before going any further, let's talk about environmnets.
-
-## Activating an environment  
-Environments are part of a bioinformatic tendency to make reproducible research,
-they are a way to share and maintain our programs in their needed versions used for a pipeline with our colleagues and
-with our future self. MetaSPAdes is not activated in the (base) environment but
-this AWS instances came with an environment called metagenomics. We need to activate
-it in order to start using MetaSPAdes.
-
-We will use [Conda](https://docs.conda.io/en/latest/) as our environment manager. Conda environments are activated with `conda activate` direction:  
-~~~
-$ conda activate metagenomics  
-~~~
-{: .bash}
-
-After the environment has been activated, a label is shown before the `$` sign.
-~~~
-(metagenomics) $
+      [--genome-size SIZE] [--threads int] [--iterations int]
+      [--meta] [--polish-target] [--min-overlap SIZE]
+      [--keep-haplotypes] [--debug] [--version] [--help]
+      [--scaffold] [--resume] [--resume-from] [--stop-after]
+      [--read-error float] [--extra-params]
+flye: error: the following arguments are required: -o/--out-dir
 ~~~
 {: .output}
 
-Now if we call MetaSPAdes at the command line it wont be any error,
-instead a long help page will be displayed at our screen.
-~~~
-$ metaspades.py
-~~~
-{: .bash}
+The reason we're seeing this is because we haven't provided any arguments for Flye to be able to run the assembly.
+
+This output gives us a bit of information about how to run Flye but we can use the help command to show it in full.
 
 ~~~
-SPAdes genome assembler v3.15.0 [metaSPAdes mode]
+$ flye --help
+usage: flye (--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw |
+	     --nano-corr | --nano-hq ) file1 [file_2 ...]
+	     --out-dir PATH
 
-Usage: spades.py [options] -o <output_dir>
+	     [--genome-size SIZE] [--threads int] [--iterations int]
+	     [--meta] [--polish-target] [--min-overlap SIZE]
+	     [--keep-haplotypes] [--debug] [--version] [--help]
+	     [--scaffold] [--resume] [--resume-from] [--stop-after]
+	     [--read-error float] [--extra-params]
 
-Basic options:
-  -o <output_dir>             directory to store all the resulting files (required)
-  --iontorrent                this flag is required for IonTorrent data
-  --test                      runs SPAdes on toy dataset
-  -h, --help                  prints this usage message
-  -v, --version               prints version
+Assembly of long reads with repeat graphs
 
-Input data:
-  --12 <filename>             file with interlaced forward and reverse paired-end reads
-  -1 <filename>               file with forward paired-end reads
-  -2 <filename>               file with reverse paired-end reads    
+optional arguments:
+ -h, --help            show this help message and exit
+ --pacbio-raw path [path ...]
+                       PacBio regular CLR reads (<20% error)
+ --pacbio-corr path [path ...]
+                       PacBio reads that were corrected with other methods (<3% error)
+ --pacbio-hifi path [path ...]
+                       PacBio HiFi reads (<1% error)
+ --nano-raw path [path ...]
+                       ONT regular reads, pre-Guppy5 (<20% error)
+ --nano-corr path [path ...]
+                       ONT reads that were corrected with other methods (<3% error)
+ --nano-hq path [path ...]
+                       ONT high-quality reads: Guppy5+ or Q20 (<5% error)
+ --subassemblies path [path ...]
+                       [deprecated] high-quality contigs input
+ -g size, --genome-size size
+                       estimated genome size (for example, 5m or 2.6g)
+ -o path, --out-dir path
+                       Output directory
+ -t int, --threads int
+                       number of parallel threads [1]
+ -i int, --iterations int
+                       number of polishing iterations [1]
+ -m int, --min-overlap int
+                       minimum overlap between reads [auto]
+ --asm-coverage int    reduced coverage for initial disjointig assembly [not set]
+ --hifi-error float    [deprecated] same as --read-error
+ --read-error float    adjust parameters for given read error rate (as fraction e.g. 0.03)
+ --extra-params extra_params
+                       extra configuration parameters list (comma-separated)
+ --plasmids            unused (retained for backward compatibility)
+ --meta                metagenome / uneven coverage mode
+ --keep-haplotypes     do not collapse alternative haplotypes
+ --scaffold            enable scaffolding using graph [disabled by default]
+ --trestle             [deprecated] enable Trestle [disabled by default]
+ --polish-target path  run polisher on the target sequence
+ --resume              resume from the last completed stage
+ --resume-from stage_name
+                       resume from a custom stage
+ --stop-after stage_name
+                       stop after the specified stage completed
+ --debug               enable debug output
+ -v, --version         show program's version number and exit
+
+Input reads can be in FASTA or FASTQ format, uncompressed
+or compressed with gz. Currently, PacBio (CLR, HiFi, corrected)
+and ONT reads (regular, HQ, corrected) are supported. Expected error rates are
+<15% for PB CLR/regular ONT; <5% for ONT HQ, <3% for corrected, and <1% for HiFi. Note that Flye
+was primarily developed to run on uncorrected reads. You may specify multiple
+files with reads (separated by spaces). Mixing different read
+types is not yet supported. The --meta option enables the mode
+for metagenome/uneven coverage assembly.
+
+To reduce memory consumption for large genome assemblies,
+you can use a subset of the longest reads for initial disjointig
+assembly by specifying --asm-coverage and --genome-size options. Typically,
+40x coverage is enough to produce good disjointigs.
+
+You can run Flye polisher as a standalone tool using
+--polish-target option.
 ~~~
 {: .output}
-
-> ## Conda is an environment management system
->
-> Enviroments help in science reproducibility, allowing to share the specific conditions in which a pipeline is run.
-> [Conda](https://docs.conda.io/en/latest/) is an open source package management system and environment management system that runs on Windows, macOS and
-> Linux.
-{: .callout}
-
-## MetaSPAdes is a   metagenomics assembler
-
-The help that we just saw tells us how to run metaspades.py. We are going
-to use the most simple options, just specifying our forward paired-end
-reads with `-1` and reverse paired-end reads with `-2`, and the output
-directory where we want our results to be stored.
- ~~~
-$ cd ~/dc_workshop/data/trimmed_fastq
-$ metaspades.py -1 JC1A_R1.trim.fastq.gz -2 JC1A_R2.trim.fastq.gz -o ../../results/assembly_JC1A &
-~~~
-{: .bash}
 
 > ## Running commands on the background
 > The `&` sign that we are using at the end of the command is for telling
 the machine to run the command on the background, this will help us to avoid
 the cancelation of the operation in case the connection with the AWS machine is unstable.
 {: .callout}
+
+## Updated to here
 
 When the run is finished it shows this message:
 
@@ -186,6 +218,7 @@ We can recognize which sample our assembly outputs corresponds to because they a
 the assembly results folder: `assembly_JC1A/`. However, the files within it do not have the
 sample ID. It is very useful to rename these files, in case we need them out of their folder.
 
+
 > ## Exercise 1: Rename all files in a folder
 >
 > Add JC1A (the sample ID) separated by "_"  at the beggining of the names of all the contents in the assembly_JC1A directory. Remember that many solutions are possible.
@@ -234,3 +267,8 @@ sample ID. It is very useful to rename these files, in case we need them out of 
 > {: .solution}
 >
 {: .challenge}
+
+While you're waiting for the assembly to finish you might want to read about the
+different programs devoted to
+[genome](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/) and
+metagenome assembly, which can use different assembly strategies such as; Greedy extension, OLC and De Bruijn charts.
