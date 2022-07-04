@@ -60,7 +60,7 @@ Where `NNN` is a three-digit number giving your instance number.
 ## Instructions
 
 ### Create a folder for the course
-To keep things tidy and easily accessible, create a folder (or directory) to keep everything related to this course: your login key file, your notes, data, etc. If you have completed the Prenomics or Genomics course, you will have already made a `cloudspan` folder. If that is the case, you can navigate to your existing folder and move onto **Downloading your login key**.
+To keep things tidy and easily accessible, create a folder (or directory) to keep everything related to this course: your login key file, your notes, data, etc. If you have completed the Prenomics or Genomics course, you will have already made a `cloudspan` folder. If that is the case, you can navigate to your existing folder and move onto the **Downloading your login key** step.
 
 In theory you can make your Cloud-SPAN directory anywhere in your file system but we recommend making it inside your Desktop folder, to make it easy to access.
 
@@ -86,7 +86,7 @@ In theory you can make your Cloud-SPAN directory anywhere in your file system bu
 >A relative path describes the location of a file relative to your current working directory. For example, if you were already in the folder called docs, the relative path for doc3.txt would be data/doc3.txt. There is no need to give instructions to navigate a route you have already taken.
 >
 >If, however, you were in the folder called docs and you wanted to open one of the .exe files, you would probably use the absolute path for that file (home/programs/.exe) to get there. This is because you have not navigated any of the route yet, so you need the full ‘address’.
->
+{: .callout}
 
 ### Download your login key file
 
