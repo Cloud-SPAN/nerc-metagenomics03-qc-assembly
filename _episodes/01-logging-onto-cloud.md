@@ -78,6 +78,7 @@ In theory you can make your Cloud-SPAN directory anywhere in your file system bu
 
    The field called *Location* will tell you the absolute path for your folder. Once you have this written down, do not lose it! Now you can find your way back to the `cloudspan` folder whenever you need to, no matter where you are in your file structure.
 
+
 > ## Reminder of Absolute vs relative paths
 >There are two ways of writing a file path - absolute paths and relative paths.
 >
