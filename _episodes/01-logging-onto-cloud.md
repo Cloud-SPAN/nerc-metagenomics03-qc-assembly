@@ -56,16 +56,11 @@ As the name implies, `ssh` provides you with a secure (encrypted) way to use a r
 
 Where `NNN` is a three-digit number giving your instance number.
 
-What you do next depends on whether you did the **[Prenomics module](https://cloud-span.github.io/prenomics00-intro/)**
 
-## Instructions if you **have** done Prenomics
-
-Open a terminal and change you directory to the `cloudspan` folder. Now go to the section **Login into your instance with ssh** below.
-
-## Instructions if you **have not** done Prenomics
+## Instructions
 
 ### Create a folder for the course
-To keep things tidy and easily accessible, create a folder (or directory) to keep everything related to this course: your login key file, your notes, data, etc. If you have completed the Prenomics course, you will have already made a `cloudspan` folder. If that is the case, you can ignore the next couple of sets of instructions and instead navigate to your existing folder.
+To keep things tidy and easily accessible, create a folder (or directory) to keep everything related to this course: your login key file, your notes, data, etc. If you have completed the Prenomics or Genomics course, you will have already made a `cloudspan` folder. If that is the case, you can ignore the next couple of sets of instructions and instead navigate to your existing folder.
 
 In theory you can make your Cloud-SPAN directory anywhere in your file system but we recommend making it inside your Desktop folder, to make it easy to access.
 
@@ -82,6 +77,16 @@ In theory you can make your Cloud-SPAN directory anywhere in your file system bu
    Find out what the absolute path is using your file manager application. Right click on the folder, or in any blank space inside the folder, and select *Properties*.
 
    The field called *Location* will tell you the absolute path for your folder. Once you have this written down, do not lose it! Now you can find your way back to the `cloudspan` folder whenever you need to, no matter where you are in your file structure.
+
+> ## Reminder of Absolute vs relative paths
+>There are two ways of writing a file path - absolute paths and relative paths.
+>
+>An absolute path contains the complete list of directories needed to locate a file on your computer. This allows you to reach the file no matter where you are. The example just given (home/docs/data/doc3.txt) is an absolute path.
+>
+>A relative path describes the location of a file relative to your current working directory. For example, if you were already in the folder called docs, the relative path for doc3.txt would be data/doc3.txt. There is no need to give instructions to navigate a route you have already taken.
+>
+>If, however, you were in the folder called docs and you wanted to open one of the .exe files, you would probably use the absolute path for that file (home/programs/.exe) to get there. This is because you have not navigated any of the route yet, so you need the full ‘address’.
+>
 
 ### Download your login key file
 
