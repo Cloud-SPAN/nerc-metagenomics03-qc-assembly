@@ -53,18 +53,18 @@ The tools that are used to analyze data at different stages of the workflow are 
 
 ## Quality control
 
-<img align="left" width="299" height="204" src="{{ page.root }}/fig/analsysis_flowchart_crop1.png" alt="Flow diagram that shows the steps: Sequence reads and Quality control." />
+<img align="left" width="325" height="204" src="{{ page.root }}/fig/analsysis_flowchart_crop1.png" alt="Flow diagram that shows the steps: Sequence reads and Quality control." />
 
 
-&nbsp;We will now assess the quality of the sequence reads contained in our FASTQ files.
-&nbsp;We will be adapting the quality control workflow from [Cloud-SPAN Genomics](https://cloud-span.github.io/00genomics/) for the metagenomics dataset used in this course.  
+We will now assess the quality of the sequence reads contained in our FASTQ files.
+We will be adapting the quality control workflow from [Cloud-SPAN Genomics](https://cloud-span.github.io/00genomics/) for the metagenomics dataset used in this course.  
 
-&nbsp;You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
+You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
 
 <br clear="left"/>
 
 > ## Reminder of the FASTQ format
-> See [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more depth reminder about the FASTQ format.
+> See [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more in-depth reminder about the FASTQ format.
 >
 > In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information.
 > 1. The first line always starts with an '@' followed by the sequence identifier (also called the header) and may contain other information about the read such as the length.
