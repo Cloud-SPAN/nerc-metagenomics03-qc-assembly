@@ -53,17 +53,15 @@ The tools that are used to analyze data at different stages of the workflow are 
 
 ## Quality control
 
-We will now assess the quality of the sequence reads contained in our FASTQ files.
-
-
- <a href="{{ page.root }}/fig/analsysis_flowchart_crop1.png">
+ <a align="right" href="{{ page.root }}/fig/analsysis_flowchart_crop1.png">
   <img src="{{ page.root }}/fig/analsysis_flowchart_crop1.png" alt="Flow diagram that shows the steps: Sequence reads and Quality control." />
 </a>{:width="200px"}
 
+We will now assess the quality of the sequence reads contained in our FASTQ files.
 We will be adapting the quality control workflow from [Cloud-SPAN Genomics](https://cloud-span.github.io/00genomics/) for the metagenomics dataset used in this course. You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
 
 
-> ## Reminder for the FASTQ format
+> ## Reminder of the FASTQ format
 > See [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more depth reminder about the FASTQ format.
 >
 > In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information.
