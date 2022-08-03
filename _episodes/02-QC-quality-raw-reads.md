@@ -48,7 +48,7 @@ description of each step.
 4. Taxonomic assignment
 
 Workflows in bioinformatics often adopt a plug-and-play approach so the output of one tool can be easily used as input to another tool.
-The use of standard data formats in bioinformatics (such as FASTA or FASTQ, which we will be using here) makes this possible.  
+The use of standard data formats in bioinformatics (such as FASTA or FASTQ, which we will be using here) makes this possible.
 The tools that are used to analyze data at different stages of the workflow are therefore built under the assumption that the data will be provided in a specific format.
 
 ## Quality control
@@ -60,17 +60,20 @@ We will now assess the quality of the sequence reads contained in our FASTQ file
   <img src="{{ page.root }}/fig/analsysis_flowchart_crop1.png" alt="Flow diagram that shows the steps: Sequence reads and Quality control." />
 </a>
 
+We will be adapting the quality control workflow from [Cloud-SPAN Genomics](https://cloud-span.github.io/00genomics/) for the metagenomics dataset used in this course. You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
 
-### Details on the FASTQ format
 
-Although it looks complicated (and it is), we can understand the [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) format with a little decoding. Some rules about the format include...
-
-|Line|Description|
-|----|-----------|
-|1|Always begins with '@' and then information about the read|
-|2|The actual DNA sequence|
-|3|Always begins with a '+' and sometimes the same info in line 1|
-|4|Has a string of characters which represent the quality scores; must have same number of characters as line 2|
+>### Details on the FASTQ format
+>
+>See [Genomics Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more depth reminder into the FASTQ format.
+>
+>In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information.
+>
+>1. The first line always starts with an '@' followed by the sequence identifier (also called the header) and may contain other information such as the read length.
+>2. The second line is the sequence of bases itself
+>3. The third line is a separator line which starts with a ‘+’ and may repeat the information from line 1
+>4. The fourth line is a string of characters representing the quality scores for each base
+{: .callout}
 
 We can view the first complete read in one of the files from our dataset by using `head` to look at
 the first four lines. But we have to decompress one of the files first.
