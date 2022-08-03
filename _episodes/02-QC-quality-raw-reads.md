@@ -38,8 +38,8 @@ tools in a specified order is commonly referred to as a *workflow* or a *pipelin
 An example of the workflow we will be using for our analysis is provided below with a brief
 description of each step.
 
- <a href="{{ page.root }}/fig/analysis_flowchart_v3.png">
-  <img src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
+ <a href="{{ page.root }}/fig/03-02-01.png">
+  <img src="{{ page.root }}/fig/03-02-01.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
 </a>
 
 
