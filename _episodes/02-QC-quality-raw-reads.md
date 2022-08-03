@@ -63,8 +63,9 @@ We will now assess the quality of the sequence reads contained in our FASTQ file
 We will be adapting the quality control workflow from [Cloud-SPAN Genomics](https://cloud-span.github.io/00genomics/) for the metagenomics dataset used in this course. You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
 
 
-> ## Details on the FASTQ format
-> See [Genomics Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more depth reminder into the FASTQ format.
+> ## Reminder for the FASTQ format
+> See [Genomics Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more depth reminder about the FASTQ format.
+>
 > In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information.
 > 1. The first line always starts with an '@' followed by the sequence identifier (also called the header) and may contain other information about the read such as the length.
 > 2. The second line is the sequence of bases itself
