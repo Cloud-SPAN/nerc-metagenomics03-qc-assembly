@@ -84,6 +84,6 @@ is also limited because we there is a lot variation in the 16S variable
 region compared to a genome, so we may be unable to identify several species
 that belong to the same genus for instance.
 
-<a href="{{ page.root }}/fig/03-01-01.png">
-  <img src="{{ page.root }}/fig/03-01-01.png" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis " />
+<a href="{{ page.root }}/fig/analysis_flowchart_v3.png">
+  <img src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis " />
 </a>

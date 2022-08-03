@@ -31,16 +31,15 @@ keypoints:
 
 ## Bioinformatic workflows
 
+
+<img align="left" width="325" height="881" src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
+
 When working with high-throughput sequencing data, the raw reads you get off of the sequencer need to pass
 through a number of  different tools in order to generate your final desired output. The use of this set of
 tools in a specified order is commonly referred to as a *workflow* or a *pipeline*.
 
 Here is an example of the workflow we will be using for our analysis with a brief
 description of each step.
-
- <a href="{{ page.root }}/fig/03-02-01.png">
-  <img src="{{ page.root }}/fig/03-02-01.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
-</a>
 
 1. Quality control - Assessing quality using FastQC and Trimming and/or filtering reads (if necessary)
 2. Assembly of metagenome
@@ -50,6 +49,8 @@ description of each step.
 Workflows in bioinformatics often adopt a plug-and-play approach so the output of one tool can be easily used as input to another tool.
 The use of standard data formats in bioinformatics (such as FASTA or FASTQ, which we will be using here) makes this possible.
 The tools that are used to analyze data at different stages of the workflow are therefore built under the assumption that the data will be provided in a specific format.
+
+<br clear="left"/>
 
 ## Quality control
 
