@@ -58,18 +58,18 @@ We will now assess the quality of the sequence reads contained in our FASTQ file
 
  <a href="{{ page.root }}/fig/analsysis_flowchart_crop1.png">
   <img src="{{ page.root }}/fig/analsysis_flowchart_crop1.png" alt="Flow diagram that shows the steps: Sequence reads and Quality control." />
-</a>
+</a>{:width="600px"}
 
 We will be adapting the quality control workflow from [Cloud-SPAN Genomics](https://cloud-span.github.io/00genomics/) for the metagenomics dataset used in this course. You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
 
 
-># Details on the FASTQ format
->See [Genomics Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more depth reminder into the FASTQ format.
->In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information.
->1. The first line always starts with an '@' followed by the sequence identifier (also called the header) and may contain other information about the read such as the length.
->2. The second line is the sequence of bases itself
->3. The third line is a separator line which starts with a ‘+’ and may repeat the information from line 1
->4. The fourth line is a string of characters representing the quality scores for each base
+> ## Details on the FASTQ format
+> See [Genomics Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more depth reminder into the FASTQ format.
+> In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information.
+> 1. The first line always starts with an '@' followed by the sequence identifier (also called the header) and may contain other information about the read such as the length.
+> 2. The second line is the sequence of bases itself
+> 3. The third line is a separator line which starts with a ‘+’ and may repeat the information from line 1
+> 4. The fourth line is a string of characters representing the quality scores for each base
 {: .callout}
 
 We can view the first complete read in one of the files from our dataset by using `head` to look at
