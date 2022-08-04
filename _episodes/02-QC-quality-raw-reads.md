@@ -356,7 +356,7 @@ seqkit seq -h
 {: .bash}
 
 
->
+> ## seqkit seq help documentation
 >> ## seqkit seq help documentation
 >> ~~~
 >> transform sequences (extract ID, filter by length, remove gaps...)
