@@ -247,7 +247,9 @@ NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano
 ~~~
 {: .bash}
 
-Now we have the command set up we can press enter and wait for the NanoPlot to finish. This will take a **couple of minutes**, you will know it is finished once your cursor has returned (i.e. you can type in the terminal again).
+Now we have the command set up we can press enter and wait for NanoPlot to finish.
+
+This will take a **_couple of minutes_**, you will know it is finished once your cursor has returned (i.e. you can type in the terminal again).
 
 Now NanoPlot has finished we can have a look at the output.
 First we need to navigate into the directory NanoPlot created, then list the files.
@@ -266,9 +268,12 @@ NanoPlot-report.html
 ~~~
 {: .output}
 
-We can see that NanoPlot has generated a lot of different files. As most of these are image or HTML files we won't be able to view them using terminal - luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer. To do this we will use `scp` which we have used in previous modules (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
 
-In a new terminal window that's **not** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
+We can see that NanoPlot has generated a lot of different files.
+
+As most of these are image or HTML files we won't be able to view them using terminal - luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer. To do this we will use `scp` which we have used in previous modules (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
+
+In a new terminal window that's **_not_** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
 Once you're in the directory you want to download this file into we will use `scp` to download the file.
 
 The command will look something like: (remember to replace NNN with the instance number specific to you)
@@ -284,7 +289,7 @@ TO FILL
 
 Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
 As this is a HTML file it should open up in your browser.
-If you had trouble downloading the file you can view it here [NanoPlot-report.html](data/NanoPlot-report.html)
+If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}data/NanoPlot-report.html)
 
 
 > ## Exercise 1:
