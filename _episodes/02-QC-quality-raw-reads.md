@@ -356,8 +356,8 @@ seqkit seq -h
 {: .bash}
 
 
-> ## seqkit seq help documentation
->
+> ## Help Documentation
+> .
 {: .solution}
 
 
