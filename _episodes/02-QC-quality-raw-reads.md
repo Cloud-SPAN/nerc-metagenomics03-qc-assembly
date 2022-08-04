@@ -320,7 +320,7 @@ Looking at the Summary Statistics table answer the following questions:
 >> ## Solution
 >>   1. There are 692,758 sequences (also known as reads) in this file
 >>   2. There are 3,082,258,211 bases (bp) in total in this FASTQ file
->>   2. The longest read in this file is 413,847 bp and it has a mean quality score of 3.7
+>>   3. The longest read in this file is 413,847 bp and it has a mean quality score of 3.7
 > {: .solution}
 {: .challenge}
 
@@ -423,7 +423,20 @@ If you had trouble downloading the file you can view it here [NanoPlot-filtered-
 
 <img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_trim_log.png" alt="NanoPlot KDE plot of the filtered raw reads Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 
+Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/NanoPlot-report.html) and [after filtering]({{ page.root }}/files/NanoPlot-trimmed-report.html)  and answer the questions below.
 
+> ## Exercise X:
+>
+> 1. How many reads have been removed by filtering?
+> 2. How many bases have been removed by filtering?
+> 3. What is the length of the new longest read and its associated average quality score?
+>
+>> ## Solution
+>>   1. Initially there were 692,758 reads in the filtered file there are 666,597 reads so 26,161 reads have been removed by the quality filtering
+>>   2. Initially there were 3,082,258,211 bases and after filtering there are 	3,023,658,929 base which means filtering has removed 58,599,282 bases
+>>   3. The longest read in the filtered file is 229,804bp and it has a mean quality score of 6.7
+> {: .solution}
+{: .challenge}
 
 ~~~
             FastQC - A high throughput sequence QC analysis tool
