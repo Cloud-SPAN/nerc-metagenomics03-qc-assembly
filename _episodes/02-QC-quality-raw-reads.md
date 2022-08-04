@@ -343,6 +343,8 @@ This means that for this dataset we can remove those with a lower quality score 
 
 <br clear="left"/>
 
+## Filtering Nanopore sequences by quality
+
 We can use the program `seqkit seq` to create a new file containing only the sequences with an average quality above a certain value.
 
 After returning to our home directory, we can view the `seqkit seq` help documentation with the following command:
@@ -394,9 +396,9 @@ seqkit seq -h
 >       --quiet                           be quiet and do not show extra information
 >   -t, --seq-type string                 sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")
 >   -j, --threads int                     number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)
-> ~~~ {: .output}
-> {: .solution}
-{: .challenge}
+> ~~~
+> {: .output}
+{: .solution}
 
 
 From this we can see that the flag `-Q` will `only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)`.
