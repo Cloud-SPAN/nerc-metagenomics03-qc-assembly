@@ -32,7 +32,7 @@ keypoints:
 ## Bioinformatic workflows
 
 
-<img align="right" width="217" height="587" src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
+<img align="right" width="325" height="506" src="{{ page.root }}/fig/short_analysis_flowchart.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
 
 When working with high-throughput sequencing data, the raw reads you get off of the sequencer need to pass
 through a number of  different tools in order to generate your final desired output.  
@@ -43,10 +43,10 @@ Here is an example of the workflow we will be using for our analysis with a brie
 description of each step.  
 
 1. Quality control - Assessing quality using FastQC and Trimming and/or filtering reads (if necessary)
-2. Assembly of metagenome
+2. Metagenome assembly
 3. Binning
 4. Taxonomic assignment
-  
+
 Workflows in bioinformatics often adopt a plug-and-play approach so the output of one tool can be easily used as input to another tool.
 The use of standard data formats in bioinformatics (such as FASTA or FASTQ, which we will be using here) makes this possible.
 The tools that are used to analyze data at different stages of the workflow are therefore built under the assumption that the data will be provided in a specific format.
@@ -75,109 +75,183 @@ You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03
 > 4. The fourth line is a string of characters representing the quality scores for each base
 {: .callout}
 
-We can view the first complete read in one of the files from our dataset by using `head` to look at
-the first four lines. But we have to decompress one of the files first.
+We have two different types of sequencing data (short-read Illumina sequence and long-read Nanopore sequence) available for this metagenome and will be using them both in a hybrid approach to assemble and analyse this metagenome.
+
+Because the two types of sequencing are different in length and quality, we need to use different programs for each of them that are built to handle the different strengths and weaknesses each technology provides.
+
+### Add Illumina FASTQC here
+
+### Nanopore quality control
+
+Now we will be assessing the quality of the Nanopore raw reads.
+
+As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
 ~~~
-$ cd /dc_workshop/data/untrimmed_fastq/
+$ cd /cs_workshop/data/nano_fastq/
 
-$ gunzip JP4D_R1.fastq.gz
-
-$ head -n 4 JP4D_R1.fastq
+$ head -n 4 ERR3152367_sub5.fastq
 ~~~
 {: .bash}
 
 ~~~
-@MISEQ-LAB244-W7:156:000000000-A80CV:1:1101:12622:2006 1:N:0:CTCAGA
-CCCGTTCCTCGGGCGTGCAGTCGGGCTTGCGGTCTGCCATGTCGTGTTCGGCGTCGGTGGTGCCGATCAGGGTGAAATCCGTCTCGTAGGGGATCGCGAAGATGATCCGCCCGTCCGTGCCCTGAAAGAAATAGCACTTGTCAGATCGGAAGAGCACACGTCTGAACTCCAGTCACCTCAGAATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAGCAAACCTCTCACTCCCTCTACTCTACTCCCTT                                        
-+                                                                                                
-A>>1AFC>DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHHGGHHHHGGGGGGGGGGGGGGGGHHHHHHHGGGGGGGGHGGHHHHHHHHGFHHFFGHHHHHGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFFFFFFFFFFFFFFFFFFFFBFFFF@F@FFFFFFFFFFBBFF?@;@####################################
+@ERR3152367.34573250 d8c83b24-b46e-4f1a-836f-768f835acf68 length=320
+GGTTGGTTATGTGCATGTTTTCAGTTACATATTGCATCTGTGGGAGCATATTCTTGTTTATGGGTTATGTGTTGGTGGTTGCATGTGGTGTGTTGTTGTGTTAACAAGTGTGGAACCTGTTCATTGGGTTATGAACAACGACACAAGTGTTGCGTGTTGAGCTAGTTAACGTGTGTGTTGTTATTCTTCTGAACCAGTTAACTTATTTGTTTTGTTGGGTGTGAAGCAGTGGGCGTGAAGGTGAGCGATGAAGCGGCGTTGTTCTGTTGCGTGTTTGATTGTGTTGTGTTGCGTGAAGAAGCGTCGTTGTTGGGTGGTTC
++
+$$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$$#$%#$#$%$$$##$%%#&$#$#$$$$$%$$%$$%%$$#"$#$$$#&$$$$$#$$$$$######$#$#$$###$%###$$$$%$$&%$$$#$#$$%#%$##$##%#$&$$$$$#$$$%$$$##%#%$##$%%$$#$$$$%#%$###$$$####%$%%$$'$$%$$$$$%$#$$&$$%$#$##$%%$$%$$%%$%&'##$##%$#$$%$###$$$$$#$$$$#$&%##$$#$$%$$$%###
 ~~~
 {: .output}
 
-Line 4 shows the quality for each nucleotide in the read. Quality is interpreted as the
-probability of an incorrect base call (e.g. 1 in 10) or, equivalently, the base call
-accuracy (e.g. 90%). To make it possible to line up each individual nucleotide with its quality
-score, the numerical score is converted into a code where each individual character
-represents the numerical quality score for an individual nucleotide. For example, in the line
-above, the quality score line is:
+We can see that this read is longer than the Illumina reads we looked at earlier (and in this sequencing run the length of the read is in the header of the sequence). The length of a raw read from Nanopore sequencing just depends on the length of the length of the DNA strand being sequenced.
+
+Line 4 shows us the quality score of this read.
 
 ~~~
-A>>1AFC>DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHHGGHHHHGGGGGGGGGGGGGGGGHHHHHHHGGGGGGGGHGGHHHHHHHHGFHHFFGHHHHHGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFFFFFFFFFFFFFFFFFFFFBFFFF@F@FFFFFFFFFFBBFF?@;@####################################
+$$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$$#$%#$#$%$$$##$%%#&$#$#$$$$$%$$%$$%%$$#"$#$$$#&$$$$$#$$$$$######$#$#$$###$%###$$$$%$$&%$$$#$#$$%#%$##$##%#$&$$$$$#$$$%$$$##%#%$##$%%$$#$$$$%#%$###$$$####%$%%$$'$$%$$$$$%$#$$&$$%$#$##$%%$$%$$%%$%&'##$##%$#$$%$###$$$$$#$$$$#$&%##$$#$$%$$$%###
 ~~~
 {: .output}
 
-The numerical value assigned to each of these characters depends on the
-sequencing platform that generated the reads. The sequencing machine used to generate our data
-uses the standard Sanger quality PHRED score encoding, using Illumina version 1.8 onwards.
-Each character is assigned a quality score between 0 and 41 as shown in
-the chart below.
+Based on the PHRED quality scores, see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder.
+We can see that the quality score of the bases in this read are between 1-10.
 
+> ## PHRED score reminder
+>Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+>                   |         |         |         |         |
+>Quality score:    >01........11........21........31........41                                
+{: .callout}
+
+Rather than looking at every sequence by hand we are going to use a program called [`NanoPlot`](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for this whole sequencing file.
+
+We first need to navigate to the qc directory we made earlier `cs_workshop/qc`.
 ~~~
-Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
-                   |         |         |         |         |
-Quality score:    01........11........21........31........41                                
-~~~
-{: .output}
-
-Each quality score represents the probability that the corresponding nucleotide call is
-incorrect. This quality score is logarithmically based, so a quality score of 10 reflects a
-base call accuracy of 90%, but a quality score of 20 reflects a base call accuracy of 99%.
-These probability values are the results from the base calling algorithm and depend on how
-much signal was captured for the base incorporation. In this link you can find more
-information about [quality scores](https://drive5.com/usearch/manual/quality_score.html).
-
-Looking back at our read:
-
-~~~
-@MISEQ-LAB244-W7:156:000000000-A80CV:1:1101:12622:2006 1:N:0:CTCAGA
-CCCGTTCCTCGGGCGTGCAGTCGGGCTTGCGGTCTGCCATGTCGTGTTCGGCGTCGGTGGTGCCGATCAGGGTGAAATCCGTCTCGTAGGGGATCGCGAAGATGATCCGCCCGTCCGTGCCCTGAAAGAAATAGCACTTGTCAGATCGGAAGAGCACACGTCTGAACTCCAGTCACCTCAGAATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAGCAAACCTCTCACTCCCTCTACTCTACTCCCTT                                        
-+                                                                                                
-A>>1AFC>DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHHGGHHHHGGGGGGGGGGGGGGGGHHHHHHHGGGGGGGGHGGHHHHHHHHGFHHFFGHHHHHGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFFFFFFFFFFFFFFFFFFFFBFFFF@F@FFFFFFFFFFBBFF?@;@####################################
+cd ~/cs_workshop/qc/
 ~~~
 {: .output}
 
-We can now see that there is a range of quality scores, but that the end of the sequence is
-very poor (`#` = a quality score of 2).
+We are now going to run `NanoPlot` with the raw Nanopore sequencing file.
+We can look at the help documenation for NanoPlot to see what options are available.
+~~~
+NanoPlot --help
+~~~
+{: .output}
 
-> ## Exercise 1: Looking at specific reads  
+~~~
+usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
+                [-o OUTDIR] [-p PREFIX] [--tsv_stats] [--maxlength N]
+                [--minlength N] [--drop_outliers] [--downsample N]
+                [--loglength] [--percentqual] [--alength] [--minqual N]
+                [--runtime_until N] [--readtype {1D,2D,1D2}] [--barcoded]
+                [--no_supplementary] [-c COLOR] [-cm COLORMAP]
+                [-f {eps,jpeg,jpg,pdf,pgf,png,ps,raw,rgba,svg,svgz,tif,tiff}]
+                [--plots [{kde,hex,dot,pauvre} [{kde,hex,dot,pauvre} ...]]]
+                [--listcolors] [--listcolormaps] [--no-N50] [--N50]
+                [--title TITLE] [--font_scale FONT_SCALE] [--dpi DPI]
+                [--hide_stats]
+                (--fastq file [file ...] | --fasta file [file ...] | --fastq_rich file [file ...] | --fastq_minimal file [file ...] | --summary file [file ...] | --bam file [file ...] | --ubam file [file ...] | --cram file [file ...] | --pickle pickle | --feather file [file ...])
+
+CREATES VARIOUS PLOTS FOR LONG READ SEQUENCING DATA.
+
+General options:
+  -h, --help            show the help and exit
+  -v, --version         Print version and exit.
+  -t, --threads THREADS
+                        Set the allowed number of threads to be used by the script
+  --verbose             Write log messages also to terminal.
+  --store               Store the extracted data in a pickle file for future plotting.
+  --raw                 Store the extracted data in tab separated file.
+  --huge                Input data is one very large file.
+  -o, --outdir OUTDIR   Specify directory in which output has to be created.
+  -p, --prefix PREFIX   Specify an optional prefix to be used for the output files.
+  --tsv_stats           Output the stats file as a properly formatted TSV.
+
+Options for filtering or transforming input prior to plotting:
+  --maxlength N         Hide reads longer than length specified.
+  --minlength N         Hide reads shorter than length specified.
+  --drop_outliers       Drop outlier reads with extreme long length.
+  --downsample N        Reduce dataset to N reads by random sampling.
+  --loglength           Additionally show logarithmic scaling of lengths in plots.
+  --percentqual         Use qualities as theoretical percent identities.
+  --alength             Use aligned read lengths rather than sequenced length (bam mode)
+  --minqual N           Drop reads with an average quality lower than specified.
+  --runtime_until N     Only take the N first hours of a run
+  --readtype {1D,2D,1D2}
+                        Which read type to extract information about from summary. Options are 1D, 2D,
+                        1D2
+  --barcoded            Use if you want to split the summary file by barcode
+  --no_supplementary    Use if you want to remove supplementary alignments
+
+Options for customizing the plots created:
+  -c, --color COLOR     Specify a valid matplotlib color for the plots
+  -cm, --colormap COLORMAP
+                        Specify a valid matplotlib colormap for the heatmap
+  -f, --format {eps,jpeg,jpg,pdf,pgf,png,ps,raw,rgba,svg,svgz,tif,tiff}
+                        Specify the output format of the plots.
+  --plots [{kde,hex,dot,pauvre} [{kde,hex,dot,pauvre} ...]]
+                        Specify which bivariate plots have to be made.
+  --listcolors          List the colors which are available for plotting and exit.
+  --listcolormaps       List the colors which are available for plotting and exit.
+  --no-N50              Hide the N50 mark in the read length histogram
+  --N50                 Show the N50 mark in the read length histogram
+  --title TITLE         Add a title to all plots, requires quoting if using spaces
+  --font_scale FONT_SCALE
+                        Scale the font of the plots by a factor
+  --dpi DPI             Set the dpi for saving images
+  --hide_stats          Not adding Pearson R stats in some bivariate plots
+
+Input data sources, one of these is required.:
+  --fastq file [file ...]
+                        Data is in one or more default fastq file(s).
+  --fasta file [file ...]
+                        Data is in one or more fasta file(s).
+  --fastq_rich file [file ...]
+                        Data is in one or more fastq file(s) generated by albacore, MinKNOW or guppy
+                        with additional information concerning channel and time.
+  --fastq_minimal file [file ...]
+                        Data is in one or more fastq file(s) generated by albacore, MinKNOW or guppy
+                        with additional information concerning channel and time. Is extracted swiftly
+                        without elaborate checks.
+  --summary file [file ...]
+                        Data is in one or more summary file(s) generated by albacore or guppy.
+  --bam file [file ...]
+                        Data is in one or more sorted bam file(s).
+  --ubam file [file ...]
+                        Data is in one or more unmapped bam file(s).
+  --cram file [file ...]
+                        Data is in one or more sorted cram file(s).
+  --pickle pickle       Data is a pickle file stored earlier.
+  --feather file [file ...]
+                        Data is in one or more feather file(s).
+
+EXAMPLES:
+    NanoPlot --summary sequencing_summary.txt --loglength -o summary-plots-log-transformed
+    NanoPlot -t 2 --fastq reads1.fastq.gz reads2.fastq.gz --maxlength 40000 --plots hex dot
+    NanoPlot --color yellow --bam alignment1.bam alignment2.bam alignment3.bam --downsample 10000
+~~~
+{: .output}
+
+As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file and we are also going to use `--outdir` to specify an output directory.
+For the `--fastq` flag: The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`, so we are going to use the absolute path in the NanoPlot command.
+For the `--outdir` flag: As we are already in our `qc` directory we are going to specify `nano_qc` so that NanoPlot will create a directory within this directory to put the files it generates. Note: with NanoPlot you don't need to create this directory before running the command, however this depends on the program you are using.
+
+~~~
+NanoPlot --fastq ~/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc
+~~~
+{: .output}
+
+> ## Exercise 1:
 >
-> How would you show in the terminal the ID and quality of last read in `JP4D_R1.fastq `?  
-> a) `tail JP4D_R1.fastq`  
-> b) `head -n 4 JP4D_R1.fastq`  
-> c) `more JP4D_R1.fastq`  
-> d) `tail -n4 JP4D_R1.fastq`  
-> e) `tail -n4 JP4D_R1.fastq | head -n2`  
->   
->   Do you trust the sequence in this read?
+>
 >
 >> ## Solution
 >> ~~~
 >>   
->> a) It does show the ID and quality of the last read but also show unnecesary lines from previous reads.  
->> b) No. It shows the first read's info.  
->> c) It shows the text of the entire file.  
->> d) This option is the best answer as it only shows info for the last read.  
->> e) It does show the ID of the last read but not the quality.  
->>
 >> ~~~
 >> {: .bash}
 >>
->> ~~~
->>@MISEQ-LAB244-W7:156:000000000-A80CV:1:2114:17866:28868 1:N:0:CTCAGA
->>
->>CCCGTTCTCCACCTCGGCGCGCGCCAGCTGCGGCTCGTCCTTCCACAGGAACTTCCACGTCGCCGTCAGCCGCGACACGTTCTCCCCCCTCGCATGCTCGTCCTGTCTCTCGTGCTTGGCCGACGCCTGCGCCTCGCACTGCGCCCGCTCGGTGTCGTTCATGTTGATCTTCACCGTGGCGTGCATGAAGCGGTTCCCGGCCTCGTCGCCACCCACGCCATCCGCGTCGGCCAGCCACTCTCACTGCTCGC
->>
->>+
->>
->>AA11AC1>3@DC1F1111000A0/A///BB#############################################################################################################################################################################################################################          
+>> ~~~     
 >> ~~~
 >> {: .output}
 >>
->> This read has more consistent quality at its first than at the end
->> but still has a range of quality scores,
->> most of them low. We will look at variations in position-based quality
->> in just a moment.
 >>
 > {: .solution}
 {: .challenge}
