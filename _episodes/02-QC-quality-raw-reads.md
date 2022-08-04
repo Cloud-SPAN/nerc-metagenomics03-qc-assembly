@@ -120,8 +120,7 @@ We can see that the quality score of the bases in this read are between 1-10.
 >~~~
 >Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
 >                   |         |         |         |         |
->Quality score:   
->01........11........21........31........41   
+>Quality score:    01........11........21........31........41   
 >~~~
 > {: .output}                           
 {: .callout}
