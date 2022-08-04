@@ -320,11 +320,15 @@ We will be coming back to this statistic in more detail when we get to the assem
 We can also look at some of the plots produced by NanoPlot.
 One useful plot is "Read lengths vs Average read quality plot using a kernel density estimation"
 
-<img align="left" width="200" height="200" src="{{ page.root }}/fig/02_lengthvsquality_all.png">
+<img align="left" width="400" height="400" src="{{ page.root }}/fig/02_lengthvsquality_all.png">
 
-<img align="right" width="200" height="200" src="{{ page.root }}/fig/02_lengthvsquality_small.png">
+Bit of text here about this
 
+<br clear="left"/>
 
+<img align="right" width="400" height="400" src="{{ page.root }}/fig/02_lengthvsquality_small.png">
+
+<br clear="right"/>
 
 
 At this point, lets validate that all the relevant tools are installed. If you are using the AWS AMI then these _should_ be preinstalled.
