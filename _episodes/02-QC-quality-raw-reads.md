@@ -140,10 +140,11 @@ NanoPlot --help
 ~~~
 {: .bash}
 
-> ## NanoPlot help
+>
 > >## NanoPlot Help Documentation
 > > ~~~
 > > usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
+> > ~~~
 > > {: .output}
 > {: .solution}
 {: .challenge}
