@@ -353,52 +353,53 @@ seqkit seq -h
 ~~~
 {: .bash}
 
+
 > ## seqkit seq help documentation
->> ~~~
->> transform sequences (extract ID, filter by length, remove gaps...)
->>
->> Usage:
->>   seqkit seq [flags]
->>
->> Flags:
->>   -k, --color                     colorize sequences - to be piped into "less -R"
->>   -p, --complement                complement sequence, flag '-v' is recommended to switch on
->>       --dna2rna                   DNA to RNA
->>   -G, --gap-letters string        gap letters (default "- \t.")
->>   -h, --help                      help for seq
->>   -l, --lower-case                print sequences in lower case
->>   -M, --max-len int               only print sequences shorter than the maximum length (-1 for no limit) (default -1)
->>   -R, --max-qual float            only print sequences with average quality less than this limit (-1 for no limit) (default -1)
->>   -m, --min-len int               only print sequences longer than the minimum length (-1 for no limit) (default -1)
->>   -Q, --min-qual float            only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)
->>   -n, --name                      only print names
->>   -i, --only-id                   print ID instead of full head
->>   -q, --qual                      only print qualities
->>   -b, --qual-ascii-base int       ASCII BASE, 33 for Phred+33 (default 33)
->>   -g, --remove-gaps               remove gaps
->>   -r, --reverse                   reverse sequence
->>       --rna2dna                   RNA to DNA
->>   -s, --seq                       only print sequences
->>   -u, --upper-case                print sequences in upper case
->>   -v, --validate-seq              validate bases according to the alphabet
->>   -V, --validate-seq-length int   length of sequence to validate (0 for whole seq) (default 10000)
->>
->> Global Flags:
->>       --alphabet-guess-seq-length int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)
->>       --id-ncbi                         FASTA head is NCBI-style, e.g. >>gi|110645304|ref|NC_002516.2| Pseud...
->>       --id-regexp string                regular expression for parsing ID (default "^(\\S+)\\s?")
->>       --infile-list string              file of input files list (one file per line), if given, they are appended to files from cli arguments
->>   -w, --line-width int                  line width when outputting FASTA format (0 for no wrap) (default 60)
->>   -o, --out-file string                 out file ("-" for stdout, suffix .gz for gzipped out) (default "-")
->>       --quiet                           be quiet and do not show extra information
->>   -t, --seq-type string                 sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")
->>   -j, --threads int                     number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)
->> ~~~
->> {: .output}
->{: .solution}
+> ~~~
+> transform sequences (extract ID, filter by length, remove gaps...)
+>
+> Usage:
+>   seqkit seq [flags]
+>
+> Flags:
+>   -k, --color                     colorize sequences - to be piped into "less -R"
+>   -p, --complement                complement sequence, flag '-v' is recommended to switch on
+>       --dna2rna                   DNA to RNA
+>   -G, --gap-letters string        gap letters (default "- \t.")
+>   -h, --help                      help for seq
+>   -l, --lower-case                print sequences in lower case
+>   -M, --max-len int               only print sequences shorter than the maximum length (-1 for no limit) (default -1)
+>   -R, --max-qual float            only print sequences with average quality less than this limit (-1 for no limit) (default -1)
+>   -m, --min-len int               only print sequences longer than the minimum length (-1 for no limit) (default -1)
+>   -Q, --min-qual float            only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)
+>   -n, --name                      only print names
+>   -i, --only-id                   print ID instead of full head
+>   -q, --qual                      only print qualities
+>   -b, --qual-ascii-base int       ASCII BASE, 33 for Phred+33 (default 33)
+>   -g, --remove-gaps               remove gaps
+>   -r, --reverse                   reverse sequence
+>       --rna2dna                   RNA to DNA
+>   -s, --seq                       only print sequences
+>   -u, --upper-case                print sequences in upper case
+>   -v, --validate-seq              validate bases according to the alphabet
+>   -V, --validate-seq-length int   length of sequence to validate (0 for whole seq) (default 10000)
+>
+> Global Flags:
+>       --alphabet-guess-seq-length int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)
+>       --id-ncbi                         FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...
+>       --id-regexp string                regular expression for parsing ID (default "^(\\S+)\\s?")
+>       --infile-list string              file of input files list (one file per line), if given, they are appended to files from cli arguments
+>   -w, --line-width int                  line width when outputting FASTA format (0 for no wrap) (default 60)
+>   -o, --out-file string                 out file ("-" for stdout, suffix .gz for gzipped out) (default "-")
+>       --quiet                           be quiet and do not show extra information
+>   -t, --seq-type string                 sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")
+>   -j, --threads int                     number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)
+> ~~~
+> {: .output}
+> {: .solution}
 {: .challenge}
 
-  
+
 From this we can see that the flag `-Q` will `only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)`.
 
 From the plot above we identified that many of the lower quality reads below 4 were shorter _more here_ so we should set the minimum limit to 4.
