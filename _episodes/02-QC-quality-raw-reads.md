@@ -55,7 +55,7 @@ The tools that are used to analyze data at different stages of the workflow are 
 
 ## Quality control
 
-<img align="left" width="325" height="204" src="{{ page.root }}/fig/analsysis_flowchart_crop1.png" alt="Flow diagram that shows the steps: Sequence reads and Quality control." />
+<img align="left" width="325" height="226" src="{{ page.root }}/fig/short_analysis_flowchart_crop1.png" alt="Flow diagram that shows the steps: Sequence reads and Quality control." />
 
 
 We will now assess the quality of the sequence reads contained in our FASTQ files.
@@ -88,9 +88,8 @@ Now we will be assessing the quality of the Nanopore raw reads.
 As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
 ~~~
-$ cd /cs_workshop/data/nano_fastq/
-
-$ head -n 4 ERR3152367_sub5.fastq
+ cd ~/cs_workshop/data/nano_fastq/
+ head -n 4 ERR3152367_sub5.fastq
 ~~~
 {: .bash}
 
@@ -115,9 +114,10 @@ Based on the PHRED quality scores, see [Genomics - Quality Control](https://clou
 We can see that the quality score of the bases in this read are between 1-10.
 
 > ## PHRED score reminder
->Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
->                   |         |         |         |         |
->Quality score:    >01........11........21........31........41                                
+>Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ\
+>                   |         |         |         |         |\
+>Quality score:   \
+>01........11........21........31........41                              
 {: .callout}
 
 Rather than looking at every sequence by hand we are going to use a program called [`NanoPlot`](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for this whole sequencing file.
@@ -126,14 +126,14 @@ We first need to navigate to the qc directory we made earlier `cs_workshop/qc`.
 ~~~
 cd ~/cs_workshop/qc/
 ~~~
-{: .output}
+{: .bash}
 
 We are now going to run `NanoPlot` with the raw Nanopore sequencing file.
 We can look at the help documenation for NanoPlot to see what options are available.
 ~~~
 NanoPlot --help
 ~~~
-{: .output}
+{: .bash}
 
 ~~~
 usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
@@ -230,13 +230,15 @@ EXAMPLES:
 {: .output}
 
 As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file and we are also going to use `--outdir` to specify an output directory.
+
 For the `--fastq` flag: The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`, so we are going to use the absolute path in the NanoPlot command.
-For the `--outdir` flag: As we are already in our `qc` directory we are going to specify `nano_qc` so that NanoPlot will create a directory within this directory to put the files it generates. Note: with NanoPlot you don't need to create this directory before running the command, however this depends on the program you are using.
+
+For the `--outdir` flag: As we are already in our `qc` directory we are going to specify `nano_qc` so that NanoPlot will create a directory within this directory to put the files it generates. (Note: with NanoPlot you don't need to create this directory before running the command, however this depends on the program you are using.)
 
 ~~~
 NanoPlot --fastq ~/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc
 ~~~
-{: .output}
+{: .bash}
 
 > ## Exercise 1:
 >
