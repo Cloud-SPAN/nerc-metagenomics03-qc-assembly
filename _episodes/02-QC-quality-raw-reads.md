@@ -140,9 +140,10 @@ NanoPlot --help
 ~~~
 {: .bash}
 
-> ## NanoPlot Help Documentation
-> >
-usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
+>
+> >## NanoPlot Help Documentation
+> > ~~~
+>> usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
                 [-o OUTDIR] [-p PREFIX] [--tsv_stats] [--maxlength N]
                 [--minlength N] [--drop_outliers] [--downsample N]
                 [--loglength] [--percentqual] [--alength] [--minqual N]
@@ -232,6 +233,7 @@ usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
     NanoPlot --summary sequencing_summary.txt --loglength -o summary-plots-log-transformed
     NanoPlot -t 2 --fastq reads1.fastq.gz reads2.fastq.gz --maxlength 40000 --plots hex dot
     NanoPlot --color yellow --bam alignment1.bam alignment2.bam alignment3.bam --downsample 10000
+> >  ~~~
 > > {: .output}
 > {: .solution}
 {: .challenge}
