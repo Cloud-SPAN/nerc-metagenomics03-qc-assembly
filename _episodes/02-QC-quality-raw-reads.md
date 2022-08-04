@@ -422,12 +422,12 @@ NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --ou
 
 Once again, wait for the command to finish and then `scp` the `NanoPlot-report.html` to your local computer.
 
-If you had trouble downloading the file you can view it here [NanoPlot-filtered-report.html]({{ page.root }}/files/NanoPlot-trimmed-report.html)
+If you had trouble downloading the file you can view it here [NanoPlot-filtered-report.html]({{ page.root }}/files/NanoPlot-filtered-report.html)
 
 <img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_filtered_log.png" alt="NanoPlot KDE plot of the filtered raw reads Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 <br clear="left"/>
 
-**Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/NanoPlot-report.html) and [after filtering]({{ page.root }}/files/NanoPlot-trimmed-report.html)  and answer the questions below.**
+**Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/NanoPlot-report.html) and [after filtering]({{ page.root }}/files/NanoPlot-filtered-report.html)  and answer the questions below.**
 
 > ## Exercise X:
 >
