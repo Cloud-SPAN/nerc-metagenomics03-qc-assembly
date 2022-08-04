@@ -394,8 +394,7 @@ seqkit seq -h
 >       --quiet                           be quiet and do not show extra information
 >   -t, --seq-type string                 sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")
 >   -j, --threads int                     number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)
-> ~~~
-> {: .output}
+> ~~~ {: .output}
 > {: .solution}
 {: .challenge}
 
