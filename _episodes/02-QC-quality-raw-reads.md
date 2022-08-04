@@ -140,7 +140,8 @@ NanoPlot --help
 ~~~
 {: .bash}
 
-~~~
+> ## NanoPlot Help Documentation
+> ~~~
 usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
                 [-o OUTDIR] [-p PREFIX] [--tsv_stats] [--maxlength N]
                 [--minlength N] [--drop_outliers] [--downsample N]
@@ -154,9 +155,9 @@ usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
                 [--hide_stats]
                 (--fastq file [file ...] | --fasta file [file ...] | --fastq_rich file [file ...] | --fastq_minimal file [file ...] | --summary file [file ...] | --bam file [file ...] | --ubam file [file ...] | --cram file [file ...] | --pickle pickle | --feather file [file ...])
 
-CREATES VARIOUS PLOTS FOR LONG READ SEQUENCING DATA.
+> CREATES VARIOUS PLOTS FOR LONG READ SEQUENCING DATA.
 
-General options:
+> General options:
   -h, --help            show the help and exit
   -v, --version         Print version and exit.
   -t, --threads THREADS
@@ -169,7 +170,7 @@ General options:
   -p, --prefix PREFIX   Specify an optional prefix to be used for the output files.
   --tsv_stats           Output the stats file as a properly formatted TSV.
 
-Options for filtering or transforming input prior to plotting:
+> Options for filtering or transforming input prior to plotting:
   --maxlength N         Hide reads longer than length specified.
   --minlength N         Hide reads shorter than length specified.
   --drop_outliers       Drop outlier reads with extreme long length.
@@ -185,7 +186,7 @@ Options for filtering or transforming input prior to plotting:
   --barcoded            Use if you want to split the summary file by barcode
   --no_supplementary    Use if you want to remove supplementary alignments
 
-Options for customizing the plots created:
+> Options for customizing the plots created:
   -c, --color COLOR     Specify a valid matplotlib color for the plots
   -cm, --colormap COLORMAP
                         Specify a valid matplotlib colormap for the heatmap
@@ -203,7 +204,7 @@ Options for customizing the plots created:
   --dpi DPI             Set the dpi for saving images
   --hide_stats          Not adding Pearson R stats in some bivariate plots
 
-Input data sources, one of these is required.:
+> Input data sources, one of these is required.:
   --fastq file [file ...]
                         Data is in one or more default fastq file(s).
   --fasta file [file ...]
@@ -227,12 +228,13 @@ Input data sources, one of these is required.:
   --feather file [file ...]
                         Data is in one or more feather file(s).
 
-EXAMPLES:
+> EXAMPLES:
     NanoPlot --summary sequencing_summary.txt --loglength -o summary-plots-log-transformed
     NanoPlot -t 2 --fastq reads1.fastq.gz reads2.fastq.gz --maxlength 40000 --plots hex dot
     NanoPlot --color yellow --bam alignment1.bam alignment2.bam alignment3.bam --downsample 10000
-~~~
-{: .output}
+> ~~~
+> {: .output}
+{: .solution}
 
 As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file, we are also going to use `--outdir` to specify an output directory and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
@@ -320,13 +322,12 @@ We will be coming back to this statistic in more detail when we get to the assem
 We can also look at some of the plots produced by NanoPlot.
 One useful plot is "Read lengths vs Average read quality plot using a kernel density estimation"
 
-<img align="left" width="400" height="400" src="{{ page.root }}/fig/02_lengthvsquality_all.png">
+<img align="left" width="510" height="490" src="{{ page.root }}/fig/02_lengthvsquality_all.png">
 
-Bit of text here about this
-
+This is the plot that we generated using NanoPlot above, however because there's a few of long reads
 <br clear="left"/>
 
-<img align="right" width="400" height="400" src="{{ page.root }}/fig/02_lengthvsquality_small.png">
+<img align="right" width="500" height="500" src="{{ page.root }}/fig/02_lengthvsquality_small.png">
 
 <br clear="right"/>
 
