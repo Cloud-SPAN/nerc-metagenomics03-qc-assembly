@@ -238,7 +238,7 @@ NanoPlot --help
 {: .solution}
 
 
-As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file, we are also going to use `--outdir` to specify an output directory and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
+As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file, we are also going to use `--outdir` to specify an output directory, we're also going to use the flag `--loglength` to produce the plots with a log scale and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
 For the `--fastq` flag: The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`, so we are going to use the absolute path in the NanoPlot command.
 
@@ -246,8 +246,10 @@ For the `--outdir` flag: As we are already in our `qc` directory we are going to
 
 For the `--threads` flag: we are going to run this on 4 threads to allow NanoPlot to use more compute power to speed it up.
 
+The `--loglength` flag doesn't require any additional information.
+
 ~~~
-NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc --threads 4
+NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc --threads 4 --loglength
 ~~~
 {: .bash}
 
@@ -265,12 +267,14 @@ ls
 ~~~
 {: .bash}
 ~~~
-Dynamic_Histogram_Read_length.html      NanoPlot_20220804_1454.log
-HistogramReadlength.png                 NanoStats.txt
-LengthvsQualityScatterPlot_dot.png      Weighted_HistogramReadlength.png
-LengthvsQualityScatterPlot_kde.png      Weighted_LogTransformed_HistogramReadlength.png
-LogTransformed_HistogramReadlength.png  Yield_By_Length.png
-NanoPlot-report.html
+Dynamic_Histogram_Read_length.html            NanoPlot-report.html
+HistogramReadlength.png                       NanoPlot_20220804_1931.log
+LengthvsQualityScatterPlot_dot.png            NanoStats.txt
+LengthvsQualityScatterPlot_kde.png            Weighted_HistogramReadlength.png
+LengthvsQualityScatterPlot_loglength_dot.png  Weighted_LogTransformed_HistogramReadlength.png
+LengthvsQualityScatterPlot_loglength_kde.png  Yield_By_Length.png
+LogTransformed_HistogramReadlength.png
+
 ~~~
 {: .output}
 
@@ -297,7 +301,7 @@ TO FILL
 Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
 As this is a HTML file it should open up in your browser.  
 
-If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}/data/NanoPlot-report.html)
+If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}/files/NanoPlot-report.html)
 
 In the report we have Summary Statistics for the raw sequences and some plots.
 
@@ -316,22 +320,22 @@ Looking at the Summary Statistics table answer the following questions:
 > {: .solution}
 {: .challenge}
 
-The N50 is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger. So for this FASTQ file 50% of the total bases are in reads that have a length of 5,373 bp or longer.
-See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
-
-We will be coming back to this statistic in more detail when we get to the assembly step.
+> ## N50
+> The N50 value is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger. So for this FASTQ file 50% of the total bases are in reads that have a length of 5,373 bp or longer.
+> See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
+>We will be coming back to this statistic in more detail when we get to the assembly step.
+{: .callout}
 
 We can also look at some of the plots produced by NanoPlot.
-One useful plot is "Read lengths vs Average read quality plot using a kernel density estimation"
+One useful plot is "Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths". As the
 
-<img align="left" width="510" height="490" src="{{ page.root }}/fig/02_lengthvsquality_all.png">
+<img align="left" width="510" height="490" src="{{ page.root }}/fig/02_lengthvsquality_log.png">
 
-This is the plot that we generated using NanoPlot above, however because there's a few of long reads
+This is the plot that we generated with the NanoPlot command above
+
+NanoPlot  
 <br clear="left"/>
 
-<img align="right" width="500" height="500" src="{{ page.root }}/fig/02_lengthvsquality_small.png">
-
-<br clear="right"/>
 
 
 At this point, lets validate that all the relevant tools are installed. If you are using the AWS AMI then these _should_ be preinstalled.
