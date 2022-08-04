@@ -359,14 +359,13 @@ seqkit seq -h
 > ## seqkit seq help documentation
 >
 > ~~~
-> transform sequences (extract ID, filter by length, remove gaps...)
->
+> transform sequences (extract ID, filter by length, remove gaps)
 > ~~~
 > {: .output}
 {: .solution}
 
 
-
+  
 From this we can see that the flag `-Q` will `only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)`.
 
 From the plot above we identified that many of the lower quality reads below 4 were shorter _more here_ so we should set the minimum limit to 4.
