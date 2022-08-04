@@ -333,13 +333,13 @@ Looking at the Summary Statistics table answer the following questions:
 
 We can also look at some of the plots produced by NanoPlot.  
 One useful plot is the plot titled
-### Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths
+### Read lengths vs Average read quality plot using dots after log transformation of read lengths
 
-<img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths">
+<img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 
 This plot shows the read length of the sequences when compared to the average quality of the sequence.  
-We can see that the majority of the sequences have a quality score of 7 and above, and those with a quality score of 6 or lower are shorter in length than 10,000 bp.
-This means that for this dataset we can remove those with a lower quality score in order to improve the overall quality of the sequences before assembling the metagenome.
+We can see that the majority of the sequences have a quality score of 4 and above, and many of those with an average quality score of 4 are shorter in length.
+This means that for this dataset we can remove those with a lower quality score in order to improve the overall quality of the raw sequences before assembling the metagenome.
 
 <br clear="left"/>
 
@@ -348,7 +348,7 @@ We can use the program `seqkit seq` to create a new file containing only the seq
 After returning to our home directory, we can view the `seqkit seq` help documentation with the following command:
 
 ~~~
-cd ~
+cd ~/cs_course/
 seqkit seq -h
 ~~~
 {: .bash}
@@ -399,20 +399,32 @@ seqkit seq -h
 
 From this we can see that the flag `-Q` will `only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)`.
 
-From the plot above we identified that many of the lower quality reads below 7 were shorter _more here_ so we should set the minimum limit to 7.
+From the plot above we identified that many of the lower quality reads below 4 were shorter _more here_ so we should set the minimum limit to 4.
 
 ~~~
-seqkit seq -Q 7 data/nano_fastq/ERR3152367_sub5.fastq > data/nano_fastq/ERR3152367_sub5_trimmed.fastq
+seqkit seq -Q 4 data/nano_fastq/ERR3152367_sub5.fastq > data/nano_fastq/ERR3152367_sub5_filtered.fastq
+~~~
+{: .bash}
+
+We are using redirecting (`>`) to generate a new file `data/nano_fastq/ERR3152367_sub5_filtered.fastq` containing only the reads with an average quality of 7 or above.
+
+We can now re-run NanoPlot on the filtered file to see how it has changed.
+
+~~~
+cd results/qc/ # move into the qc directory
+
+NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --outdir nano_qc_trim --threads 4 --loglength
 ~~~
 {: .bash}
 
-We are using redirecting (`>`) to generate a new file `data/nano_fastq/ERR3152367_sub5_trimmed.fastq` containing only the reads with an average quality of 7 or above.
+Once again, wait for the command to finish and then `scp` the `NanoPlot-report.html` to your local computer.
 
-We can also use the program `seqkit` to see how the file has changed.
+If you had trouble downloading the file you can view it here [NanoPlot-filtered-report.html]({{ page.root }}/files/NanoPlot-trimmed-report.html)
 
-~~~
-~~~
-{: .bash}
+<img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_trim_log.png" alt="NanoPlot KDE plot of the filtered raw reads Read lengths vs Average read quality plot using dots after log transformation of read lengths">
+
+
+
 ~~~
             FastQC - A high throughput sequence QC analysis tool
 
