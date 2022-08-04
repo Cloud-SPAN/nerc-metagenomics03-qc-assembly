@@ -354,6 +354,7 @@ seqkit seq -h
 {: .bash}
 
 > ## seqkit seq help documentation
+> ~~~
 > transform sequences (extract ID, filter by length, remove gaps...)
 >
 > Usage:
@@ -392,6 +393,7 @@ seqkit seq -h
 >       --quiet                           be quiet and do not show extra information
 >   -t, --seq-type string                 sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")
 >   -j, --threads int                     number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)
+> ~~~
 > {: .output}
 {: .solution}
 
@@ -406,7 +408,7 @@ seqkit seq -Q 7 data/nano_fastq/ERR3152367_sub5.fastq > data/nano_fastq/ERR31523
 
 We are using redirecting (`>`) to generate a new file `data/nano_fastq/ERR3152367_sub5_trimmed.fastq` containing only the reads with an average quality of 7 or above.
 
-We can also use the program `seqkit` to see how the file has changed. 
+We can also use the program `seqkit` to see how the file has changed.
 
 ~~~
 ~~~
