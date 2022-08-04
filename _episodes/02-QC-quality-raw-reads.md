@@ -303,7 +303,11 @@ As this is a HTML file it should open up in your browser.
 
 If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}/files/NanoPlot-report.html)
 
+<img align="right" width="534" height="662" src="{{ page.root }}/fig/02_nanoplot_stats.png" alt="Table of the NanoPlot statistics" />
+
 In the report we have Summary Statistics for the raw sequences and some plots.
+
+<br clear="right"/>
 
 Looking at the Summary Statistics table answer the following questions:
 
@@ -321,15 +325,16 @@ Looking at the Summary Statistics table answer the following questions:
 {: .challenge}
 
 > ## N50
-> The N50 value is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger. So for this FASTQ file 50% of the total bases are in reads that have a length of 5,373 bp or longer.
+> The N50 value is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger.
+> For this FASTQ file 50% of the total bases are in reads that have a length of 5,373 bp or longer.
 > See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
 >We will be coming back to this statistic in more detail when we get to the assembly step.
 {: .callout}
 
 We can also look at some of the plots produced by NanoPlot.
-One useful plot is "Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths". As the
+One useful plot is "Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths".
 
-<img align="left" width="510" height="490" src="{{ page.root }}/fig/02_lengthvsquality_log.png">
+<img align="left" width="510" height="490" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths">
 
 This is the plot that we generated with the NanoPlot command above
 
