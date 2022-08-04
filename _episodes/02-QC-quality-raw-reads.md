@@ -118,9 +118,9 @@ We can see that the quality score of the bases in this read are between 1-10.
 
 > ## PHRED score reminder
 >~~~
->Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ\
->                   |         |         |         |         |\
->Quality score:   \
+>Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+>                   |         |         |         |         |
+>Quality score:   
 >01........11........21........31........41   
 >~~~
 > {: .output}                           
@@ -135,7 +135,7 @@ cd ~/cs_workshop/qc/
 {: .bash}
 
 We are now going to run `NanoPlot` with the raw Nanopore sequencing file.
-We can look at the help documenation for NanoPlot to see what options are available.
+First we can look at the help documenation for NanoPlot to see what options are available.
 ~~~
 NanoPlot --help
 ~~~
