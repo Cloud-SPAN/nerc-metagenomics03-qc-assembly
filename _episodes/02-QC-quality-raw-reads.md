@@ -63,27 +63,28 @@ We will be adapting the quality control workflow from [Cloud-SPAN Genomics](http
 
 You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
 
+We have two different types of sequencing data (short-read Illumina sequence and long-read Nanopore sequence) available for this metagenome and will be using them both in a hybrid approach to assemble and analyse this metagenome.
+
+Because the two types of sequencing are different in length and quality, we need to use different programs for each of them that are built to handle the different strengths and weaknesses each technology provides.
+
 <br clear="left"/>
 
 > ## Reminder of the FASTQ format
 > See [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more in-depth reminder about the FASTQ format.
 >
-> In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information.
+> In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information:
 > 1. The first line always starts with an '@' followed by the sequence identifier (also called the header) and may contain other information about the read such as the length.
 > 2. The second line is the sequence of bases itself
 > 3. The third line is a separator line which starts with a ‘+’ and may repeat the information from line 1
 > 4. The fourth line is a string of characters representing the quality scores for each base
 {: .callout}
 
-We have two different types of sequencing data (short-read Illumina sequence and long-read Nanopore sequence) available for this metagenome and will be using them both in a hybrid approach to assemble and analyse this metagenome.
-
-Because the two types of sequencing are different in length and quality, we need to use different programs for each of them that are built to handle the different strengths and weaknesses each technology provides.
 
 ### Add Illumina FASTQC here
 
 ### Nanopore quality control
 
-Now we will be assessing the quality of the Nanopore raw reads.
+Now we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`.
 
 As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
@@ -101,7 +102,9 @@ $$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$
 ~~~
 {: .output}
 
-We can see that this read is longer than the Illumina reads we looked at earlier (and in this sequencing run the length of the read is in the header of the sequence). The length of a raw read from Nanopore sequencing just depends on the length of the length of the DNA strand being sequenced.
+
+We can see that this read is longer than the Illumina reads we looked at earlier. The length of a raw read from Nanopore sequencing varies depends on the length of the length of the DNA strand being sequenced.
+
 
 Line 4 shows us the quality score of this read.
 
@@ -114,10 +117,13 @@ Based on the PHRED quality scores, see [Genomics - Quality Control](https://clou
 We can see that the quality score of the bases in this read are between 1-10.
 
 > ## PHRED score reminder
+>~~~
 >Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ\
 >                   |         |         |         |         |\
 >Quality score:   \
->01........11........21........31........41                              
+>01........11........21........31........41   
+>~~~
+> {: .output}                           
 {: .callout}
 
 Rather than looking at every sequence by hand we are going to use a program called [`NanoPlot`](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for this whole sequencing file.
