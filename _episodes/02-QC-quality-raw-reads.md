@@ -313,7 +313,18 @@ Looking at the Summary Statistics table answer the following questions:
 {: .challenge}
 
 The N50 is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger. So for this FASTQ file 50% of the total bases are in reads that have a length of 5,373 bp or longer.
-See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation. We will be coming back to this statistic in more detail when we get to the assembly step. 
+See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
+
+We will be coming back to this statistic in more detail when we get to the assembly step.
+
+We can also look at some of the plots produced by NanoPlot.
+One useful plot is "Read lengths vs Average read quality plot using a kernel density estimation"
+
+<img align="left" width="200" height="200" src="{{ page.root }}/fig/02_lengthvsquality_all.png">
+
+<img align="right" width="200" height="200" src="{{ page.root }}/fig/02_lengthvsquality_small.png">
+
+
 
 
 At this point, lets validate that all the relevant tools are installed. If you are using the AWS AMI then these _should_ be preinstalled.
