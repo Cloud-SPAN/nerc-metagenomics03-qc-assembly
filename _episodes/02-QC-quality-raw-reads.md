@@ -141,7 +141,7 @@ NanoPlot --help
 {: .bash}
 
 > ## NanoPlot Help Documentation
-> > 
+> >
 usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
                 [-o OUTDIR] [-p PREFIX] [--tsv_stats] [--maxlength N]
                 [--minlength N] [--drop_outliers] [--downsample N]
@@ -232,8 +232,9 @@ usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
     NanoPlot --summary sequencing_summary.txt --loglength -o summary-plots-log-transformed
     NanoPlot -t 2 --fastq reads1.fastq.gz reads2.fastq.gz --maxlength 40000 --plots hex dot
     NanoPlot --color yellow --bam alignment1.bam alignment2.bam alignment3.bam --downsample 10000
-> {: .output}
-{: .solution}
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
 As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file, we are also going to use `--outdir` to specify an output directory and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
