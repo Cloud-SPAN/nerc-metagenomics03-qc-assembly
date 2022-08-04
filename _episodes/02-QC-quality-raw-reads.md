@@ -289,7 +289,7 @@ TO FILL
 
 Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
 As this is a HTML file it should open up in your browser.
-If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}data/NanoPlot-report.html)
+If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}/data/NanoPlot-report.html)
 
 
 > ## Exercise 1:
