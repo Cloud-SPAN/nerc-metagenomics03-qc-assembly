@@ -84,12 +84,12 @@ Because the two types of sequencing are different in length and quality, we need
 
 ### Nanopore quality control
 
-Now we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`.
+Now we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
 
 As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
 ~~~
- cd ~/cs_workshop/data/nano_fastq/
+ cd ~/cs_course/data/nano_fastq/
  head -n 4 ERR3152367_sub5.fastq
 ~~~
 {: .bash}
@@ -125,11 +125,11 @@ We can see that the quality score of the bases in this read are between 1-10.
 > {: .output}                           
 {: .callout}
 
-Rather than looking at every sequence by hand we are going to use a program called [`NanoPlot`](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for this whole sequencing file.
+Rather than looking at every sequence by hand we are going to use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for this whole sequencing file.
 
-We first need to navigate to the qc directory we made earlier `cs_workshop/qc`.
+We first need to navigate to the `qc` directory we made earlier `cs_course/results/qc`.
 ~~~
-cd ~/cs_workshop/qc/
+cd ~/cs_course/results/qc/
 ~~~
 {: .bash}
 
@@ -234,16 +234,58 @@ EXAMPLES:
 ~~~
 {: .output}
 
-As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file and we are also going to use `--outdir` to specify an output directory.
+As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file, we are also going to use `--outdir` to specify an output directory and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
 For the `--fastq` flag: The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`, so we are going to use the absolute path in the NanoPlot command.
 
 For the `--outdir` flag: As we are already in our `qc` directory we are going to specify `nano_qc` so that NanoPlot will create a directory within this directory to put the files it generates. (Note: with NanoPlot you don't need to create this directory before running the command, however this depends on the program you are using.)
 
+For the `--threads` flag: we are going to run this one 4 threads to allow NanoPlot to use more compute power to speed it up.
+
 ~~~
-NanoPlot --fastq ~/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc
+NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc --threads 4
 ~~~
 {: .bash}
+
+Now we have the command set up we can press enter and wait for the NanoPlot to finish. This will take a **couple of minutes**, you will know it is finished once your cursor has returned (i.e. you can type in the terminal again).
+
+Now NanoPlot has finished we can have a look at the output.
+First we need to navigate into the directory NanoPlot created, then list the files.
+~~~
+cd nano_qc
+ls
+~~~
+{: .bash}
+~~~
+Dynamic_Histogram_Read_length.html      NanoPlot_20220804_1454.log
+HistogramReadlength.png                 NanoStats.txt
+LengthvsQualityScatterPlot_dot.png      Weighted_HistogramReadlength.png
+LengthvsQualityScatterPlot_kde.png      Weighted_LogTransformed_HistogramReadlength.png
+LogTransformed_HistogramReadlength.png  Yield_By_Length.png
+NanoPlot-report.html
+~~~
+{: .output}
+
+We can see that NanoPlot has generated a lot of different files. As most of these are image or HTML files we won't be able to view them using terminal - luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer. To do this we will use `scp` which we have used in previous modules (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
+
+In a new terminal window that's **not** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
+Once you're in the directory you want to download this file into we will use `scp` to download the file.
+
+The command will look something like: (remember to replace NNN with the instance number specific to you)
+~~~
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/results/qc/nano_qc/NanoPlot-report.html .
+~~~
+{: .bash}
+As the file is downloading you will see an output like:
+~~~
+TO FILL
+~~~
+{: .output}
+
+Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
+As this is a HTML file it should open up in your browser.
+If you had trouble downloading the file you can view it here [NanoPlot-report.html](data/NanoPlot-report.html)
+
 
 > ## Exercise 1:
 >
