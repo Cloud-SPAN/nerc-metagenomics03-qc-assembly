@@ -140,14 +140,14 @@ NanoPlot --help
 ~~~
 {: .bash}
 
->
-> >## NanoPlot Help Documentation
-> > ~~~
-> > usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
+
+> ## NanoPlot Help Documentation
+> ~~~
+> usage: NanoPlot [-h] [-v] [-t THREADS] [--verbose] [--store] [--raw] [--huge]
+> ~~~
+> {: .output}
+{: .solution}
+
 
 As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file, we are also going to use `--outdir` to specify an output directory and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
@@ -155,7 +155,7 @@ For the `--fastq` flag: The raw Nanopore data is in the location `/cs_workshop/d
 
 For the `--outdir` flag: As we are already in our `qc` directory we are going to specify `nano_qc` so that NanoPlot will create a directory within this directory to put the files it generates. (Note: with NanoPlot you don't need to create this directory before running the command, however this depends on the program you are using.)
 
-For the `--threads` flag: we are going to run this one 4 threads to allow NanoPlot to use more compute power to speed it up.
+For the `--threads` flag: we are going to run this on 4 threads to allow NanoPlot to use more compute power to speed it up.
 
 ~~~
 NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc --threads 4
