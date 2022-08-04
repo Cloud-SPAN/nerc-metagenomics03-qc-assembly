@@ -82,6 +82,11 @@ Because the two types of sequencing are different in length and quality, we need
 
 ### Add Illumina FASTQC here
 
+~~~
+$ fastqc -h
+~~~
+{: .bash}
+
 ### Nanopore quality control
 
 Now we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
@@ -274,7 +279,6 @@ LengthvsQualityScatterPlot_kde.png            Weighted_HistogramReadlength.png
 LengthvsQualityScatterPlot_loglength_dot.png  Weighted_LogTransformed_HistogramReadlength.png
 LengthvsQualityScatterPlot_loglength_kde.png  Yield_By_Length.png
 LogTransformed_HistogramReadlength.png
-
 ~~~
 {: .output}
 
@@ -303,11 +307,7 @@ As this is a HTML file it should open up in your browser.
 
 If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}/files/NanoPlot-report.html)
 
-<img align="right" width="534" height="662" src="{{ page.root }}/fig/02_nanoplot_stats.png" alt="Table of the NanoPlot statistics" />
-
-In the report we have Summary Statistics for the raw sequences and some plots.
-
-<br clear="right"/>
+In the report we have Summary Statistics followed by plots showing the distribution of read lengths and also the read length against the quality of the reads.
 
 Looking at the Summary Statistics table answer the following questions:
 
@@ -334,21 +334,16 @@ Looking at the Summary Statistics table answer the following questions:
 We can also look at some of the plots produced by NanoPlot.
 One useful plot is "Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths".
 
-<img align="left" width="510" height="490" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths">
+<img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using a kernel density estimation after log transformation of read lengths">
 
-This is the plot that we generated with the NanoPlot command above
+This plot shows us how
 
-NanoPlot  
 <br clear="left"/>
 
 
 
-At this point, lets validate that all the relevant tools are installed. If you are using the AWS AMI then these _should_ be preinstalled.
 
-~~~
-$ fastqc -h
-~~~
-{: .bash}
+
 
 ~~~
             FastQC - A high throughput sequence QC analysis tool
