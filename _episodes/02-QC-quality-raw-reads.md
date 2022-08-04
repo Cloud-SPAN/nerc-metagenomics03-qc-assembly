@@ -113,8 +113,8 @@ $$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$
 ~~~
 {: .output}
 
-Based on the PHRED quality scores, see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder.
-We can see that the quality score of the bases in this read are between 1-10.
+Based on the PHRED quality scores, see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder,
+we can see that the quality score of the bases in this read are between 1-10.
 
 > ## PHRED score reminder
 >~~~
@@ -125,7 +125,7 @@ We can see that the quality score of the bases in this read are between 1-10.
 > {: .output}                           
 {: .callout}
 
-Rather than looking at every sequence by hand we are going to use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for this whole sequencing file.
+Rather than looking at every sequence by hand we are going to use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for the whole sequencing file.
 
 We first need to navigate to the `qc` directory we made earlier `cs_course/results/qc`.
 ~~~
@@ -249,9 +249,11 @@ NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano
 
 Now we have the command set up we can press enter and wait for NanoPlot to finish.
 
-This will take a **_couple of minutes_**, you will know it is finished once your cursor has returned (i.e. you can type in the terminal again).
+This will take a **_couple of minutes_**, you will know it is finished once your cursor has returned (i.e. you can type in the terminal again).  
 
-Now NanoPlot has finished we can have a look at the output.
+
+
+Once NanoPlot has finished we can have a look at the output.
 First we need to navigate into the directory NanoPlot created, then list the files.
 ~~~
 cd nano_qc
@@ -276,11 +278,12 @@ As most of these are image or HTML files we won't be able to view them using ter
 In a new terminal window that's **_not_** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
 Once you're in the directory you want to download this file into we will use `scp` to download the file.
 
-The command will look something like: (remember to replace NNN with the instance number specific to you)
+The command will look something like:
 ~~~
 scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/results/qc/nano_qc/NanoPlot-report.html .
 ~~~
 {: .bash}
+Remember to replace NNN with the instance number specific to you.
 As the file is downloading you will see an output like:
 ~~~
 TO FILL
@@ -288,25 +291,24 @@ TO FILL
 {: .output}
 
 Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
-As this is a HTML file it should open up in your browser.
+As this is a HTML file it should open up in your browser.  
+
 If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}/data/NanoPlot-report.html)
 
+In the report we have Summary Statistics for the raw sequences and some plots.
 
-> ## Exercise 1:
+Looking at the Summary Statistics table answer the following questions:
+
+> ## Exercise X:
 >
->
+> 1. How many sequences are in this file?
+> 2. How many bases are there in this entire file?
+> 3. What is the length of the longest read in the file and its associated mean quality score?
 >
 >> ## Solution
->> ~~~
->>   
->> ~~~
->> {: .bash}
->>
->> ~~~     
->> ~~~
->> {: .output}
->>
->>
+>>   1. There are 692,758 sequences (also known as reads) in this file
+>>   2. There are 3,082,258,211 bases (bp) in total in this FASTQ file
+>>   2. The longest read in this file is 413,847 bp and it has a mean quality score of 3.7
 > {: .solution}
 {: .challenge}
 
