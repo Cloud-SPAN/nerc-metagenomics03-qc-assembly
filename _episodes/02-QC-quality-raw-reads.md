@@ -358,11 +358,11 @@ seqkit seq -h
 Putting some text here.
 
 > ## Help Documentation
-> ~~~
-> ~~~
-> {: .output}
-{: .solution}
-
+> > ~~~
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
 
 From this we can see that the flag `-Q` will `only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)`.
