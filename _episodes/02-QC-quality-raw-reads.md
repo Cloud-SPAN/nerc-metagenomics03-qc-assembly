@@ -357,7 +357,9 @@ seqkit seq -h
 
 
 > ## Help Documentation
-> .
+> ~~~
+> ~~~
+> {: .output}
 {: .solution}
 
 
