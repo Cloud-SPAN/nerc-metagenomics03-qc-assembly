@@ -355,6 +355,7 @@ seqkit seq -h
 ~~~
 {: .bash}
 
+Putting some text here.
 
 > ## Help Documentation
 > ~~~
