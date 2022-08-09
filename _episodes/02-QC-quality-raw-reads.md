@@ -45,6 +45,14 @@ Because the two types of sequencing are different in length and quality, we need
 
 <br clear="left"/>
 
+
+### Illumina Quality control
+
+We will first quality control the raw Illumina data.
+We will be adapting the methods for short reads used in [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) with our Illumina short read data.
+
+Now we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
+
 > ## Reminder of the FASTQ format
 > See [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more in-depth reminder about the FASTQ format.
 >
@@ -55,18 +63,96 @@ Because the two types of sequencing are different in length and quality, we need
 > 4. The fourth line is a string of characters representing the quality scores for each base
 {: .callout}
 
+As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
-### Illumina Quality control
+~~~
+ cd ~/cs_course/data/ill_fastq/
+ head -n 4 ERR2935805.fastq
+~~~
+{: .bash}
 
-We will first quality control the raw Illumina data.
-We will be adapting the methods for short reads used in [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) with our Illumina short read data.
+~~~
+@ERR2935805.1 HWI-C00124:284:HWTT2BCXY:1:1101:1247:2214 length=202
+GATGGCGATAGAAGTCAAGTCTTTATTTTATGAAACCGCCATCATTAGTAGTATTTTATTTGGGCTCCCTTTTATAGGGACGGATATTTATGAGAATCAGCNAAAAAATCTACNCCTTCCTGAAANNANNAACNNNCAGGGTCTGACGATTTTCCTGCTGGGGTGGGAAATTGCCAGATAAAACAATATTGTGATTATCTCT
++ERR2935805.1 HWI-C00124:284:HWTT2BCXY:1:1101:1247:2214 length=202
+GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIGGGGAGGGAGGGIAGGGGGGGA#<GGAIIIIIGI#<<GGGIGGGGA##<##<<G###<<GAGGIGGIIIIIIIIIGGIIIIIIIIIIGIIGGGGGAGGGGIIIGGIIGIGIGIGGIGGIGGG.
+~~~
+{: .output}
 
-> Bit about PHRED scores here
+Line 4 shows us the quality score of this read.
+
+~~~
+GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIGGGGAGGGAGGGIAGGGGGGGA#<GGAIIIIIGI#<<GGGIGGGGA##<##<<G###<<GAGGIGGIIIIIIIIIGGIIIIIIIIIIGIIGGGGGAGGGGIIIGGIIGIGIGIGGIGGIGGG.
+~~~
+{: .output}
+
+> ## PHRED score reminder
+>~~~
+>Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+>                   |         |         |         |         |
+>Quality score:    01........11........21........31........41   
+>~~~
+> {: .output}                           
+{: .callout}
+
+Based on the PHRED quality scores, see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder,
+we can see that the quality score for the majority of the bases in this read is between 31-41.
+
+Rather than assessing every read in the raw data by hand we can use the program [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), which we previously used in Genomics, to visualise the quality of the whole sequencing file.
+
+First, we are going to create a analysis directory to contain the output of all of the analysis we generate in this course.
+As in [Prenomics](https://cloud-span.github.io/prenomics00-intro/) and [Genomics](https://cloud-span.github.io/00genomics/), we will be using the command `mkdir` to create these directories.
+
+We have previously used `mkdir` to make one directory at once, however it is possible to make directories inside other directories.
+
+First we can attempt this with the default `mkdir` command:
+~~~
+ cd
+ mkdir analysis/qc/ill_qc
+~~~
+{: .bash}
+If you tried this you will notice that you recieved an error:
+~~~
+$ mkdir analysis/qc/ill_qc
+mkdir: cannot create directory ‘analysis/qc/ill_qc’: No such file or directory
+~~~
+{: .error}
+
+This is because the directory analysis does not yet exist, so `mkdir` cannot create the directory qc within it.
+
+Instead we are going to use the `-p` option for `mkdir`. This option allows `mkdir` to create a new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory.
+
+Now if we try:
+~~~
+ cd
+ mkdir -p analysis/qc/ill_qc
+ ls
+~~~
+{: .bash}
+We should see that the directory `analysis` has been made
+~~~
+  analysis  data
+~~~
+{: .output}
+
+If we navigate into `analysis` we should also see that the directory `qc` has been made, and we can also navigate into `qc` and see that the directory `ill_qc` has also been made and `pwd` to see the whole path.
+
+~~~
+  $ cd analysis
+  $ ls
+  qc
+  $ cd qc
+  $ ls
+  ill_qc
+  $ pwd
+  /home/cs_user/analysis/qc/ill_qc
+~~~
+{: .output}
 
 
-Rather than assessing every read in the raw data by hand we can use the program [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to visualise the quality of the whole sequencing file.
+Now we have created the directories we are ready to start the quality control of the Illumina data
 
-FastQC has been pre-installed on your isntance so we can pull up the help documentation for fastqc to remind ourselves of the paramaters avaiable.
+FastQC has been pre-installed on your instance so we can pull up the help documentation to remind ourselves of the paramaters avaiable.
 
 ~~~
 $ fastqc -h
@@ -199,16 +285,20 @@ $ fastqc -h
 > {: .output}
 {: .solution}
 
-
-
-
-
+If you're not already there we need to naviate to our `analysis/qc/ill_qc` directory
 ~~~
- fastqc ERR2935805.fastq
+  cd ~/cs_course/analysis/qc/ill_qc
 ~~~
 {: .bash}
 
-You will see an automatically updating output message telling you the progress of the analysis. It will start like this:
+As we are using only one FASTQ file we can specify `fastqc` and then the location of the FASTQ file we want to be analysed, which is in our `data` directory:
+
+~~~
+ fastqc ~/cs_course/data/ill_fastq/ERR2935805.fastq
+~~~
+{: .bash}
+
+Press enter and you will see an automatically updating output message telling you the progress of the analysis. It should start like this:
 
 ~~~
 Started analysis of ERR2935805.fastq
@@ -221,7 +311,8 @@ Approx 30% complete for ERR2935805.fastq
 ~~~
 {: .output}
 
-In total, it should take around ten minutes for FastQC to run on the fastq file. When the analysis completes, your prompt will return. So your screen will look something like this:
+In total, it should take around ten minutes for FastQC to run on the fastq file (however, this depends on the size and number of files you give it).
+When the analysis completes, your prompt will return. So your screen will look something like this:
 
 ~~~
 Approx 75% complete for ERR2935805.fastq
@@ -235,7 +326,7 @@ $
 {: .output}
 
 The FastQC program has created two new files within our
-`results/ill_qc/` directory.
+`analysis/ill_qc/` directory.
 
 ~~~
  ls
@@ -247,13 +338,9 @@ ERR2935805_fastqc.html  ERR2935805_fastqc.zip
 ~~~
 {: .output}
 
+For each input FASTQ file, FastQC has created a `.zip` file and a `.html` file. The `.zip` file extension indicates that this is actually a compressed set of multiple output files. We'll be working with the `.html` file which is a stable webpage displaying the summary report for each of our samples.
 
-For each input FASTQ file, FastQC has created a `.zip` file and a
-`.html` file. The `.zip` file extension indicates that this is
-actually a compressed set of multiple output files. We'll be working
-with these output files soon. The `.html` file is a stable webpage
-displaying the summary report for each of our samples.
-
+> More here!
 
 ### Nanopore quality control
 
@@ -286,23 +373,14 @@ $$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$
 ~~~
 {: .output}
 
-Based on the PHRED quality scores, see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder,
+Based on the PHRED quality scores, see above for a reminder,
 we can see that the quality score of the bases in this read are between 1-10.
 
-> ## PHRED score reminder
->~~~
->Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
->                   |         |         |         |         |
->Quality score:    01........11........21........31........41   
->~~~
-> {: .output}                           
-{: .callout}
+Rather than using FastQC we are going to use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for the whole sequencing file. NanoPlot is specially built for Nanopore sequences.
 
-Rather than looking at every sequence by hand we are going to use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for the whole sequencing file.
-
-We first need to navigate to the `qc` directory we made earlier `cs_course/results/qc`.
+We first need to navigate to the `qc` directory we made earlier `cs_course/analysis/qc`.
 ~~~
-cd ~/cs_course/results/qc/
+cd ~/cs_course/analysis/qc/
 ~~~
 {: .bash}
 
@@ -460,7 +538,7 @@ Once you're in the directory you want to download this file into we will use `sc
 
 The command will look something like:
 ~~~
-scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/results/qc/nano_qc/NanoPlot-report.html .
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/nano_qc/NanoPlot-report.html .
 ~~~
 {: .bash}
 Remember to replace NNN with the instance number specific to you.
@@ -596,7 +674,7 @@ We are using redirecting (`>`) to generate a new file `data/nano_fastq/ERR315236
 We can now re-run NanoPlot on the filtered file to see how it has changed.
 
 ~~~
-cd results/qc/ # move into the qc directory
+cd analysis/qc/ # move into the qc directory
 
 NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --outdir nano_qc_trim --threads 4 --loglength
 ~~~
