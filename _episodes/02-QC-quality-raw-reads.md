@@ -1,34 +1,21 @@
 ---
 title: "Assessing Read Quality, Trimming and Filtering"
-teaching: 30
-exercises: 20
+teaching: 45
+exercises: 15
 questions:
 - "How can I describe the quality of my data?"
+- "How can we get rid of sequence data that doesn't meet our quality standards?"
+- "How do these methods differ when looking at Nanopore data?"
 objectives:
-- "Explain how a FASTQ file encodes per-base quality scores."
 - "Interpret a FastQC plot summarizing per-base quality across all reads."
-- "Use `for` loops to automate operations on multiple files."
+- "Interpret the NanoPlot output summarizing a Nanopore sequencing run"
+- "Filter Nanopore reads based on quality using the command line tool SeqKit"
 keypoints:
 - "Quality encodings vary across sequencing platforms."
-- "`for` loops let you perform the same set of operations on multiple files with a single command."
 - "It is important to know the quality of our data to be able to make decisions in the subsequent steps."
-title: "Trimming and Filtering"
-teaching: 30
-exercises: 25
-questions:
-- "How can we get rid of sequence data that doesn't meet our quality standards?"
-objectives:
-- "Clean FASTQ reads using Trimmomatic."
-- "Select and set multiple options for command line bioinformatic tools."
-- "Write `for` loops with two variables."
-keypoints:
-- "The options you set for the command-line tools you use are important!"
 - "Data cleaning is essential at the beginning of metagenomics workflows."
-- "Use Trimmomatic to get clean of reads without adapters or low quality bases."
-- "Carefully fill the parameters and options required to call a function in the bash shell."
-- "Automate repetitive workflows using for loops"
+- "Due to differences in the sequencing technology Nanopore data must be handled differently"
 ---
-
 
 ## Quality control
 
