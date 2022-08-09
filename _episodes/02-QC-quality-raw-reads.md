@@ -66,7 +66,7 @@ We will be adapting the methods for short reads used in [Genomics - Assessing Re
 
 Rather than assessing every read in the raw data by hand we can use the program [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to visualise the quality of the whole sequencing file.
 
-FastQC has been pre-installed on your isntance so we can pull up the help documentation for fastqc to remind ourselves of the paramaters avaiable
+FastQC has been pre-installed on your isntance so we can pull up the help documentation for fastqc to remind ourselves of the paramaters avaiable.
 
 ~~~
 $ fastqc -h
@@ -199,58 +199,51 @@ $ fastqc -h
 > {: .output}
 {: .solution}
 
-FastQC can accept multiple file names as input, and on both zipped and unzipped files,
-so we can use the `\*.fastq*`wildcard to run FastQC on all of the FASTQ files in this directory.
+
+
+
 
 ~~~
-$ fastqc *.fastq*
+ fastqc ERR2935805.fastq
 ~~~
 {: .bash}
 
-You will see an automatically updating output message telling you the
-progress of the analysis. It will start like this:
+You will see an automatically updating output message telling you the progress of the analysis. It will start like this:
 
 ~~~
-Started analysis of JC1A_R1.fastq.gz                                               
-Approx 5% complete for JC1A_R1.fastq.gz                                            
-Approx 10% complete for JC1A_R1.fastq.gz                                           
-Approx 15% complete for JC1A_R1.fastq.gz                                           
-Approx 20% complete for JC1A_R1.fastq.gz                                           
-Approx 25% complete for JC1A_R1.fastq.gz                                           
-Approx 30% complete for JC1A_R1.fastq.gz                                          
-Approx 35% complete for JC1A_R1.fastq.gz  
+Started analysis of ERR2935805.fastq
+Approx 5% complete for ERR2935805.fastq
+Approx 10% complete for ERR2935805.fastq
+Approx 15% complete for ERR2935805.fastq
+Approx 20% complete for ERR2935805.fastq
+Approx 25% complete for ERR2935805.fastq
+Approx 30% complete for ERR2935805.fastq
 ~~~
 {: .output}
 
-In total, it should take about five minutes for FastQC to run on all
-four of our FASTQ files. When the analysis completes, your prompt
-will return. So your screen will look something like this:
+In total, it should take around ten minutes for FastQC to run on the fastq file. When the analysis completes, your prompt will return. So your screen will look something like this:
 
 ~~~
-Approx 80% complete for JP4D_R2.fastq.gz
-Approx 85% complete for JP4D_R2.fastq.gz
-Approx 90% complete for JP4D_R2.fastq.gz
-Approx 95% complete for JP4D_R2.fastq.gz
-Analysis complete for JP4D_R2.fastq.gz
+Approx 75% complete for ERR2935805.fastq
+Approx 80% complete for ERR2935805.fastq
+Approx 85% complete for ERR2935805.fastq
+Approx 90% complete for ERR2935805.fastq
+Approx 95% complete for ERR2935805.fastq
+Analysis complete for ERR2935805.fastq
 $
 ~~~
 {: .output}
 
-The FastQC program has created several new files within our
-`data/untrimmed_fastq/` directory.
+The FastQC program has created two new files within our
+`results/ill_qc/` directory.
 
 ~~~
-$ ls
+ ls
 ~~~
 {: .bash}
 
 ~~~
-JC1A_R1_fastqc.html             JP4D_R1.fastq                   
-JC1A_R1_fastqc.zip              JP4D_R1_fastqc.html
-JC1A_R1.fastq.gz                JP4D_R1_fastqc.zip                   
-JC1A_R2_fastqc.html             JP4D_R2_fastqc.html           
-JC1A_R2_fastqc.zip              JP4D_R2_fastqc.zip
-JC1A_R2.fastq.gz                JP4D_R2.fastq.gz       
+ERR2935805_fastqc.html  ERR2935805_fastqc.zip     
 ~~~
 {: .output}
 
