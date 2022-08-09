@@ -348,7 +348,7 @@ Once you're in the directory you want to download this file into we will use `sc
 
 The command will look something like:
 ~~~
-scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/ill_qc/NanoPlot-report.html .
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/ill_qc/ERR2935805_fastqc.html .
 ~~~
 {: .bash}
 Remember to replace NNN with the instance number specific to you.
@@ -363,10 +363,18 @@ As this is a HTML file it should open up in your browser.
 
 If you had trouble downloading the file you can view it here [ERR2935805_fastqc.html]({{ page.root }}/files/ERR2935805_fastqc.html)
 
-> More here!
-> SCP
-> viewing the plot
-> how trimming / filtering is not necessary because the plots are fine - but they should look at genomics to remind themselves of what this looks like when they're not as good
+We're first going to look at the "Per base sequence quality" graph from the FastQC output.
+
+<img align="center" width="800" height="600" src="{{ page.root }}/fig/02_fastqc_ill_quality.png" alt="Per base sequence quality graph from the Fastqc output we generated above">
+
+The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 202 bp long. There is a box-and-whisker plot showing the distribution of quality scores for all reads at that position. The horizontal red line indicates the median quality score and the yellow box shows the 1st to 3rd quartile range. This means that 50% of reads have a quality score that falls within the range of the yellow box at that position. The whiskers show the absolute range, which covers the lowest (0th quartile) to highest (4th quartile) values.
+
+For each position in this sample, the quality values do not drop much lower than 32. This is a high quality score. The plot background is also color-coded to identify good (green), acceptable (yellow), and bad (red) quality scores.
+
+We're quite lucky in this case as this means that the sequence is quite high quality and we do not need to do any filtering or trimming.
+However, you should look back at [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to remind yourself what this plot looks like when this is not the case and also how you should clean those types of reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).
+
+We should also have a look at the Adapter Content graph which will show us where adapater sequences occur in the reads. WHY - something about how this can mess with assemblies and stuff.
 
 ## Nanopore quality control
 
