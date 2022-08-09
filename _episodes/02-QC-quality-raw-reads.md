@@ -371,10 +371,22 @@ The x-axis displays the base position in the read, and the y-axis shows quality 
 
 For each position in this sample, the quality values do not drop much lower than 32. This is a high quality score. The plot background is also color-coded to identify good (green), acceptable (yellow), and bad (red) quality scores.
 
-We're quite lucky in this case as this means that the sequence is quite high quality and we do not need to do any filtering or trimming.
-However, you should look back at [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to remind yourself what this plot looks like when this is not the case and also how you should clean those types of reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).
+We're quite lucky in this case as this means that the sequence is high quality so we do not need to do any filtering.
 
 We should also have a look at the Adapter Content graph which will show us where adapater sequences occur in the reads. WHY - something about how this can mess with assemblies and stuff.
+
+<img align="center" width="800" height="600" src="{{ page.root }}/fig/02_fastqc_adap_ill.png" alt="Adapter content graph from the Fastqc output we generated above">
+
+We can see that this sequencing file has a low percentage (~2-3%) of adapter sequences in the reads, which means we do not neet to trim any adapter sequences either.
+
+~~~
+# When sequencing is poor(er) Quality
+While the sequencing in this example is high quality this will not always be the case.
+You can remind yourself of what poor quality reads look like in [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html).
+You can also remind yourself how you clean lower quality reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).
+In the example in Genomics we used a quality cut off score of 20 and trimmed adapter sequencing.
+~~~
+{: .callout}
 
 ## Nanopore quality control
 
