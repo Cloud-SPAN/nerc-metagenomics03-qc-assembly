@@ -46,7 +46,7 @@ Because the two types of sequencing are different in length and quality, we need
 <br clear="left"/>
 
 
-### Illumina Quality control
+## Illumina Quality control
 
 We will first quality control the raw Illumina data.
 We will be adapting the methods for short reads used in [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) with our Illumina short read data.
@@ -145,6 +145,7 @@ If we navigate into `analysis` we should also see that the directory `qc` has be
   $ ls
   ill_qc
   $ pwd
+  $ cd ill_qc
   /home/cs_user/analysis/qc/ill_qc
 ~~~
 {: .output}
@@ -340,9 +341,34 @@ ERR2935805_fastqc.html  ERR2935805_fastqc.zip
 
 For each input FASTQ file, FastQC has created a `.zip` file and a `.html` file. The `.zip` file extension indicates that this is actually a compressed set of multiple output files. We'll be working with the `.html` file which is a stable webpage displaying the summary report for each of our samples.
 
-> More here!
+To do this we will use `scp` which we have used in previous modules (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
 
-### Nanopore quality control
+In a new terminal window that's **_not_** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
+Once you're in the directory you want to download this file into we will use `scp` to download the file.
+
+The command will look something like:
+~~~
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/ill_qc/NanoPlot-report.html .
+~~~
+{: .bash}
+Remember to replace NNN with the instance number specific to you.
+As the file is downloadERR2935805_fastqc.html ing you will see an output like:
+~~~
+TO FILL
+~~~
+{: .output}
+
+Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
+As this is a HTML file it should open up in your browser.  
+
+If you had trouble downloading the file you can view it here [ERR2935805_fastqc.html]({{ page.root }}/files/ERR2935805_fastqc.html)
+
+> More here!
+> SCP
+> viewing the plot
+> how trimming / filtering is not necessary because the plots are fine - but they should look at genomics to remind themselves of what this looks like when they're not as good
+
+## Nanopore quality control
 
 Now we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
 
@@ -374,7 +400,7 @@ $$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$
 {: .output}
 
 Based on the PHRED quality scores, see above for a reminder,
-we can see that the quality score of the bases in this read are between 1-10.
+we can see that the quality score of the bases in this read are between 1-10, which we can see is lower than the Illumina sequencing above.
 
 Rather than using FastQC we are going to use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for the whole sequencing file. NanoPlot is specially built for Nanopore sequences.
 
@@ -531,7 +557,7 @@ LogTransformed_HistogramReadlength.png
 
 We can see that NanoPlot has generated a lot of different files.
 
-As most of these are image or HTML files we won't be able to view them using terminal - luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer. To do this we will use `scp` which we have used in previous modules (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
+As most of these are image or HTML files we won't be able to view them using terminal - luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer. To do this we will use `scp`.
 
 In a new terminal window that's **_not_** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
 Once you're in the directory you want to download this file into we will use `scp` to download the file.
