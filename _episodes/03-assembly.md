@@ -33,27 +33,31 @@ Continuing the jigsaw analogy, the reference-mapping approach would be when you 
 
 <br clear="right"/>
 
-<span style="color:red"> Introduction to assembly - jigsaw analogy + image
-One genome assembly is one jigsaw puzzle but a metagenome is 500+ puzzles, without pictures.
-This makes assembly and further analysis a challenge - must first assembly which parts of the puzzle (sequences) we can with assembly. Then separate these larger parts into different "puzzles" / organisms using binning.
-</span>
+### Metagenomic assembly
 
-The assembly strategy differs based on the sequencing technology used to generate the raw reads.
-Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this
-metagenome assembly so we need to use a metagenome assembler appropriate for this problem.
+Metagenomic sequencing adds another layer to the challenge of assembly. Instead of just having one organism to assemble you now have multiple! Depending on the complexity of a metagenome you could have anywhere from a handful of organisms in a community to thousands.
 
-While with this sequencing data we do know what organims make up this community, you often do not know all the members of a metagenomic community before analysis and even if you do they're often previously uncultured (see microbial dark matter) and do not have appropriate reference genomes. For this reason we will be using a _de novo_ approach to assembly here.  
+This means the single jigsaw puzzle of a genome assembly has now become multiple different jigsaw puzzles in one.
 
-[Flye](https://github.com/fenderglass/Flye) is a long-read de novo assembler
-for assembling large and complex metagenomics data, and it is one of the
-most used and recommended.
+As many of the communities sequenced using metagenomics contain previously uncultured microbes, often known as microbial dark matter, they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
 
-Some of the problems faced by metagenomics assembly are: i) the differences in coverage between the genomes, due to the differences in abundance in the sample, ii) the fact that different species often share conserved regions, iii) and the presence of several strains of a single species in the community. How flye deals with this.
+Note: The data we're using is a mock metagenome so we _do_ actually know what organims make up the community and have reference sequences for them so we could use a reference-mapping approach to assemble this metagenome but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial  
 
+This now means assembling our metaphorical jigsaw will be a challenge! Not only is it now potentially thousands of different jigsaws in one but we also don't have any images to refer back to!
 
-How flye deals with long read sequences
+Luckily there's programs, known as assemblers, that will do this for us!
 
-> ## Refresher on command line programs
+Metagenomic assembly faces additional problems, which means we need an assembler built to handle metagenomes. These additional problems include:
+i) the differences in coverage between the genomes, due to the differences in abundance across the sample
+ii) the fact that different species often share conserved regions
+iii) and the presence of several strains of a single species in the community
+
+The assembly strategy also differs based on the sequencing technology used to generate the raw reads. Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this metagenome assembly so we need to use a metagenome assembler appropriate for long-read sequencing.
+
+[Flye](https://github.com/fenderglass/Flye) is a **long-read** _de novo_ assembler
+for assembling large and complex data with a metagenomic mode.
+
+> ## Choosing an appropriate program
 > To fill!
 {: .callout}
 
