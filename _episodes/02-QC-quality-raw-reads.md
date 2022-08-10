@@ -339,7 +339,7 @@ scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/
 ~~~
 {: .bash}
 Remember to replace NNN with the instance number specific to you.
-As the file is downloadERR2935805_fastqc.html ing you will see an output like:
+As the file is downloading you will see an output like:
 ~~~
 TO FILL
 ~~~
