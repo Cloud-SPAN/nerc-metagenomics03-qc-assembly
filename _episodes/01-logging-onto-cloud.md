@@ -34,9 +34,9 @@ function change_content_by_platform(form_control){
 window.onload = set_page_view_defaults;
 </script>
 
-## Important Note
-
-This lesson covers how to log into, and out of, an *already running* Amazon instance.
+> ## Important Note
+> This lesson covers how to log into, and out of, an *already running* Amazon instance.
+{: .callout}
 
 ## Background to AWS
 
