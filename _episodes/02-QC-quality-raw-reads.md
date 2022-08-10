@@ -636,7 +636,7 @@ This means that for this dataset we can remove those with a lower quality score 
 
 ## Filtering Nanopore sequences by quality
 
-We can use the program `seqkit seq` to create a new file containing only the sequences with an average quality above a certain value.
+We can use the program [Seqkit](https://bioinf.shenwei.me/seqkit/) which contains many tools for FASTQ/A file manipulation. We will be using the command `seqkit seq` to create a new file containing only the sequences with an average quality above a certain value.
 
 After returning to our home directory, we can view the `seqkit seq` help documentation with the following command:
 
@@ -700,7 +700,7 @@ seqkit seq -Q 4 data/nano_fastq/ERR3152367_sub5.fastq > data/nano_fastq/ERR31523
 ~~~
 {: .bash}
 
-We are using redirecting (`>`) to generate a new file `data/nano_fastq/ERR3152367_sub5_filtered.fastq` containing only the reads with an average quality of 7 or above.
+We are using redirecting (`>`) to generate a new file `data/nano_fastq/ERR3152367_sub5_filtered.fastq` containing only the reads with an average quality of 4 or above.
 
 We can now re-run NanoPlot on the filtered file to see how it has changed.
 
