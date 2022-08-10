@@ -15,6 +15,7 @@ keypoints:
 ---
 
 ## Assembling reads
+<img align="left" width="325" height="316" src="{{ page.root }}fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
 <span style="color:red"> Introduction to assembly - jigsaw analogy + image
 One genome assembly is one jigsaw puzzle but a metagenome is 500+ puzzles, without pictures.
