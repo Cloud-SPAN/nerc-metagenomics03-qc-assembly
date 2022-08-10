@@ -17,22 +17,30 @@ keypoints:
 ## Assembling reads
 <img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
-Now we have put our raw reads through quality control we are going to move onto the next step in the process which is metagenomics assembly.
+Now we have put our raw reads through quality control we are going to move onto the next step in the process which is assembly of the metagenome.
 
-he assembly strategy differs based on the sequencing technology used to generate the raw reads.
-Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this
-metagenome assembly so we need to use a metagenome assembler appropriate for this problem.
+### Genomic assembly
+
+Genomic assembly refers to the act of joining smaller fragments of DNA (i.e. reads) to make longer segments to try and reconstruct the original genome.
+
+You can think of this a bit like a jigsaw puzzle, each raw read corresponds to a piece of the puzzle and you're aiming to complete the puzzle by joining these pieces together.
+
+There are two main strategies for genome assembly.
+1. a reference-mapping approach when you have a reference genome of what you have sequenced to map back to.
+2. a _de novo_ approach, which 
+
+
+
 <br clear="right"/>
-
-
 
 <span style="color:red"> Introduction to assembly - jigsaw analogy + image
 One genome assembly is one jigsaw puzzle but a metagenome is 500+ puzzles, without pictures.
 This makes assembly and further analysis a challenge - must first assembly which parts of the puzzle (sequences) we can with assembly. Then separate these larger parts into different "puzzles" / organisms using binning.
 </span>
 
-T
-
+The assembly strategy differs based on the sequencing technology used to generate the raw reads.
+Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this
+metagenome assembly so we need to use a metagenome assembler appropriate for this problem.
 [Flye](https://github.com/fenderglass/Flye) is a long-read de novo assembler
 for assembling large and complex metagenomics data, and it is one of the
 most used and recommended.
