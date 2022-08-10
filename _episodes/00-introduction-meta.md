@@ -119,3 +119,15 @@ The tools that are used to analyze data at different stages of the workflow are 
 As the number of organisms increases in a community so does the complexity. See [Pimm , 1984](https://www.nature.com/articles/307321a0) for an explanation of community complexity.
 A low-complexity microbial community is made up of fewer organisms and as a result the metagenomic data is usually easier to process and analyse than a high-complexity microbial community.
 There's no official definition for what makes a community low or highly complex. But some examples of a low complexity microbial community include natural whey starter cultures, made up of around three different organisms, which are used in cheese production see [Somerville _et al._, 2019](https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-019-1500-0).
+
+> ## Defining our community
+> Knowing now how we can define a metagenomic community and what organisms make up our dataset, how complex would you say this metagenome is? and why?
+> > As we stated above there's no hard and fast rules for defining the complexity of a community.
+> > However, given this community is made up of 10 organisms we could argue that it is a low complexity metagenome when compared to for example natural soil metagenome which are potentially made up of thousands of different organisms.
+> {: .solution}
+{: .challenge}
+
+## Mock metagenomes aren't necessarily a good proxy for real world data
+
+Something about this giving us the option to test the workflow in a short amount of time without needing too much compute
+But this isn't representative of how long this workflow would take for real data.
