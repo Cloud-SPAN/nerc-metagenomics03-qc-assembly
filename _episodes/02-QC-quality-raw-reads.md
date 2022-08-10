@@ -53,7 +53,7 @@ Now we will be assessing the quality of the Nanopore raw reads which are in the 
 As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
 ~~~
- cd ~/cs_course/data/ill_fastq/
+ cd ~/cs_course/data/illumina_fastq/
  head -n 4 ERR2935805.fastq
 ~~~
 {: .bash}
@@ -96,11 +96,11 @@ Using the `-p` option for `mkdir` allows it to create a new directory, even if o
 
 ~~~
  cd
- mkdir -p analysis/qc/ill_qc
+ mkdir -p analysis/qc/illumina_qc
  ls
 ~~~
 {: .bash}
-We can navigate through, using `cd` and see that all three directories have been made. 
+We can navigate through, using `cd` and see that all three directories have been made.
 
 Now we have created the directories we are ready to start the quality control of the Illumina data
 
@@ -237,16 +237,16 @@ $ fastqc -h
 > {: .output}
 {: .solution}
 
-If you're not already there we need to naviate to our `analysis/qc/ill_qc` directory
+If you're not already there we need to naviate to our `analysis/qc/illumina_qc` directory
 ~~~
-  cd ~/cs_course/analysis/qc/ill_qc
+  cd ~/cs_course/analysis/qc/illumina_qc
 ~~~
 {: .bash}
 
 As we are using only one FASTQ file we can specify `fastqc` and then the location of the FASTQ file we want to be analysed, which is in our `data` directory:
 
 ~~~
- fastqc ~/cs_course/data/ill_fastq/ERR2935805.fastq
+ fastqc ~/cs_course/data/illumina_fastq/ERR2935805.fastq
 ~~~
 {: .bash}
 
@@ -278,7 +278,7 @@ $
 {: .output}
 
 The FastQC program has created two new files within our
-`analysis/ill_qc/` directory.
+`analysis/illumina_qc/` directory.
 
 ~~~
  ls
@@ -299,7 +299,7 @@ Once you're in the directory you want to download this file into we will use `sc
 
 The command will look something like:
 ~~~
-scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/ill_qc/ERR2935805_fastqc.html .
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/illumina_qc/ERR2935805_fastqc.html .
 ~~~
 {: .bash}
 Remember to replace NNN with the instance number specific to you.
