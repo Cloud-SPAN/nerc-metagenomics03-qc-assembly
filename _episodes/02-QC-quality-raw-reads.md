@@ -331,10 +331,10 @@ We should also have a look at the Adapter Content graph which will show us where
 We can see that this sequencing file has a low percentage (~2-3%) of adapter sequences in the reads, which means we do not neet to trim any adapter sequences either.
 
 > ## When sequencing is poor(er) Quality
-> While the sequencing in this example is high quality this will not always be the case.
-> Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png)
-> See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to remind yourself how to determine what is a good and what is a bad plot.
-> You can also remind yourself how you clean lower quality reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).
+> While the sequencing in this example is high quality this will not always be the case.  
+> Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png).  
+> See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to remind yourself how to determine what is a good and what is a bad plot.  
+> You can also remind yourself how you clean lower quality reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).  
 > In this example we used a quality cut off score of 20 and trimmed adapter sequencing.
 {: .callout}
 
