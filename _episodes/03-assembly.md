@@ -96,7 +96,7 @@ The above output gives us a bit of information about how to run Flye but we can 
 ~~~
 {: .bash}
 
-> ## flye help documentation
+> ## `flye` help documentation
 > ~~~
 > usage: flye (--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw |
 > 	     --nano-corr | --nano-hq ) file1 [file_2 ...]
