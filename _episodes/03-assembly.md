@@ -23,13 +23,13 @@ Now we have put our raw reads through quality control we are going to move onto 
 
 Genomic assembly refers to the act of joining smaller fragments of DNA (i.e. reads) to make longer segments to try and reconstruct the original genome.
 
-You can think of this a bit like a jigsaw puzzle, each raw read corresponds to a piece of the puzzle and you're aiming to complete the puzzle by joining these pieces together.
+You can think of this like a jigsaw puzzle, each raw read corresponds to a piece of the puzzle and you're aiming to complete the puzzle by joining these pieces together.
 
 There are two main strategies for genome assembly.
-1. a reference-mapping approach when you have a reference genome of what you have sequenced to map back to.
-2. a _de novo_ approach, which 
+1. a reference-mapping approach when you have a reference genome of what you have sequenced to map your smaller reads onto
+2. a _de novo_ approach, this is an assembly approach that doesn't use a reference and instead assembles reads together based on the content of the reads (the specific approach depends on which assembly software you are using)
 
-
+Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
 
 <br clear="right"/>
 
@@ -41,11 +41,15 @@ This makes assembly and further analysis a challenge - must first assembly which
 The assembly strategy differs based on the sequencing technology used to generate the raw reads.
 Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this
 metagenome assembly so we need to use a metagenome assembler appropriate for this problem.
+
+While with this sequencing data we do know what organims make up this community, you often do not know all the members of a metagenomic community before analysis and even if you do they're often previously uncultured (see microbial dark matter) and do not have appropriate reference genomes. For this reason we will be using a _de novo_ approach to assembly here.  
+
 [Flye](https://github.com/fenderglass/Flye) is a long-read de novo assembler
 for assembling large and complex metagenomics data, and it is one of the
 most used and recommended.
 
 Some of the problems faced by metagenomics assembly are: i) the differences in coverage between the genomes, due to the differences in abundance in the sample, ii) the fact that different species often share conserved regions, iii) and the presence of several strains of a single species in the community. How flye deals with this.
+
 
 How flye deals with long read sequences
 
