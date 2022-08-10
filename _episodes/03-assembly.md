@@ -15,16 +15,23 @@ keypoints:
 ---
 
 ## Assembling reads
-<img align="left" width="325" height="316" src="{{ page.root }}fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
+<img align="right" width="325" height="316" src="{{ page.root }}fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
+
+Now we have put our raw reads through quality control we are going to move onto the next step in the process which is metagenomics assembly.
+
+he assembly strategy differs based on the sequencing technology used to generate the raw reads.
+Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this
+metagenome assembly so we need to use a metagenome assembler appropriate for this problem.
+<br clear="right"/>
+
+
 
 <span style="color:red"> Introduction to assembly - jigsaw analogy + image
 One genome assembly is one jigsaw puzzle but a metagenome is 500+ puzzles, without pictures.
 This makes assembly and further analysis a challenge - must first assembly which parts of the puzzle (sequences) we can with assembly. Then separate these larger parts into different "puzzles" / organisms using binning.
 </span>
 
-The assembly strategy differs based on the sequencing technology used to generate the raw reads.
-Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this
-metagenome assembly so we need to use a metagenome assembler appropriate for this problem.
+T
 
 [Flye](https://github.com/fenderglass/Flye) is a long-read de novo assembler
 for assembling large and complex metagenomics data, and it is one of the
