@@ -15,7 +15,7 @@ keypoints:
 ---
 
 ## Assembling reads
-<img align="right" width="325" height="316" src="{{ page.root }}fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
+<img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
 Now we have put our raw reads through quality control we are going to move onto the next step in the process which is metagenomics assembly.
 
