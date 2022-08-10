@@ -92,51 +92,15 @@ As in [Prenomics](https://cloud-span.github.io/prenomics00-intro/) and [Genomics
 
 We have previously used `mkdir` to make one directory at once, however it is possible to make directories inside other directories.
 
-First we can attempt this with the default `mkdir` command:
-~~~
- cd
- mkdir analysis/qc/ill_qc
-~~~
-{: .bash}
-If you tried this you will notice that you recieved an error:
-~~~
-$ mkdir analysis/qc/ill_qc
-mkdir: cannot create directory ‘analysis/qc/ill_qc’: No such file or directory
-~~~
-{: .error}
+Using the `-p` option for `mkdir` allows it to create a new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory.
 
-This is because the directory analysis does not yet exist, so `mkdir` cannot create the directory qc within it.
-
-Instead we are going to use the `-p` option for `mkdir`. This option allows `mkdir` to create a new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory.
-
-Now if we try:
 ~~~
  cd
  mkdir -p analysis/qc/ill_qc
  ls
 ~~~
 {: .bash}
-We should see that the directory `analysis` has been made
-~~~
-  analysis  data
-~~~
-{: .output}
-
-If we navigate into `analysis` we should also see that the directory `qc` has been made, and we can also navigate into `qc` and see that the directory `ill_qc` has also been made and `pwd` to see the whole path.
-
-~~~
-  $ cd analysis
-  $ ls
-  qc
-  $ cd qc
-  $ ls
-  ill_qc
-  $ pwd
-  $ cd ill_qc
-  /home/cs_user/analysis/qc/ill_qc
-~~~
-{: .output}
-
+We can navigate through, using `cd` and see that all three directories have been made. 
 
 Now we have created the directories we are ready to start the quality control of the Illumina data
 
