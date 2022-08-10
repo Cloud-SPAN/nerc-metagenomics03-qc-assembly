@@ -122,9 +122,9 @@ There's no official definition for what makes a community low or highly complex.
 
 > ## Defining our community
 > Knowing now how we can define a metagenomic community and what organisms make up our dataset, how complex would you say this metagenome is? and why?
-> ## Solution
-> As we stated above there's no hard and fast rules for defining the complexity of a community.
-> However, given this community is made up of 10 organisms we could argue that it is a low complexity metagenome when compared to for example natural soil metagenome which are potentially made up of thousands of different organisms.
+> > ## Solution
+> > As we stated above there's no hard and fast rules for defining the complexity of a community.
+> > However, given this community is made up of 10 organisms we could argue that it is a low complexity metagenome when compared to for example natural soil metagenome which are potentially made up of thousands of different organisms.
 > {: .solution}
 {: .challenge}
 
