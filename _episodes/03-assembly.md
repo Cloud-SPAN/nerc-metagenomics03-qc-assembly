@@ -61,14 +61,15 @@ for assembling large and complex data with a metagenomic mode.
 > To fill!
 {: .callout}
 
-## Flye is a metagenomics assembler
+## Flye is a long-read assembler
 
 Important: Make sure you're still logged into your instance [Logging onto the Cloud](https://cloud-span.github.io/metagenomics01-qc-assembly/01-logging-onto-cloud/index.html)
 
-Flye has been pre-installed onto your instance.
-Now, let's see what happens if we enter the `flye` command on our terminal.
+Flye has been pre-installed onto your instance. First navigate to the `analysis` directory you made in a previous step.
+Let's see what happens if we enter the `flye` command on our terminal.
 
 ~~~
+ cd analysis
  flye
 ~~~
 {: .source}
@@ -174,6 +175,39 @@ The above output gives us a bit of information about how to run Flye but we can 
 > ~~~
 > {: .output}
 {: .solution}
+
+
+We can see that Flye has multiple different option available so we need to work out which ones are appropriate for our dataset.
+We know we have Nanopore raw reads and if we look back at the paper [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) we can see that the reads were basecalled with Guppy v2.2.2
+
+Therefore the flag `--nano-raw` for `ONT regular reads, pre-Guppy5 (<20% error)` is most appropriate for this dataset. The `path` after the flag in the help document indicates that the we should put the location of the input file after this flag.
+
+The next flag we are interested in is `-o` or `--outdir` to specify the location of the flye output. Again, we need to specify a path afterwards.
+
+We should also make use of the `-t` or `--threads` flag in order to run the assembly on more compute in order to speed it up.
+
+After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing. We can specify the number of times `flye` will polish this data using `-i` or `--iterations` - `number of polishing iterations [1]`. By default the number of iterations is 1 however 3 iterations is often used as standard.
+
+Finally, as this dataset is a metagenome we need to use the `--meta` option for `metagenome / uneven coverage mode`.
+
+> ## Unused parameters
+> There's a lot of parameters that we won't be using; some are deprecated, some are only appropriate for certain types of data (e.g. `--pacbio-raw`) and some are useful to allow tweaking to try further improve an assembly (e.g. `--genome-size` and `--read-error`)
+> Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program. The [Flye Manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) contains a lot of further information about the parameters avaiable. If you're going to try using Flye on your own long-read dataset this is a good place to start.
+{: .callout}
+
+Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
+
+We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
+
+
+~~~
+flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
+     --out-dir assembly \
+     --threads 4 \
+     --iterations 3 \
+     --meta &
+~~~
+{: .bash}
 
 
 Some text here
