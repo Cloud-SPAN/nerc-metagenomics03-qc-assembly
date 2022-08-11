@@ -209,10 +209,12 @@ We're going to get `flye` to create the `assembly` directory as its output direc
      --meta
 ~~~
 {: .bash}
-### <span style="color:red"> Don't run this command yet!</span>.
+**<span style="color:red"> Don't run this command yet!</span>**
 
 Now we've built our command we could just stop here **but** metagenomic assembly takes a long time!
+
 If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.
+
 Luckily we don't have to do that using a remote computer (as that's what the instance/cloud computing is).
 
 ## Running a command in the background
