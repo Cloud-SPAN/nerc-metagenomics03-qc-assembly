@@ -198,17 +198,24 @@ Finally, as this dataset is a metagenome we need to use the `--meta` option for 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
 
 We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
-
+We're going to get `flye` to create the `assembly` directory as its output directory.
 
 ~~~
 flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
      --threads 4 \
      --iterations 3 \
-     --meta &
+     --meta
 ~~~
 {: .bash}
 
+Now we've built our command we could just stop here **but** metagenomic assembly takes a long time!
+If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.
+Luckily we don't have to do that using a remote computer (as that's what the instance/cloud computing is).
+
+## Running a command in the background
+
+The commands we've previously run in this course have all been run in the foreground - aka they've been run directly in the terminal window we've been using.
 
 Some text here
 
@@ -238,39 +245,6 @@ Now we need to press enter to exit from the background, and a message like this 
 ~~~
 {: .output}
 This is becacause of the use of the `&`. Now, let's go to the files:
-~~~
-$ cd ../../results/assembly_JC1A
-$ ls -F
-~~~
-{: .bash}
-
-~~~
-assembly_graph_after_simplification.gfa
-assembly_graph.fastg
-assembly_graph_with_scaffolds.gfa
-before_rr.fasta
-contigs.paths
-corrected
-dataset.info
-first_pe_contigs.fasta
-input_dataset.yaml
-contigs.fasta
-scaffolds.fasta
-K21
-K33
-K55
-misc
-params.txt
-pipeline_state
-run_spades.sh
-run_spades.yaml
-scaffolds.paths
-spades.log
-strain_graph.gfa
-tmp
-
-~~~
-{: .output}
 
 As we can see, MetaSPAdes gave us a lot of files. The ones with the assembly are the `contigs.fasta` and the `scaffolds.fasta`.
 Also, we found three `K` folders: _K21, K33, and K55_, this contains the individual result files for an assembly
