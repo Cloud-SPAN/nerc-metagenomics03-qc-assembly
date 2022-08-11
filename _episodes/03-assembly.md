@@ -200,7 +200,6 @@ Now we've worked out what parameters are appropriate for our data we can put the
 We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
 We're going to get `flye` to create the `assembly` directory as its output directory.
 
-<span style="color:red"> ### Don't run this command yet!</span>.
 
 ~~~
  flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
@@ -210,6 +209,7 @@ We're going to get `flye` to create the `assembly` directory as its output direc
      --meta
 ~~~
 {: .bash}
+### <span style="color:red"> Don't run this command yet!</span>.
 
 Now we've built our command we could just stop here **but** metagenomic assembly takes a long time!
 If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.
