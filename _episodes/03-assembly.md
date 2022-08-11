@@ -191,8 +191,9 @@ After making the initial assembly, flye will continue to further improve the ass
 Finally, as this dataset is a metagenome we need to use the `--meta` option for `metagenome / uneven coverage mode`.
 
 > ## Unused parameters
-> There's a lot of parameters that we won't be using; some are deprecated, some are only appropriate for certain types of data (e.g. `--pacbio-raw`) and some are useful to allow tweaking to try further improve an assembly (e.g. `--genome-size` and `--read-error`)
-> Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program. The [Flye Manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) contains a lot of further information about the parameters avaiable. If you're going to try using Flye on your own long-read dataset this is a good place to start.
+> There's a lot of parameters that we won't be using; some are deprecated, some are only appropriate for certain types of data (e.g. `--pacbio-raw`) and some are useful to allow tweaking to try further improve an assembly (e.g. `--genome-size` and `--read-error`).  
+> Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program.  
+> The [Flye Manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) contains a lot of further information about the parameters avaiable. If you're going to try using Flye on your own long-read dataset this is a good place to start.  
 {: .callout}
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
@@ -219,9 +220,9 @@ Luckily we don't have to do that using a remote computer (as that's what the ins
 
 ## Running a command in the background
 
-The commands we've previously run in this course have all been run in the foreground - aka they've been run directly in the terminal window we've been using.
+The commands we've previously run in this course have all been run in the foreground - aka they've been run directly in the terminal window we've been using and occupy the window until they've finished.
 
-Some text here
+
 
 > ## Running commands on the background
 > The `&` sign that we are using at the end of the command is for telling
