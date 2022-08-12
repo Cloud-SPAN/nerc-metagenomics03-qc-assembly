@@ -37,19 +37,19 @@ genes associated with the species that we found. In order to
 know which methodology we should use, it is important to
 know what questions do we want to answer.
 
-## Shotgun and amplicon
+## Whole genome and amplicon
 There are two paths to obtain information from a complex sample:
-1. **Shotgun Metagenomics**  
+1. **Whole genome metagenomics**  
 2. **Amplicon/(16S) sequencing**.
 
 Each is named after the sequencing methodology employed
 and have particular use cases, with inherent advantages and disadvantages.
 
-With **Shotgun Metagenomics**, we sequence random parts (ideally all of them) of the
+With **Whole genome Metagenomics**, we sequence random parts (ideally all of them) of the
 genomes present in a sample. We can search the origin of these
 pieces (_i.e.,_ their taxonomy) and also try to find to what
 part of the genome they correspond. Given enough pieces, it is even possible
-to obtain full individual genomes from a shotgun metagenome,
+to obtain full individual genomes from a Whole genome metagenome,
 which could give us a bunch of information about the species
 in our study. This, however, requires that we have a lot of genomic
 sequences from one organism, and since the sequencing is done at random,
