@@ -45,6 +45,20 @@ There are two paths to obtain information from a complex sample:
 Each is named after the sequencing methodology employed
 and have particular use cases, with inherent advantages and disadvantages.
 
+|        | Amplicon | Whole genome metagenomics |
+|-------|--------|-----------------|---------|
+| Expense | Cheap | Expensive |
+| Coverage depth | High | Lower - medium* |
+| Taxonomy detection | Specific to amplicons used** | All in sample |
+| Genome coverage | Only region amplified | All of genome |
+| Turnaround time | Fast | Slower - more computational time for analysis needed |
+
+*This depends on the amount of sequencing done and the uniformity in abundance of the different organisms in the sample. There are often log fold differences in the abundances of different organisms in a metagenome.
+
+**Often amplicon sequencing is referred to as 16S, however this will amplify and sequence bacteria. If you were amplifying funghi you would need to use ITS sequences, and for protozoa 18S sequences.
+
+
+
 With **Whole genome Metagenomics**, we sequence random parts (ideally all of them) of the
 genomes present in a sample. We can search the origin of these
 pieces (_i.e.,_ their taxonomy) and also try to find to what
