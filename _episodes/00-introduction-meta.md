@@ -67,28 +67,10 @@ to obtain full individual genomes from a whole genome metagenome,
 which can identify both the identities of the individuals in our sample, but also their functional abilities. For abundant organisms in your metagenome sample, there are likely to be enough data to generate reasonable genome coverage. However this is not the case for low abundance organisms. Often deeper sequencing/ more total sequencing data is required to assemble the genomes of less abundant organisms. Depending on the question your dataset is trying to answer and how many samples you will need to sequence, the cost of both preparing the samples and the computational effort required to analyse them can become prohibitively expensive quickly. Especially when you are trying to include biological or technical replication in your experimental design. For more information on consderations for experimental design in sequencing see our other course [Statistical Design - Understanding Experimental design](https://cloud-span.github.io/experimental_design01-principles/02-design/index.html) or [Statistical Design - Statistical analysis](https://cloud-span.github.io/experimental_design01-principles/03-statistical-analysis/index.html).
 
 
-On the contrary, **Amplicon sequencing** tends to be cheaper,
-which makes it easier to duplicate and even triplicate
-them without taking a big financial hit. This is because
-amplicon sequencing is the collection of small genomic fragments
-present in the community and amplified through PCR. If the
-amplified region is present only once in every genome, ideally,
-we wouldn't need to sequence the amplicon metagenome so thoroughly
-because one sequence is all we need to get the information
-about that genome, and by extension, about that species. On the other
-hand, if a genome in the community lacks the region targeted by the
-PCR primers, then no amount of sequencing can give us information
-about that genome. This is why the most popular amplicon used for
-this methodology are 16S amplicons for Bacteria since every known
-bacteria have this particular region. Other regions can be chosen,
-but they are used for very specific cases. However, even 16S amplicons
-are limited to, well, the 16S region, so amplicon metagenomes cannot
-directly tell us a lot about the metabolic functions found in each genome,
-although educated guesses can be made by knowing which genes are
-commonly found in every identified species. The information 16S gives us
-is also limited because we there is a lot variation in the 16S variable
-region compared to a genome, so we may be unable to identify several species
-that belong to the same genus for instance.
+In comparison **Amplicon sequencing** tends to be cheaper,
+which makes it affordable to include additional replicates.  This is only one small region that is present rather than the whole genome is used amplified through PCR. This means that this region needs to be present in all the individuals in the community that you want to identify. The region varies between the organisms you are trying to profile. For bacteria, the 16S rRNA sequence is used to identify bacteria, whereas the ITs region is used for fungi, and the 18S rRNA sequence for protozoa. This means irrespective of depth, if an organism in the community does not contain the amplified region, it will not be present. This can be useful for removing host contamination, but this also limits our information about the organisms present, to their relative abundance.
+
+Despite this, there are workflows such as [QIIME2](https://qiime2.org/), which are free and community led, which use database annotations of the reference versions of the organisms identified from the amplicon, to suggest what metabolic functions maybe present. The amplicon sequence is also limited because species may have genomic differences, but may be indistinguishable from the amplicon sequence alone. This means that amplicon sequencing can rarely resolve to less than a genus level. 
 
 <a href="{{ page.root }}/fig/analysis_flowchart_v3.png">
   <img src="{{ page.root }}/fig/analysis_flowchart_v3.png" width="325" height="880.5" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis"  />
