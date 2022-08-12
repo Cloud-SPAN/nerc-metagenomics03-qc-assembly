@@ -59,7 +59,7 @@ __**Often amplicon sequencing is referred to as 16S, however this will amplify a
 
 
 
-###Whole metagenome sequencing
+### Whole metagenome sequencing
 
 
 With **Whole genome Metagenomics**, we sequence random parts of the
@@ -71,7 +71,7 @@ which can identify both the identities of the individuals in our sample, but als
 
 
 
-###Amplicon sequencing
+### Amplicon sequencing
 
 
 In comparison **Amplicon sequencing** tends to be cheaper,
