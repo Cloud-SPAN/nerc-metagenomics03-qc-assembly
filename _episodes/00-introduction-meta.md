@@ -46,7 +46,7 @@ Each is named after the sequencing methodology employed
 and have particular use cases, with inherent advantages and disadvantages which are summarised below.
 
 |        | Amplicon | Whole genome metagenomics |
-|-------|--------|-----------------|---------|
+|-------|--------------|
 | Expense | Cheap | Expensive |
 | Coverage depth | High | Lower - medium* |
 | Taxonomy detection | Specific to amplicons used** | All in sample |
@@ -133,4 +133,28 @@ But this isn't representative of how long this workflow would take for real data
 
 This course uses data from a mock metagenome community published from [Ultra-deep, long-read nanopore sequencing of mock microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) which has long and short read sequencing data and has been used for benchmarking metagenome tools. This is whole metagenome sequencing, the short read data is generated on the illumina platorm and the long reads are generated using oxford nanopore technology's nanopore platform. Other popular long read sequencing platforms exist, such as pacbio, however we will not be covering pacbio specific methodology. Despite this, the same principle stages exist in the workflow, and often only different parameters may be required to adapt analysis to that platform.
 
- 
+## Differences between nanopore and illumina data
+
+We have covered elsewhere information about how if you're designing an experiment you may have preferances for which platorm you used based on what your research question is, see here [What platform is best for my experiment?](https://cloud-span.github.io/experimental_design01-principles/01-platform/index.html). However typically the equivalent question for metagenomics is whether to sequence the whole genome, or whether amplicon sequencing will be preferable.
+
+For non metagenome analyses, you can choose to do either a reference based or *de novo* approach. This will be dependent on whether there is a reasonable reference for your organism. However for whole metagenome sequencing, reference genomes will exist that can be compared to organisms identified from your metagenome. However this will be at the binning stage, and a reference will not exist for your metagenome as a whole. Due to this, all of the assembly stages of the metagenome analysis pipeline are *de novo*. As a result, there is a bigger advantage to using long read sequencing over short read sequencing to assemble a metagenome if you were to choose only one method.
+
+This will be covered in the [Genome Assembly](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html) section of this course. However there are pros and cons to each using both long and short reads, and so using them in combination is usually the best method. These pros and cons are irrespective of the application, however for metagenome analysis, if you were to use only short read sequencing for the assembly, you will end up with a much more fragmented assembly to work with.
+
+
+
+|        | Short reads | Long reads |
+|-------|-----------|
+| Technologies | Illumina | Nanopore and pacbio |
+| Number of reads generated | 800 million paired end* | Depends on read length, and instrument, but usually only 10s of thousands** |
+| Base accuracy | Very high | Low |
+| Ease of assembly | Very difficult | Easier |
+| Format output files | Fastq | Fastq, Fast5 |
+| Read length | 150-300bp | Commonly 10-30kb*** |
+
+
+__* As of July 2022, the NextSeq 550 high-output system runs were capable of generating upto [800 million paired-end reads](https://emea.illumina.com/systems/sequencing-platforms/nextseq/specifications.html) in one run__
+
+__** There are different nanopore instruments, the smaller instruments, like the minION will generate far fewer reads. Larger instruments like the promethION will result in ~10-20k reads, but this will vary a lot between samples and their quality. They will never result in millions of raeds like the illumina platforms.__
+
+__*** The read length will vary based on the DNA extraction method. If the DNA is very fragmented it will not result in very long reads. In many metagenomes bead beating is required to lyse cells, and so read length will still be longer than illumina but shorter than non metagenome samples sequenced.__
