@@ -56,7 +56,7 @@ and have particular use cases, with inherent advantages and disadvantages.
 *This depends on the amount of sequencing done and the uniformity in abundance of the different organisms in the sample. There are often log fold differences in the abundances of different organisms in a metagenome. Given that only a small region is used to assign taxonomy with amplicon sequencing only you have less resolution for closely related taxa, and so assignment to lower than genus is often not possible.
 
 **Often amplicon sequencing is referred to as 16S, however this will amplify and sequence bacteria. If you were amplifying funghi you would need to use ITS sequences, and for protozoa 18S sequences.
-
+  
 
 
 With **Whole genome Metagenomics**, we sequence random parts (ideally all of them) of the
