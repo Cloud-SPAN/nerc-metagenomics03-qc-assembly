@@ -133,6 +133,7 @@ But this isn't representative of how long this workflow would take for real data
 
 This course uses data from a mock metagenome community published from [Ultra-deep, long-read nanopore sequencing of mock microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) which has long and short read sequencing data and has been used for benchmarking metagenome tools. This is whole metagenome sequencing, the short read data is generated on the illumina platorm and the long reads are generated using oxford nanopore technology's nanopore platform. Other popular long read sequencing platforms exist, such as pacbio, however we will not be covering pacbio specific methodology. Despite this, the same principle stages exist in the workflow, and often only different parameters may be required to adapt analysis to that platform.
 
+
 ## Differences between nanopore and illumina data
 
 We have covered elsewhere information about how if you're designing an experiment you may have preferances for which platorm you used based on what your research question is, see here [What platform is best for my experiment?](https://cloud-span.github.io/experimental_design01-principles/01-platform/index.html). However typically the equivalent question for metagenomics is whether to sequence the whole genome, or whether amplicon sequencing will be preferable.
