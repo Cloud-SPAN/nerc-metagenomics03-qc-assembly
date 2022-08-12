@@ -43,7 +43,7 @@ There are two paths to obtain information from a complex sample:
 2. **Amplicon/(16S) sequencing**.
 
 Each is named after the sequencing methodology employed
-and have particular use cases, with inherent advantages and disadvantages.
+and have particular use cases, with inherent advantages and disadvantages which are summarised below.
 
 |        | Amplicon | Whole genome metagenomics |
 |-------|--------|-----------------|---------|
@@ -53,27 +53,19 @@ and have particular use cases, with inherent advantages and disadvantages.
 | Genome coverage | Only region amplified | All of genome |
 | Turnaround time | Fast | Slower - more computational time for analysis needed |
 
-*This depends on the amount of sequencing done and the uniformity in abundance of the different organisms in the sample. There are often log fold differences in the abundances of different organisms in a metagenome. Given that only a small region is used to assign taxonomy with amplicon sequencing only you have less resolution for closely related taxa, and so assignment to lower than genus is often not possible.
+**"* This depends on the amount of sequencing done and the uniformity in abundance of the different organisms in the sample. There are often log fold differences in the abundances of different organisms in a metagenome. Given that only a small region is used to assign taxonomy with amplicon sequencing only you have less resolution for closely related taxa, and so assignment to lower than genus is often not possible."**
 
-**Often amplicon sequencing is referred to as 16S, however this will amplify and sequence bacteria. If you were amplifying funghi you would need to use ITS sequences, and for protozoa 18S sequences.
-  
+**"**Often amplicon sequencing is referred to as 16S, however this will amplify and sequence bacteria. If you were amplifying funghi you would need to use ITS sequences, and for protozoa 18S sequences."**
 
 
-With **Whole genome Metagenomics**, we sequence random parts (ideally all of them) of the
+
+With **Whole genome Metagenomics**, we sequence random parts of the
 genomes present in a sample. We can search the origin of these
 pieces (_i.e.,_ their taxonomy) and also try to find to what
-part of the genome they correspond. Given enough pieces, it is even possible
-to obtain full individual genomes from a Whole genome metagenome,
-which could give us a bunch of information about the species
-in our study. This, however, requires that we have a lot of genomic
-sequences from one organism, and since the sequencing is done at random,
-we usually have to sequence our community a lot (have a high sequencing depth)
-to make sure that we obtain enough pieces of a given genome. This gets
-exponentially harder when our species of interest is not very abundant.
-It also requires that we have enough DNA to work with, which can be
-difficult to obtain in certain cases. Finally, a lot of sequencing
-means a lot of expenses, and because of this, making technical
-and biological replicates can be prohibitively costly.   
+part of the genome they correspond. Depending on the complexity of the metagenome, and with enough sequence, it is even possible
+to obtain full individual genomes from a whole genome metagenome,
+which can identify both the identities of the individuals in our sample, but also their functional abilities. For abundant organisms in your metagenome sample, there are likely to be enough data to generate reasonable genome coverage. However this is not the case for low abundance organisms. Often deeper sequencing/ more total sequencing data is required to assemble the genomes of less abundant organisms. Depending on the question your dataset is trying to answer and how many samples you will need to sequence, the cost of both preparing the samples and the computational effort required to analyse them can become prohibitively expensive quickly. Especially when you are trying to include biological or technical replication in your experimental design. For more information on consderations for experimental design in sequencing see our other course [Statistical Design - Understanding Experimental design](https://cloud-span.github.io/experimental_design01-principles/02-design/index.html) or [Statistical Design - Statistical analysis](https://cloud-span.github.io/experimental_design01-principles/03-statistical-analysis/index.html).
+
 
 On the contrary, **Amplicon sequencing** tends to be cheaper,
 which makes it easier to duplicate and even triplicate
