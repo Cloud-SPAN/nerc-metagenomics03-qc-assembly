@@ -397,13 +397,26 @@ First we're going to use the default options to get the statistics.
 seqkit stats assembly.fasta
 ~~~
 {: .bash}
+SeqKit is fast so we are just running this directly in the terminal. It should take a maximum of a couple of seconds to process the assembly.
+
+Once it has you should see an output similar (maybe the same?) as this:
+~~~
+file            format  type  num_seqs     sum_len  min_len    avg_len    max_len
+assembly.fasta  FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,630
+~~~
+{: .output}
+
+In this table we can see the input file, the format of the file, the type of sequence and other statistics.
 
 > ## Exercise X: Looking at basic statistics
-> a) Using the help documentation, what flag can we add to get the N50 length for this assembly?  
-> b) What would the new command be if we added this flag?
+> Using the statistics produced by seqkit stats
+> a) How many contigs are in this assembly?
+> b) How many bases in total have been assembled?
+> c) What is the shortest and longest contig produced by this assembly?
 >> ## Solution
->> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.  
->> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`  
+>> a) From `num_seqs` we can see that this assembly is made up of 146 contigs
+>> b) Looking at `sum_length` we can see that the assembly is 14,953,273bp in total (almost 15 million bp!)
+>> c) From `min_length` we can see the shortest contig is 3,164bp and from `max_length` the longest contig is 6,068,630bp
 > {: .solution}
 {: .challenge}
 
