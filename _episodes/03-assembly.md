@@ -414,15 +414,14 @@ Why are we interested in N50?
 
 > ## Exercise X: Command to get the N50 length
 > a) Using the help documentation, what flag can we add to get the N50 length for this assembly?  
-> b) What would the new command be if we added this flag?
+> b) What would the new command be if we added this flag?  
 > Bonus exercise: What flag would enable us to save the output table in a tabular (i.e. tsv) format?
 >> ## Solution
 >> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.
 >> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`
->> Bonus: The flag `-T` allows us to save it in a tabular output - this makes the table easier to use in other command line programs or programming languages such as R and Python. 
+>> Bonus: The flag `-T` allows us to save it in a tabular output - this makes the table easier to use in other command line programs or programming languages such as R and Python.
 > {: .solution}
 {: .challenge}
-
 
 
 > ## Exercise X: Calculating the N50 length
