@@ -271,11 +271,11 @@ TO FILL
 ~~~
 {: .output}
 
-> ## Reminder for how to use less
+>## Reminder for how to use less
 > `less`
 > `g` to get to the end
 > `q` to quit etc
-{: .reminder}
+{: .callout}
 
 2. While the job is still running we can also use a unix command `ps` to list all running processes.
 
@@ -295,8 +295,9 @@ Flye is likely to take a *couple of hours* to finish assembling so you should go
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
 
 > ## Recommended reading:
->
-{: .reminder}
+> While you're waiting for the assembly to finish you might want to read about the different programs devoted to [genome](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/) and metagenome assembly, which can use different assembly strategies such as; Greedy extension, OLC and De Bruijn charts.
+> MORE HERE
+{: .callout}
 
 ## Determining if the assembly has finished
 
@@ -318,71 +319,9 @@ TO FILL -- from INFO: >>>STAGE: finalize etc
 
 ## Assembly stats
 
+If we `ls` in the assembly directory we can see the files that Flye has created.
 
 
-When the run is finished it shows this message:
-
-~~~
-======= SPAdes pipeline finished.
-
-SPAdes log can be found here: /home/dcuser/dc_workshop/results/assembly_JC1A/spades.log
-
-Thank you for using SPAdes!
-
-~~~
-{: .bash}
-
-Now we need to press enter to exit from the background, and a message like this will be displayed:
-~~~
-[1]+  Done                    metaspades.py -1 JC1A_R1.trim.fastq.gz -2 JC1A_R2.trim.fastq.gz -o ../../results/assembly_JC1A
-~~~
-{: .output}
-This is becacause of the use of the `&`. Now, let's go to the files:
-
-As we can see, MetaSPAdes gave us a lot of files. The ones with the assembly are the `contigs.fasta` and the `scaffolds.fasta`.
-Also, we found three `K` folders: _K21, K33, and K55_, this contains the individual result files for an assembly
-with k-mers equal to those numbers: 21, 33, and 55. The best assembled results are
-the ones that are displayed outside this k-folders. The folder `corrected` hold the corrected reads
-with the SPAdes algorithm. Moreover, the file
-`assembly_graph_with_scaffolds.gfa` have the information needed to visualize
-our assembly by different means, like programs as [Bandage](https://rrwick.github.io/Bandage/).
-
-The contigs are just made from assembled reads, but the scaffolds are the result
-from a subsequent process in which the contigs are ordered, oriented, and connected with Ns.
-
-We can recognize which sample our assembly outputs corresponds to because they are inside
-the assembly results folder: `assembly_JC1A/`. However, the files within it do not have the
-sample ID. It is very useful to rename these files, in case we need them out of their folder.
-
-
-> ## Exercise 1: Rename all files in a folder
->
-> Add JC1A (the sample ID) separated by "_"  at the beggining of the names of all the contents in the assembly_JC1A directory. Remember that many solutions are possible.
->
-> A)  mv * JC1A_    
-> B)  mv * JC1A_*    
-> C)  for name in *; do mv $name JC1A_; done     
-> D)  for name in *; do mv $name JC1A_$name; done      
->    
->> ## Solution
->> ~~~
->>
->>  A)  No, this option is going to give you as error mv: target 'JC1A_' is not a directory
->>  This is because mv has two options
->>  mv file_1 file_2
->>  mv file_1, file_2, ..... file_n, directory
->>  When a list of files is passed to mv, the mv expects the last parameters to be a directory
->>  Here, * gives you a list of all the files in the directory
->>  The last parameter is JC1A_ (which mv expects to be a directory)  
->>  B)  No, Again every file is send to the same file.
->>  C)  No, every file is sent to the same file JC1A_
->>  D)  Yes, this is one of the possible solutions.
->>
->> ¿Do you have another solution?
->> ~~~
->> {: .bash}
-> {: .solution}
-{: .challenge}
 
 > ## Exercise 2: Compare two fasta files from the assembly output
 > You want to know how many contigs and how many scaffolds results for the assembly. Use `contigs.fasta`  and `scaffolds.fasta ` files and sort the commands to create correct code lines.
@@ -403,8 +342,3 @@ sample ID. It is very useful to rename these files, in case we need them out of 
 > {: .solution}
 >
 {: .challenge}
-
-While you're waiting for the assembly to finish you might want to read about the
-different programs devoted to
-[genome](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/) and
-metagenome assembly, which can use different assembly strategies such as; Greedy extension, OLC and De Bruijn charts.
