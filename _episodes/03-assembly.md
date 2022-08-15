@@ -249,6 +249,7 @@ Note the lack of a space between `&>`.
 > The `&` sign that we are using at the end of the command is for telling
 the machine to run the command on the background, this will help us to avoid
 the cancelation of the operation in case the connection with the AWS machine is unstable.
+> TO FILL 
 {: .callout}
 
 We can now press enter to run the command.
@@ -275,6 +276,7 @@ TO FILL
 > `less`
 > `g` to get to the end
 > `q` to quit etc
+> TO FILL
 {: .callout}
 
 2. While the job is still running we can also use a unix command `ps` to list all running processes.
