@@ -399,11 +399,11 @@ seqkit stats assembly.fasta
 {: .bash}
 
 > ## Exercise X: Looking at basic statistics
-> a) Using the help documentation, what flag can we add to get the N50 length for this assembly?
+> a) Using the help documentation, what flag can we add to get the N50 length for this assembly?  
 > b) What would the new command be if we added this flag?
 >> ## Solution
->> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.
->> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`
+>> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.  
+>> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`  
 > {: .solution}
 {: .challenge}
 
@@ -417,8 +417,8 @@ Why are we interested in N50?
 > b) What would the new command be if we added this flag?  
 > Bonus exercise: What flag would enable us to save the output table in a tabular (i.e. tsv) format?
 >> ## Solution
->> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.
->> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`
+>> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.  
+>> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`  
 >> Bonus: The flag `-T` allows us to save it in a tabular output - this makes the table easier to use in other command line programs or programming languages such as R and Python.
 > {: .solution}
 {: .challenge}
@@ -432,11 +432,11 @@ Why are we interested in N50?
 >> ## Solution
 >> a)
 >> ~~~
->> file            format  type  num_seqs     sum_len  min_len    avg_len    max_len     Q1        Q2      Q3  sum_gap        N50  Q20(%)  Q30(%)
->> assembly.fasta  FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,630  7,364  13,415.5  35,259        0  2,976,503       0       0
+>> file           format  type  num_seqs     sum_len  min_len    avg_len    max_len     Q1        Q2      Q3  sum_gap        N50  Q20(%)  Q30(%)
+>> assembly.fasta FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,630  7,364  13,415.5  35,259        0  2,976,503       0       0
 >> ~~~
 >> {: .output}
->> b) Comparing the header line from this command to the original command we can see we've now got statistics for Q1, Q2, Q3, sum_gap, N50, Q20(%) and Q30(%)
+>> b) Comparing the header line from this command to the original command we can see we've now got statistics for Q1, Q2, Q3, sum_gap, N50, Q20(%) and Q30(%)  
 >> Bonus: ANSWER THIS
 > {: .solution}
 {: .challenge}
