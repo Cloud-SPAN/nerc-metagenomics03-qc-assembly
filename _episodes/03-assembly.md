@@ -355,7 +355,7 @@ We've already looked at `flye.log` which contains all the info Flye generates du
 * We also have a file containing the parameters we ran the assembly under `params.json` which is useful to keep our analysis reproducible.  
 * The assembly is in FASTA format (`assembly.fasta`).  
 * There's a text file which contains more information about each contig created (`assembly_info.txt`).
-* Finally we have two files for a repeat graph (`assembly_graph.{gfa|gv}`) which is a visual way to view the assembly - see the bonus exercise below.    
+* Finally we have two files for a repeat graph (`assembly_graph.{gfa|gv}`) which is a visual way to view the assembly - see the optional exercise below.    
 
 You can see more about the output for Flye in the [documentation on GitHub](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#output).
 
