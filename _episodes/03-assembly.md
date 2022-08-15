@@ -177,18 +177,12 @@ The above output gives us a bit of information about how to run Flye but we can 
 {: .solution}
 
 
-We can see that Flye has multiple different option available so we need to work out which ones are appropriate for our dataset.
-We know we have Nanopore raw reads and if we look back at the paper [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) we can see that the reads were basecalled with Guppy v2.2.2
-
-Therefore the flag `--nano-raw` for `ONT regular reads, pre-Guppy5 (<20% error)` is most appropriate for this dataset. The `path` after the flag in the help document indicates that the we should put the location of the input file after this flag.
-
-The next flag we are interested in is `-o` or `--outdir` to specify the location of the flye output. Again, we need to specify a path afterwards.
-
-We should also make use of the `-t` or `--threads` flag in order to run the assembly on more compute in order to speed it up.
-
-After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing. We can specify the number of times `flye` will polish this data using `-i` or `--iterations` - `number of polishing iterations [1]`. By default the number of iterations is 1 however 3 iterations is often used as standard.
-
-Finally, as this dataset is a metagenome we need to use the `--meta` option for `metagenome / uneven coverage mode`.
+**We can see that Flye has multiple different options available so we need to work out which ones are appropriate for our dataset.**
+* We know we have Nanopore raw reads and if we look back at the paper [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) we can see that the reads were basecalled with Guppy v2.2.2. Therefore the flag `--nano-raw` for `ONT regular reads, pre-Guppy5 (<20% error)` is most appropriate for this dataset. The `path` after the flag in the help document indicates that the we should put the location of the input file after this flag.
+* The next flag we are interested in is `-o` or `--outdir` to specify the location of the flye output. Again, we need to specify a path afterwards.
+* We should also make use of the `-t` or `--threads` flag in order to run the assembly on more compute in order to speed it up.
+* After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing. We can specify the number of times `flye` will polish this data using `-i` or `--iterations` - `number of polishing iterations [1]`. By default the number of iterations is 1 however 3 iterations is often used as standard.
+* Finally, as this dataset is a metagenome we need to use the `--meta` option for `metagenome / uneven coverage mode`.
 
 > ## Unused parameters
 > There's a lot of parameters that we won't be using; some are deprecated, some are only appropriate for certain types of data (e.g. `--pacbio-raw`) and some are useful to allow tweaking to try further improve an assembly (e.g. `--genome-size` and `--read-error`).  
@@ -197,6 +191,8 @@ Finally, as this dataset is a metagenome we need to use the `--meta` option for 
 {: .callout}
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
+We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
+We're also going to get Flye to create the `assembly` directory as its output directory.
 
 ~~~
  flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
@@ -207,22 +203,17 @@ Now we've worked out what parameters are appropriate for our data we can put the
 ~~~
 {: .bash}
 
-We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
-We're also going to get Flye to create the `assembly` directory as its output directory.
-
 **<span style="color:red"> Don't run this command yet!</span>**
 
-Now we've built our command we could stop here **but** metagenomic assembly takes a long time!
-
-If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.
-
-Luckily we don't have to do that using a remote computer (as that's what the instance/cloud computing is).
+Now we've built our command we could stop here **but** metagenomic assembly takes a long time.  
+If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.  
+Luckily we don't have to do that as we're using a remote computer (as that's what the instance/cloud computing is).
 
 ## Running a command in the background
 
 The commands we've previously run in this course have all been run in the foreground - aka they've been run directly in the terminal window we've been using and occupy the window until they've finished.
 
-We can instead run a job in the background that doesn't take over the terminal window.
+We can instead run a job in the background so it doesn't take over the terminal window.
 
 To do this we take the command we want to run and then follow it by an ampersand (`&`) symbol.
 
