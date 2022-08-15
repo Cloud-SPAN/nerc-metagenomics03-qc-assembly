@@ -209,7 +209,7 @@ Now we've built our command we could stop here **but** metagenomic assembly take
 If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.  
 Luckily we don't have to do that as we're using a remote computer (as that's what the instance/cloud computing is).
 
-## Running a command in the background
+### Running a command in the background
 
 The commands we've previously run in this course have all been run in the foreground - aka they've been run directly in the terminal window we've been using and occupy the window until they've finished.
 
@@ -218,23 +218,26 @@ We can instead run a job in the background so it doesn't take over the terminal 
 To do this we take the command we want to run and then follow it by an ampersand (`&`) symbol.
 
 This puts the job into the background so we can do other things in the terminal but it will still stop running if you log out of the instance.
-So we need to also add no hangup (`nohup`) to prevent the job from terminating when we log off from the instance.
 Finally we need to redirect the output Flye reports to the terminal into a file with `>`.
 
-Once we add these three things into our command we get the following:
+Once we add these into our command we get the following:
 ~~~
-nohup flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
+flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
      --threads 4 \
      --iterations 3 \
-     --meta &> flye.out
+     --meta &> flye_output.txt &
 ~~~
 {: .bash}
 
-Note the lack of a space between `&>`.
+Note the lack of a space between `&>` and the second `&` --> explain here.
+
+We can now press enter to run the command.
+Unlike when we have previously run code, your prompt should immediately return. This doesn't mean that the code has finished already, it should now be running in the background.
 
 > ## Running commands on different servers
 > Depending on your computing resources -
+> nohup
 > Those with shared computing resources often get given the option to run a job in a queue --> slurm etc
 > Can run in screen
 > The `&` sign that we are using at the end of the command is for telling
@@ -243,28 +246,30 @@ the cancelation of the operation in case the connection with the AWS machine is 
 > TO FILL
 {: .callout}
 
-We can now press enter to run the command.
-Unlike when we have previously run code, your prompt should immediately return. This doesn't mean that the code has finished already, it should now be running in the background.
-As we have used the `nohup` command to disconnect the command from our terminal this makes it slightly more challenging to keep an eye
+As we're running the command in the background we no longer see the output on the terminal. Luckily we have two options available for us to check on the progress of the assembly.
 
-We can check this two ways:
+We can view all the currently running background commands with the command `jobs`. The output of this will be similar to:
+~~~
+[1]+  Running                 flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye.out &
+~~~
+{: .output}
+Note: if you disconnect from the instance while Flye is running you won't be able to track it's progress through this method.
 
-1. Flye generates a log file when running within the output folder it has generated.
-
+Flye also generates a log file when running within the output folder it has generated.
 Using less we can navigate through this file.
 ~~~
 less assembly/flye.log
 ~~~
 {: .bash}
 
-The contents of the file will depend on how far through the assembly flye is.
+The contents of the file will depend on how far through the assembly Flye is.
 At the start of an assembly you'll probably see something like this:
 ~~~
 TO FILL
 ~~~
 {: .output}
 
-Note: this file will contain similar things to the flye.out file we're generating for the output to the `nohup` command, but it's easier to look at the log file as flye will always generate that even if you're running it in a different way (e.g. directly or in a queue).
+Note: this log file will contain similar to the `flye_output.txt` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
 
 >## Reminder for how to use less
 > `less`
@@ -273,19 +278,8 @@ Note: this file will contain similar things to the flye.out file we're generatin
 > TO FILL
 {: .callout}
 
-2. While the job is still running we can also use a unix command `ps` to list all running processes.
-
-~~~
-ps
-~~~
-{: .bash}
-This lists all processes currently running (including background processes that keep the instance running, but we don't need to care about that). If you've run the earlier command correctly you should be able to see the command you ran in the fourth column.
-~~~
-TO FILL
-~~~
-{: .output}
-
-Flye is likely to take a *couple of hours* to finish assembling so you should go and do something else for a while. If you've run everything correctly you should be able to entirely log off from the instance (& even shut your computer down) with Flye still running.
+Flye is likely to take a *couple of hours* to finish assembling.
+You don't need to remain connected to the instance during this time but once you have disconnected it does make it harder to track Flye's progress.
 
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
 
@@ -296,19 +290,36 @@ In the meantime, if you wanted to read more about assembly and metagenomics ther
 
 ## Determining if the assembly has finished
 
-After leaving it at least a couple of hours (or longer!) we can check if Flye has finished using a combination of the two above commands.
+After leaving it at least a couple of hours (or even longer!) Flye should have finished assembling.
 
-First we can see if the command is still running using `ps`. If you don't see the `nohup` command running it likely means it has finished.
-We can then check the output file from Flye.
+If you remained connected to the instance during the process you will get the following output in your terminal when the command has finished.
+
+~~~
+[2]+  Done      flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye.out &
+~~~
+{: .output}
+
+If you disconnected from the instance for whatever reason during the assembly process we need to check the `flye.log` file.  
 
 ~~~
 cd analysis/assembly/
-less flye.out
+less flye.log
 ~~~
 {: .bash}
+
 If you navigate to the end of the file you should see something like:
 ~~~
-TO FILL -- from INFO: >>>STAGE: finalize etc
+[2022-08-11 14:03:51] INFO: >>>STAGE: finalize
+[2022-08-11 14:03:52] INFO: Assembly statistics:
+
+        Total length:   14953273
+        Fragments:      146
+        Fragments N50:  2976503
+        Largest frg:    6068630
+        Scaffolds:      0
+        Mean coverage:  181
+
+[2022-08-11 14:03:52] INFO: Final assembly: ~/analysis/assembly/assembly.fasta
 ~~~
 {: .output}
 
