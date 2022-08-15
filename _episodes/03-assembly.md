@@ -352,8 +352,8 @@ We've already looked at `flye.log` which contains all the info Flye generates du
 You can see more about the output for Flye in the [documentation on GitHub](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#output).
 
 > ## Contigs vs. reads
-> We have seen reads in the raw sequencing data.
-> After assembly we introduce contigs. Contigs (from the word *contiguous*) are fragments of DNA produced after raw reads are joined together by the assembly process.
+> We have seen reads in the raw sequencing data - these are our individual jigsaw pieces.
+> After assembly we introduce contigs. Contigs (from the word *contiguous*) are fragments of DNA produced after raw reads are joined together by the assembly process. (These are the chunks of the jigsaw puzzle the assembler has managed to complete.)
 > As a result contigs are usually much longer than raw reads and also vary in length and number depending on how successful the assembly has been.
 {: .callout}
 
@@ -437,20 +437,34 @@ Using this table of statistics, answer the questions below.
 {: .challenge}
 
 
-## The N50 statistic
-Why are we interested in N50?
+### The N50 length
 
+As we touched on in the previous lesson, the N50 length is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger. See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
 
-> ## Exercise X: Command to get the N50 length
+This is a useful statistic to describe an assembly as it indicates the average size of the contigs the assembly software has produced.
+
+A higher N50 length, means that more of the assembly is in longer fragments. So the chunks of sequence produced by the assembler are, on average, larger.
+
+While it isn't calculated by default, `seqkit stats` has an option to calculate the N50 length. Using the help documentation for seqkit stats answer the exercise below.
+
+> ## Exercise X: Flag to get the N50 length
 > a) Using the help documentation, what flag can we add to get the N50 length for this assembly?  
 > b) What would the new command be if we added this flag?  
 > Bonus exercise: What flag would enable us to save the output table in a tabular (i.e. tsv) format?
 >> ## Solution
 >> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.  
->> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`  
->> Bonus: The flag `-T` allows us to save it in a tabular output - this makes the table easier to use in other command line programs or programming languages such as R and Python.
+>> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`
+>> Bonus: The flag `-T` allows us to save it in a tabular output - this makes the table easier to use in other command line programs or programming languages such as R and Python. The command could be either `seqkit stats -a -T assembly.fasta` or we can combine the two flags `seqkit stats -aT assembly.fasta`
 > {: .solution}
 {: .challenge}
+
+Next, run the command to also calculate the N50 length and answer the questions below about the output.
+
+> ## Hint: Seqkit stats N50 command
+> ~~~
+> seqkit stats -a assembly.fasta
+> ~~~
+{: .solution}
 
 
 > ## Exercise X: Calculating the N50 length
