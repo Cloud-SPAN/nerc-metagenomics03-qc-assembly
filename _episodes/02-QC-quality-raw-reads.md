@@ -581,7 +581,7 @@ Looking at the Summary Statistics table answer the following questions:
 {: .callout}
 
 > ## N50
-> The N50 value is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger.
+> The N50 length is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger.
 > For this FASTQ file 50% of the total bases are in reads that have a length of 5,373 bp or longer.
 > See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
 >We will be coming back to this statistic in more detail when we get to the assembly step.
