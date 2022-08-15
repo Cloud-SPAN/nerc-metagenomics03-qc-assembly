@@ -242,13 +242,73 @@ nohup flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
 
 Note the lack of a space between `&>`.
 
-
 > ## Running commands on different servers
-> Running commands you don't want to
+> Depending on your computing resources -
+> Those with shared computing resources often get given the option to run a job in a queue --> slurm etc
+> Can run in screen
 > The `&` sign that we are using at the end of the command is for telling
 the machine to run the command on the background, this will help us to avoid
 the cancelation of the operation in case the connection with the AWS machine is unstable.
 {: .callout}
+
+We can now press enter to run the command.
+Unlike when we have previously run code, your prompt should immediately return. This doesn't mean that the code has finished already, it should now be running in the background.
+As we have used the `nohup` command to disconnect the command from our terminal this makes it slightly more challenging to keep an eye
+
+We can check this two ways:
+
+1. The file `flye.out` will be created in this location and will be updated by Flye as it continues the assembly. So we can look at the contents of this file to see how far the assembly has got.
+Using less we can navigate through this file.
+~~~
+less flye.out
+~~~
+{: .bash}
+
+The contents of the file will depend on how far through the assembly flye is.
+At the start of an assembly you'll probably see something like this:
+~~~
+TO FILL
+~~~
+{: .output}
+
+After an assembly is finished you will see something at the end of this file like the following:
+~~~
+TO FILL -- from INFO: >>>STAGE: finalize etc
+~~~
+{: .output}
+
+
+> ## Reminder for how to use less
+> `less`
+> `g` to get to the end
+> `q` to quit etc
+{: .reminder}
+
+2. While the job is still running we can also use a unix command `ps` to list all running processes.
+
+~~~
+ps
+~~~
+{. :bash}
+
+~~~
+TO FILL
+~~~
+{: .output}
+
+
+
+Flye is likely to take a couple of hours to finish assembling so you should go and do something else for a while.
+If you want to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
+
+> ## Recommended reading:
+>
+{: .reminder}
+
+
+
+
+
 
 ## Updated to here
 
