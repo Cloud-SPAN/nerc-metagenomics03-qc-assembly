@@ -258,10 +258,11 @@ As we have used the `nohup` command to disconnect the command from our terminal 
 
 We can check this two ways:
 
-1. The file `flye.out` will be created in this location and will be updated by Flye as it continues the assembly. So we can look at the contents of this file to see how far the assembly has got.
+1. Flye generates a log file when running within the output folder it has generated.
+
 Using less we can navigate through this file.
 ~~~
-less flye.out
+less assembly/flye.log
 ~~~
 {: .bash}
 
@@ -271,6 +272,8 @@ At the start of an assembly you'll probably see something like this:
 TO FILL
 ~~~
 {: .output}
+
+Note: this file will contain similar things to the flye.out file we're generating for the output to the `nohup` command, but it's easier to look at the log file as flye will always generate that even if you're running it in a different way (e.g. directly or in a queue).
 
 >## Reminder for how to use less
 > `less`
@@ -290,7 +293,6 @@ This lists all processes currently running (including background processes that 
 TO FILL
 ~~~
 {: .output}
-
 
 Flye is likely to take a *couple of hours* to finish assembling so you should go and do something else for a while. If you've run everything correctly you should be able to entirely log off from the instance (& even shut your computer down) with Flye still running.
 
@@ -319,10 +321,82 @@ TO FILL -- from INFO: >>>STAGE: finalize etc
 ~~~
 {: .output}
 
+It also contains some basic statistics about the assembly it's created.
+
 ## Assembly stats
 
-If we `ls` in the assembly directory we can see the files that Flye has created.
+As we've just seen Flye has finished the assembly and also given us some basic statistics about the size of the assembly. Not every assembler will give you this information so we're going to use the program `seqkit` to get this information.
 
+If we `ls` in the assembly directory we can see the that Flye has created many different files.
+
+~~~
+00-assembly   20-repeat     40-polishing    assembly_graph.gfa  assembly_info.txt  params.json
+10-consensus  30-contigger  assembly.fasta  assembly_graph.gv   flye.log
+~~~
+{: .output}
+
+We've already looked at `flye.log` which contains all the info Flye generates during an assembly.
+
+Flye generates a directory to contain the output for each step of the assembly process. (These are the `00-assembly`, `10-consensus`, `20-repeat`, `30-contigger` and `40-polishing` directories.) We also have a file containing the parameters we ran the assembly under `params.json` which is useful to keep our analysis reproducible.
+The assembly is in FASTA format (`assembly.fasta`), but we can also see there's a text file which contains more information about each contig created (`assembly_info.txt`). And finally we have two files for a repeat graph (`assembly_graph.{gfa|gv}`).   
+You can see more about the output for Flye in the [documentation on GitHub](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#output).
+
+
+We will be using the FASTA file of the assembly to get the assembly stats.
+
+We will be using the program [Seqkit](https://bioinf.shenwei.me/seqkit/) again, but this time with a different command `stats` to generate the basic assembly statistics.
+
+We can again view the help documentation for this command:
+~~~
+seqkit stats -h
+~~~
+{: .bash}
+
+> ## seqkit stats help documentation
+> ~~~
+> simple statistics of FASTA/Q files
+>
+> Tips:
+>   1. For lots of small files (especially on SDD), use big value of '-j' to
+>      parallelize counting.
+>
+> Usage:
+>   seqkit stats [flags]
+>
+> Aliases:
+>   stats, stat
+>
+> Flags:
+>   -a, --all                  all statistics, including quartiles of seq length, sum_gap, N50
+>   -b, --basename             only output basename of files
+>   -E, --fq-encoding string   fastq quality encoding. available values: 'sanger', 'solexa', 'illumina-1.3+', 'illumina-1.5+', 'illumina-1.8+'. (default "sanger")
+>   -G, --gap-letters string   gap letters (default "- .")
+>   -h, --help                 help for stats
+>   -e, --skip-err             skip error, only show warning message
+>   -i, --stdin-label string   label for replacing default "-" for stdin (default "-")
+>   -T, --tabular              output in machine-friendly tabular format
+>
+> Global Flags:
+>       --alphabet-guess-seq-length int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)
+>       --id-ncbi                         FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...
+>       --id-regexp string                regular expression for parsing ID (default "^(\\S+)\\s?")
+>       --infile-list string              file of input files list (one file per line), if given, they are appended to files from cli arguments
+>   -w, --line-width int                  line width when outputting FASTA format (0 for no wrap) (default 60)
+>   -o, --out-file string                 out file ("-" for stdout, suffix .gz for gzipped out) (default "-")
+>       --quiet                           be quiet and do not show extra information
+>   -t, --seq-type string                 sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")
+>   -j, --threads int                     number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)
+> ~~~
+> {: .output}
+{: .solution}
+
+
+
+
+> ## Optional: Viewing the repeat graph
+> If you are interested you can
+>
+{: .callout}
 
 
 > ## Exercise 2: Compare two fasta files from the assembly output
