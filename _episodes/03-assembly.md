@@ -249,11 +249,17 @@ the cancelation of the operation in case the connection with the AWS machine is 
 As we're running the command in the background we no longer see the output on the terminal. Luckily we have two options available for us to check on the progress of the assembly.
 
 We can view all the currently running background commands with the command `jobs`. The output of this will be similar to:
+
+~~~
+jobs
+~~~
+{: .bash}
 ~~~
 [1]+  Running                 flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye.out &
 ~~~
 {: .output}
-Note: if you disconnect from the instance while Flye is running you won't be able to track it's progress through this method.
+
+Note: if you disconnect from the instance while Flye is running you won't be able to track the jobs progress through this method.
 
 Flye also generates a log file when running within the output folder it has generated.
 Using less we can navigate through this file.
@@ -278,8 +284,9 @@ Note: this log file will contain similar to the `flye_output.txt` file we're gen
 > TO FILL
 {: .callout}
 
+
 Flye is likely to take a *couple of hours* to finish assembling.
-You don't need to remain connected to the instance during this time but once you have disconnected it does make it harder to track Flye's progress.
+You don't need to remain connected to the instance during this time but once you have disconnected it does make it harder to track the progress of Flye.
 
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
 
@@ -288,9 +295,9 @@ In the meantime, if you wanted to read more about assembly and metagenomics ther
 > MORE HERE
 {: .callout}
 
-## Determining if the assembly has finished
+### Determining if the assembly has finished
 
-After leaving it at least a couple of hours (or even longer!) Flye should have finished assembling.
+After leaving it at least a couple of hours (or even longer!), Flye should have finished assembling.
 
 If you remained connected to the instance during the process you will get the following output in your terminal when the command has finished.
 
@@ -323,11 +330,9 @@ If you navigate to the end of the file you should see something like:
 ~~~
 {: .output}
 
-It also contains some basic statistics about the assembly it's created.
+It also contains some basic statistics about the assembly created.
 
-## Assembly Statistics
-
-As we've just seen Flye has finished the assembly and also given us some basic statistics about the size of the assembly. Not every assembler will give you this information so we're going to use the program `seqkit` to get this information.
+### Assembly Output
 
 If we `ls` in the assembly directory we can see the that Flye has created many different files.
 
@@ -339,16 +344,24 @@ If we `ls` in the assembly directory we can see the that Flye has created many d
 
 We've already looked at `flye.log` which contains all the info Flye generates during an assembly.
 
-Flye generates a directory to contain the output for each step of the assembly process. (These are the `00-assembly`, `10-consensus`, `20-repeat`, `30-contigger` and `40-polishing` directories.) We also have a file containing the parameters we ran the assembly under `params.json` which is useful to keep our analysis reproducible.
-The assembly is in FASTA format (`assembly.fasta`), but we can also see there's a text file which contains more information about each contig created (`assembly_info.txt`). And finally we have two files for a repeat graph (`assembly_graph.{gfa|gv}`).   
+* Flye generates a directory to contain the output for each step of the assembly process. (These are the `00-assembly`, `10-consensus`, `20-repeat`, `30-contigger` and `40-polishing` directories.)  
+* We also have a file containing the parameters we ran the assembly under `params.json` which is useful to keep our analysis reproducible.  
+* The assembly is in FASTA format (`assembly.fasta`).  
+* There's a text file which contains more information about each contig created (`assembly_info.txt`).
+* Finally we have two files for a repeat graph (`assembly_graph.{gfa|gv}`).    
 You can see more about the output for Flye in the [documentation on GitHub](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#output).
 
+> ## Contigs vs. reads
+> We have seen reads in the raw sequencing data.
+> After assembly we introduce contigs. Contigs (from the word *contiguous*) are fragments of DNA produced after raw reads are joined together by the assembly process.
+> As a result contigs are usually much longer than raw reads and also vary in length and number depending on how successful the assembly has been.
+{: .callout}
 
-We will be using the FASTA file of the assembly to get the assembly stats.
+## Assembly Statistics
 
-We will be using the program [Seqkit](https://bioinf.shenwei.me/seqkit/) again, but this time with a different command `stats` to generate the basic assembly statistics.
+As we've just seen, Flye has finished the assembly and also given us some basic statistics about the size of the assembly. Not every assembler will give you this information so we will be using assembly FASTA file and the program [Seqkit](https://bioinf.shenwei.me/seqkit/) again, but this time with a different command, `stats`, to generate basic statistics.
 
-We can again view the help documentation for this command:
+We can view the help documentation for this command:
 ~~~
 seqkit stats -h
 ~~~
@@ -399,9 +412,10 @@ First we're going to use the default options to get the statistics.
 seqkit stats assembly.fasta
 ~~~
 {: .bash}
-SeqKit is fast so we are just running this directly in the terminal. It should take a maximum of a couple of seconds to process the assembly.
 
-Once it has you should see an output similar (maybe the same?) as this:
+SeqKit is fast so we are just running this directly in the terminal foreground. It should take a couple of seconds to process this assembly (however, it can take longer with more sequencing data).
+
+Once it has finished you should see an output table like this:
 ~~~
 file            format  type  num_seqs     sum_len  min_len    avg_len    max_len
 assembly.fasta  FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,630
@@ -410,13 +424,13 @@ assembly.fasta  FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,63
 
 In this table we can see the input file, the format of the file, the type of sequence and other statistics.
 
+Using this table of statistics, answer the questions below.
 > ## Exercise X: Looking at basic statistics
-> Using the statistics produced by seqkit stats
 > a) How many contigs are in this assembly?
 > b) How many bases in total have been assembled?
 > c) What is the shortest and longest contig produced by this assembly?
 >> ## Solution
->> a) From `num_seqs` we can see that this assembly is made up of 146 contigs
+>> a) From `num_seqs` we can see that this assembly is made up of 146 contigs - a contig
 >> b) Looking at `sum_length` we can see that the assembly is 14,953,273bp in total (almost 15 million bp!)
 >> c) From `min_length` we can see the shortest contig is 3,164bp and from `max_length` the longest contig is 6,068,630bp
 > {: .solution}
