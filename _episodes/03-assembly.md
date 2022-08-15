@@ -271,13 +271,6 @@ TO FILL
 ~~~
 {: .output}
 
-After an assembly is finished you will see something at the end of this file like the following:
-~~~
-TO FILL -- from INFO: >>>STAGE: finalize etc
-~~~
-{: .output}
-
-
 > ## Reminder for how to use less
 > `less`
 > `g` to get to the end
@@ -290,27 +283,42 @@ TO FILL -- from INFO: >>>STAGE: finalize etc
 ps
 ~~~
 {. :bash}
-
+This lists all processes currently running (including background processes that keep the instance running, but we don't need to care about that). If you've run the earlier command correctly you should be able to see the command you ran in the fourth column.
 ~~~
 TO FILL
 ~~~
 {: .output}
 
 
+Flye is likely to take a *couple of hours* to finish assembling so you should go and do something else for a while. If you've run everything correctly you should be able to entirely log off from the instance (& even shut your computer down) with Flye still running.
 
-Flye is likely to take a couple of hours to finish assembling so you should go and do something else for a while.
-If you want to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
+In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
 
 > ## Recommended reading:
 >
 {: .reminder}
 
+## Determining if the assembly has finished
+
+After leaving it at least a couple of hours (or longer!) we can check if Flye has finished using a combination of the two above commands.
+
+First we can see if the command is still running using `ps`. If you don't see the `nohup` command running it likely means it has finished.
+We can then check the output file from Flye.
+
+~~~
+cd analysis/assembly/
+less flye.out
+~~~
+{: .bash}
+If you navigate to the end of the file you should see something like:
+~~~
+TO FILL -- from INFO: >>>STAGE: finalize etc
+~~~
+{: .output}
+
+## Assembly stats
 
 
-
-
-
-## Updated to here
 
 When the run is finished it shows this message:
 
