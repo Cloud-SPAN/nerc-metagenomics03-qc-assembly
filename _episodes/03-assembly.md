@@ -398,40 +398,44 @@ seqkit stats assembly.fasta
 ~~~
 {: .bash}
 
-> ## Exercise X: Command to get the N50 length
-> 1. Using the help documentation, what flag can we add to get the N50 length for this assembly?
-> 2. What would the new command be if we added this flag?
+> ## Exercise X: Looking at basic statistics
+> a) Using the help documentation, what flag can we add to get the N50 length for this assembly?
+> b) What would the new command be if we added this flag?
 >> ## Solution
->> 1. We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.
->> 2. The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`
+>> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.
+>> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`
 > {: .solution}
 {: .challenge}
+
 
 ## The N50 statistic
-
+Why are we interested in N50?
 
 
 > ## Exercise X: Command to get the N50 length
-> 1. Using the help documentation, what flag can we add to get the N50 length for this assembly?
-> 2. What would the new command be if we added this flag?
+> a) Using the help documentation, what flag can we add to get the N50 length for this assembly?
+> b) What would the new command be if we added this flag?
 >> ## Solution
->> 1. We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.
->> 2. The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`
+>> a) We can see from the help documentation that the flag `-a` or `--all` will calculate `all statistics, including quartiles of seq length, sum_gap, N50`.
+>> b) The new command would be `seqkit stats -a assembly.fasta` or `seqkit stats --all assembly.fasta`
 > {: .solution}
 {: .challenge}
 
+
+
 > ## Exercise X: Calculating the N50 length
-> 1. What is the output if we run the new command from the above exercise?
-> 2. What new statistics do we get that we didn't have with the original command?
+> a) What is the output if we run the new command from the above exercise?
+> b) What new statistics do we get that we didn't have with the original command?
 > Bonus exercise: Looking at the [information available online for Seqkit stats](https://bioinf.shenwei.me/seqkit/usage/#stats), can you work out what these extra statistics tell us?
+> Hint:
 >> ## Solution
->> 1.
+>> a)
 >> ~~~
 >> file            format  type  num_seqs     sum_len  min_len    avg_len    max_len     Q1        Q2      Q3  sum_gap        N50  Q20(%)  Q30(%)
 >> assembly.fasta  FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,630  7,364  13,415.5  35,259        0  2,976,503       0       0
 >> ~~~
 >> {: .output}
->> 2. Comparing the header line from this command to the original command we can see we've now got statistics for Q1, Q2, Q3, sum_gap, N50, Q20(%) and Q30(%)
+>> b) Comparing the header line from this command to the original command we can see we've now got statistics for Q1, Q2, Q3, sum_gap, N50, Q20(%) and Q30(%)
 >> Bonus: ANSWER THIS
 > {: .solution}
 {: .challenge}
