@@ -490,6 +490,7 @@ Next, run the command to calculate the N50 length and answer the questions below
 > ## Exercise X: Calculating the N50 length
 > a) What is the output if we run the new command from the above exercise?  
 > b) What new statistics do we get that we didn't have with the original command?  
+> c) What is the N50 length of this assembly?  
 > Bonus exercise: Looking at the [information available online for Seqkit stats](https://bioinf.shenwei.me/seqkit/usage/#stats), can you work out what the extra statistics other than N50 tell us?
 >> ## Solution
 >> a)
@@ -499,6 +500,7 @@ Next, run the command to calculate the N50 length and answer the questions below
 >> ~~~
 >> {: .output}
 >> b) Comparing the header line from this command to the original command we can see we've now got statistics for Q1, Q2, Q3, sum_gap, N50, Q20(%) and Q30(%)  
+>> c) The N50 length for this assembly is 2,976,503 bp, this tells us that 50% of the assembly is in fragments that are almost 3m bases long or longer!  
 >> Bonus: ANSWER THIS
 > {: .solution}
 {: .challenge}
