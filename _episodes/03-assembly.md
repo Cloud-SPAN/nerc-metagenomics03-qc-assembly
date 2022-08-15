@@ -35,7 +35,7 @@ Continuing the jigsaw analogy, the reference-mapping approach would be when you 
 
 ### Metagenomic assembly
 
-Metagenomic sequencing adds another layer to the challenge of assembly. Instead of just having one organism to assemble you now have multiple! Depending on the complexity of a metagenome you could have anywhere from a handful of organisms in a community to thousands.
+Metagenomic sequencing adds another layer to the challenge of assembly. Instead of having one organism to assemble you now have multiple! Depending on the complexity of a metagenome you could have anywhere from a handful of organisms in a community to thousands.
 
 This means the single jigsaw puzzle of a genome assembly has now become multiple different jigsaw puzzles in one.
 
@@ -198,10 +198,6 @@ Finally, as this dataset is a metagenome we need to use the `--meta` option for 
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
 
-We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
-We're going to get `flye` to create the `assembly` directory as its output directory.
-
-
 ~~~
  flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
@@ -210,9 +206,13 @@ We're going to get `flye` to create the `assembly` directory as its output direc
      --meta
 ~~~
 {: .bash}
+
+We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
+We're also going to get Flye to create the `assembly` directory as its output directory.
+
 **<span style="color:red"> Don't run this command yet!</span>**
 
-Now we've built our command we could just stop here **but** metagenomic assembly takes a long time!
+Now we've built our command we could stop here **but** metagenomic assembly takes a long time!
 
 If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.
 
@@ -222,9 +222,29 @@ Luckily we don't have to do that using a remote computer (as that's what the ins
 
 The commands we've previously run in this course have all been run in the foreground - aka they've been run directly in the terminal window we've been using and occupy the window until they've finished.
 
+We can instead run a job in the background that doesn't take over the terminal window.
+
+To do this we take the command we want to run and then follow it by an ampersand (`&`) symbol.
+
+This puts the job into the background so we can do other things in the terminal but it will still stop running if you log out of the instance.
+So we need to also add no hangup (`nohup`) to prevent the job from terminating when we log off from the instance.
+Finally we need to redirect the output Flye reports to the terminal into a file with `>`.
+
+Once we add these three things into our command we get the following:
+~~~
+nohup flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
+     --out-dir assembly \
+     --threads 4 \
+     --iterations 3 \
+     --meta &> flye.out
+~~~
+{: .bash}
+
+Note the lack of a space between `&>`.
 
 
-> ## Running commands on the background
+> ## Running commands on different servers
+> Running commands you don't want to
 > The `&` sign that we are using at the end of the command is for telling
 the machine to run the command on the background, this will help us to avoid
 the cancelation of the operation in case the connection with the AWS machine is unstable.
