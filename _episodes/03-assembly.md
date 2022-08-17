@@ -305,9 +305,11 @@ You don't need to remain connected to the instance during this time but once you
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
 
 > ## Recommended reading:
-> While you're waiting for the assembly to finish you might want to read about the different programs devoted to [genome](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/) and metagenome assembly, which can use different assembly strategies such as; Greedy extension, OLC and De Bruijn charts.
-> MORE HERE
-{: .callout}
+> While you're waiting for the assembly to finish here's some things you might want to read about:
+> * An overall background to the history of DNA sequencing in [DNA sequencing at 40: past, present and future](https://www.nature.com/articles/nature24286)  
+> * An overview of a metagenomics project  [Shotgun metagenomics, from sampling to analysis](https://www.nature.com/articles/nbt.3935) - though note this paper is from 2017 so some techniques and software will be different now.  
+> * The challenges of genomic and metagenomic assembly and the algorithms have been built to overcome these in [Assembly Algorithms for Next-Generation Sequencing Data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/)  
+{: .callout}  
 
 ### Determining if the assembly has finished
 
