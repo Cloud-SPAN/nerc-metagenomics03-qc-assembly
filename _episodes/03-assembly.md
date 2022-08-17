@@ -61,11 +61,6 @@ for assembling large and complex data with a metagenomic mode.
 
 <br clear="left"/>
 
-
-> ## Choosing an appropriate program
-> To fill!
-{: .callout}
-
 ## Flye is a long-read assembler
 
 Important: Make sure you're still logged into your instance [Logging onto the Cloud](https://cloud-span.github.io/metagenomics01-qc-assembly/01-logging-onto-cloud/index.html)
