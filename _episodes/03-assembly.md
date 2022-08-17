@@ -237,14 +237,11 @@ We can now press enter to run the command.
 Unlike when we have previously run code, your prompt should immediately return. This doesn't mean that the code has finished already, it should now be running in the background.
 
 > ## Running commands on different servers
-> Depending on your computing resources -
-> nohup
-> Those with shared computing resources often get given the option to run a job in a queue --> slurm etc
-> Can run in screen
-> The `&` sign that we are using at the end of the command is for telling
-the machine to run the command on the background, this will help us to avoid
-the cancelation of the operation in case the connection with the AWS machine is unstable.
-> TO FILL
+> There's many different options to run commands in the background in terminal.  
+> How you run these commands (also known as jobs) will depend on the computing resources (and their fair use policies) you are running the command on.  
+> We've covered the using `&` here, but depending on the infrastructure you're running the command on you may also need to use `nohup` to prevent the background job from being killed when you close the terminal.  
+> Another option is the command line program `screen`, which allows you to create a shell session that can be completely detached from a terminal and re-attached when needed.
+> Many shared computing resources, like  High Performance Computers (HPC) some Universities have, operate a queuing system, e.g. SLURM, so each user gets their fair share of computing resources. With these you submit your command / job to the queueing system, which will then handle when to run the job on the resources available. 
 {: .callout}
 
 As we're running the command in the background we no longer see the output on the terminal. Luckily we have two options available for us to check on the progress of the assembly.
