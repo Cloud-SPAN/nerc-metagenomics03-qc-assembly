@@ -285,11 +285,15 @@ At the start of an assembly you'll probably see something like this:
 
 Note: this log file will contain similar to the `flye_output.txt` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
 
->## Reminder for how to use less
-> `less`
-> `g` to get to the end
-> `q` to quit etc
-> TO FILL
+>## Navigation commands in `less`:
+> | key     | action |
+> | ------- | ---------- |
+> | <kbd>Space</kbd> | to go forward |
+> |  <kbd>b</kbd>    | to go backward |
+> |  <kbd>g</kbd>    | to go to the beginning |
+> |  <kbd>G</kbd>    | to go to the end |
+> |  <kbd>q</kbd>    | to quit |
+> See [Prenomics - Working with Files and Directories](https://cloud-span.github.io/prenomics02-command-line/02-working-with-file/index.html) for a full overview on using less. 
 {: .callout}
 
 
