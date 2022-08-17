@@ -19,6 +19,7 @@ keypoints:
 <img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
 Now we have put our raw reads through quality control we are going to move onto the next step in the process which is assembly of the metagenome.
+<br clear="right"/>
 
 ### Genomic assembly
 
@@ -32,7 +33,7 @@ There are two main strategies for genome assembly.
 
 Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
 
-<br clear="right"/>
+<img align="left" width="1200" height="2364" src="{{ page.root }}/fig/03_metagenomics _wf.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
 
 ### Metagenomic assembly
 
@@ -57,6 +58,9 @@ The assembly strategy also differs based on the sequencing technology used to ge
 
 [Flye](https://github.com/fenderglass/Flye) is a **long-read** _de novo_ assembler
 for assembling large and complex data with a metagenomic mode.
+
+<br clear="left"/>
+
 
 > ## Choosing an appropriate program
 > To fill!
@@ -241,7 +245,7 @@ Unlike when we have previously run code, your prompt should immediately return. 
 > How you run these commands (also known as jobs) will depend on the computing resources (and their fair use policies) you are running the command on.  
 > We've covered the using `&` here, but depending on the infrastructure you're running the command on you may also need to use `nohup` to prevent the background job from being killed when you close the terminal.  
 > Another option is the command line program `screen`, which allows you to create a shell session that can be completely detached from a terminal and re-attached when needed.
-> Many shared computing resources, like  High Performance Computers (HPC) some Universities have, operate a queuing system, e.g. SLURM, so each user gets their fair share of computing resources. With these you submit your command / job to the queueing system, which will then handle when to run the job on the resources available. 
+> Many shared computing resources, like  High Performance Computers (HPC) some Universities have, operate a queuing system, e.g. SLURM, so each user gets their fair share of computing resources. With these you submit your command / job to the queueing system, which will then handle when to run the job on the resources available.
 {: .callout}
 
 As we're running the command in the background we no longer see the output on the terminal. Luckily we have two options available for us to check on the progress of the assembly.
