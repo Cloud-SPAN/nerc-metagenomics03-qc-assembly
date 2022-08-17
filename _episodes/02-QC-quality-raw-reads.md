@@ -587,7 +587,7 @@ Looking at the Summary Statistics table answer the following questions:
 > used to generate your data, so that you can tell your quality control program which encoding
 > to use. If you choose the wrong encoding, you run the risk of throwing away good reads or
 > (even worse) not throwing away bad reads!
-> Nanopore quality encodings are no exception, you can read more about the differences with Nanopore sequencing on [EPI2ME - Quality Scores]https://labs.epi2me.io/quality-scores/ if you're interested.
+> Nanopore quality encodings are no exception, you can read more about the differences with Nanopore sequencing on [EPI2ME - Quality Scores](https://labs.epi2me.io/quality-scores/) if you're interested.
 {: .callout}
 
 > ## N50
