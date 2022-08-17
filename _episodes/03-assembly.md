@@ -378,10 +378,12 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > > * Bandage will take some time to draw the graph, however this depends on the size of the graph.  
 > > * You should then see the graph of the assembly and be able to change colours, zoom and save your view to an image (File>Save image)
 > {: .solution}
-> > # Solution: Bandage output of this assembly  
+> > ## Solution: Bandage output of this assembly  
 > > Your output may look a little different to this as Bandage may have drawn your graph a little differently.  
-> > [The repeat graph from Bandage]({{ page.root }}/fig/03_bandage_graph.png)
-> > From this we can see that a 
+>> <a href="{{ page.root }}/fig/03_bandage_graph.png">
+> > <img align="center" width="948" height="815" src="{{ page.root }}/fig/03_bandage_graph.png" alt="Repeat graph of the assembly showing some contigs joined together in a circle, and some more with small fragments" />
+> > </a>
+> > some text here
 > {: .solution}
 {: .challenge}
 
