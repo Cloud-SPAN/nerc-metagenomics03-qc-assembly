@@ -23,7 +23,6 @@ keypoints:
 <img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
 Now we have put our raw reads through quality control we are going to move onto the next step in the process which is assembly of the metagenome.
-<br clear="right"/>
 
 
 ### Genomic assembly
@@ -35,6 +34,8 @@ You can think of this like a jigsaw puzzle, each raw read corresponds to a piece
 There are two main strategies for genome assembly.
 1. a reference-mapping approach when you have a reference genome of what you have sequenced to map your smaller reads onto
 2. a _de novo_ approach, this is an assembly approach that doesn't use a reference and instead assembles reads together based on the content of the reads (the specific approach depends on which assembly software you are using)
+
+<br clear="right"/>
 
 <img align="left" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
 
