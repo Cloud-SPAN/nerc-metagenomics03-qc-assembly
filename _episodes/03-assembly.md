@@ -25,6 +25,7 @@ keypoints:
 Now we have put our raw reads through quality control we are going to move onto the next step in the process which is assembly of the metagenome.
 <br clear="right"/>
 
+
 ### Genomic assembly
 
 Genomic assembly refers to the act of joining smaller fragments of DNA (i.e. reads) to make longer segments to try and reconstruct the original genome.
@@ -35,9 +36,9 @@ There are two main strategies for genome assembly.
 1. a reference-mapping approach when you have a reference genome of what you have sequenced to map your smaller reads onto
 2. a _de novo_ approach, this is an assembly approach that doesn't use a reference and instead assembles reads together based on the content of the reads (the specific approach depends on which assembly software you are using)
 
-Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
-
 <img align="left" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+
+Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
 
 ### Metagenomic assembly
 
