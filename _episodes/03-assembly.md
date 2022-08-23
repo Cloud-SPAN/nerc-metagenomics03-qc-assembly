@@ -15,6 +15,10 @@ keypoints:
 - "Certain statistics can be used to describe the quality of an assembly"
 ---
 
+> ## WARNING
+> This lesson will take several hours to run and complete! You can find some recommended reading at the end of the page you might want to read whilst you're waiting.
+{: .callout}
+
 ## Assembling reads
 <img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
@@ -56,8 +60,7 @@ iii) and the presence of several strains of a single species in the community
 
 The assembly strategy also differs based on the sequencing technology used to generate the raw reads. Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this metagenome assembly so we need to use a metagenome assembler appropriate for long-read sequencing.
 
-[Flye](https://github.com/fenderglass/Flye) is a **long-read** _de novo_ assembler
-for assembling large and complex data with a metagenomic mode.
+We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-read** _de novo_ assembler for assembling large and complex data with a metagenomic mode.
 
 <br clear="left"/>
 
@@ -203,7 +206,7 @@ We're also going to get Flye to create the `assembly` directory as its output di
 ~~~
 {: .bash}
 
-**<span style="color:red"> Don't run this command yet!</span>**
+**<span style="color:red"> Don't run this command yet! If you have, you can press <kbd>Ctrl</kbd>+<kbd>z</kbd> to stop the command.</span>**
 
 Now we've built our command we could stop here **but** metagenomic assembly takes a long time.  
 If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.  
@@ -230,7 +233,7 @@ flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
 ~~~
 {: .bash}
 
-Note the lack of a space between `&>` and the second `&` --> explain here.
+`&>` redirects any logging information by the program that would originally come to the terminal and save to file. Note the lack of a space between `&>`. The second `&` then runs this command in the background.
 
 We can now press enter to run the command.
 Unlike when we have previously run code, your prompt should immediately return. This doesn't mean that the code has finished already, it should now be running in the background.
@@ -238,9 +241,10 @@ Unlike when we have previously run code, your prompt should immediately return. 
 > ## Running commands on different servers
 > There's many different options to run commands in the background in terminal.  
 > How you run these commands (also known as jobs) will depend on the computing resources (and their fair use policies) you are running the command on.  
-> We've covered the using `&` here, but depending on the infrastructure you're running the command on you may also need to use `nohup` to prevent the background job from being killed when you close the terminal.  
-> Another option is the command line program `screen`, which allows you to create a shell session that can be completely detached from a terminal and re-attached when needed.
-> Many shared computing resources, like  High Performance Computers (HPC) some Universities have, operate a queuing system, e.g. SLURM, so each user gets their fair share of computing resources. With these you submit your command / job to the queueing system, which will then handle when to run the job on the resources available.
+> The main options include:
+> * `&` which we've covered here, depending on the infrastructure you're running the command on you may also need to use [`nohup`](https://www.digitalocean.com/community/tutorials/nohup-command-in-linux) to prevent the background job from being killed when you close the terminal.  
+> * The command line program [`screen`](https://linuxize.com/post/how-to-use-linux-screen/), which allows you to create a shell session that can be completely detached from a terminal and re-attached when needed.
+> * Queuing system - many shared computing resources, like  High Performance Computers (HPC) some Universities have, operate a queuing system, e.g. SLURM or SGE, so each user gets their fair share of computing resources. With these you submit your command / job to the queueing system, which will then handle when to run the job on the resources available.
 {: .callout}
 
 As we're running the command in the background we no longer see the output on the terminal. Luckily we have two options available for us to check on the progress of the assembly.
@@ -298,13 +302,6 @@ Flye is likely to take a *couple of hours* to finish assembling.
 You don't need to remain connected to the instance during this time but once you have disconnected it does make it harder to track the progress of Flye.
 
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
-
-> ## Recommended reading:
-> While you're waiting for the assembly to finish here's some things you might want to read about:
-> * An overall background to the history of DNA sequencing in [DNA sequencing at 40: past, present and future](https://www.nature.com/articles/nature24286)  
-> * An overview of a metagenomics project  [Shotgun metagenomics, from sampling to analysis](https://www.nature.com/articles/nbt.3935) - though note this paper is from 2017 so some techniques and software will be different now.  
-> * The challenges of genomic and metagenomic assembly and the algorithms have been built to overcome these in [Assembly Algorithms for Next-Generation Sequencing Data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/)  
-{: .callout}  
 
 ### Determining if the assembly has finished
 
@@ -520,3 +517,11 @@ Next, run the command to calculate the N50 length and answer the questions below
 >> Bonus: ANSWER THIS
 > {: .solution}
 {: .challenge}
+
+
+> ## Recommended reading:
+> While you're waiting for the assembly to finish here's some things you might want to read about:
+> * An overall background to the history of DNA sequencing in [DNA sequencing at 40: past, present and future](https://www.nature.com/articles/nature24286)  
+> * An overview of a metagenomics project  [Shotgun metagenomics, from sampling to analysis](https://www.nature.com/articles/nbt.3935) - though note this paper is from 2017 so some techniques and software will be different now.  
+> * The challenges of genomic and metagenomic assembly and the algorithms have been built to overcome these in [Assembly Algorithms for Next-Generation Sequencing Data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/)  
+{: .callout}  
