@@ -36,6 +36,8 @@ medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -o flye_sub
 ## Polishing with short reads
 Something about pilon here....
 
+When doing bioinformatics you will come across software that requires a different amount of user input. Some software, such as Flye or Medaka, will accept your files as they come from different step with minimal preprocessing as they do most of the things required "under the hood". However some programs require you to generate particular files or process your files in a different way. Pilon which we will be using in this step requires us to create an indexed BAM file in order to polish the genome with short reads. You will also see BWA which we use to create this BAM file, also requires some pre-process of the medaka polished assembly.
+
 BWA
 ~~~
 bwa index consensus.fasta
