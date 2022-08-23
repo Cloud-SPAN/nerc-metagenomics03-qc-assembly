@@ -37,7 +37,7 @@ There are two main strategies for genome assembly.
 
 Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
 
-<img align="left" width="600" height="1182" src="{{ page.root }}/fig/03_metagenomics_wf.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+<img align="left" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
 
 ### Metagenomic assembly
 
