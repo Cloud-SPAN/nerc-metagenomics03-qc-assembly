@@ -510,13 +510,13 @@ Next, run the command to calculate the N50 length and answer the questions below
 >> ## Solution
 >> a)
 >> ~~~
->> file            format  type  num_seqs     sum_len  min_len    avg_len    max_len     Q1        Q2      Q3  sum_gap        N50  Q20(%)  Q30(%)  GC(%)
+>> file         format  type  num_seqs     sum_len  min_len    avg_len    max_len     Q1        Q2      Q3  sum_gap        N50  Q20(%)  Q30(%)  GC(%)
 >> assembly.fasta  FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,630  7,364  13,415.5  35,259        0  2,976,503       0       0  52.48
 >> ~~~
 >> {: .output}
 >> b) Comparing the header line from this command to the original command we can see we've now got statistics for Q1, Q2, Q3, sum_gap, N50, Q20(%) and Q30(%)  
 >> c) The N50 length for this assembly is 2,976,503 bp, this tells us that 50% of the assembly is in fragments that are almost 3m bases long or longer!  
->> Bonus: ANSWER THIS
+>> Bonus: `Q1`, `Q2`, `Q3` is the quartile range of sequence length, `sum_gap` is the total number of ambiguous bases (N's) in the sequence, N50 we have covered, Q20(%) is the percentage of bases with a PHRED score over 20, Q30(%) is the percentage of bases with a PHRED score over 30. GC(%) is the [guanine-cytosine content](https://en.wikipedia.org/wiki/GC-content) of the sequence.   
 > {: .solution}
 {: .challenge}
 
