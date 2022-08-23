@@ -511,7 +511,7 @@ Next, run the command to calculate the N50 length and answer the questions below
 >> a)
 >> ~~~
 >> file          format type num_seqs sum_len    min_len  avg_len    max_len    Q1     Q2       Q3      sum_gap  N50      Q20(%) Q30(%) GC(%)
->> assembly.fasta FASTA  DNA  146      14,953,273  3,164    102,419.7  6,068,630  7,364  13,415.5 35,259 0       2,976,503  0     0  52.48
+>> assembly.fasta FASTA  DNA  146      14,953,273  3,164    102,419.7  6,068,630  7,364  13,415.5 35,259 0       2,976,503  0     0     52.48
 >> ~~~
 >> {: .output}
 >> b) Comparing the header line from this command to the original command we can see we've now got statistics for Q1, Q2, Q3, sum_gap, N50, Q20(%) and Q30(%)  
