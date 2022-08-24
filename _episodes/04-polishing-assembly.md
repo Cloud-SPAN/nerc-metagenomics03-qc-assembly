@@ -45,7 +45,7 @@ medaka_consensus -h
 > Assembly polishing via neural networks. Medaka is optimized
 > to work with the Flye assembler.
 >
-> medaka_consensus [-h] -i <fastx> -d <fasta>
+> medaka_consensus [-h] -i \<fastx\> -d \<fasta\>
 >
 >     -h  show this help text.
 >     -i  fastx input basecalls (required).
