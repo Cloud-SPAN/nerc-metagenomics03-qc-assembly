@@ -38,9 +38,9 @@ medaka_consensus -h
 {: .bash}
 
 > ## `medaka_consensus` Help
+>
 > ~~~
 > medaka 1.7.0
-> ------------
 >
 > Assembly polishing via neural networks. Medaka is optimized
 > to work with the Flye assembler.
