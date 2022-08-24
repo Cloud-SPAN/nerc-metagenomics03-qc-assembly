@@ -18,6 +18,8 @@ keypoints:
 ---
 
 Now we have generated a draft genome
+We need to polish it blah blah
+
 ## Polishing an assembly with long reads
 Something about medaka here...
 
@@ -25,7 +27,6 @@ We're first going to use the filtered raw long reads to polish the draft Flye as
 As with the assembly, we need to use polishing software that is especially written for long read raw reads.
 
 [Medaka](https://github.com/nanoporetech/medaka) is a command line tool built by Oxford Nanopore Technologies which will polish an assembly by generating a consensus from raw Nanopore sequences using a recurrent neural network.
-
 
 We will be using the command medaka_consensus, which is a pipeline that will first align the raw reads to the draft assembly, processes this alignment to generate a pileup which is presented to a recurrent neural network in order to produce a consensus sequence.
 
@@ -64,10 +65,17 @@ medaka_consensus -h
 > {: .output}
 {: .solution}
 
+From this we can see that `-i` for the input basecalls (meaning Nanopore raw-reads) and `-d` for the assembly are required.
+As Medaka uses recurrent neural networks we need to pick an appropriate model (`-m`) for the data we're using. From the [documentation](https://github.com/nanoporetech/medaka#models), Medaka models are named to indicate i) the pore type, ii) the sequencing device (MinION or PromethION), iii) the basecaller variant, and iv) the basecaller version, with the format: `{pore}_{device}_{caller variant}_{caller version}`. Medaka doesn't offer an exact model for our dataset while it is possible to train a model yourself we will not be doing that here and instead will use the closest available model. This is the model `r941_prom_fast_g303`, so we also need to add that to our command as that isn't medakas default.
+Finally, to speed this step up we need to specify the number of threads with `-t`.
+
+This gives us the command:
 ~~~
-medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -o flye_sub5_med -t 12
+medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -m r941_prom_fast_g303 -t 4 &> medaka.out &
 ~~~
 {: .bash}
+Note, we have added `&> medaka.out &` to redirect the output and run the command in the background. Medaka shouldn't take as long as Flye did in the previous step (probably around 20 mins), but it's a good idea to run things in the background so that you can do other things while the program is running.
+
 
 ## Polishing with short reads
 Something about pilon here....
