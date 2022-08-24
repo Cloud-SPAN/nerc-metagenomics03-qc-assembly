@@ -23,13 +23,48 @@ Something about medaka here...
 
 We're first going to use the filtered raw long reads to polish the draft Flye assembly.
 As with the assembly, we need to use polishing software that is especially written for long read raw reads.
-[Medaka](https://github.com/nanoporetech/medaka) is a command line tool built by Oxford Nanopore Technologies to generate a consensus sequence from  
+
+[Medaka](https://github.com/nanoporetech/medaka) is a command line tool built by Oxford Nanopore Technologies which will polish an assembly by generating a consensus from raw Nanopore sequences using a recurrent neural network.
 
 
+We will be using the command medaka_consensus, which is a pipeline that will first align the raw reads to the draft assembly, processes this alignment to generate a pileup which is presented to a recurrent neural network in order to produce a consensus sequence.
 
+Medaka has been pre-installed on the instance so, first we can look at the help page for medaka_consensus.
+Note: because this is a pipeline made up multiple steps we will be looking at the help documentation for `medaka_consensus` (no space!)
 
 ~~~
-medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -o flye_sub5_medtest_annie_full -t 12
+medaka_consensus -h
+~~~
+{: .bash}
+
+> ## `medaka_consensus` Help
+> ~~~
+> medaka 1.7.0
+> ------------
+>
+> Assembly polishing via neural networks. Medaka is optimized
+> to work with the Flye assembler.
+>
+> medaka_consensus [-h] -i <fastx> -d <fasta>
+>
+>     -h  show this help text.
+>     -i  fastx input basecalls (required).
+>     -d  fasta input assembly (required).
+>     -o  output folder (default: medaka).
+>     -g  don't fill gaps in consensus with draft sequence.
+>     -r  use gap-filling character instead of draft sequence (default: None)
+>     -m  medaka model, (default: r941_min_hac_g507).
+>         Choices: r103_fast_g507 r103_hac_g507 r103_min_high_g345 r103_min_high_g360 r103_prom_high_g360 r103_sup_g507 r1041_e82_400bps_fast_g615 r1041_e82_400bps_hac_g615 r1041_e82_400bps_sup_g615 r104_e81_fast_g5015 r104_e81_hac_g5015 r104_e81_sup_g5015 r104_e81_sup_g610 r10_min_high_g303 r10_min_high_g340 r941_e81_fast_g514 r941_e81_hac_g514 r941_e81_sup_g514 r941_min_fast_g303 r941_min_fast_g507 r941_min_hac_g507 r941_min_high_g303 r941_min_high_g330 r941_min_high_g340_rle r941_min_high_g344 r941_min_high_g351 r941_min_high_g360 r941_min_sup_g507 r941_prom_fast_g303 r941_prom_fast_g507 r941_prom_hac_g507 r941_prom_high_g303 r941_prom_high_g330 r941_prom_high_g344 r941_prom_high_g360 r941_prom_high_g4011 r941_prom_sup_g507 r941_sup_plant_g610
+>         Alternatively a .tar.gz/.hdf file from 'medaka train'.
+>     -f  Force overwrite of outputs (default will reuse existing outputs).
+>     -x  Force recreation of alignment index.
+>     -t  number of threads with which to create features (default: 1).
+>     -b  batchsize, controls memory use (default: 100).
+> {: .output}
+{: .solution}
+
+~~~
+medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -o flye_sub5_med -t 12
 ~~~
 {: .bash}
 
