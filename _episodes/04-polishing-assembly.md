@@ -67,9 +67,9 @@ medaka_consensus -h
 > {: .output}
 {: .solution}
 
-From this we can see that `-i` for the input basecalls (meaning Nanopore raw-reads) and `-d` for the assembly are required.  
-As Medaka uses recurrent neural networks we need to pick an appropriate model (`-m`) for the data we're using. From the [documentation](https://github.com/nanoporetech/medaka#models), Medaka models are named to indicate i) the pore type, ii) the sequencing device (MinION or PromethION), iii) the basecaller variant, and iv) the basecaller version, with the format: `{pore}_{device}_{caller variant}_{caller version}`. Medaka doesn't offer an exact model for our dataset while it is possible to train a model yourself we will not be doing that here and instead will use the closest available model. This is the model `r941_prom_fast_g303`, so we also need to add that to our command as that isn't medakas default.  
-Finally, to speed this step up we need to specify the number of threads with `-t`.
+* From this we can see that `-i` for the input basecalls (meaning Nanopore raw-reads) and `-d` for the assembly are required.  
+* As Medaka uses recurrent neural networks we need to pick an appropriate model (`-m`) for the data we're using. From the [documentation](https://github.com/nanoporetech/medaka#models), Medaka models are named to indicate i) the pore type, ii) the sequencing device (MinION or PromethION), iii) the basecaller variant, and iv) the basecaller version, with the format: `{pore}_{device}_{caller variant}_{caller version}`. Medaka doesn't offer an exact model for our dataset while it is possible to train a model yourself we will not be doing that here and instead will use the closest available model. This is the model `r941_prom_fast_g303`, so we also need to add that to our command as that isn't medakas default.  
+* Finally, to speed this step up we need to specify the number of threads with `-t`.
 
 This gives us the command:
 ~~~
@@ -78,7 +78,54 @@ medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -m r941_pro
 {: .bash}
 Note, we have added `&> medaka.out &` to redirect the output and run the command in the background. Medaka shouldn't take as long as Flye did in the previous step (probably around 20 mins), but it's a good idea to run things in the background so that you can do other things while the program is running.
 
+Similar to Flye, we can look in the output file (`medaka.out`) to check the progress of the command.
+If the medaka command has been run correctly you will see something like this at the start of the output:
+~~~
+Checking program versions
+This is medaka 1.7.0
+Program    Version    Required   Pass     
+bcftools   1.15.1     1.11       True     
+bgzip      1.15.1     1.11       True     
+minimap2   2.24       2.11       True     
+samtools   1.15.1     1.11       True     
+tabix      1.15.1     1.11       True     
+Aligning basecalls to draft
+Constructing minimap index.
+[M::mm_idx_gen::0.515*0.99] collected minimizers
+[M::mm_idx_gen::0.648*1.40] sorted minimizers
+[M::main::0.877*1.29] loaded/built the index for 146 target sequence(s)
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 146
+[M::mm_idx_stat::0.910*1.28] distinct minimizers: 2598367 (94.68% are singletons); average occurrences: 1.076; average spacing: 5.350; total length: 14953273
+~~~
+{: .output}
+Medaka first looks for the other programs that it needs and their versions. Once it confirms they are preset it begins by aligning the raw reads (basecalls) to the assembly using minimap.
+Once medaka has completed the end of the file will contain something like:
+~~~
+[20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:17 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:17 - DataIndx] Loaded 1/1 (100.00%) sample files.
+[20:51:17 - DataIndx] Loaded 1/1 (100.00%) sample files.
+Polished assembly written to medaka/consensus.fasta, have a nice day.
+~~~
+{: .output}
 
+Once medaka has completed we can navigate into the output directory and look at the files Medaka has generated. 
+
+~~~
+cd medaka
+ls
+~~~
+{: .bash}
+
+~~~
+~~~
+{: .output}
 
 ## Polishing with short reads
 Something about pilon here....
