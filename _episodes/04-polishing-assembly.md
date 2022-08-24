@@ -60,6 +60,7 @@ medaka_consensus -h
 >     -x  Force recreation of alignment index.
 >     -t  number of threads with which to create features (default: 1).
 >     -b  batchsize, controls memory use (default: 100).
+> ~~~
 > {: .output}
 {: .solution}
 
