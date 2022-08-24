@@ -26,9 +26,10 @@ We will be adapting the quality control workflow from [Cloud-SPAN Genomics](http
 
 You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
 
-We have two different types of sequencing data (short-read Illumina sequence and long-read Nanopore sequence) available for this metagenome and will be using them both in a hybrid approach to assemble and analyse this metagenome.
+We have two different types of sequencing data (short-read Illumina sequence and long-read Nanopore sequence) available for this metagenome. 
+We will be using them both in a hybrid approach to assemble and analyse this metagenome.
 
-Because the two types of sequencing are different in length and quality, we need to use different programs for each of them that are built to handle the different strengths and weaknesses each technology provides.
+Because the two types of sequences are different in length and quality, we need to use different programs for each of them that are built to handle the different strengths and weaknesses each technology provides.
 
 <br clear="left"/>
 
@@ -36,9 +37,9 @@ Because the two types of sequencing are different in length and quality, we need
 ## Illumina Quality control
 
 We will first quality control the raw Illumina data.
-We will be adapting the methods for short reads used in [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) with our Illumina short read data.
+We will be adapting the methods for short reads used in [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to use with our Illumina short read data.
 
-Now we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
+First we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
 
 > ## Reminder of the FASTQ format
 > See [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more in-depth reminder about the FASTQ format.
@@ -79,20 +80,21 @@ GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIG
 >                   |         |         |         |         |
 >Quality score:    01........11........21........31........41   
 >~~~
-> {: .output}                           
+> {: .output}
+> 
+> See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder about how PHRED scores work.                          
 {: .callout}
 
-Based on the PHRED quality scores, see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder,
-we can see that the quality score for the majority of the bases in this read is between 31-41.
+Based on the PHRED quality scores we can see that the quality score for the majority of the bases in this read is between 31-41.
 
 Rather than assessing every read in the raw data by hand we can use the program [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), which we previously used in Genomics, to visualise the quality of the whole sequencing file.
 
-First, we are going to create a analysis directory to contain the output of all of the analysis we generate in this course.
+First, we are going to organise our analysis by creating a directory to contain the output of all of the analysis we generate in this course.
 As in [Prenomics](https://cloud-span.github.io/prenomics00-intro/) and [Genomics](https://cloud-span.github.io/00genomics/), we will be using the command `mkdir` to create these directories.
 
 We have previously used `mkdir` to make one directory at once, however it is possible to make directories inside other directories.
 
-Using the `-p` option for `mkdir` allows it to create a new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory.
+Using the `-p` flag for `mkdir` allows it to create a new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory.
 
 ~~~
  cd
@@ -100,11 +102,11 @@ Using the `-p` option for `mkdir` allows it to create a new directory, even if o
  ls
 ~~~
 {: .bash}
-We can navigate through, using `cd` and see that all three directories have been made.
+We can navigate through using `cd` and see that all three directories have been made.
 
-Now we have created the directories we are ready to start the quality control of the Illumina data
+Now we have created the directories we are ready to start the quality control of the Illumina data.
 
-FastQC has been pre-installed on your instance so we can pull up the help documentation to remind ourselves of the paramaters avaiable.
+FastQC has been pre-installed on your instance so we can pull up the help documentation to remind ourselves of the parameters available.
 
 ~~~
 $ fastqc -h
@@ -237,7 +239,7 @@ $ fastqc -h
 > {: .output}
 {: .solution}
 
-If you're not already there we need to naviate to our `analysis/qc/illumina_qc` directory
+If you're not already there, we need to navigate to our `analysis/qc/illumina_qc` directory,
 ~~~
   cd ~/cs_course/analysis/qc/illumina_qc
 ~~~
