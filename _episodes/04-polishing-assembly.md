@@ -19,9 +19,11 @@ keypoints:
 
 Now we have generated a draft genome
 We need to polish it blah blah
+What is polishing?
+Why do we need to polish?
+How do we polish?
 
 ## Polishing an assembly with long reads
-Something about medaka here...
 
 We're first going to use the filtered raw long reads to polish the draft Flye assembly.
 As with the assembly, we need to use polishing software that is especially written for long read raw reads.
