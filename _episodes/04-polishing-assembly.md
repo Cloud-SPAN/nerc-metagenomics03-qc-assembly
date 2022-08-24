@@ -17,11 +17,11 @@ keypoints:
 - "Assemblers take FastQ files as input and produce a Fasta file as output."
 ---
 
-Now we have generated a draft genome
-We need to polish it blah blah
-What is polishing?
-Why do we need to polish?
-How do we polish?
+Now we have generated a draft genome  
+We need to polish it blah blah  
+What is polishing?  
+Why do we need to polish?  
+How do we polish?  
 
 ## Polishing an assembly with long reads
 
@@ -67,8 +67,8 @@ medaka_consensus -h
 > {: .output}
 {: .solution}
 
-From this we can see that `-i` for the input basecalls (meaning Nanopore raw-reads) and `-d` for the assembly are required.
-As Medaka uses recurrent neural networks we need to pick an appropriate model (`-m`) for the data we're using. From the [documentation](https://github.com/nanoporetech/medaka#models), Medaka models are named to indicate i) the pore type, ii) the sequencing device (MinION or PromethION), iii) the basecaller variant, and iv) the basecaller version, with the format: `{pore}_{device}_{caller variant}_{caller version}`. Medaka doesn't offer an exact model for our dataset while it is possible to train a model yourself we will not be doing that here and instead will use the closest available model. This is the model `r941_prom_fast_g303`, so we also need to add that to our command as that isn't medakas default.
+From this we can see that `-i` for the input basecalls (meaning Nanopore raw-reads) and `-d` for the assembly are required.  
+As Medaka uses recurrent neural networks we need to pick an appropriate model (`-m`) for the data we're using. From the [documentation](https://github.com/nanoporetech/medaka#models), Medaka models are named to indicate i) the pore type, ii) the sequencing device (MinION or PromethION), iii) the basecaller variant, and iv) the basecaller version, with the format: `{pore}_{device}_{caller variant}_{caller version}`. Medaka doesn't offer an exact model for our dataset while it is possible to train a model yourself we will not be doing that here and instead will use the closest available model. This is the model `r941_prom_fast_g303`, so we also need to add that to our command as that isn't medakas default.  
 Finally, to speed this step up we need to specify the number of threads with `-t`.
 
 This gives us the command:
@@ -77,6 +77,7 @@ medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -m r941_pro
 ~~~
 {: .bash}
 Note, we have added `&> medaka.out &` to redirect the output and run the command in the background. Medaka shouldn't take as long as Flye did in the previous step (probably around 20 mins), but it's a good idea to run things in the background so that you can do other things while the program is running.
+
 
 
 ## Polishing with short reads
