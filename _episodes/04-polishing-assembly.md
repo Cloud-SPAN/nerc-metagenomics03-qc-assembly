@@ -157,13 +157,13 @@ Bioinformatics programs are not built equally. Some programs like Flye or Medaka
 
 Pilon is in the latter group of bioinformatics software, so we will need to do some pre-processing using other programs to create some of the inputs needed.
 
-### Generating the input files
+### Generating the Pilon input files
 
 We will first use the program [BWA](https://github.com/lh3/bwa) to generate an alignment of the raw short reads against the draft genome.
 
 We've previously covered aligning reads to a genome in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html). We will be using very similar commands here.
 
-We first need to index the polished assembly we got from medaka. Indexing allows the aligner to quickly find potential alignment sites for query sequences in a genome, which saves time during alignment.
+We first need to index the polished assembly we got from Medaka. Indexing allows the aligner to quickly find potential alignment sites for query sequences in a genome, which saves time during alignment.
 ~~~
 bwa index consensus.fasta
 ~~~
@@ -187,14 +187,26 @@ We can then align the short reads to the draft assembly.
 
 It is possible to chain together commands in unix using a process known as "piping". This allows the output from one command to be directly passed to another command for further processing. This is especially useful for situations where you may not need the intermediate file again. To do this we use the pipe `|` character.  
 
-You can find the <kbd>|</kbd> character on your keyboard, usually by typing <kbd>⇧ Shift</kbd> + <kbd>\</kbd>.
+You can find the pipe (<kbd>|</kbd>) character on your keyboard, usually by typing <kbd>⇧ Shift</kbd> + <kbd>\</kbd>.
 
-Introduce piping a command & BWA
+You can use multiple pipes in one command but data will only go from the left to the right.
+I.e.
+`command1 | command2 | command3 | .... |`
+
+We will be using two pipes to join three different steps in order to align the raw reads to the draft assembly and then sort this alignment to generate a sorted BAM file.
+
+First we will generate the alignment using BWA mem, then convert the alignment into BAM with `samtools view` and finally sort the alignment with `samtools sort`. We have run each of these commands separately in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html), if you want to remind yourself of what they do in more detail.
+
 ~~~
 bwa mem -t 4 consensus.fasta ../ERR3152367_sub5_filtered.fastq | samtools view - -Sb | samtools sort - -@4 -o test.bam
 ~~~
 {: .bash}
 
+~~~
+~~~
+{: .output}
+
+We then need to run the following command to index the aligment. We haven't added this command to the above pipe
 ~~~
 samtools index test.bam
 ~~~
