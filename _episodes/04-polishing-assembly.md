@@ -195,10 +195,12 @@ I.e.
 
 We will be using two pipes to join three different steps in order to align the raw reads to the draft assembly and then sort this alignment to generate a sorted BAM file.
 
-First we will generate the alignment using BWA mem, then convert the alignment into BAM with `samtools view` and finally sort the alignment with `samtools sort`. We have run each of these commands separately in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html), if you want to remind yourself of what they do in more detail.
+First we will generate the alignment using BWA mem, then convert the alignment into BAM with `samtools view` and finally sort the alignment with `samtools sort`. Doing it this way w will only generate the one output file, `short_read_alignment.bam`, avoiding the need to generate large intermediary files we won't need again between the other two steps.
+
+We have run each of these commands separately in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html), if you want to remind yourself of what they do in more detail.
 
 ~~~
-bwa mem -t 4 consensus.fasta ../ERR3152367_sub5_filtered.fastq | samtools view - -Sb | samtools sort - -@4 -o test.bam
+bwa mem -t 4 consensus.fasta ../ERR3152367_sub5_filtered.fastq | samtools view - -Sb | samtools sort - -@4 -o short_read_alignment.bam
 ~~~
 {: .bash}
 
@@ -206,9 +208,9 @@ bwa mem -t 4 consensus.fasta ../ERR3152367_sub5_filtered.fastq | samtools view -
 ~~~
 {: .output}
 
-We then need to run the following command to index the aligment. We haven't added this command to the above pipe
+We then need to run the following command to index the aligment. We haven't added this command to the above pipe as we need the BAM file from above for further analysis and to be able to index it!
 ~~~
-samtools index test.bam
+samtools index short_read_alignment.bam
 ~~~
 {: .bash}
 
