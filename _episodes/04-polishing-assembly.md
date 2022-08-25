@@ -185,6 +185,9 @@ Once the indexing is complete you should see an output like:
 
 We can then align the short reads to the draft assembly.
 
+It is possible to chain together commands in unix using a process known as "piping". This allows the output from one command to be directly passed to another command for further processing. This is especially useful for situations where you may not need the intermediate file again. To do this we use the pipe `|` character.  
+
+You can find the <kbd>|</kbd> character on your keyboard, usually by typing <kbd>⇧ Shift</kbd> + <kbd>\</kbd>.
 
 Introduce piping a command & BWA
 ~~~
