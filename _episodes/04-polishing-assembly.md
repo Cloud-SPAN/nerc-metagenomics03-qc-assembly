@@ -157,7 +157,9 @@ Bioinformatics programs are not built equally. Some programs like Flye or Medaka
 
 Pilon is in the latter group of bioinformatics software, so we will need to do some pre-processing using other programs to create some of the inputs needed.
 
-We will first use the program BWA to generate an alignment of the raw short reads against the draft genome.
+### Generating the input files
+
+We will first use the program [BWA](https://github.com/lh3/bwa) to generate an alignment of the raw short reads against the draft genome.
 
 We've previously covered aligning reads to a genome in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html). We will be using very similar commands here.
 
