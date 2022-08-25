@@ -265,17 +265,17 @@ pilon --help
 > ## Pilon help Documentation
 > ~~~
 > Pilon version 1.24 Thu Jan 28 13:00:45 2021 -0500
->              Minimum size for unclosed gaps (default 10)
+>
 >    Usage: pilon --genome genome.fasta [--frags frags.bam] [--jumps jumps.bam] [--unpaired unpaired.bam]
->                 [...other options...]g quality for a read to count in pileups (default 0)
+>                 [...other options...]
 >           pilon --help for option details
->              Minimum base quality to consider for pileups (default 0)
->           --nostrays
->         INPUTS:ip making a pass through the input BAM files to identify stray pairs, that is,
->           --genome genome.fastach both reads are aligned but not marked valid because they have
->              The input genome we are trying to improve, which must be the reference usedll gaps
->              for the bam alignments.  At least one of --frags or --jumps must also be given.o
->           --frags frags.bamumes considerable memory.
+>
+>
+>         INPUTS:
+>           --genome genome.fasta
+>              The input genome we are trying to improve, which must be the reference used
+>              for the bam alignments.  At least one of --frags or --jumps must also be given.
+>           --frags frags.bam
 >              A bam file consisting of fragment paired-end alignments, aligned to the --genome
 >              argument using bwa or bowtie2.  This argument may be specifed more than once.
 >           --jumps jumps.bam
