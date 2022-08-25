@@ -150,15 +150,39 @@ We can see that medaka has created multiple files, these are the following:
 {: .callout}
 
 ## Polishing with short reads
-Something about pilon here....
+We will be using the program Pilon to further polish the draft assembly using the short reads. Something about pilon here...
 
-When doing bioinformatics you will come across software that requires a different amount of user input. Some software, such as Flye or Medaka, will accept your files as they come from different step with minimal preprocessing as they do most of the things required "under the hood". However some programs require you to generate particular files or process your files in a different way. Pilon which we will be using in this step requires us to create an indexed BAM file in order to polish the genome with short reads. You will also see BWA which we use to create this BAM file, also requires some pre-process of the medaka polished assembly.
 
-BWA
+Bioinformatics programs are not built equally. Some programs like Flye or Medaka will require very few input files as they will generate any that they need within the pipeline. Some programs however, require a lot of user input to generate the input files that are needed.  
+
+Pilon is in the latter group of bioinformatics software, so we will need to do some pre-processing using other programs to create some of the inputs needed.
+
+We will first use the program BWA to generate an alignment of the raw short reads against the draft genome.
+
+We've previously covered aligning reads to a genome in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html). We will be using very similar commands here.
+
+We first need to index the polished assembly we got from medaka. Indexing allows the aligner to quickly find potential alignment sites for query sequences in a genome, which saves time during alignment.
 ~~~
 bwa index consensus.fasta
 ~~~
 {: .bash}
+This should only take a few seconds to complete so we don't need to run the job in the background.
+Once the indexing is complete you should see an output like:
+~~~
+[bwa_index] Pack FASTA... 0.51 sec
+[bwa_index] Construct BWT for the packed sequence...
+[bwa_index] 5.86 seconds elapse.
+[bwa_index] Update BWT... 0.10 sec
+[bwa_index] Pack forward-only FASTA... 0.10 sec
+[bwa_index] Construct SA from BWT and Occ... 1.81 sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa index consensus.fasta
+[main] Real time: 8.704 sec; CPU: 8.395 sec
+~~~
+{: .output}
+
+We can then align the short reads to the draft assembly.
+
 
 Introduce piping a command & BWA
 ~~~
