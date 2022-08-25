@@ -127,13 +127,15 @@ ls
 calls_to_draft.bam  calls_to_draft.bam.bai  consensus.fasta  consensus.fasta.gaps_in_draft_coords.bed  consensus_probs.hdf
 ~~~
 {: .output}
+We can see that medaka has created multiple files these are the following
 
 * `calls_to_draft.bam` - this is a BAM file contaning the alignment of the raw reads (basecalls) to the draft assembly
 * `calls_to_draft.bam.bai` - this is an index file of the above BAM file
-* `consensus.fasta` - this is the consensus sequence. or polished assembly in our case in FASTA format
+* `consensus.fasta` - this is the consensus sequence, or polished assembly in our case in FASTA format
 * `consensus.fasta.gaps_in_draft_coords.bed` - this is a BED file containing information about the location of any gaps in the consensus sequence which can be used when visualising the assembly
 * `consensus_probs.hdf` - this is a file that contains the output of the neural network calculations and is not an output for end-users, so we don't need to worry about this file
 
+`consensus.fasta` is the file we're interested in, which in our case is the polished assembly.
 
 > ## BAM and SAM Files
 >
