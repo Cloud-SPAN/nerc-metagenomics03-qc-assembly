@@ -79,6 +79,10 @@ medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -m r941_pro
 Note, we have added `&> medaka.out &` to redirect the output and run the command in the background. Medaka shouldn't take as long as Flye did in the previous step (probably around 20 mins), but it's a good idea to run things in the background so that you can do other things while the program is running.
 
 Similar to Flye, we can look in the output file (`medaka.out`) to check the progress of the command.
+~~~
+less medaka.out
+~~~
+{: .bash}
 If the medaka command has been run correctly you will see something like this at the start of the output:
 ~~~
 Checking program versions
