@@ -199,20 +199,61 @@ First we will generate the alignment using BWA mem, then convert the alignment i
 
 We have run each of these commands separately in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html), if you want to remind yourself of what they do in more detail.
 
+This will also take around 30 minutes so we will use `&> alignment.out &` to redirect the commands process to a file and to run the command in the background.
+
 ~~~
-bwa mem -t 4 consensus.fasta ../ERR3152367_sub5_filtered.fastq | samtools view - -Sb | samtools sort - -@4 -o short_read_alignment.bam
+bwa mem -t 4 consensus.fasta ERR3152367_sub5_filtered.fastq | samtools view - -Sb | samtools sort - -@4 -o short_read_alignment.bam &> alignment.out &
+~~~
+{: .bash}
+You can check the process of this job by looking at the `alignment.out` file
+~~~
+less alignment.out
 ~~~
 {: .bash}
 
 ~~~
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 8758 sequences (40002050 bp)...
+[M::process] read 8872 sequences (40001127 bp)...
+[M::mem_process_seqs] Processed 8758 reads in 134.856 CPU sec, 33.785 real sec
+[M::process] read 8774 sequences (40005021 bp)...
+[M::mem_process_seqs] Processed 8872 reads in 138.347 CPU sec, 34.631 real sec
+[M::process] read 8736 sequences (40009331 bp)...
+[M::mem_process_seqs] Processed 8774 reads in 130.086 CPU sec, 32.545 real sec
+[M::process] read 8848 sequences (40002710 bp)...
+[M::mem_process_seqs] Processed 8736 reads in 132.912 CPU sec, 33.277 real sec
+[M::process] read 8884 sequences (40009423 bp)...
+[M::mem_process_seqs] Processed 8848 reads in 134.169 CPU sec, 33.883 real sec
+[M::process] read 8902 sequences (40003755 bp)...
+[M::mem_process_seqs] Processed 8884 reads in 129.038 CPU sec, 32.410 real sec
+[M::process] read 8760 sequences (40000601 bp)...
 ~~~
 {: .output}
+Once completed the end of the `alignment.out` file should contain something like:
+~~~
+[M::mem_process_seqs] Processed 8862 reads in 117.475 CPU sec, 29.369 real sec
+[M::process] read 4795 sequences (23206538 bp)...
+[M::mem_process_seqs] Processed 8610 reads in 125.241 CPU sec, 31.397 real sec
+[M::mem_process_seqs] Processed 4795 reads in 87.225 CPU sec, 23.866 real sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa mem -t 4 consensus.fasta ../ERR3152367_sub5_filtered.fastq
+[main] Real time: 2454.659 sec; CPU: 9557.109 sec
+[bam_sort_core] merging from 4 files and 4 in-memory blocks...
+~~~
+{: .output}
+We should now have genreated the `short_read_alignment.bam` file - this is a binary file (meaning it's not human readable) so we won't be checking it's contents.
 
 We then need to run the following command to index the aligment. We haven't added this command to the above pipe as we need the BAM file from above for further analysis and to be able to index it!
 ~~~
 samtools index short_read_alignment.bam
 ~~~
 {: .bash}
+This command will take around a minute so we don't need to run it in the background.
+
+Once your prompt has returned you should also have a file named `short_read_alignment.bam.bai` which is the index.
+
+### Running Pilon
+Now we have generated the necessary input files we can, finally, run Pilon.
 
 ~~~
 java -Xmx16G -jar $EBROOTPILON/pilon.jar --genome flye_sub5_med.fasta --unpaired test.bam --outdir test_pilon --changes --threads 4
