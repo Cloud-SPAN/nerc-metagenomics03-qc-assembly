@@ -32,7 +32,7 @@ As with the assembly, we need to use polishing software that is especially writt
 
 We will be using the command medaka_consensus, which is a pipeline that will first align the raw reads to the draft assembly, processes this alignment to generate a pileup which is presented to a recurrent neural network in order to produce a consensus sequence.
 
-Medaka has been pre-installed on the instance so, first we can look at the help page for medaka_consensus.
+Medaka has been pre-installed on the instance so, first we can look at the help page for `medaka_consensus`.
 Note: because this is a pipeline made up multiple steps we will be looking at the help documentation for `medaka_consensus` (no space!)
 
 ~~~
@@ -98,7 +98,7 @@ Constructing minimap index.
 [M::mm_idx_stat::0.910*1.28] distinct minimizers: 2598367 (94.68% are singletons); average occurrences: 1.076; average spacing: 5.350; total length: 14953273
 ~~~
 {: .output}
-Medaka first looks for the other programs that it needs and their versions. Once it confirms they are preset it begins by aligning the raw reads (basecalls) to the assembly using minimap.
+Medaka first looks for the other programs that it needs (known as dependencies) and their versions, which have also been pre-installed on the instance. Once it confirms they are preset it begins by aligning the raw reads (basecalls) to the assembly using minimap.
 Once medaka has completed the end of the file will contain something like:
 ~~~
 [20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
@@ -115,7 +115,7 @@ Polished assembly written to medaka/consensus.fasta, have a nice day.
 ~~~
 {: .output}
 
-Once medaka has completed we can navigate into the output directory and look at the files Medaka has generated. 
+Once medaka has completed we can navigate into the output directory and look at the files Medaka has generated.
 
 ~~~
 cd medaka
@@ -124,8 +124,21 @@ ls
 {: .bash}
 
 ~~~
+calls_to_draft.bam  calls_to_draft.bam.bai  consensus.fasta  consensus.fasta.gaps_in_draft_coords.bed  consensus_probs.hdf
 ~~~
 {: .output}
+
+* `calls_to_draft.bam` - this is a BAM file contaning the alignment of the raw reads (basecalls) to the draft assembly
+* `calls_to_draft.bam.bai` - this is an index file of the above BAM file
+* `consensus.fasta` - this is the consensus sequence. or polished assembly in our case in FASTA format
+* `consensus.fasta.gaps_in_draft_coords.bed` - this is a BED file containing information about the location of any gaps in the consensus sequence which can be used when visualising the assembly
+* `consensus_probs.hdf` - this is a file that contains the output of the neural network calculations and is not an output for end-users, so we don't need to worry about this file
+
+
+> ## BAM and SAM Files
+>
+>
+{: .callout}
 
 ## Polishing with short reads
 Something about pilon here....
