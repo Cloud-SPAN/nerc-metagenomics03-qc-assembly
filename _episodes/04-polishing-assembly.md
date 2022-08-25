@@ -150,8 +150,8 @@ We can see that medaka has created multiple files, these are the following:
 {: .callout}
 
 ## Polishing with short reads
-We will be using the program Pilon to further polish the draft assembly using the short reads. Something about pilon here...
 
+We will be using the program [Pilon](https://github.com/broadinstitute/pilon) to further polish the draft assembly using the raw short reads. Pilon will improve a draft assembly by filling gaps, fixing misassemblies and correcting bases. You can read more about how it works in the paper [Pilon: An Integrated Tool for Comprehensive Microbial Variant Detection and Genome Assembly Improvement](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0112963).
 
 Bioinformatics programs are not built equally. Some programs like Flye or Medaka will require very few input files as they will generate any that they need within the pipeline. Some programs however, require a lot of user input to generate the input files that are needed.  
 
@@ -229,7 +229,7 @@ less alignment.out
 [M::process] read 8760 sequences (40000601 bp)...
 ~~~
 {: .output}
-Once completed the end of the `alignment.out` file should contain something like:
+Once completed, the end of the `alignment.out` file should contain something like:
 ~~~
 [M::mem_process_seqs] Processed 8862 reads in 117.475 CPU sec, 29.369 real sec
 [M::process] read 4795 sequences (23206538 bp)...
