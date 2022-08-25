@@ -387,6 +387,65 @@ We can see there are many different options for pilon, we will be using the defa
 * `--unpaired` - the short reads we ysed to create the BAM alignment were unpaired, so we need to specify the unpaired flag
 * `--outdir` - we are also going to get pilon to generate a directory for all the output
 ~~~
-pilon --genome consensus.fasta --unpaired short_read_alignment.bam --outdir pilon
+pilon --genome consensus.fasta --unpaired short_read_alignment.bam --outdir pilon &> pilon.out &
 ~~~
 {: .bash}
+
+We can again keep track of the analysis by looking at the `pilon.out` file.
+
+When the command is initially run  
+~~~
+To execute Pilon run: java -Xmx8G -jar $EBROOTPILON/pilon.jar
+Adjust the memory value according to the size of your input files
+Pilon version 1.23 Mon Nov 26 16:04:05 2018 -0500
+Genome: consensus.fasta
+Fixing snps, indels, gaps, local
+Input genome size: 14973646
+Scanning BAMs
+short_read_alignment.bam: 932261 reads, 0 filtered, 873025 mapped, 0 proper, 0 stray, Unpaired 100% 3401+/-3002, max 12408
+Processing contig_98:1-17822
+Processing contig_27:1-7734
+Processing contig_156:1-10738
+Processing contig_106:1-9517
+Processing contig_147:1-98783
+Processing contig_96:1-15421
+Processing contig_12:1-7084
+Processing contig_15:1-70238
+Processing contig_129:1-6453
+Processing contig_39:1-5805
+Processing contig_152:1-14830
+Processing contig_33:1-7570
+Processing contig_50:1-4058
+~~~
+{: .output}
+
+When Pilon finishes the end of the file will contain something like:
+~~~
+Writing updated contig_77_pilon to pilon/pilon.fasta
+Writing contig_107:1-4213 changes to pilon/pilon.changes
+Writing updated contig_107_pilon to pilon/pilon.fasta
+Writing contig_34:1-156470 changes to pilon/pilon.changes
+Writing updated contig_34_pilon to pilon/pilon.fasta
+Writing contig_38:1-59388 changes to pilon/pilon.changes
+Writing updated contig_38_pilon to pilon/pilon.fasta
+Writing contig_44:1-22564 changes to pilon/pilon.changes
+Writing updated contig_44_pilon to pilon/pilon.fasta
+Mean unpaired coverage: 165
+Mean total coverage: 165
+~~~
+{: .output}
+
+We can navigate into the pilon directory and have a look at the output files Pilon has produced.
+~~~
+cd pilon
+ls
+~~~
+{: .bash}
+~~~
+pilon.fasta
+~~~
+{: .output}
+
+We can see pilon has produced a fasta file, which is the newly polished assembly.
+
+You can read more about the possible outputs Pilon can produce in the [Wiki](https://github.com/broadinstitute/pilon/wiki/Output-File-Descriptions).
