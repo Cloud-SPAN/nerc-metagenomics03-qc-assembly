@@ -319,7 +319,7 @@ If you remained connected to the instance during the process you will get the fo
 If you disconnected from the instance for whatever reason during the assembly process we need to check the `flye.log` file.  
 
 ~~~
-cd analysis/assembly/
+cd ~/analysis/assembly/
 less flye.log
 ~~~
 {: .bash}
