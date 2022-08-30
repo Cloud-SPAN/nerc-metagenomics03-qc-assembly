@@ -2,4 +2,5 @@
 layout: lesson
 root: .
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+In this lesson we will be introducing core concepts in metagenomics and will introduce what how we define metagenomics, and challenges that occur in metagenomics that we would not experience in a non metagenomic genomics experiment. We will cover how to log onto the amazon web instance you will be running the metagenomic analysis on. We will also cover how to quality control your data before you assemble your reads and how to assemble a metagenome. We will subsequently cover how to assess the quality of the genome, and statistics which will indicate how good your assembly is. We will also cover how we can improve the quality of an assembly by removing errors through polishing. 
