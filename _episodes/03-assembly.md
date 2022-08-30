@@ -16,20 +16,20 @@ keypoints:
 ---
 
 > ## WARNING
-> This lesson will take several hours to run and complete! You can find some recommended reading at the end of the page you might want to read whilst you're waiting.
+> This lesson will take several hours to run and complete! You can find some recommended reading at the end of the page that you might want to read whilst you're waiting.
 {: .callout}
 
 ## Assembling reads
 <img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
-Now we have put our raw reads through quality control we are going to move onto the next step in the process which is assembly of the metagenome.
+Now we have put our raw reads through quality control we are going to move onto the next step in the process, which is assembly of the metagenome.
 
 
 ### Genomic assembly
 
 Genomic assembly refers to the act of joining smaller fragments of DNA (i.e. reads) to make longer segments to try and reconstruct the original genome.
 
-You can think of this like a jigsaw puzzle, each raw read corresponds to a piece of the puzzle and you're aiming to complete the puzzle by joining these pieces together.
+You can think of this like a jigsaw puzzle: each raw read corresponds to a piece of the puzzle and you're aiming to complete the puzzle by joining these pieces together.
 
 There are two main strategies for genome assembly.
 1. a reference-mapping approach when you have a reference genome of what you have sequenced to map your smaller reads onto
@@ -47,30 +47,37 @@ Metagenomic sequencing adds another layer to the challenge of assembly. Instead 
 
 This means the single jigsaw puzzle of a genome assembly has now become multiple different jigsaw puzzles in one.
 
-As many of the communities sequenced using metagenomics contain previously uncultured microbes, often known as microbial dark matter, they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
+As many of the communities sequenced using metagenomics contain previously uncultured microbes (often known as microbial dark matter) they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
 
-Note: The data we're using is a mock metagenome so we _do_ actually know what organims make up the community and have reference sequences for them so we could use a reference-mapping approach to assemble this metagenome but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial  
+> ## Note
+> The data we're using is a mock metagenome so we _do_ actually know what organisms make up the community and have reference sequences for them. 
+> This means we could use a reference-mapping approach to assemble this metagenome, but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial.
+{: .callout}
 
-This now means assembling our metaphorical jigsaw will be a challenge! Not only is it now potentially thousands of different jigsaws in one but we also don't have any images to refer back to!
+Assembling our metaphorical jigsaw will be a challenge. Not only are there now potentially thousands of jigsaws to solve, we also don't have any images to refer back to.
 
 Luckily there are programs, known as assemblers, that will do this for us!
 
 Metagenomic assembly faces additional problems, which means we need an assembler built to handle metagenomes. These additional problems include:
-i) the differences in coverage between the genomes, due to the differences in abundance across the sample
-ii) the fact that different species often share conserved regions
-iii) and the presence of several strains of a single species in the community
+1. Differences in coverage between the genomes, due to differences in abundance across the sample.
+2. The fact that different species often share conserved regions.
+3. The presence of several strains of a single species in the community
 
 The assembly strategy also differs based on the sequencing technology used to generate the raw reads. Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this metagenome assembly so we need to use a metagenome assembler appropriate for long-read sequencing.
 
-We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-read** _de novo_ assembler for assembling large and complex data with a metagenomic mode.
+We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-read** _de novo_ assembler for assembling large and complex data with a metagenomic mode. Like all our programs, Flye has been pre-installed onto your instance. 
 
 <br clear="left"/>
 
 ## Flye is a long-read assembler
 
-Important: Make sure you're still logged into your instance [Logging onto the Cloud](https://cloud-span.github.io/metagenomics01-qc-assembly/01-logging-onto-cloud/index.html)
+> ## Hint
+> Important: Make sure you're still logged into your cloud instance. If you can't remember how to log on, visit [logging onto the Cloud](https://cloud-span.github.io/metagenomics01-qc-assembly/01-logging-onto-cloud/index.html).
+{: .bash}
+{: .callout}
 
-Flye has been pre-installed onto your instance. First navigate to the `analysis` directory you made in a previous step.
+
+First navigate to the `analysis` directory you made in a previous step.
 Let's see what happens if we enter the `flye` command on our terminal.
 
 ~~~
@@ -183,20 +190,24 @@ The above output gives us a bit of information about how to run Flye but we can 
 
 
 **We can see that Flye has multiple different options available so we need to work out which ones are appropriate for our dataset.**
-* We know we have Nanopore raw reads and if we look back at the paper [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) we can see that the reads were basecalled with Guppy v2.2.2. Therefore the flag `--nano-raw` for `ONT regular reads, pre-Guppy5 (<20% error)` is most appropriate for this dataset. The `path` after the flag in the help document indicates that the we should put the location of the input file after this flag.
-* The next flag we are interested in is `-o` or `--outdir` to specify the location of the flye output. Again, we need to specify a path afterwards.
-* We should also make use of the `-t` or `--threads` flag in order to run the assembly on more compute in order to speed it up.
-* After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing. We can specify the number of times `flye` will polish this data using `-i` or `--iterations` - `number of polishing iterations [1]`. By default the number of iterations is 1 however 3 iterations is often used as standard.
-* Finally, as this dataset is a metagenome we need to use the `--meta` option for `metagenome / uneven coverage mode`.
+- The program used to basecall the reads will determine how we input the data file. If we look back at the paper [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) we can see that our reads were basecalled with Guppy v2.2.2.
+  - We will therefore input our data using the flag `--nano-raw` for "ONT regular reads, pre-Guppy5 (<20% error)" followed by the relative path of the input file (the filtered fastq file we produced last lesson).
+- We use the `-o` or `--outdir` to specify (using a relative path) where the flye output should be stored 
+- We also use the `-t` or `--threads` flag in order to run the assembly on more compute in order to speed it up.
+- After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing. 
+  - We can specify the number of times `flye` will polish this data using `-i` or `--iterations` - `number of polishing iterations [1]`. By default the number of iterations is 1 however 3 iterations is often used as standard.
+- Finally we need to use the `--meta` option for `metagenome / uneven coverage mode` to indicate that the dataset is a metagenome
 
 > ## Unused parameters
-> There's a lot of parameters that we won't be using; some are deprecated, some are only appropriate for certain types of data (e.g. `--pacbio-raw`) and some are useful to allow tweaking to try further improve an assembly (e.g. `--genome-size` and `--read-error`).  
+> There's a lot of parameters that we won't be using; some are deprecated, some are only appropriate for certain types of data (e.g. `--pacbio-raw`) and some are useful to allow tweaking to try further improve an assembly (e.g. `--genome-size` and `--read-error`).
+>   
 > Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program.  
+> 
 > The [Flye Manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) contains a lot of further information about the parameters avaiable. If you're going to try using Flye on your own long-read dataset this is a good place to start.  
 {: .callout}
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
-We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
+We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`. 
 We're also going to get Flye to create the `assembly` directory as its output directory.
 
 ~~~
