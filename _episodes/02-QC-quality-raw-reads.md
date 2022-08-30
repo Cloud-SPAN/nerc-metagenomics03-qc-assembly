@@ -717,7 +717,10 @@ NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --ou
 
 Once again, wait for the command to finish and then `scp` the `NanoPlot-report.html` to your local computer.
 
-If you had trouble downloading the file you can view it here [NanoPlot-filtered-report.html]({{ page.root }}/files/NanoPlot-filtered-report.html)
+> ## Help!
+> If you had trouble downloading the file you can view it here: [NanoPlot-filtered-report.html]({{ page.root }}/files/NanoPlot-filtered-report.html)
+{: .bash}
+{: .callout}
 
 <img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_filtered_log.png" alt="NanoPlot KDE plot of the filtered raw reads Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 <br clear="left"/>
