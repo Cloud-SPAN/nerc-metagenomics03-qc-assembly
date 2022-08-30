@@ -294,7 +294,9 @@ ERR2935805_fastqc.html  ERR2935805_fastqc.zip
 
 For each input FASTQ file, FastQC has created a `.zip` file and a `.html` file. The `.zip` file extension indicates that this is actually a compressed set of multiple output files. We'll be working with the `.html` file which is a stable webpage displaying the summary report for each of our samples.
 
-To do this we will use the `scp` (secure copy protocol) command to transfer the file to our own computer, which we have done previously (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
+We can't open the .html file in the terminal as it requires a web browser, so we need to transfer the file to our own computer.
+
+To do this we will use the `scp` (secure copy protocol) command, which we have used previously (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
 
 In a new terminal window that is **_not_** logged into the cloud instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
 Once you're in the directory where you want the file to be available from, use `scp` to download the file.
@@ -324,7 +326,7 @@ Once the file has downloaded, using your native file system (e.g. File Explorer 
 This is an HTML file so it should open up in your browser.  
 
 > ## Help!
-> If you had trouble downloading and viewing the file you can view it here [ERR2935805_fastqc.html]({{ page.root }}/files/ERR2935805_fastqc.html)
+> If you had trouble downloading and viewing the file you can view it here: [ERR2935805_fastqc.html]({{ page.root }}/files/ERR2935805_fastqc.html)
 {: .bash}
 {: .callout}
 
@@ -518,13 +520,13 @@ NanoPlot --help
 There are four flags to use when we run the NanoPlot command:
 As our data is in FASTQ format we use the `--fastq` flag to specify the file. We also use `--outdir` to specify an output directory. We're also going to use the flag `--loglength` to produce plots with a log scale and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
-- For the `--fastq` flag: The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`. We will use the full absolute path in the NanoPlot command.
+- The `--fastq` flag specifies the file to analyse. The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq` and we will use this full absolute path in the NanoPlot command.
 
-- For the `--outdir` flag: the NanoPore command outputs a directory filled with its results. We need to give it somewhere to output the directory to. We are already in our `qc` directory, so we are going to specify `nano_qc` so that NanoPlot will create a new directory within this directory to put the files it generates. (Note: with NanoPlot you don't need to create this directory before running the command, however this depends on the program you are using.)
+- The `--outdir` flag specifies where the command should output its results to. We are already in our `qc` directory, so we are going to specify `nano_qc` so that NanoPlot will create a new directory within this directory to put the files it generates. (Note: with NanoPlot you don't need to create this directory before running the command, however this varies depending on the program you are using.)
 
-For the `--threads` flag: we are going to run this on 4 threads to allow NanoPlot to use more compute power to speed it up.
+- The `--threads` flag specifies how many threads to run the program on (more threads = more compute power = faster). We will specify 4 to indicate that four threads should be used.
 
-The `--loglength` flag doesn't require any additional information.
+- The `--loglength` flag produces plots with a log scale.
 
 ~~~
 NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc --threads 4 --loglength
@@ -533,12 +535,10 @@ NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano
 
 Now we have the command set up we can press enter and wait for NanoPlot to finish.
 
-This will take a **_couple of minutes_**, you will know it is finished once your cursor has returned (i.e. you can type in the terminal again).  
-
-
+This will take a couple of minutes. You will know it is finished once your cursor has returned (i.e. you can type in the terminal again).  
 
 Once NanoPlot has finished we can have a look at the output.
-First we need to navigate into the directory NanoPlot created, then list the files.
+First we need to navigate into the `nano_qc` directory NanoPlot created, then list the files.
 ~~~
 cd nano_qc
 ls
@@ -558,7 +558,10 @@ LogTransformed_HistogramReadlength.png
 
 We can see that NanoPlot has generated a lot of different files.
 
-As most of these are image or HTML files we won't be able to view them using terminal - luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer. To do this we will use `scp`.
+Like before, we can't view most of these files in our terminal as we can't open images or HTML files. Instead we'll download the core information to our own computer. 
+Luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer.
+
+Once again we will use `scp`.
 
 In a new terminal window that's **_not_** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
 Once you're in the directory you want to download this file into we will use `scp` to download the file.
@@ -578,11 +581,14 @@ TO FILL
 Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
 As this is a HTML file it should open up in your browser.  
 
-If you had trouble downloading the file you can view it here [NanoPlot-report.html]({{ page.root }}/files/NanoPlot-report.html)
+> ## Help!
+> If you had trouble downloading and viewing the file you can view it here: [NanoPlot-report.html]({{ page.root }}/files/NanoPlot-report.html)
+{: .bash}
+{: .callout}
 
-In the report we have Summary Statistics followed by plots showing the distribution of read lengths and also the read length against the quality of the reads.
+In the report we can view summary statistics followed by plots showing the distribution of read lengths and the read length vs average read quality.
 
-Looking at the Summary Statistics table answer the following questions:
+Looking at the summary statistics table answer the following questions:
 
 > ## Exercise X:
 >
@@ -604,39 +610,40 @@ Looking at the Summary Statistics table answer the following questions:
 > depending on which sequencer you use to generate your data, a `#` may not be an indicator of
 > a poor quality base call.
 >
-> This mainly relates to older Solexa/Illumina data,
-> but it's essential that you know which sequencing platform was
+> This mainly relates to older Solexa/Illumina data.
+>
+> This means it's essential that you know which sequencing platform was
 > used to generate your data, so that you can tell your quality control program which encoding
 > to use. If you choose the wrong encoding, you run the risk of throwing away good reads or
 > (even worse) not throwing away bad reads!
-> Nanopore quality encodings are no exception, you can read more about the differences with Nanopore sequencing on [EPI2ME - Quality Scores](https://labs.epi2me.io/quality-scores/) if you're interested.
+> Nanopore quality encodings are no exception. You can read more about the differences with Nanopore sequencing on [EPI2ME - Quality Scores](https://labs.epi2me.io/quality-scores/) if you're interested.
 {: .callout}
 
 > ## N50
 > The N50 length is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger.
+>
 > For this FASTQ file 50% of the total bases are in reads that have a length of 5,373 bp or longer.
+>
 > See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
->We will be coming back to this statistic in more detail when we get to the assembly step.
+> We will be coming back to this statistic in more detail when we get to the assembly step.
 {: .callout}
 
 We can also look at some of the plots produced by NanoPlot.  
-One useful plot is the plot titled
-### Read lengths vs Average read quality plot using dots after log transformation of read lengths
-
+One useful plot is the plot titled "Read lengths vs Average read quality plot using dots after log transformation of read lengths".
 <img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 
-This plot shows the read length of the sequences when compared to the average quality of the sequence.  
-We can see that the majority of the sequences have a quality score of 4 and above, and many of those with an average quality score of 4 are shorter in length.
-This means that for this dataset we can remove those with a lower quality score in order to improve the overall quality of the raw sequences before assembling the metagenome.
+This plot shows the read length of the sequences compared to the average quality of the sequence.
+
+We can see that the majority of the sequences have a quality score of 4 and above, and many of those with an average quality score of 4 are shorter in length. 
+This means that for this dataset we should remove those with a lower quality score in order to improve the overall quality of the raw sequences before assembling the metagenome.
 
 <br clear="left"/>
 
 ## Filtering Nanopore sequences by quality
 
-We can use the program [Seqkit](https://bioinf.shenwei.me/seqkit/) which contains many tools for FASTQ/A file manipulation. We will be using the command `seqkit seq` to create a new file containing only the sequences with an average quality above a certain value.
+We can use the program [Seqkit](https://bioinf.shenwei.me/seqkit/) (which contains many tools for FASTQ/A file manipulation) to filter our reads. We will be using the command `seqkit seq` to create a new file containing only the sequences with an average quality above a certain value.
 
 After returning to our home directory, we can view the `seqkit seq` help documentation with the following command:
-
 ~~~
 cd ~/cs_course/
 seqkit seq -h
@@ -688,7 +695,7 @@ seqkit seq -h
 {: .solution}
 
 
-From this we can see that the flag `-Q` will `only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)`.
+From this we can see that the flag `-Q` will "only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)".
 
 From the plot above we identified that many of the lower quality reads below 4 were shorter _more here_ so we should set the minimum limit to 4.
 
@@ -697,7 +704,7 @@ seqkit seq -Q 4 data/nano_fastq/ERR3152367_sub5.fastq > data/nano_fastq/ERR31523
 ~~~
 {: .bash}
 
-We are using redirecting (`>`) to generate a new file `data/nano_fastq/ERR3152367_sub5_filtered.fastq` containing only the reads with an average quality of 4 or above.
+In the command above we use redirection (`>`) to generate a new file `data/nano_fastq/ERR3152367_sub5_filtered.fastq` containing only the reads with an average quality of 4 or above.
 
 We can now re-run NanoPlot on the filtered file to see how it has changed.
 
