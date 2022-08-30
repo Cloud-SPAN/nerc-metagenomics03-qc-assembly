@@ -10,22 +10,27 @@ objectives:
 - Explain the difference between genomics, metagenomics and amplicon sequencing.
 - Familiarise yourself with the metagenomics dataset used in this course.
 keypoints:
--
+- Genomics looks at the whole genome content of an organism
+- Metagenomes contain multiple organisms within one sample unlike genomic samples.
+- In metagenomes the organisms present are not usually present in the same abundance - except for mock communities
+- We can identify the organisms present in a sample using either amplicon sequencing or whole metagenome sequencing. Amplicon sequencing is cheaper and quicker, however it also limits the amount of downstream analysis that can be done with the data.
+- Metagenomes can diff in their levels of complexity and this is determined by how many organisms are in the metagenome.
+- Difference platforms allow us to perform different analyses. The suitability depends on the question you are asking
+
 ---
 
 
 ## Background
-## Metagenomics
-Metagenomes are collections of genomic
-sequences from various (micro)organisms that coexist in any
-given space. They are like snapshots that can give us information
-about the taxonomic and even metabolic or functional composition
-of the communities that we decide to study. Thus, metagenomes
-are usually employed to investigate the ecology of defining
-characteristics of niches(*e.g.*, the human gut, or the ocean floor).
 
-Since metagenomes are mixtures of sequences that belong to different species,
-a metagenomic workflow is designed to answer two questions:
+Unlike genetics which typically considers single, or a small set of genes and their influence on an organism, genomics considers the whole genetic content of an organism. We study genomics through sequencing the DNA content, however there are also lots of other "omics" fields that are related such as transcriptomics which covers RNA content, and proteomics which is focuses on the protein content of a genome. Other common omic areas of study are outlined [here](https://en.wikipedia.org/wiki/Omics).
+
+The key difference between metagenomics and genomics is that a genomic sample contains one organism, whereas a metagenome contains multiple microorganisms coexisting within a sample.
+
+## Metagenomics
+As mentioned above, a metagenome refers to a collections of genomic sequences from various (micro)organisms coexist in a
+given space. They are like snapshots that can give us information about the taxonomic and even metabolic or functional composition of the communities that we decide to study. Examples of well studied metagenomes include the human gut, the ocean floor and the soil microbiomes. Unlike genomics, because we are trying to analyse multiple instead of individual organisms, this introduces additional analysis complexity. This causes two additional analysis considerations. One is how we can assign genomic sequences to the multiple organisms that we know are present The other is identifying the abundance of the different organisms and using this abundance to seperate the data into putative organisms, which we will cover in greater depth in the [assembly section of this course](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html). This is because in most metagenomes the organisms in the community are not present in equal abundances.
+
+Since metagenomes are mixtures of sequences that belong to different species, a metagenomic workflow is designed to answer two questions:
 1. What species are represented in the sample?
 2. What are they capable of doing?
 
@@ -62,12 +67,7 @@ __**Often amplicon sequencing is referred to as 16S, however this will amplify a
 ### Whole metagenome sequencing
 
 
-With **Whole genome Metagenomics**, we sequence random parts of the
-genomes present in a sample. We can search the origin of these
-pieces (_i.e.,_ their taxonomy) and also try to find to what
-part of the genome they correspond. Depending on the complexity of the metagenome, and with enough sequence, it is even possible
-to obtain full individual genomes from a whole genome metagenome,
-which can identify both the identities of the individuals in our sample, but also their functional abilities. For abundant organisms in your metagenome sample, there are likely to be enough data to generate reasonable genome coverage. However this is not the case for low abundance organisms. Often deeper sequencing/ more total sequencing data is required to assemble the genomes of less abundant organisms. Depending on the question your dataset is trying to answer and how many samples you will need to sequence, the cost of both preparing the samples and the computational effort required to analyse them can become prohibitively expensive quickly. Especially when you are trying to include biological or technical replication in your experimental design. For more information on consderations for experimental design in sequencing see our other course [Statistical Design - Understanding Experimental design](https://cloud-span.github.io/experimental_design01-principles/02-design/index.html) or [Statistical Design - Statistical analysis](https://cloud-span.github.io/experimental_design01-principles/03-statistical-analysis/index.html).
+With **Whole genome Metagenomics**, we sequence random parts of the genomes present in a sample. We can search the origin of these pieces (_i.e.,_ their taxonomy) and also try to find to what part of the genome they correspond. Depending on the complexity of the metagenome, and with enough sequence, it is even possible to obtain full individual genomes from a whole genome metagenome, which can identify both the identities of the individuals in our sample, but also their functional abilities. For abundant organisms in your metagenome sample, there are likely to be enough data to generate reasonable genome coverage. However this is not the case for low abundance organisms. Often deeper sequencing/ more total sequencing data is required to assemble the genomes of less abundant organisms. Depending on the question your dataset is trying to answer and how many samples you will need to sequence, the cost of both preparing the samples and the computational effort required to analyse them can become prohibitively expensive quickly. Especially when you are trying to include biological or technical replication in your experimental design. For more information on consderations for experimental design in sequencing see our other course [Statistical Design - Understanding Experimental design](https://cloud-span.github.io/experimental_design01-principles/02-design/index.html) or [Statistical Design - Statistical analysis](https://cloud-span.github.io/experimental_design01-principles/03-statistical-analysis/index.html).
 
 
 
@@ -113,6 +113,7 @@ The tools that are used to analyze data at different stages of the workflow are 
 
 As the number of organisms increases in a community so does the complexity. See [Pimm , 1984](https://www.nature.com/articles/307321a0) for an explanation of community complexity.
 A low-complexity microbial community is made up of fewer organisms and as a result the metagenomic data is usually easier to process and analyse than a high-complexity microbial community.
+
 There's no official definition for what makes a community low or highly complex. But some examples of a low complexity microbial community include natural whey starter cultures, made up of around three different organisms, which are used in cheese production see [Somerville _et al._, 2019](https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-019-1500-0).
 
 > ## Defining our community
