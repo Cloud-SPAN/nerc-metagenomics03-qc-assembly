@@ -124,15 +124,37 @@ There's no official definition for what makes a community low or highly complex.
 > {: .solution}
 {: .challenge}
 
-## Mock metagenomes aren't necessarily a good proxy for real world data
+## Mock metagenomes versus real samples
 
-Something about this giving us the option to test the workflow in a short amount of time without needing too much compute
-But this isn't representative of how long this workflow would take for real data.
+People often use publically available sequencing data to perform analyses or for testing an analysis pipeline on a smaller or similar dataset. However mock metagenomes are communities that are made by combining known species at known quantities to generate a mock sample. This mock community is often much simpler than a real metagenome, however it can be useful to know exactly what is in a metagenome, in order to test whether the result we get is sensible.
+
+One reason for using these mock samples would be to test a workflow. The simplicity, and the quality, which is often much higher than we would expect to see in most samples, means that performing analysis on these mock samples can be much easier computationally, and ran quickly.
+
+However the main reason for using mock samples are to benchmark software tools that are developments. If you are aware of the level of complexity in a sample, and you know the content of the community it is easier for you to identify false positives and false negatives. Some mock datasets, like the one we will be using for this course also have the organisms present with log fold differences in the abundance between the organisms. This is much more representative of a community compared to a mock community where all organisms are present at the same abundance. However it is useful to know that this is still an "idealised" dataset, in most cases the samples will not contain all known organisms, and often there will be degraded pieces of DNA in there.  
 
 
 ## Dataset used in this course
 
-This course uses data from a mock metagenome community published from [Ultra-deep, long-read nanopore sequencing of mock microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) which has long and short read sequencing data and has been used for benchmarking metagenome tools. This is whole metagenome sequencing, the short read data is generated on the illumina platorm and the long reads are generated using oxford nanopore technology's nanopore platform. Other popular long read sequencing platforms exist, such as pacbio, however we will not be covering pacbio specific methodology. Despite this, the same principle stages exist in the workflow, and often only different parameters may be required to adapt analysis to that platform.
+
+
+This course uses data from a mock metagenome community published from [Ultra-deep, long-read nanopore sequencing of mock microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) which has long and short read sequencing data and has been used for benchmarking metagenome tools. This community contains eight bacteria, 3 gram positive and 5 gram negative and 2 yeasts. This organisms are present in log abundances relevent to each other. The organisms present and their known percentage of the total metagenome content is given in the table below.
+
+ This dataset contains whole metagenome sequencing. The short read data is generated on the illumina platorm and the long reads are generated using oxford nanopore technology's nanopore platform. Other popular long read sequencing platforms exist, such as pacbio, however we will not be covering pacbio specific methodology. Despite this, the same principle stages exist in the workflow, and often only different parameters may be required to adapt analysis to that platform.
+
+
+
+|Species | Genomic DNA % | Genome coverage |
+|-------|-----------|
+| Listeria monocytogenes | 89.1 | 94.8 |
+| Pseudomonas aeruginosa | 8.9 | 4.2 |
+| Bacillus subtilis | 0.89 | 0.7 |
+| Saccharomyces cerevisiae | 0.89 | 0.23 |
+| Escherichia coli | 0.089 | 0.058 |
+| Salmonella enterica | 0.089 | 0.059 |
+| Lactobacillus fermentum | 0.0089 | 0.015 |
+| Enterococcus faecalis | 0.00089 | 0.001 |
+| Cryptococcus neoformans | 0.00089 | 0.00015 |
+| Staphylococcus aureus | 0.000089 | 0.0001 |
 
 
 ## Differences between nanopore and illumina data
