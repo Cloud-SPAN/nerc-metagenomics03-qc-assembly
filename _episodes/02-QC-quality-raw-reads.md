@@ -628,9 +628,10 @@ Looking at the summary statistics table answer the following questions:
 > We will be coming back to this statistic in more detail when we get to the assembly step.
 {: .callout}
 
-We can also look at some of the plots produced by NanoPlot.  
+We can also look at some of the plots produced by NanoPlot.
+
 One useful plot is the plot titled "Read lengths vs Average read quality plot using dots after log transformation of read lengths".
-<img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
+<img align="centre" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 
 This plot shows the read length of the sequences compared to the average quality of the sequence.
 
@@ -722,7 +723,7 @@ Once again, wait for the command to finish and then `scp` the `NanoPlot-report.h
 {: .bash}
 {: .callout}
 
-<img align="left" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_filtered_log.png" alt="NanoPlot KDE plot of the filtered raw reads Read lengths vs Average read quality plot using dots after log transformation of read lengths">
+<img align="centre" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_filtered_log.png" alt="NanoPlot KDE plot of the filtered raw reads Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 <br clear="left"/>
 
 **Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/NanoPlot-report.html) and [after filtering]({{ page.root }}/files/NanoPlot-filtered-report.html)  and answer the questions below.**
