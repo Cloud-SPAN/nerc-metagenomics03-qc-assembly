@@ -16,20 +16,20 @@ keypoints:
 ---
 
 > ## WARNING
-> This lesson will take several hours to run and complete! You can find some recommended reading at the end of the page you might want to read whilst you're waiting.
+> This lesson will take several hours to run and complete! You can find some recommended reading at the end of the page that you might want to read whilst you're waiting.
 {: .callout}
 
 ## Assembling reads
 <img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
-Now we have put our raw reads through quality control we are going to move onto the next step in the process which is assembly of the metagenome.
+Now we have put our raw reads through quality control we are going to move onto the next step in the process, which is assembly of the metagenome.
 
 
 ### Genomic assembly
 
 Genomic assembly refers to the act of joining smaller fragments of DNA (i.e. reads) to make longer segments to try and reconstruct the original genome.
 
-You can think of this like a jigsaw puzzle, each raw read corresponds to a piece of the puzzle and you're aiming to complete the puzzle by joining these pieces together.
+You can think of this like a jigsaw puzzle: each raw read corresponds to a piece of the puzzle and you're aiming to complete the puzzle by joining these pieces together.
 
 There are two main strategies for genome assembly.
 1. a reference-mapping approach when you have a reference genome of what you have sequenced to map your smaller reads onto
@@ -37,7 +37,7 @@ There are two main strategies for genome assembly.
 
 <br clear="right"/>
 
-<img align="left" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+<img align="centre" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
 
 Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
 
@@ -47,30 +47,34 @@ Metagenomic sequencing adds another layer to the challenge of assembly. Instead 
 
 This means the single jigsaw puzzle of a genome assembly has now become multiple different jigsaw puzzles in one.
 
-As many of the communities sequenced using metagenomics contain previously uncultured microbes, often known as microbial dark matter, they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
+As many of the communities sequenced using metagenomics contain previously uncultured microbes (often known as microbial dark matter) they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
 
-Note: The data we're using is a mock metagenome so we _do_ actually know what organims make up the community and have reference sequences for them so we could use a reference-mapping approach to assemble this metagenome but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial  
+Note: The data we're using is a mock metagenome so we _do_ actually know what organims make up the community and have reference sequences for them. This means we could use a reference-mapping approach to assemble this metagenome but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial.
 
-This now means assembling our metaphorical jigsaw will be a challenge! Not only is it now potentially thousands of different jigsaws in one but we also don't have any images to refer back to!
+Assembling our metaphorical jigsaw will be a challenge. Not only are there now potentially thousands of jigsaws to solve, we also don't have any images to refer back to.
 
 Luckily there are programs, known as assemblers, that will do this for us!
 
 Metagenomic assembly faces additional problems, which means we need an assembler built to handle metagenomes. These additional problems include:
-i) the differences in coverage between the genomes, due to the differences in abundance across the sample
-ii) the fact that different species often share conserved regions
-iii) and the presence of several strains of a single species in the community
+1. Differences in coverage between the genomes, due to differences in abundance across the sample.
+2. The fact that different species often share conserved regions.
+3. The presence of several strains of a single species in the community
 
 The assembly strategy also differs based on the sequencing technology used to generate the raw reads. Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this metagenome assembly so we need to use a metagenome assembler appropriate for long-read sequencing.
 
-We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-read** _de novo_ assembler for assembling large and complex data with a metagenomic mode.
+We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-read** _de novo_ assembler for assembling large and complex data with a metagenomic mode. Like all our programs, Flye has been pre-installed onto your instance. 
 
 <br clear="left"/>
 
 ## Flye is a long-read assembler
 
-Important: Make sure you're still logged into your instance [Logging onto the Cloud](https://cloud-span.github.io/metagenomics01-qc-assembly/01-logging-onto-cloud/index.html)
+> ## Hint
+> Important: Make sure you're still logged into your cloud instance. If you can't remember how to log on, visit: [logging onto the Cloud](https://cloud-span.github.io/metagenomics01-qc-assembly/01-logging-onto-cloud/index.html).
+{: .bash}
+{: .callout}
 
-Flye has been pre-installed onto your instance. First navigate to the `analysis` directory you made in a previous step.
+
+First navigate to the `analysis` directory you made in a previous step.
 Let's see what happens if we enter the `flye` command on our terminal.
 
 ~~~
