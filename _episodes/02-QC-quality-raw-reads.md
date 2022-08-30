@@ -39,8 +39,6 @@ Because the two types of sequences are different in length and quality, we need 
 We will first quality control the raw Illumina data.
 We will be adapting the methods for short reads used in [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to use with our Illumina short read data.
 
-First we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
-
 > ## Reminder of the FASTQ format
 > See [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more in-depth reminder about the FASTQ format.
 >
@@ -311,7 +309,7 @@ Remember to replace NNN with your instance number.
 > ## zsh: no matches found?
 > On some set ups, you may get an error because of the `*`, a special character, in the location. This can be resolved by using quotes:
 ~~~
-$ scp -i login-key-instanceNNN.pem 'csuser@instanceNNN.cloud-span.aws.york.ac.uk:/home/csuser/cs_course/results/fastqc_untrimmed_reads/*.html' fastqc_html
+$ scp -i login-key-instanceNNN.pem 'csuser@instanceNNN.cloud-span.aws.york.ac.uk:/home/csuser/cs_course/analysis/qc/illumina_qc/ERR2935805_fastqc.html
 ~~~
 {: .bash}
 {: .callout}
