@@ -280,7 +280,7 @@ $
 {: .output}
 
 The FastQC program has created two new files within our
-`analysis/illumina_qc/` directory.
+`analysis/illumina_qc/` directory. Let's take a look at them.
 
 ~~~
  ls
@@ -294,56 +294,77 @@ ERR2935805_fastqc.html  ERR2935805_fastqc.zip
 
 For each input FASTQ file, FastQC has created a `.zip` file and a `.html` file. The `.zip` file extension indicates that this is actually a compressed set of multiple output files. We'll be working with the `.html` file which is a stable webpage displaying the summary report for each of our samples.
 
-To do this we will use `scp` which we have used in previous modules (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
+To do this we will use the `scp` (secure copy protocol) command to transfer the file to our own computer, which we have done previously (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
 
-In a new terminal window that's **_not_** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
-Once you're in the directory you want to download this file into we will use `scp` to download the file.
+In a new terminal window that is **_not_** logged into the cloud instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
+Once you're in the directory where you want the file to be available from, use `scp` to download the file.
 
 The command will look something like:
 ~~~
 scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/illumina_qc/ERR2935805_fastqc.html .
 ~~~
 {: .bash}
-Remember to replace NNN with the instance number specific to you.
+Remember to replace NNN with your instance number.
+
+> ## zsh: no matches found?
+> On some set ups, you may get an error because of the `*`, a special character, in the location. This can be resolved by using quotes:
+~~~
+$ scp -i login-key-instanceNNN.pem 'csuser@instanceNNN.cloud-span.aws.york.ac.uk:/home/csuser/cs_course/results/fastqc_untrimmed_reads/*.html' fastqc_html
+~~~
+{: .bash}
+{: .callout}
+
 As the file is downloading you will see an output like:
 ~~~
 TO FILL
 ~~~
 {: .output}
 
-Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
-As this is a HTML file it should open up in your browser.  
+Once the file has downloaded, using your native file system (e.g. File Explorer or Finder) you can find the file and double click to open.
+This is an HTML file so it should open up in your browser.  
 
-If you had trouble downloading the file you can view it here [ERR2935805_fastqc.html]({{ page.root }}/files/ERR2935805_fastqc.html)
+> ## Help!
+> If you had trouble downloading and viewing the file you can view it here [ERR2935805_fastqc.html]({{ page.root }}/files/ERR2935805_fastqc.html)
+{: .bash}
+{: .callout}
 
-We're first going to look at the "Per base sequence quality" graph from the FastQC output.
+
+First we will look at the "Per base sequence quality" graph.
 
 <img align="center" width="800" height="600" src="{{ page.root }}/fig/02_fastqc_ill_quality.png" alt="Per base sequence quality graph from the Fastqc output we generated above">
 
-The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 202 bp long. There is a box-and-whisker plot showing the distribution of quality scores for all reads at that position. The horizontal red line indicates the median quality score and the yellow box shows the 1st to 3rd quartile range. This means that 50% of reads have a quality score that falls within the range of the yellow box at that position. The whiskers show the absolute range, which covers the lowest (0th quartile) to highest (4th quartile) values.
+The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 202 bp long. 
 
-For each position in this sample, the quality values do not drop much lower than 32. This is a high quality score. The plot background is also color-coded to identify good (green), acceptable (yellow), and bad (red) quality scores.
+Each position has a box-and-whisker plot showing the distribution of quality scores for all reads at that position. 
+- The horizontal red line indicates the median quality score. 
+- The yellow box shows the 1st to 3rd quartile range (this means that 50% of reads have a quality score that falls within the range of the yellow box at that position). 
+- The whiskers show the absolute range, which covers the lowest (0th quartile) to highest (4th quartile) values.
 
-We're quite lucky in this case as this means that the sequence is high quality so we do not need to do any filtering.
+The plot background is also color-coded to identify good (green), acceptable (yellow), and bad (red) quality scores.
 
-We should also have a look at the Adapter Content graph which will show us where adapter sequences occur in the reads.
-Adapter sequences are short sequences that are added to the sample to aid during the preparation of the DNA library. These adapter sequences therefore don't tell us anything biologically important and so should be removed if they are present in high numbers, or for certain applications such as ones when the base sequence needs to be accurate.
+In this sample, the quality values do not drop much lower than 32 at any position. This is a high quality score meaning the sequence is high quality. This means that we do not need to do any filtering. Lucky us!
+
+We should also have a look at the "Adapter Content" graph which will show us where adapter sequences occur in the reads.
+Adapter sequences are short sequences that are added to the sample to aid during the preparation of the DNA library. They therefore don't tell us anything biologically important and should be removed if they are present in high numbers. They might also be removed in the case pf certain applications, such as ones when the base sequence needs to be particularly accurate.
 
 <img align="center" width="800" height="600" src="{{ page.root }}/fig/02_fastqc_adap_ill.png" alt="Adapter content graph from the Fastqc output we generated above">
 
-We can see that this sequencing file has a low percentage (~2-3%) of adapter sequences in the reads, which means we do not neet to trim any adapter sequences either.
+This graph shows us that this sequencing file has a low percentage (~2-3%) of adapter sequences in the reads, which means we do not need to trim any adapter sequences either.
 
 > ## When sequencing is poor(er) Quality
 > While the sequencing in this example is high quality this will not always be the case.  
-> Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png).  
-> See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to remind yourself how to determine what is a good and what is a bad plot.  
-> You can also remind yourself how you clean lower quality reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).  
+>
+> Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png). 
+> See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to remind yourself how to determine what is a good and what is a bad plot.
+>
+> You can also remind yourself how to clean lower quality reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).
+>
 > In this example we used a quality cut off score of 20 and trimmed adapter sequencing.
 {: .callout}
 
 ## Nanopore quality control
 
-Now we will be assessing the quality of the Nanopore raw reads which are in the file  `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
+Next we will assess the quality of the Nanopore raw reads. These are found in the file located at `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
 
 As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
@@ -362,7 +383,7 @@ $$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$
 {: .output}
 
 
-We can see that this read is longer than the Illumina reads we looked at earlier. The length of a raw read from Nanopore sequencing varies depends on the length of the length of the DNA strand being sequenced.
+This read is longer than the Illumina reads we looked at earlier. The length of a raw read from Nanopore sequencing varies depends on the length of the length of the DNA strand being sequenced.
 
 
 Line 4 shows us the quality score of this read.
@@ -372,16 +393,16 @@ $$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$
 ~~~
 {: .output}
 
-Based on the PHRED quality scores, see above for a reminder,
-we can see that the quality score of the bases in this read are between 1-10, which we can see is lower than the Illumina sequencing above.
+Based on the PHRED quality scores (see above for a reminder) we can see that the quality score of the bases in this read are between 1-10, which is lower than the Illumina sequencing above.
 
-Rather than using FastQC we are going to use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for the whole sequencing file. NanoPlot is specially built for Nanopore sequences.
-
+Instead of using FastQC we will use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for the whole sequencing file. NanoPlot is specially built for Nanopore sequences.
 
 >## Other programs for Nanopore QC
->Another popular program for QC of Nanopore reads is [PycoQC](https://github.com/a-slide/pycoQC).  
+>Another popular program for QC of Nanopore reads is [PycoQC](https://github.com/a-slide/pycoQC).
+>
 >Along with producing similar plots to NanoPlot, PycoQC will also give you information about the overall Nanopore sequencing run. In order to generate these, PycoQC uses a `sequencing summary` file generated by the Nanopore sequencer (e.g. MiniION or PromethION).  
->This file isn't avaiable for the sub-setted dataset we're using which is why we've used NanoPlot instead. PycoQC have example output files available online including, [Guppy-2.1.3_basecall-1D_DNA_barcode.html](https://a-slide.github.io/pycoQC/pycoQC/results/Guppy-2.1.3_basecall-1D_DNA_barcode.html), if you wanted to see how the output differs.
+>
+>This file isn't avaiable for the sub-setted dataset we're using which is why we've used NanoPlot instead. PycoQC have example output files available online such as [Guppy-2.1.3_basecall-1D_DNA_barcode.html](https://a-slide.github.io/pycoQC/pycoQC/results/Guppy-2.1.3_basecall-1D_DNA_barcode.html), if you would like to see how the output differs.
 {: .callout}
 
 We first need to navigate to the `qc` directory we made earlier `cs_course/analysis/qc`.
@@ -494,12 +515,12 @@ NanoPlot --help
 > {: .output}
 {: .solution}
 
+There are four flags to use when we run the NanoPlot command:
+As our data is in FASTQ format we use the `--fastq` flag to specify the file. We also use `--outdir` to specify an output directory. We're also going to use the flag `--loglength` to produce plots with a log scale and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
-As our data is in FASTQ format we are going to use the `--fastq` flag to specify the file, we are also going to use `--outdir` to specify an output directory, we're also going to use the flag `--loglength` to produce the plots with a log scale and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
+- For the `--fastq` flag: The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`. We will use the full absolute path in the NanoPlot command.
 
-For the `--fastq` flag: The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq`, so we are going to use the absolute path in the NanoPlot command.
-
-For the `--outdir` flag: As we are already in our `qc` directory we are going to specify `nano_qc` so that NanoPlot will create a directory within this directory to put the files it generates. (Note: with NanoPlot you don't need to create this directory before running the command, however this depends on the program you are using.)
+- For the `--outdir` flag: the NanoPore command outputs a directory filled with its results. We need to give it somewhere to output the directory to. We are already in our `qc` directory, so we are going to specify `nano_qc` so that NanoPlot will create a new directory within this directory to put the files it generates. (Note: with NanoPlot you don't need to create this directory before running the command, however this depends on the program you are using.)
 
 For the `--threads` flag: we are going to run this on 4 threads to allow NanoPlot to use more compute power to speed it up.
 
