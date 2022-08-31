@@ -49,6 +49,8 @@ This means the single jigsaw puzzle of a genome assembly has now become multiple
 
 As many of the communities sequenced using metagenomics contain previously uncultured microbes (often known as microbial dark matter) they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
 
+<br clear="right"/>
+
 > ## Note
 > The data we're using is a mock metagenome so we _do_ actually know what organisms make up the community and have reference sequences for them. 
 > This means we could use a reference-mapping approach to assemble this metagenome, but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial.
