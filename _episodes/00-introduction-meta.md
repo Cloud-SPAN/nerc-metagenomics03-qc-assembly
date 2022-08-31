@@ -110,10 +110,11 @@ The use of this set of tools in a specified order is commonly referred to as a *
 Here is an example of the workflow we will be using for our analysis with a brief
 description of each step.  
 
-1. Quality control - Assessing quality using FastQC and Trimming and/or filtering reads (if necessary)
-2. Metagenome assembly
-3. Binning
-4. Taxonomic assignment
+1. Sequence reads - obtaining raw reads from a sample via sequencing
+2. Quality control - assessing quality using FastQC, and trimming and/or filtering reads (if necessary)
+3. Metagenome assembly - piecing together genomes from reads using Flye, a long-read metagenome assembler
+4. Binning - separating out genomes into 'bins' containing related contigs using Metabat2
+5. Taxonomic assignment - assigning taxonomy to sequences/contigs using Krona and/or Pavion
 
 Workflows in bioinformatics often adopt a plug-and-play approach so the output of one tool can be easily used as input to another tool.
 The use of standard data formats in bioinformatics (such as FASTA or FASTQ, which we will be using here) makes this possible.
@@ -125,34 +126,38 @@ The tools that are used to analyze data at different stages of the workflow are 
 ## Metagenome complexity
 
 As the number of organisms increases in a community so does the complexity. See [Pimm , 1984](https://www.nature.com/articles/307321a0) for an explanation of community complexity.
+
 A low-complexity microbial community is made up of fewer organisms and as a result the metagenomic data is usually easier to process and analyse than a high-complexity microbial community.
 
-There's no official definition for what makes a community low or highly complex. But some examples of a low complexity microbial community include natural whey starter cultures, made up of around three different organisms, which are used in cheese production see [Somerville _et al._, 2019](https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-019-1500-0).
+There's no official definition for what makes a community low or high complexity. But some examples of a low complexity microbial community include natural whey starter cultures, made up of around three different organisms, which are used in cheese production: see [Somerville _et al._, 2019](https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-019-1500-0).
 
 > ## Defining our community
 > Knowing now how we can define a metagenomic community and what organisms make up our dataset, how complex would you say this metagenome is? and why?
 > > ## Solution
 > > As we stated above there's no hard and fast rules for defining the complexity of a community.
-> > However, given this community is made up of 10 organisms we could argue that it is a low complexity metagenome when compared to for example natural soil metagenome which are potentially made up of thousands of different organisms.
+> > However, given this community is made up of 10 organisms we could argue that it is a low complexity metagenome when compared to, for example, the natural soil metagenome which is potentially made up of thousands of different organisms.
 > {: .solution}
 {: .challenge}
 
 ## Mock metagenomes versus real samples
 
-People often use publically available sequencing data to perform analyses or for testing an analysis pipeline on a smaller or similar dataset. However mock metagenomes are communities that are made by combining known species at known quantities to generate a mock sample. This mock community is often much simpler than a real metagenome, however it can be useful to know exactly what is in a metagenome, in order to test whether the result we get is sensible.
+People often use publically available sequencing data to perform analyses or for testing an analysis pipeline on a smaller or similar dataset. 
 
-One reason for using these mock samples would be to test a workflow. The simplicity, and the quality, which is often much higher than we would expect to see in most samples, means that performing analysis on these mock samples can be much easier computationally, and ran quickly.
+However mock metagenomes are communities that are made by combining known species at known quantities to generate a mock sample. This mock community is often much simpler than a real metagenome, however it can be useful to know exactly what is in a metagenome, in order to test whether the result we get is sensible.
 
-However the main reason for using mock samples are to benchmark software tools that are developments. If you are aware of the level of complexity in a sample, and you know the content of the community it is easier for you to identify false positives and false negatives. Some mock datasets, like the one we will be using for this course also have the organisms present with log fold differences in the abundance between the organisms. This is much more representative of a community compared to a mock community where all organisms are present at the same abundance. However it is useful to know that this is still an "idealised" dataset, in most cases the samples will not contain all known organisms, and often there will be degraded pieces of DNA in there.  
+One reason for using these mock samples would be to test a workflow. The simplicity and quality of mock metagenome data means that performing analysis on these mock samples can be much easier computationally, and run more quickly.
 
+However the main reason for using mock samples are to benchmark developing software tools. If you are aware of the level of complexity in a sample, and you know the content of the community, it is easier for you to identify false positives and false negatives. 
+
+Some mock datasets, like the one we will be using for this course, have the organisms present with log fold differences in the abundance between the organisms. This is much more representative of a real community compared to a mock community, where all organisms are present at the same abundance. However it is useful to know that this is still an "idealised" dataset. In most cases the samples will not contain all known organisms, and often there will be degraded pieces of DNA in there.  
 
 ## Dataset used in this course
 
+This course uses data from a mock metagenome community published from [Ultra-deep, long-read nanopore sequencing of mock microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) which has long and short read sequencing data and has been used for benchmarking metagenome tools. 
 
+This community contains eight bacteria (three gram positive and five gram negative) and two yeasts. These organisms are present in log abundances relative to each other. The organisms present and their known percentage of the total metagenome content is given in the table below.
 
-This course uses data from a mock metagenome community published from [Ultra-deep, long-read nanopore sequencing of mock microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) which has long and short read sequencing data and has been used for benchmarking metagenome tools. This community contains eight bacteria, 3 gram positive and 5 gram negative and 2 yeasts. This organisms are present in log abundances relevent to each other. The organisms present and their known percentage of the total metagenome content is given in the table below.
-
- This dataset contains whole metagenome sequencing. The short read data is generated on the illumina platorm and the long reads are generated using oxford nanopore technology's nanopore platform. Other popular long read sequencing platforms exist, such as pacbio, however we will not be covering pacbio specific methodology. Despite this, the same principle stages exist in the workflow, and often only different parameters may be required to adapt analysis to that platform.
+This dataset contains whole metagenome sequencing. The short read data are generated on the Illumina platorm and the long reads are generated using Oxford Nanopore Technology's Nanopore platform. Other popular long read sequencing platforms exist, such as PacBio, though we will not be covering PacBio specific methodology here. Despite this, the same principle stages exist in the workflow, and often only different parameters are required to adapt analysis to different platforms.
 
 
 
@@ -172,13 +177,15 @@ This course uses data from a mock metagenome community published from [Ultra-dee
 
 ## Differences between nanopore and illumina data
 
-We have covered elsewhere information about how if you're designing an experiment you may have preferances for which platorm you used based on what your research question is, see here [What platform is best for my experiment?](https://cloud-span.github.io/experimental_design01-principles/01-platform/index.html). However typically the equivalent question for metagenomics is whether to sequence the whole genome, or whether amplicon sequencing will be preferable.
+Elsewhere [(see here)](https://cloud-span.github.io/experimental_design01-principles/01-platform/index.html)we have covered information about how to use your research question to guide your preference of platform (Illumina/Nanopore)when designing an experiment. However typically the equivalent question for metagenomics is whether to sequence the whole genome, or whether amplicon sequencing will be preferable.
 
-For non metagenome analyses, you can choose to do either a reference based or *de novo* approach. This will be dependent on whether there is a reasonable reference for your organism. However for whole metagenome sequencing, reference genomes will exist that can be compared to organisms identified from your metagenome. However this will be at the binning stage, and a reference will not exist for your metagenome as a whole. Due to this, all of the assembly stages of the metagenome analysis pipeline are *de novo*. As a result, there is a bigger advantage to using long read sequencing over short read sequencing to assemble a metagenome if you were to choose only one method.
+For non-metagenomic analyses, you can choose to do either a reference based or *de novo* approach. This will be dependent on whether there is a reasonable reference for your organism. 
 
-This will be covered in the [Genome Assembly](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html) section of this course. However there are pros and cons to each using both long and short reads, and so using them in combination is usually the best method. These pros and cons are irrespective of the application, however for metagenome analysis, if you were to use only short read sequencing for the assembly, you will end up with a much more fragmented assembly to work with.
+However, for whole metagenome sequencing, reference genomes will exist that can be compared to organisms identified from your metagenome. However, this will be at the binning stage and a reference will not exist for your metagenome as a whole. Due to this, all of the assembly stages of the metagenome analysis pipeline are *de novo*. As a result, there is a bigger advantage to using long read sequencing over short read sequencing to assemble a metagenome if you were to choose only one method.
 
+This will be covered in the [Genome Assembly](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html) section of this course. There are pros and cons to each using both long and short reads, and so using them in combination is usually the best method. These pros and cons are irrespective of the application.
 
+However, for metagenome analysis, if you were to use only short read sequencing for the assembly you would end up with a much more fragmented assembly to work with.
 
 |        | Short reads | Long reads |
 |-------|-----------|
@@ -192,6 +199,6 @@ This will be covered in the [Genome Assembly](https://cloud-span.github.io/metag
 
 __* As of July 2022, the NextSeq 550 high-output system runs were capable of generating upto [800 million paired-end reads](https://emea.illumina.com/systems/sequencing-platforms/nextseq/specifications.html) in one run__
 
-__** There are different nanopore instruments, the smaller instruments, like the minION will generate far fewer reads. Larger instruments like the promethION will result in ~10-20k reads, but this will vary a lot between samples and their quality. They will never result in millions of raeds like the illumina platforms.__
+__** There are different Nanopore instruments. The smaller instruments, like the minION, will generate far fewer reads. Larger instruments like the promethION will result in ~10-20k reads, but this will vary a lot between samples and their quality. They will never result in millions of reads like the Illumina platforms.__
 
-__*** The read length will vary based on the DNA extraction method. If the DNA is very fragmented it will not result in very long reads. In many metagenomes bead beating is required to lyse cells, and so read length will still be longer than illumina but shorter than non metagenome samples sequenced.__
+__*** The read length will vary based on the DNA extraction method. If the DNA is very fragmented it will not result in very long reads. In many metagenomes bead beating is required to lyse cells, and so read length will still be longer than Illumina but shorter than non-metagenomic samples sequenced.__
