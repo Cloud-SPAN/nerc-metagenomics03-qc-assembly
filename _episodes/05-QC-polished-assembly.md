@@ -90,7 +90,7 @@ While it isn't calculated by default, `seqkit stats` has an option to calculate 
 > {: .solution}
 {: .challenge}
 
-Next, run the command to calculate the N50 length and answer the questions below about the output.
+Next, run the command on the original draft assembly (`assembly/assembly.fasta`) to calculate the N50 length and answer the questions below about the output.
 
 > ## Hint: Seqkit stats N50 command
 > ~~~
