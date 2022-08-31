@@ -18,5 +18,6 @@ keypoints:
 - "QUAST can generate additional information in a report which can be used to identify misassemblies"
 ---
 
-## Polishing with short reads
-Something about seqkit here....
+## Using seqkit to generate summary statistics of an assembly
+
+When we QC'ed the nanopore reads by quality score, we used [Seqkit](https://bioinf.shenwei.me/seqkit/) and the command `seqkit seq`. This time we will be using the command `seqkit stats` instead.
