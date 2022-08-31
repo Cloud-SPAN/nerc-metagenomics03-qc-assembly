@@ -20,44 +20,68 @@ keypoints:
 
 ## Using seqkit to generate summary statistics of an assembly
 
-When we QC'ed the nanopore reads by quality score, we used [Seqkit](https://bioinf.shenwei.me/seqkit/) and the command `seqkit seq`. This time we will be using the command `seqkit stats` instead. We also covered how to access the help documentation for seqkit in the assembly section of [this lesson](https://cloud-span.github.io/metagenomics01-qc-assembly/02-QC-quality-raw-reads/index.html).
+After we finished the draft assembly we used `seqkit stats` to see some basic statistics about the assembly (see the episode on [Assembly](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html)). We will be using it again here to get some basic statistics for all three of the assemblies to compare the polishing process.
 
+We can again review the help documentation for seqkit stats.
 ~~~
 seqkit stats --help
 ~~~
 {: .bash}
 
 
+> ## seqkit stats help documentation
+> ~~~
+> simple statistics of FASTA/Q files
+>
+> Tips:
+>   1. For lots of small files (especially on SDD), use big value of '-j' to
+>      parallelize counting.
+>
+> Usage:
+>   seqkit stats [flags]
+>
+> Aliases:
+>   stats, stat
+>
+> Flags:
+>   -a, --all                  all statistics, including quartiles of seq length, sum_gap, N50
+>   -b, --basename             only output basename of files
+>   -E, --fq-encoding string   fastq quality encoding. available values: 'sanger', 'solexa', 'illumina-1.3+', 'illumina-1.5+', 'illumina-1.8+'. (default "sanger")
+>   -G, --gap-letters string   gap letters (default "- .")
+>   -h, --help                 help for stats
+>   -e, --skip-err             skip error, only show warning message
+>   -i, --stdin-label string   label for replacing default "-" for stdin (default "-")
+>   -T, --tabular              output in machine-friendly tabular format
+>
+> Global Flags:
+>       --alphabet-guess-seq-length int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)
+>       --id-ncbi                         FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...
+>       --id-regexp string                regular expression for parsing ID (default "^(\\S+)\\s?")
+>       --infile-list string              file of input files list (one file per line), if given, they are appended to files from cli arguments
+>   -w, --line-width int                  line width when outputting FASTA format (0 for no wrap) (default 60)
+>   -o, --out-file string                 out file ("-" for stdout, suffix .gz for gzipped out) (default "-")
+>       --quiet                           be quiet and do not show extra information
+>   -t, --seq-type string                 sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")
+>   -j, --threads int                     number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)
+> ~~~
+> {: .output}
+{: .solution}
+
+Instead of passing one FASTA file to `seqkit stats` we will be using all three FASTA files we have generated.
+
+First we need to navigate into the analysis directory.
 ~~~
-simple statistics of FASTA/Q files
-
-Tips:
-  1. For lots of small files (especially on SDD), use big value of '-j' to
-     parallelize counting.
-
-Usage:
-  seqkit stats [flags]
-
-Aliases:
-  stats, stat
-
-Flags:
-  -a, --all                  all statistics, including quartiles of seq length, sum_gap, N50
-  -b, --basename             only output basename of files
-  -E, --fq-encoding string   fastq quality encoding. available values: 'sanger', 'solexa', 'illumina-1.3+', 'illumina-1.5+', 'illumina-1.8+'. (default "sanger")
-  -G, --gap-letters string   gap letters (default "- .")
-  -h, --help                 help for stats
-  -e, --skip-err             skip error, only show warning message
-  -T, --tabular              output in machine-friendly tabular format
-
-Global Flags:
-      --alphabet-guess-seq-length int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)
-      --id-ncbi                         FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...
-      --id-regexp string                regular expression for parsing ID (default "^(\\S+)\\s?")
-  -w, --line-width int                  line width when outputing FASTA format (0 for no wrap) (default 60)
-  -o, --out-file string                 out file ("-" for stdout, suffix .gz for gzipped out) (default "-")
-      --quiet                           be quiet and do not show extra information
-  -t, --seq-type string                 sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")
-  -j, --threads int                     number of CPUs. (default value: 1 for single-CPU PC, 2 for others) (default 2)
+cd ~/analysis/
 ~~~
-{: .output}
+{: .bash}
+
+Within the analysis directory, these three files are:
+* Draft assembly generate by Flye in `assembly/assembly.fasta`
+* Long-read polished assembly by Medaka in `medaka/consensus.fasta`
+* Short-read polished assembly by Pilon in `pilon/pilon.fasta`
+
+This makes our command:
+~~~
+seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
+~~~
+{: .bash}
