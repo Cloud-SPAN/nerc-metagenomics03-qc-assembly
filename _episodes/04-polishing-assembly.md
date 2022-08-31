@@ -1,11 +1,12 @@
 ---
-title: "Polishing with long reads"
+title: "Polishing an assembly"
 teaching: 30
 exercises: 10
 questions:
 - "Why do assemblies need to be polished?"
 - "What is the difference between reads and contigs?"
 - "How can we assemble a metagenome?"
+- "What are the different purposes of polishing with short and long reads?"
 objectives:
 - "Understand what is an assembly."  
 - "Run a metagenomics assembly workflow."
