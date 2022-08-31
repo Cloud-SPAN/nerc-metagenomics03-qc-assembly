@@ -9,7 +9,7 @@ questions:
 objectives:
 - "Understand the terms N50, misassembly and largest contig."
 - "Understand what factors might affect the quality of an assembly."
-- "Use the help doucumentation
+- "Use the help documentation to work out an appropriate flag for seqkit"
 - "Apply seqkit to assess multiple assemblies"
 - "Use metaQUAST to identify the quality of an assembly."
 keypoints:
