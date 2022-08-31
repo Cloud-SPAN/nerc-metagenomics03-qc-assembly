@@ -86,11 +86,9 @@ seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 ~~~
 {: .bash}
 
-~~~
+
 | file                              | format | type | num_seqs | sum_len  | min_len | avg_len  | max_len | Q1   | Q2      | Q3    | sum_gap | N50     | Q20(%) | Q30(%) | GC(%) |
 |-----------------------------------|--------|------|----------|----------|---------|----------|---------|------|---------|-------|---------|---------|--------|--------|-------|
 | assembly.fasta                    | FASTA  | DNA  | 146      | 14953273 | 3164    | 102419.7 | 6068630 | 7364 | 13415.5 | 35259 | 0       | 2976503 | 0      | 0      | 52.48 |
 | medaka/consensus.fasta            | FASTA  | DNA  | 146      | 14973646 | 3142    | 102559.2 | 6074419 | 7299 | 13333   | 35173 | 0       | 2991855 | 0      | 0      | 52.4  |
 | pilon/test_pilon_filt/pilon.fasta | FASTA  | DNA  | 146      | 14970478 | 3142    | 102537.5 | 6073731 | 7299 | 13333   | 35169 | 0       | 2991264 | 0      | 0      | 52.4  |
-~~~
-{: .output}
