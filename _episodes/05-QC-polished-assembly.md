@@ -118,6 +118,8 @@ Next, run the command on the original draft assembly (`assembly/assembly.fasta`)
 {: .challenge}
 
 
+### Generating statistics for all three assemblies
+
 Instead of passing one FASTA file to `seqkit stats` at once we will can use all three FASTA files we have generated.
 
 First we need to navigate into the analysis directory.
