@@ -14,7 +14,7 @@ keypoints:
 - "Quality encodings vary across sequencing platforms."
 - "It is important to know the quality of our data to be able to make decisions in the subsequent steps."
 - "Data cleaning is essential at the beginning of metagenomics workflows."
-- "Due to differences in the sequencing technology Nanopore data must be handled differently"
+- "Due to differences in the sequencing technology Nanopore data must be handled differently."
 ---
 
 ## Quality control

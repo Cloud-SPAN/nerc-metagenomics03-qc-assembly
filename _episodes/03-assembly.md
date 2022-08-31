@@ -10,9 +10,9 @@ objectives:
 - "Run a metagenomic assembly workflow."
 - "Assess the quality of an assembly using SeqKit"
 keypoints:
-- "Assembly merges raw reads into contigs"
+- "Assembly merges raw reads into contigs."
 - "Flye can be used as a metagenomic assembler."
-- "Certain statistics can be used to describe the quality of an assembly"
+- "Certain statistics can be used to describe the quality of an assembly."
 ---
 
 > ## WARNING
@@ -48,6 +48,8 @@ Metagenomic sequencing adds another layer to the challenge of assembly. Instead 
 This means the single jigsaw puzzle of a genome assembly has now become multiple different jigsaw puzzles in one.
 
 As many of the communities sequenced using metagenomics contain previously uncultured microbes (often known as microbial dark matter) they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
+
+<br clear="right"/>
 
 > ## Note
 > The data we're using is a mock metagenome so we _do_ actually know what organisms make up the community and have reference sequences for them. 
@@ -207,8 +209,9 @@ The above output gives us a bit of information about how to run Flye but we can 
 {: .callout}
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
-We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq`. 
-We're also going to get Flye to create the `assembly` directory as its output directory.
+
+We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq` - this follows the --nano-raw flag. 
+We're also going to get Flye to create the `assembly` directory as its output directory using the --out-dir flag.
 
 ~~~
  flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
@@ -221,22 +224,28 @@ We're also going to get Flye to create the `assembly` directory as its output di
 
 **<span style="color:red"> Don't run this command yet! If you have, you can press <kbd>Ctrl</kbd>+<kbd>z</kbd> to stop the command.</span>**
 
-Now we've built our command we could stop here **but** metagenomic assembly takes a long time.  
-If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.  
+Now we've built our command we could stop here **but** metagenomic assembly takes a long time.
+If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.
+
 Luckily we don't have to do that as we're using a remote computer (as that's what the instance/cloud computing is).
 
 ### Running a command in the background
 
-The commands we've previously run in this course have all been run in the foreground - aka they've been run directly in the terminal window we've been using and occupy the window until they've finished.
+The commands we've previously run in this course have all been in the foreground, meaning they've been run directly in the terminal window we're using and occupy the window until they've finished.
 
-We can instead run a job in the background so it doesn't take over the terminal window.
+Instead we can run a job in the background so it doesn't take over the terminal window.
 
-To do this we take the command we want to run and then follow it by an ampersand (`&`) symbol.
+To do this we take the command we want to run and then follow it with an ampersand (`&`) symbol.
 
-This puts the job into the background so we can do other things in the terminal but it will still stop running if you log out of the instance.
-Finally we need to redirect the output Flye reports to the terminal into a file with `>`.
+This puts the job into the background so we can do other things in the terminal.
 
-Once we add these into our command we get the following:
+> ## Warning
+> The command will run in the background **as long as you are logged into the instance**. It **will** still stop running if you log out of the instance.  
+{: .callout}
+
+The final thing to do is redirect the output Flye reports to the terminal into a file with `>`.
+
+Once we add these symbols into our command we get the following:
 ~~~
 flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
@@ -249,20 +258,20 @@ flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
 `&>` redirects any logging information by the program that would originally come to the terminal and save to file. Note the lack of a space between `&>`. The second `&` then runs this command in the background.
 
 We can now press enter to run the command.
-Unlike when we have previously run code, your prompt should immediately return. This doesn't mean that the code has finished already, it should now be running in the background.
+Unlike when we have previously run code, your prompt should immediately return. This doesn't mean that the code has finished already: it is now running in the background.
 
 > ## Running commands on different servers
-> There's many different options to run commands in the background in terminal.  
+> There are many different ways to run commands in the background in terminal.  
 > How you run these commands (also known as jobs) will depend on the computing resources (and their fair use policies) you are running the command on.  
 > The main options include:
-> * `&` which we've covered here, depending on the infrastructure you're running the command on you may also need to use [`nohup`](https://www.digitalocean.com/community/tutorials/nohup-command-in-linux) to prevent the background job from being killed when you close the terminal.  
+> * `&`, which we've covered here. Depending on the infrastructure you're running the command on, you may also need to use [`nohup`](https://www.digitalocean.com/community/tutorials/nohup-command-in-linux) to prevent the background job from being killed when you close the terminal.  
 > * The command line program [`screen`](https://linuxize.com/post/how-to-use-linux-screen/), which allows you to create a shell session that can be completely detached from a terminal and re-attached when needed.
-> * Queuing system - many shared computing resources, like  High Performance Computers (HPC) some Universities have, operate a queuing system, e.g. SLURM or SGE, so each user gets their fair share of computing resources. With these you submit your command / job to the queueing system, which will then handle when to run the job on the resources available.
+> * Queuing system - many shared computing resources, like  the High Performance Computing (HPC)  clusters owned by some Universities, operate a queuing system (e.g. SLURM or SGE) so each user gets their fair share of computing resources. With these you submit your command / job to the queueing system, which will then handle when to run the job on the resources available.
 {: .callout}
 
 As we're running the command in the background we no longer see the output on the terminal. Luckily we have two options available for us to check on the progress of the assembly.
 
-We can view all the currently running background commands with the command `jobs`. The output of this will be similar to:
+One option is to view all the currently running background commands with the command `jobs`. The output of this looks like:
 
 ~~~
 jobs
@@ -275,8 +284,8 @@ jobs
 
 Note: if you disconnect from the instance while Flye is running you won't be able to track the jobs progress through this method.
 
-Flye also generates a log file when running within the output folder it has generated.
-Using less we can navigate through this file.
+The other option is via the Flye program itself. Flye generates a log file when running, which is stored in the output folder it has generated.
+Using `less` we can navigate through this file.
 ~~~
 less assembly/flye.log
 ~~~
@@ -307,11 +316,11 @@ Note: this log file will contain similar to the `flye_output.txt` file we're gen
 > |  <kbd>G</kbd>    | to go to the end |  
 > |  <kbd>q</kbd>    | to quit |  
 >
-> See [Prenomics - Working with Files and Directories](https://cloud-span.github.io/prenomics02-command-line/02-working-with-file/index.html) for a full overview on using less.
+> See [Prenomics - Working with Files and Directories](https://cloud-span.github.io/prenomics02-command-line/02-working-with-file/index.html) for a full overview on using `less`.
 {: .callout}
 
 
-Flye is likely to take a *couple of hours* to finish assembling.
+Flye is likely to take a **couple of hours** to finish assembling.
 You don't need to remain connected to the instance during this time but once you have disconnected it does make it harder to track the progress of Flye.
 
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
@@ -374,22 +383,25 @@ We've already looked at `flye.log` which contains all the info Flye generates du
 You can see more about the output for Flye in the [documentation on GitHub](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#output).
 
 > ## Contigs vs. reads
-> We have seen reads in the raw sequencing data - these are our individual jigsaw pieces.  
-> After assembly we introduce contigs. Contigs (from the word *contiguous*) are fragments of DNA produced after raw reads are joined together by the assembly process. (These are the chunks of the jigsaw puzzle the assembler has managed to complete).  
+> We have seen reads in the raw sequencing data - these are our individual jigsaw pieces.
+>
+> After assembly we introduce contigs. Contigs (from the word *contiguous*) are fragments of DNA produced after raw reads are joined together by the assembly process. These are like the chunks of the jigsaw puzzle the assembler has managed to complete.
 > As a result contigs are usually much longer than raw reads and also vary in length and number depending on how successful the assembly has been.  
 {: .callout}
 
 
 > ## Optional exercise: Viewing the repeat graph
-> If you are interested you can explore the repeat graph created by Flye - this is an entirely optional exercise as not every assembler will generate a repeat graph and usually metagenomic repeat graphs are are large and complicated so don't tell you much. Also it requires some software to be downloaded which can be challenging if you don't have admin rights to your computer.  
-> A repeat or assembly graph will show the final contigs of an assembly and how they interact with each other - see [graph theory](https://en.wikipedia.org/wiki/Graph_theory) for more information about what we mean by graph in this context.  
+> If you are interested you can explore the repeat graph created by Flye - this is an entirely optional exercise as not every assembler will generate a repeat graph and usually metagenomic repeat graphs are are large and complicated so don't tell you much. Additionally, it requires some software to be downloaded which can be challenging if you don't have admin rights to your computer.
+>  
+> A repeat or assembly graph will show the final contigs of an assembly and how they interact with each other - see [graph theory](https://en.wikipedia.org/wiki/Graph_theory) for more information about what we mean by graph in this context.
+> 
 > **If you don't want / aren't able to complete these steps you can see a bandage output of this assembly in the drop down below.**   
 > > ## Exercise: Using Bandage to view the repeat graph
 > > * In order to view the repeat graph we need to install a program called Bandage onto your local computer. You can download this from the [Bandage Website](https://rrwick.github.io/Bandage/) by selecting your operating system down the side.   
 > > * Once the software is installed, we also need to download the graph file generated by the assembler. To do this, adapt the `scp` steps to download the `assembly_graph.gfa` file onto your local computer.  
 > > * Once you have the file downloaded and the Bandage software installed, we can view the graph in bandage - we will be following the [Getting Started](https://github.com/rrwick/Bandage/wiki/Getting-started) steps from the Bandage documentation.  
 > > * With Bandage open, load the `gfa` graph you have downloaded (follow the steps in the documentation above) and then click the <kbd>draw graph</kbd> button.  
-> > * Bandage will take some time to draw the graph, however this depends on the size of the graph.  
+> > * Bandage will take some time to draw the graph, though this depends on the size of the graph.  
 > > * You should then see the graph of the assembly and be able to change colours, zoom and save your view to an image (File>Save image)
 > {: .solution}
 > > ## Solution: Bandage output of this assembly  
@@ -397,7 +409,10 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 >> <a href="{{ page.root }}/fig/03_bandage_graph.png">
 > > <img align="center" width="713" height="611" src="{{ page.root }}/fig/03_bandage_graph.png" alt="Repeat graph of the assembly showing some contigs joined together in a circle, and some more with small fragments" />
 > > </a>
-> > In the above graph, there are two large circularised contigs. Which indicates that they're likely complete genomes. The larger of the two has a smaller blue circle attached which could be a plasmid or some form of insertion, though it also could be an artifact of the assembly. (This contig could be run through BLAST to work out its identity however we will be using a different analysis workflow here that's more appropriate for read world metagenomes.)
+> > In the above graph, there are two large circularised contigs, indicating that they're likely complete genomes. The larger of the two has a smaller blue circle attached which could be a plasmid or some form of insertion, though it also could be an artifact of the assembly.
+> 
+This contig could be run through BLAST to work out its identity. However we will be using a different analysis workflow here that's more appropriate for read world metagenomes.
+. 
 > Aside from these contigs, the rest of the contigs seem to be a lot shorter with few interactions between them.
 > {: .solution}
 {: .challenge}
@@ -405,7 +420,7 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 
 ## Assembly Statistics
 
-As we've just seen, Flye has finished the draft assembly and also given us some basic statistics about the size of the assembly. Not every assembler will give you this information so we will be using assembly FASTA file and the program [Seqkit](https://bioinf.shenwei.me/seqkit/) again, but this time with a different command, `stats`, to generate basic statistics.
+As we've just seen, Flye has finished the draft assembly and given us some basic statistics about the size of the assembly. Not every assembler will give you this information so we will be using the assembly FASTA file (`assembly.fasta`) and the program [Seqkit](https://bioinf.shenwei.me/seqkit/), but this time with a different command, `stats`, to generate basic statistics.
 
 We can view the help documentation for this command:
 ~~~
@@ -459,7 +474,7 @@ seqkit stats assembly.fasta
 ~~~
 {: .bash}
 
-SeqKit is fast so we are just running this directly in the terminal foreground. It should take a couple of seconds to process this assembly (however, it can take longer with more sequencing data).
+SeqKit is fast so we are running this directly in the terminal foreground. It should take just a couple of seconds to process this assembly (however, it can take longer with more sequencing data).
 
 Once it has finished you should see an output table like this:
 ~~~
@@ -489,7 +504,7 @@ As we touched on in the previous lesson, the N50 length is a useful statistic wh
 
 This is a useful statistic to describe an assembly as it indicates the average size of the contigs the assembly software has produced.
 
-A higher N50 length, means that more of the assembly is in longer fragments. So the chunks of sequence produced by the assembler are, on average, larger.
+A higher N50 length means that more of the assembly is in longer fragments. That means the chunks of sequence produced by the assembler are, on average, larger.
 
 While it isn't calculated by default, `seqkit stats` has an option to calculate the N50 length. Using the help documentation for seqkit stats answer the exercise below.
 
