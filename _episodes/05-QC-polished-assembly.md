@@ -7,19 +7,22 @@ questions:
 - "How can we perform QC on an assembly?"
 - "What metrics can we compare between assemblies to understand the quality of an assembly?"
 objectives:
-- "Understand the term misassembly"  
+- "Understand the terms N50, misassembly and largest contig."
 - "Understand what factors might affect the quality of an assembly."
+- "Use the help doucumentation
 - "Apply seqkit to assess multiple assemblies"
 - "Use metaQUAST to identify the quality of an assembly."
 keypoints:
+- "The N50 is the contig length of the 50 percentile. Which means that 50% of the contigs are at least this length in the assembly"
 - "A misassembly is when a portion of the assembly is incorrectly put back together"
+- "The largest contig is the longest contiguous piece in the assembly"
 - "Seqkit can generate summary statistics that will tell us the N50, largest contig and the number of gaps"
 - "metaQUAST can generate additional information in a report which can be used to identify misassemblies"
 ---
 
 ## Using seqkit to generate summary statistics of an assembly
 
-After we finished the draft assembly we used `seqkit stats` to see some basic statistics about the assembly (see the episode on [Assembly](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html)). We will be using it again here to get some basic statistics for all three of the assemblies to compare the polishing process.
+After we finished the draft assembly we used `seqkit stats` to see some basic statistics about the assembly (see the episode on [Assembly](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html)). We will be using it again here to get some more statistics for all three of the assemblies to compare the polishing process.
 
 We can again review the help documentation for seqkit stats.
 ~~~
@@ -66,10 +69,9 @@ seqkit stats --help
 > {: .output}
 {: .solution}
 
-
 ### The N50 length
 
-As we touched on in the previous lesson, the N50 length is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger. See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
+As we touched on in a previous lesson, the N50 length is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in segments that are that size or larger. See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
 
 This is a useful statistic to describe an assembly as it indicates the average size of the contigs the assembly software has produced.
 
@@ -92,7 +94,7 @@ Next, run the command to calculate the N50 length and answer the questions below
 
 > ## Hint: Seqkit stats N50 command
 > ~~~
-> seqkit stats -a assembly.fasta
+> seqkit stats -a assembly/assembly.fasta
 > ~~~
 {: .solution}
 
@@ -116,7 +118,7 @@ Next, run the command to calculate the N50 length and answer the questions below
 {: .challenge}
 
 
-Instead of passing one FASTA file to `seqkit stats` we will be using all three FASTA files we have generated.
+Instead of passing one FASTA file to `seqkit stats` at once we will can use all three FASTA files we have generated.
 
 First we need to navigate into the analysis directory.
 ~~~
