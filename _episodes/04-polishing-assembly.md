@@ -18,7 +18,11 @@ keypoints:
 - "Assemblers take FastQ files as input and produce a Fasta file as output."
 ---
 
-Now we have generated a draft genome  
+So far we have generated a draft assembly using Flye. While we could stop there, it is highly likely that our draft assembly contains errors such as gaps and misassemblies.
+We can further improve the quality of this assembly using the raw data we have available in a process known as "assembly polishing".
+
+
+
 We need to polish it blah blah  
 What is polishing?  
 Why do we need to polish?  
@@ -383,10 +387,13 @@ pilon --help
 > {: .output}
 {: .solution}
 
+You can read more about the possible outputs Pilon can produce in the [Wiki](https://github.com/broadinstitute/pilon/wiki/Output-File-Descriptions).
+
 We can see there are many different options for pilon, we will be using the defaults for our assembly.
 * `--genome` - this will be the output assembly from medaka
 * `--unpaired` - the short reads we ysed to create the BAM alignment were unpaired, so we need to specify the unpaired flag
 * `--outdir` - we are also going to get pilon to generate a directory for all the output
+
 ~~~
 pilon --genome consensus.fasta --unpaired short_read_alignment.bam --outdir pilon &> pilon.out &
 ~~~
@@ -448,5 +455,4 @@ pilon.fasta
 {: .output}
 
 We can see pilon has produced a fasta file, which is the newly polished assembly.
-
-You can read more about the possible outputs Pilon can produce in the [Wiki](https://github.com/broadinstitute/pilon/wiki/Output-File-Descriptions).
+This file is now our assembly, in the next episode we will be assessing the quality of this assembly and compare the quality to the previous draft assemblies.
