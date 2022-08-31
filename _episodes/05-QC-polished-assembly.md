@@ -85,3 +85,11 @@ This makes our command:
 seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 ~~~
 {: .bash}
+
+~~~
+file                               format  type  num_seqs     sum_len  min_len    avg_len    max_len     Q1        Q2      Q3  sum_gap        N50  Q20(%)  Q30(%)  GC(%)
+assembly/assembly.fasta                     FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,630  7,364  13,415.5  35,259        0  2,976,503       0       0  52.48
+medaka/consensus.fasta             FASTA   DNA        146  14,973,646    3,142  102,559.2  6,074,419  7,299    13,333  35,173        0  2,991,855       0       0   52.4
+pilon/pilon.fasta  FASTA   DNA        146  14,970,478    3,142  102,537.5  6,073,731  7,299    13,333  35,169        0  2,991,264       0       0   52.4
+~~~
+{: .output}
