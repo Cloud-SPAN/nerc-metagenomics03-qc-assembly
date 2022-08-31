@@ -22,8 +22,6 @@ So far we have generated a draft assembly using Flye. While we could stop there,
 We can further improve the quality of this assembly using the raw data we have available in a process known as "assembly polishing".
 
 
-
-We need to polish it blah blah  
 What is polishing?  
 Why do we need to polish?  
 How do we polish?  
