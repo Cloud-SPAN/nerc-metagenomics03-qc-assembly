@@ -147,7 +147,7 @@ seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 | pilon/pilon.fasta | FASTA  | DNA  | 146      | 14970478 | 3142    | 102537.5 | 6073731 | 7299 | 13333   | 35169 | 0       | 2991264 | 0      | 0      | 52.4  |
 
 
-> ## Exercise X: Comparing the Polishing
+> ## Exercise X: Comparing the Assemblies
 >
 >
 > > ## solution
@@ -155,3 +155,42 @@ seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 > >
 > {: .solution}
 {: .challenge}
+
+## Using metaQUAST to further assess assembly Quality
+
+We will use [MetaQUAST](http://quast.sourceforge.net/metaquast) to further evaluate our metagenomic assemblies.
+
+Something about MetaQUAST
+
+As MetaQUAST assesses the quality of assemblies using alignments to close references we need to determine which references are appropriate for our data. MetaQUAST can automatically select reference genomes to align the assembly too, however it does not always pick the most appropriate references. As we know what organisms make up our metagenome we will be supplying a file containing the references we want to use instead. If you use MetaQUAST on your own data you could use the default references MetaQUAST selects or provide your own if you have an idea what organims could be in your dataset.
+
+### Making a file to list our reference Metagenomes
+
+We need to generate a text file on the instance to pass to MetaQUAST. There are multiple ways of creating a text file on command line, we will be using the program nano (no relation to Oxford Nanopore!) here.
+
+To use nano we type the command followed by the name of the text file we want to generate.
+~~~
+nano reference_genomes.txt
+~~~
+{: .bash}
+
+When you press enter your terminal should change. You should see a white bar at the top with `GNU nano 2.3.1` and some suggested commands at the bottom of the page.
+There should also be a white box which indicates where your cursor is.
+
+You should paste the following list of organism names into this file
+~~~
+~~~
+{: .bash}
+**Note on pasting in GitBASH!**
+
+Then press <kbd>Ctrl</kbd>+<kbd>O</kbd> to save the file. You will the be prompted with `File Name to Write: reference_genomes.txt` - as we named the file when we first used the command we don't need to change this name and can press enter to save the file.
+
+You should then be able to see this file when you `ls`
+~~~
+ls
+~~~
+{: .bash}
+~~~
+output of ls here
+~~~
+{: .output}
