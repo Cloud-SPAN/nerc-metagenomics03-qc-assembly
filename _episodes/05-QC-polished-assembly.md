@@ -179,6 +179,16 @@ There should also be a white box which indicates where your cursor is.
 
 You should paste the following list of organism names into this file
 ~~~
+Bacillus subtilis
+Cryptococcus neoformans
+Enterococcus faecalis
+Escherichia coli str. K-12 substr. MG1655
+Lactobacillus fermentum
+Listeria monocytogenes EGD-e
+Pseudomonas aeruginosa
+Saccharomyces cerevisiae
+Salmonella enterica subsp. enterica serovar Typhimurium str. LT2
+Staphylococcus aureus
 ~~~
 {: .bash}
 **Note on pasting in GitBASH!**
@@ -197,6 +207,6 @@ output of ls here
 
 MetaQUAST command
 ~~~
-metaquast.py --references-list reference_genomes.txt pilon/pilon.fasta
+metaquast.py --references-list reference_genomes.txt assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta 
 ~~~
 {: .bash}
