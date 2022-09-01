@@ -194,3 +194,9 @@ ls
 output of ls here
 ~~~
 {: .output}
+
+MetaQUAST command
+~~~
+metaquast.py --references-list reference_genomes.txt pilon/pilon.fasta
+~~~
+{: .bash}
