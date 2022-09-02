@@ -37,7 +37,10 @@ There are two main strategies for genome assembly.
 
 <br clear="right"/>
 
-<img align="left" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+<img align="center" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+
+
+
 
 Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
 
@@ -52,7 +55,7 @@ As many of the communities sequenced using metagenomics contain previously uncul
 <br clear="right"/>
 
 > ## Note
-> The data we're using is a mock metagenome so we _do_ actually know what organisms make up the community and have reference sequences for them. 
+> The data we're using is a mock metagenome so we _do_ actually know what organisms make up the community and have reference sequences for them.
 > This means we could use a reference-mapping approach to assemble this metagenome, but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial.
 {: .callout}
 
@@ -67,7 +70,7 @@ Metagenomic assembly faces additional problems, which means we need an assembler
 
 The assembly strategy also differs based on the sequencing technology used to generate the raw reads. Here we're using raw data from [Nanopore sequencing](https://nanoporetech.com/applications/dna-nanopore-sequencing) as the basis for this metagenome assembly so we need to use a metagenome assembler appropriate for long-read sequencing.
 
-We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-read** _de novo_ assembler for assembling large and complex data with a metagenomic mode. Like all our programs, Flye has been pre-installed onto your instance. 
+We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-read** _de novo_ assembler for assembling large and complex data with a metagenomic mode. Like all our programs, Flye has been pre-installed onto your instance.
 
 <br clear="left"/>
 
@@ -194,9 +197,9 @@ The above output gives us a bit of information about how to run Flye but we can 
 **We can see that Flye has multiple different options available so we need to work out which ones are appropriate for our dataset.**
 - The program used to basecall the reads will determine how we input the data file. If we look back at the paper [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) we can see that our reads were basecalled with Guppy v2.2.2.
   - We will therefore input our data using the flag `--nano-raw` for "ONT regular reads, pre-Guppy5 (<20% error)" followed by the relative path of the input file (the filtered fastq file we produced last lesson).
-- We use the `-o` or `--outdir` to specify (using a relative path) where the flye output should be stored 
+- We use the `-o` or `--outdir` to specify (using a relative path) where the flye output should be stored
 - We also use the `-t` or `--threads` flag in order to run the assembly on more compute in order to speed it up.
-- After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing. 
+- After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing.
   - We can specify the number of times `flye` will polish this data using `-i` or `--iterations` - `number of polishing iterations [1]`. By default the number of iterations is 1 however 3 iterations is often used as standard.
 - Finally we need to use the `--meta` option for `metagenome / uneven coverage mode` to indicate that the dataset is a metagenome
 
@@ -204,13 +207,13 @@ The above output gives us a bit of information about how to run Flye but we can 
 > There's a lot of parameters that we won't be using; some are deprecated, some are only appropriate for certain types of data (e.g. `--pacbio-raw`) and some are useful to allow tweaking to try further improve an assembly (e.g. `--genome-size` and `--read-error`).
 >   
 > Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program.  
-> 
+>
 > The [Flye Manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) contains a lot of further information about the parameters avaiable. If you're going to try using Flye on your own long-read dataset this is a good place to start.  
 {: .callout}
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
 
-We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq` - this follows the --nano-raw flag. 
+We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq` - this follows the --nano-raw flag.
 We're also going to get Flye to create the `assembly` directory as its output directory using the --out-dir flag.
 
 ~~~
@@ -394,7 +397,7 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > If you are interested you can explore the repeat graph created by Flye - this is an entirely optional exercise as not every assembler will generate a repeat graph and usually metagenomic repeat graphs are are large and complicated so don't tell you much. Additionally, it requires some software to be downloaded which can be challenging if you don't have admin rights to your computer.
 >  
 > A repeat or assembly graph will show the final contigs of an assembly and how they interact with each other - see [graph theory](https://en.wikipedia.org/wiki/Graph_theory) for more information about what we mean by graph in this context.
-> 
+>
 > **If you don't want / aren't able to complete these steps you can see a bandage output of this assembly in the drop down below.**   
 > > ## Exercise: Using Bandage to view the repeat graph
 > > * In order to view the repeat graph we need to install a program called Bandage onto your local computer. You can download this from the [Bandage Website](https://rrwick.github.io/Bandage/) by selecting your operating system down the side.   
@@ -410,9 +413,9 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > > <img align="center" width="713" height="611" src="{{ page.root }}/fig/03_bandage_graph.png" alt="Repeat graph of the assembly showing some contigs joined together in a circle, and some more with small fragments" />
 > > </a>
 > > In the above graph, there are two large circularised contigs, indicating that they're likely complete genomes. The larger of the two has a smaller blue circle attached which could be a plasmid or some form of insertion, though it also could be an artifact of the assembly.
-> 
+>
 This contig could be run through BLAST to work out its identity. However we will be using a different analysis workflow here that's more appropriate for read world metagenomes.
-. 
+.
 > Aside from these contigs, the rest of the contigs seem to be a lot shorter with few interactions between them.
 > {: .solution}
 {: .challenge}
