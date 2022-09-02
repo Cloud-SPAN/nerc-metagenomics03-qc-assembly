@@ -37,7 +37,10 @@ There are two main strategies for genome assembly.
 
 <br clear="right"/>
 
-<img align="left" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+<img align="center" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+
+
+
 
 Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
 
@@ -410,6 +413,7 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > > <img align="center" width="713" height="611" src="{{ page.root }}/fig/03_bandage_graph.png" alt="Repeat graph of the assembly showing some contigs joined together in a circle, and some more with small fragments" />
 > > </a>
 > > In the above graph, there are two large circularised contigs, indicating that they're likely complete genomes. The larger of the two has a smaller blue circle attached which could be a plasmid or some form of insertion, though it also could be an artifact of the assembly.
+
 > This contig could be run through BLAST to work out its identity. However we will be using a different analysis workflow here that's more appropriate for read world metagenomes.
 > Aside from these contigs, the rest of the contigs seem to be a lot shorter with few interactions between them.
 > {: .solution}

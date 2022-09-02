@@ -26,7 +26,7 @@ We will be adapting the quality control workflow from [Cloud-SPAN Genomics](http
 
 You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
 
-We have two different types of sequencing data (short-read Illumina sequence and long-read Nanopore sequence) available for this metagenome. 
+We have two different types of sequencing data (short-read Illumina sequence and long-read Nanopore sequence) available for this metagenome.
 We will be using them both in a hybrid approach to assemble and analyse this metagenome.
 
 Because the two types of sequences are different in length and quality, we need to use different programs for each of them that are built to handle the different strengths and weaknesses each technology provides.
@@ -79,7 +79,7 @@ GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIG
 >Quality score:    01........11........21........31........41   
 >~~~
 > {: .output}
-> 
+>
 > See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder about how PHRED scores work.                          
 {: .callout}
 
@@ -333,11 +333,11 @@ First we will look at the "Per base sequence quality" graph.
 
 <img align="center" width="800" height="600" src="{{ page.root }}/fig/02_fastqc_ill_quality.png" alt="Per base sequence quality graph from the Fastqc output we generated above">
 
-The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 202 bp long. 
+The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 202 bp long.
 
-Each position has a box-and-whisker plot showing the distribution of quality scores for all reads at that position. 
-- The horizontal red line indicates the median quality score. 
-- The yellow box shows the 1st to 3rd quartile range (this means that 50% of reads have a quality score that falls within the range of the yellow box at that position). 
+Each position has a box-and-whisker plot showing the distribution of quality scores for all reads at that position.
+- The horizontal red line indicates the median quality score.
+- The yellow box shows the 1st to 3rd quartile range (this means that 50% of reads have a quality score that falls within the range of the yellow box at that position).
 - The whiskers show the absolute range, which covers the lowest (0th quartile) to highest (4th quartile) values.
 
 The plot background is also color-coded to identify good (green), acceptable (yellow), and bad (red) quality scores.
@@ -354,7 +354,7 @@ This graph shows us that this sequencing file has a low percentage (~2-3%) of ad
 > ## When sequencing is poor(er) Quality
 > While the sequencing in this example is high quality this will not always be the case.  
 >
-> Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png). 
+> Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png).
 > See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to remind yourself how to determine what is a good and what is a bad plot.
 >
 > You can also remind yourself how to clean lower quality reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).
@@ -556,7 +556,7 @@ LogTransformed_HistogramReadlength.png
 
 We can see that NanoPlot has generated a lot of different files.
 
-Like before, we can't view most of these files in our terminal as we can't open images or HTML files. Instead we'll download the core information to our own computer. 
+Like before, we can't view most of these files in our terminal as we can't open images or HTML files. Instead we'll download the core information to our own computer.
 Luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer.
 
 Once again we will use `scp`.
@@ -588,7 +588,7 @@ In the report we can view summary statistics followed by plots showing the distr
 
 Looking at the summary statistics table answer the following questions:
 
-> ## Exercise X:
+> ## Exercise 1:
 >
 > 1. How many sequences are in this file?
 > 2. How many bases are there in this entire file?
@@ -633,7 +633,7 @@ One useful plot is the plot titled "Read lengths vs Average read quality plot us
 
 This plot shows the read length of the sequences compared to the average quality of the sequence.
 
-We can see that the majority of the sequences have a quality score of 4 and above, and many of those with an average quality score of 4 are shorter in length. 
+We can see that the majority of the sequences have a quality score of 4 and above, and many of those with an average quality score of 4 are shorter in length.
 This means that for this dataset we should remove those with a lower quality score in order to improve the overall quality of the raw sequences before assembling the metagenome.
 
 <br clear="left"/>
@@ -726,7 +726,7 @@ Once again, wait for the command to finish and then `scp` the `NanoPlot-report.h
 
 **Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/NanoPlot-report.html) and [after filtering]({{ page.root }}/files/NanoPlot-filtered-report.html)  and answer the questions below.**
 
-> ## Exercise X:
+> ## Exercise 2:
 >
 > 1. How many reads have been removed by filtering?
 > 2. How many bases have been removed by filtering?
