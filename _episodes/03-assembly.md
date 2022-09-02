@@ -416,6 +416,8 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 >
 This contig could be run through BLAST to work out its identity. However we will be using a different analysis workflow here that's more appropriate for read world metagenomes.
 .
+> This contig could be run through BLAST to work out its identity. However we will be using a different analysis workflow here that's more appropriate for read world metagenomes.
+
 > Aside from these contigs, the rest of the contigs seem to be a lot shorter with few interactions between them.
 > {: .solution}
 {: .challenge}
