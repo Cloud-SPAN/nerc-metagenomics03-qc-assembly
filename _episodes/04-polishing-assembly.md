@@ -4,12 +4,12 @@ teaching: 30
 exercises: 10
 questions:
 - "Why do assemblies need to be polished?"
-- "What is the difference between reads and contigs?"
-- "How can we assemble a metagenome?"
 - "What are the different purposes of polishing with short and long reads?"
+- "What software can we used to do long and short read polishing?"
+
 objectives:
-- "Understand what is an assembly."  
-- "Run a metagenomics assembly workflow."
+- "Understand why polishing metagenomes is important."  
+- "Understand the different programs used to do short and long read polishing."
 - "Use an enviroment in a bioinformatic pipeline."
 keypoints:
 - "Assembly groups reads into contigs."
