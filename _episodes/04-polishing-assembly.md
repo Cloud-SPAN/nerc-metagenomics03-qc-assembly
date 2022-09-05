@@ -453,3 +453,15 @@ pilon.fasta
 
 We can see pilon has produced a fasta file, which is the newly polished assembly.
 This file is now our assembly, in the next episode we will be assessing the quality of this assembly and compare the quality to the previous draft assemblies.
+
+> ## Recommended reading:
+> While you're waiting for the polishing to finish here's some things you might want to read about:
+> * Comparison of combined assembly and polishing method [Trycycler: consensus long-read assemblies for bacterial genomes](https://link.springer.com/article/10.1186/s13059-021-02483-z)
+> * Polishing strategy for ONT and Pacbio Hifi reads [Polishing high-quality genome assemblies](https://www.nature.com/articles/s41592-022-01515-1)
+> * Comparison of polishing of ONT data with alignment free tool Jasper compared to POLCA,NextPolish and ntEdit [JASPER: a fast genome polishing tool that improves accuracy and creates population-specific reference genomes](https://www.biorxiv.org/content/10.1101/2022.06.14.496115v1.full)
+> * Comparison of short read polishers including pilon to the polisher Polypolish [Polypolish: Short-read polishing of long-read bacterial genome assemblies](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009802#)
+> * Pilon short read polisher paper [Pilon: An Integrated Tool for Comprehensive Microbial Variant Detection and Genome Assembly Improvement](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0112963)
+> * Accuracy of polishers includin medaka for nanopore data [Nanpore consensus quality](https://github.com/rrwick/August-2019-consensus-accuracy-update#racon)
+> * Comparison of nanopore polishing tools [Comparative evaluation of Nanopore polishing tools for microbial genome assembly and polishing strategies for downstream analysis](https://www.nature.com/articles/s41598-021-00178-w)
+
+{: .callout}  
