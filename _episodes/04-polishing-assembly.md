@@ -18,8 +18,7 @@ keypoints:
 - "Pilon is used to polsih an assembly with short reads."
 ---
 
-So far we have generated a draft assembly using Flye. While we could stop there, it is highly likely that our draft assembly contains errors such as gaps and misassemblies.
-We can further improve the quality of this assembly using the raw data we have available in a process known as "assembly polishing".
+In the [previous episode](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html) we generated a draft assembly using Flye. While we could stop there, it is highly likely that our draft assembly contains errors such as gaps and misassemblies. If we generated an assembly using long read (which we just did), the base accuracy of the long reads is also lower, and so without polishing we are still likely to have single nucleotide polymorphisms (SNPs) remaining in the data. We can further improve the quality of this assembly using the raw data we have available in a process known as "assembly polishing".
 
 
 What is polishing?  
