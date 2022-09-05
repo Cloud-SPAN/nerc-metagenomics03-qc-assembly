@@ -453,3 +453,11 @@ pilon.fasta
 
 We can see pilon has produced a fasta file, which is the newly polished assembly.
 This file is now our assembly, in the next episode we will be assessing the quality of this assembly and compare the quality to the previous draft assemblies.
+
+> ## Recommended reading:
+> While you're waiting for the polishing to finish here's some things you might want to read about:
+> * Comparison of combined assembly and polishing method [Trycycler: consensus long-read assemblies for bacterial genomes](https://link.springer.com/article/10.1186/s13059-021-02483-z)
+> *
+> * 
+
+{: .callout}  
