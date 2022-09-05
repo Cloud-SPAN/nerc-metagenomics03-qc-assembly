@@ -12,10 +12,10 @@ objectives:
 - "Understand the different programs used to do short and long read polishing."
 - "Use an enviroment in a bioinformatic pipeline."
 keypoints:
-- "Assembly groups reads into contigs."
-- "De Brujin Graphs use Kmers to assembly cleaned reads"
-- "MetaSPAdes is a metagenomes assembler."
-- "Assemblers take FastQ files as input and produce a Fasta file as output."
+- "Short reads have a higher base accuracy than long reads and can be used to remove errors in assemblies generated with long reads."
+- "Long reads have a lower accuracy but help generate a more contiguous (less fragmented) assembly, so are used to get the structure of the metagenome, but may have small misassemblies or single nucleotide polymorphisms (SNPs)"
+- "Medaka is used to polish an assembly with long reads."
+- "Pilon is used to polsih an assembly with short reads."
 ---
 
 So far we have generated a draft assembly using Flye. While we could stop there, it is highly likely that our draft assembly contains errors such as gaps and misassemblies.
