@@ -394,7 +394,7 @@ You can read more about the possible outputs Pilon can produce in the [Wiki](htt
 
 We can see there are many different options for pilon, we will be using the defaults for our assembly.
 * `--genome` - this will be the output assembly from medaka
-* `--unpaired` - the short reads we ysed to create the BAM alignment were unpaired, so we need to specify the unpaired flag
+* `--unpaired` - the short reads we used to create the BAM alignment were unpaired, so we need to specify the unpaired flag
 * `--outdir` - we are also going to get pilon to generate a directory for all the output
 
 ~~~
