@@ -210,7 +210,7 @@ We have run each of these commands separately in [Genomics - Variant Calling](ht
 This will also take around 30 minutes so we will use `&> alignment.out &` to redirect the commands process to a file and to run the command in the background.
 
 ~~~
-bwa mem -t 4 consensus.fasta ERR3152367_sub5_filtered.fastq | samtools view - -Sb | samtools sort - -@4 -o short_read_alignment.bam &> alignment.out &
+bwa mem -t 4 consensus.fasta ERR3152367_sub5_filtered.fastq | samtools view - -Sb | samtools sort - -@4 -o short_read_alignment.bam >> alignment.out 2>&1 &  
 ~~~
 {: .bash}
 You can check the process of this job by looking at the `alignment.out` file
