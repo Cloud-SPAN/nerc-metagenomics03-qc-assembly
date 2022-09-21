@@ -413,7 +413,6 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > > <img align="center" width="713" height="611" src="{{ page.root }}/fig/03_bandage_graph.png" alt="Repeat graph of the assembly showing some contigs joined together in a circle, and some more with small fragments" />
 > > </a>
 > > In the above graph, there are two large circularised contigs, indicating that they're likely complete genomes. The larger of the two has a smaller blue circle attached which could be a plasmid or some form of insertion, though it also could be an artifact of the assembly.
-
 > This contig could be run through BLAST to work out its identity. However we will be using a different analysis workflow here that's more appropriate for read world metagenomes.
 > Aside from these contigs, the rest of the contigs seem to be a lot shorter with few interactions between them.
 > {: .solution}
@@ -510,5 +509,5 @@ Using this table of statistics, answer the questions below.
 > * Benchmarking of assemblers including flye in prokaryotes [Benchmarking of long-read assemblers for prokaryote whole genome sequencing](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6966772/)
 > * Comparison of combined assembly and polishing method [Trycycler: consensus long-read assemblies for bacterial genomes](https://link.springer.com/article/10.1186/s13059-021-02483-z)
 > * Using nanopore to produce ultra long reads and contiguous assemblies [Nanopore sequencing and assembly of a human genome with ultra-long reads](https://www.nature.com/articles/nbt.4060)
- 
+
 {: .callout}  
