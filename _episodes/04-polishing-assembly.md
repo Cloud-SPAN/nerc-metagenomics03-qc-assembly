@@ -469,5 +469,4 @@ This file is now our assembly, in the next episode we will be assessing the qual
 > * Pilon short read polisher paper [Pilon: An Integrated Tool for Comprehensive Microbial Variant Detection and Genome Assembly Improvement](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0112963)
 > * Accuracy of polishers includin medaka for nanopore data [Nanpore consensus quality](https://github.com/rrwick/August-2019-consensus-accuracy-update#racon)
 > * Comparison of nanopore polishing tools [Comparative evaluation of Nanopore polishing tools for microbial genome assembly and polishing strategies for downstream analysis](https://www.nature.com/articles/s41598-021-00178-w)
-
 {: .callout}  
