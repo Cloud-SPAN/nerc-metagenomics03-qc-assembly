@@ -509,5 +509,4 @@ Using this table of statistics, answer the questions below.
 > * Benchmarking of assemblers including flye in prokaryotes [Benchmarking of long-read assemblers for prokaryote whole genome sequencing](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6966772/)
 > * Comparison of combined assembly and polishing method [Trycycler: consensus long-read assemblies for bacterial genomes](https://link.springer.com/article/10.1186/s13059-021-02483-z)
 > * Using nanopore to produce ultra long reads and contiguous assemblies [Nanopore sequencing and assembly of a human genome with ultra-long reads](https://www.nature.com/articles/nbt.4060)
-
 {: .callout}  
