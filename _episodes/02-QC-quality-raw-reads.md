@@ -237,16 +237,16 @@ $ fastqc -h
 > {: .output}
 {: .solution}
 
-If you're not already there, we need to navigate to our `analysis/qc/illumina_qc` directory,
+If you're not already there, we need to navigate to our qc directory,
 ~~~
-  cd ~/cs_course/analysis/qc/illumina_qc
+  cd ~/cs_course/analysis/qc/
 ~~~
 {: .bash}
 
-As we are using only one FASTQ file we can specify `fastqc` and then the location of the FASTQ file we want to be analysed, which is in our `data` directory:
+As we are using only one FASTQ file we can specify `fastqc` and then the location of the FASTQ file we want to be analysed, which is in our `data` directory and also the `illumina_qc` output directory:
 
 ~~~
- fastqc ~/cs_course/data/illumina_fastq/ERR2935805.fastq
+ fastqc ~/cs_course/data/illumina_fastq/ERR2935805.fastq -o illumina_qc/
 ~~~
 {: .bash}
 
