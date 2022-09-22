@@ -86,7 +86,8 @@ First navigate to the `analysis` directory you made in a previous step.
 Let's see what happens if we enter the `flye` command on our terminal.
 
 ~~~
- cd analysis
+ cd ~
+ cd cs_course/analysis
  flye
 ~~~
 {: .source}
