@@ -153,6 +153,7 @@ seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 > > ## Solution
 > > Between the original assembly and the medaka polished assembly:
 > > - Total length, maximum length and average length have all increased as has the N50, the minimum length and GC content have decreased as has the quartile range of lengths.  
+> > 
 > > Between the medaka polished assembly and the pilon polished assembly:
 > > - The total length, average length, maximum length, Q1, Q2, minimum length and N50 have all increased. The GC% and Q3 have decreased.
 > {: .solution}
@@ -256,6 +257,7 @@ metaquast.py -h
 {: .bash}
 
 > ## MetaQUAST help documentation
+> ~~~
 >> MetaQUAST: Quality Assessment Tool for Metagenome Assemblies
 >> Version: 5.2.0
 >>
@@ -378,6 +380,8 @@ metaquast.py -h
 >> -v  --version                         Print version
 >>
 >> Online QUAST manual is available at http://quast.sf.net/manual
+> ~~~
+> {: .output}
 {: .solution}
 
 
