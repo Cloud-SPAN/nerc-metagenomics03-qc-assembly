@@ -153,7 +153,7 @@ seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 > > ## Solution
 > > Between the original assembly and the medaka polished assembly:
 > > - Total length, maximum length and average length have all increased as has the N50, the minimum length and GC content have decreased as has the quartile range of lengths.  
-> > 
+> >
 > > Between the medaka polished assembly and the pilon polished assembly:
 > > - The total length, average length, maximum length, Q1, Q2, minimum length and N50 have all increased. The GC% and Q3 have decreased.
 > {: .solution}
@@ -390,3 +390,53 @@ MetaQUAST command
 metaquast.py --references-list reference_genomes.txt assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 ~~~
 {: .bash}
+
+~~~
+Version: 5.2.0
+
+System information:
+  OS: Linux-3.10.0
+  Python version: 3.10.5
+  CPUs number: 4
+
+Started: 2022-09-26 17:26:14
+
+Logging to analysis/metaquast/quast_results/results_2022_09_26_17_26_13/metaquast.log
+NOTICE: Maximum number of threads is set to 10 (use --threads option to set it manually)
+
+Contigs:
+  Pre-processing...
+  1  ../assembly/assembly.fasta ==> assembly
+  2  ../medaka/consensus.fasta ==> consensus
+  3  ../pilon/pilon.fasta ==> pilon
+
+List of references was provided, starting to download reference genomes from NCBI...
+
+2022-09-26 17:26:31
+
+2022-09-26 17:26:31
+Trying to download found references from NCBI. Totally 10 organisms to try.
+  Bacillus_subtilis                                                | successfully downloaded (total 1, 9 more to go)
+  Cryptococcus_neoformans                                          | successfully downloaded (total 2, 8 more to go)
+  Enterococcus_faecalis                                            | successfully downloaded (total 3, 7 more to go)
+  Escherichia_coli_str._K-12_substr._MG1655                        | successfully downloaded (total 4, 6 more to go)
+  Lactobacillus_fermentum                                          | successfully downloaded (total 5, 5 more to go)
+  Listeria_monocytogenes_EGD-e                                     | successfully downloaded (total 6, 4 more to go)
+  Pseudomonas_aeruginosa                                           | successfully downloaded (total 7, 3 more to go)
+  Saccharomyces_cerevisiae                                         | successfully downloaded (total 8, 2 more to go)
+  Salmonella_enterica_subsp._enterica_serovar_Typhimurium_str._LT2 | successfully downloaded (total 9, 1 more to go)
+  Staphylococcus_aureus                                            | successfully downloaded (total 10, 0 more to go)
+~~~
+{: .output}
+
+~~~
+MetaQUAST finished.
+  Log is saved to analysis/metaquast/quast_results/results_2022_09_26_17_26_13/metaquast.log
+
+Finished: 2022-09-26 17:31:00
+Elapsed time: 0:04:45.735581
+Total NOTICEs: 13; WARNINGs: 1; non-fatal ERRORs: 0
+
+Thank you for using QUAST!
+~~~
+{: .output}
