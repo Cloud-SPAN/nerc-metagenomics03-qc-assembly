@@ -140,11 +140,11 @@ seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 {: .bash}
 
 
-| file                              | format | type | num_seqs | sum_len  | min_len | avg_len  | max_len | Q1   | Q2      | Q3    | sum_gap | N50     | Q20(%) | Q30(%) | GC(%) |
-|-----------------------------------|--------|------|----------|----------|---------|----------|---------|------|---------|-------|---------|---------|--------|--------|-------|
-| assembly/assembly.fasta                    | FASTA  | DNA  | 146      | 14953273 | 3164    | 102419.7 | 6068630 | 7364 | 13415.5 | 35259 | 0       | 2976503 | 0      | 0      | 52.48 |
-| medaka/consensus.fasta            | FASTA  | DNA  | 146      | 14973646 | 3142    | 102559.2 | 6074419 | 7299 | 13333   | 35173 | 0       | 2991855 | 0      | 0      | 52.4  |
-| pilon/pilon.fasta | FASTA  | DNA  | 146      | 14970478 | 3142    | 102537.5 | 6073731 | 7299 | 13333   | 35169 | 0       | 2991264 | 0      | 0      | 52.4  |
+| file                       | format  | type  | num_seqs   |     sum_len  | min_len  |   avg_len  |   max_len  |       Q1  |       Q2  |       Q3  | sum_gap  |       N50  | Q20(%)  | Q30(%)   | GC(%) |
+|----------------------------|---------|-------|------------|--------------|----------|------------|------------|-----------|-----------|-----------|----------|------------|---------|----------|-------|
+| assembly/assembly.fasta    | FASTA   | DNA   |       148  | 14,941,594   |   3,164  | 100,956.7  | 6,068,569  | 7,334.5   | 13,415.5  | 39,268.5  |       0  | 2,976,491  |       0 |       0  | 52.47 |
+| medaka/consensus.fasta     | FASTA   | DNA   |       148  | 14,961,385   |   3,142  | 101,090.4  | 6,074,403  |   7,227   |   13,333  |   39,289  |       0  | 2,991,852  |       0 |       0  | 52.38 |
+| pilon/pilon.fasta          | FASTA   | DNA   |       148  | 14,970,138   |   3,144  | 101,149.6  | 6,074,515  |   7,231   | 13,342.5  | 39,283.5  |       0  | 2,992,057  |       0 |       0  | 52.35 |
 
 
 > ## Exercise X: Comparing the Assemblies
@@ -154,7 +154,7 @@ seqkit stats -a assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
 > > Between the original assembly and the medaka polished assembly:
 > > - Total length, maximum length and average length have all increased as has the N50, the minimum length and GC content have decreased as has the quartile range of lengths.
 > > Between the medaka polished assembly and the pilon polished assembly:
-> > - The total length, average length, maximum length, Q3 and N50 have all decreased. However they are all still larger than the original, un-polished, assembly.
+> > - The total length, average length, maximum length, Q1, Q2, minimum length and N50 have all increased. The GC% and Q3 have decreased.
 > {: .solution}
 {: .challenge}
 
