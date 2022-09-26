@@ -22,8 +22,12 @@ keypoints:
 
 In the [previous episode](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html) we generated a draft assembly using Flye. While we could stop there, our draft assembly likely contains errors such as gaps and misassemblies.
 
+<img align="left" width="525" height="307" src="{{ page.root }}/fig/04_polishing_diagram_v1.png" alt="Diagram showing overlap of reads for polishing" />
+
 Long-read assemblies have longer reads that can span difficult regions in genomes that short-read assemblies could not. This is helpful particularly for genomes with large repeats. However, as we generated an assembly using long reads, the base accuracy of the long reads is lower, so without polishing we are still likely to have single nucleotide polymorphisms (SNPs) remaining in the data. We can further improve the quality of this assembly using the raw data we have available in a process known as "assembly polishing".
 We have covered this previously in our Experimental Design course in the episode on [Platform choice](https://cloud-span.github.io/experimental_design01-principles/01-platform/index.html), and also the [introduction section of this course](https://cloud-span.github.io/metagenomics01-qc-assembly/00-introduction-meta/index.html).
+
+<br clear="left"/>
 
 ## Why bother polishing?
 
