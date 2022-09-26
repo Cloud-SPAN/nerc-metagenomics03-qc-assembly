@@ -353,12 +353,12 @@ If you navigate to the end of the file you should see something like:
 [2022-08-11 14:03:51] INFO: >>>STAGE: finalize
 [2022-08-11 14:03:52] INFO: Assembly statistics:
 
-        Total length:   14953273
-        Fragments:      146
-        Fragments N50:  2976503
-        Largest frg:    6068630
+        Total length:   14941594
+        Fragments:      148
+        Fragments N50:  2976491
+        Largest frg:    6068569
         Scaffolds:      0
-        Mean coverage:  181
+        Mean coverage:  178
 
 [2022-08-11 14:03:52] INFO: Final assembly: ~/analysis/assembly/assembly.fasta
 ~~~
@@ -481,7 +481,7 @@ SeqKit is fast so we are running this directly in the terminal foreground. It sh
 Once it has finished you should see an output table like this:
 ~~~
 file            format  type  num_seqs     sum_len  min_len    avg_len    max_len
-assembly.fasta  FASTA   DNA        146  14,953,273    3,164  102,419.7  6,068,630
+assembly.fasta  FASTA   DNA        148  14,941,594    3,164  100,956.7  6,068,569
 ~~~
 {: .output}
 
@@ -489,13 +489,14 @@ In this table we can see the input file, the format of the file, the type of seq
 
 Using this table of statistics, answer the questions below.
 > ## Exercise X: Looking at basic statistics
+> Using the output for seqkit stats above, answer the following questions.
 > a) How many contigs are in this assembly?  
 > b) How many bases in total have been assembled?  
 > c) What is the shortest and longest contig produced by this assembly?  
 >> ## Solution
->> a) From `num_seqs` we can see that this assembly is made up of 146 contigs  
->> b) Looking at `sum_length` we can see that the assembly is 14,953,273bp in total (almost 15 million bp!)  
->> c) From `min_length` we can see the shortest contig is 3,164bp and from `max_length` the longest contig is 6,068,630bp  
+>> a) From `num_seqs` we can see that this assembly is made up of 148 contigs  
+>> b) Looking at `sum_length` we can see that the assembly is 14,941,594bp in total (almost 15 million bp!)  
+>> c) From `min_length` we can see the shortest contig is 3,164bp and from `max_length` the longest contig is 6,068,569bp  
 > {: .solution}
 {: .challenge}
 
