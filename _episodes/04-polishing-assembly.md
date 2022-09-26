@@ -91,7 +91,8 @@ medaka_consensus -h
 
 This gives us the command:
 ~~~
-medaka_consensus -i ERR3152367_sub5_filtered.fastq -d assembly.fasta -m r941_prom_fast_g303 -t 4 &> medaka.out &
+cd analysis/
+medaka_consensus -i ../data/ERR3152367_sub5_filtered.fastq -d assembly/assembly.fasta -m r941_prom_fast_g303 -o medaka -t 4 &> medaka.out &
 ~~~
 {: .bash}
 Note, we have added `&> medaka.out &` to redirect the output and run the command in the background. Medaka shouldn't take as long as Flye did in the previous step (probably around 20 mins), but it's a good idea to run things in the background so that you can do other things while the program is running.
@@ -183,7 +184,7 @@ We've previously covered aligning reads to a genome in [Genomics - Variant Calli
 
 We first need to index the polished assembly we got from Medaka. Indexing allows the aligner to quickly find potential alignment sites for query sequences in a genome, which saves time during alignment.
 ~~~
-bwa index consensus.fasta
+bwa index medaka/consensus.fasta
 ~~~
 {: .bash}
 This should only take a few seconds to complete so we don't need to run the job in the background.
@@ -201,29 +202,45 @@ Once the indexing is complete you should see an output like:
 ~~~
 {: .output}
 
-We can then align the short reads to the draft assembly.
+This will generate five additional files in the `medaka` directory with the file extensions `.pac`, `.bwt`, `.ann`, `.amb` and `.sa`. These files are used by BWA in the next step of this process.
 
-It is possible to chain together commands in unix using a process known as "piping". This allows the output from one command to be directly passed to another command for further processing. This is especially useful for situations where you may not need the intermediate file again. To do this we use the pipe `|` character.  
-
-You can find the pipe (<kbd>|</kbd>) character on your keyboard, usually by typing <kbd>⇧ Shift</kbd> + <kbd>\</kbd>.
-
-You can use multiple pipes in one command but data will only go from the left to the right.
-I.e.
-`command1 | command2 | command3 | .... |`
-
-We will be using two pipes to join three different steps in order to align the raw reads to the draft assembly and then sort this alignment to generate a sorted BAM file.
-
-First we will generate the alignment using BWA mem, then convert the alignment into BAM with `samtools view` and finally sort the alignment with `samtools sort`. Doing it this way w will only generate the one output file, `short_read_alignment.bam`, avoiding the need to generate large intermediary files we won't need again between the other two steps.
-
-We have run each of these commands separately in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html), if you want to remind yourself of what they do in more detail.
-
-This will also take around 30 minutes so we will use `&> alignment.out &` to redirect the commands process to a file and to run the command in the background.
+Once we've made an output directory, we can then align the short reads to the draft assembly.
 
 ~~~
-bwa mem -t 4 consensus.fasta ERR3152367_sub5_filtered.fastq | samtools view - -Sb | samtools sort - -@4 -o short_read_alignment.bam >> alignment.out 2>&1 &  
+cd ~/analysis/
+mkdir pilon
+cd pilon
 ~~~
 {: .bash}
-You can check the process of this job by looking at the `alignment.out` file
+
+To do this alignment will be adapting and combining the commands we used in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html), it would be worth reminding yourself of these commands in more detail.
+
+> ## Chaining together commands with a pipe
+> It is possible to chain together commands in unix using a process known as "piping". This allows the output from one command to be directly passed to another command for further processing. This is especially useful for situations where you may not need the intermediate file again. To do this we use the pipe `|` character.  
+> You can find the pipe (<kbd>|</kbd>) character on your keyboard, usually by typing <kbd>⇧ Shift</kbd> + <kbd>\</kbd>.
+> You can use multiple pipes in one command but data will only go from the left to the right.
+> I.e.
+> `command1 | command2 | command3 | .... |`
+{: .callout}
+
+We will be using two pipes to join three separate steps in order to align the raw reads to the draft assembly and then sort this alignment to generate a sorted BAM file. Chaining them together will only generate one final output file, avoiding the need to generate large intermediary files we don't need again between the other two steps.
+
+* First we will generate the alignment using BWA mem:
+ `bwa mem -t 4 consensus.fasta ../data/illumina_fastq/ERR2935805.fastq`
+* Then we will convert the alignment into BAM with:
+  `samtools view`
+* Finally we will sort the alignment with:
+  `samtools sort`  
+
+This will take around 30 minutes so we will use `&> alignment.out &` to redirect the commands process to a file and to run the command in the background.
+
+After adding the pipes in between steps this makes the command we will run:
+~~~
+bwa mem -t 4 ../medaka/consensus.fasta ../../data/illumina_fastq/ERR2935805.fastq | samtools view - -Sb | samtools sort - -@4 -o short_read_alignment.bam &> alignment.out &
+~~~
+{: .bash}
+
+Once the command is running, you can check the process of this job by looking at the `alignment.out` file
 ~~~
 less alignment.out
 ~~~
@@ -259,7 +276,7 @@ Once completed, the end of the `alignment.out` file should contain something lik
 [bam_sort_core] merging from 4 files and 4 in-memory blocks...
 ~~~
 {: .output}
-We should now have genreated the `short_read_alignment.bam` file - this is a binary file (meaning it's not human readable) so we won't be checking it's contents.
+We should now have generated the `short_read_alignment.bam` file - this is a binary file (meaning it's not human readable) so we won't be checking it's contents.
 
 We then need to run the following command to index the aligment. We haven't added this command to the above pipe as we need the BAM file from above for further analysis and to be able to index it!
 ~~~
@@ -271,11 +288,11 @@ This command will take around a minute so we don't need to run it in the backgro
 Once your prompt has returned you should also have a file named `short_read_alignment.bam.bai` which is the index.
 
 ### Running Pilon
-Now we have generated the necessary input files we can, finally, run Pilon.
-
+Now we have generated the necessary input files we can, finally, run Pilon. First navigate into the `pilon` directory we created earlier when generating the required files.
 Pilon has been preinstalled on the instance so we can first view the help documentation with:
 
 ~~~
+cd pilon
 pilon --help
 ~~~
 {: .bash}
@@ -408,7 +425,7 @@ We can see there are many different options for pilon, we will be using the defa
 * `--outdir` - we are also going to get pilon to generate a directory for all the output
 
 ~~~
-pilon --genome consensus.fasta --unpaired short_read_alignment.bam --outdir pilon &> pilon.out &
+pilon --genome consensus.fasta --unpaired short_read_alignment.bam &> pilon.out &
 ~~~
 {: .bash}
 
@@ -416,58 +433,48 @@ We can again keep track of the analysis by looking at the `pilon.out` file.
 
 When the command is initially run  
 ~~~
-To execute Pilon run: java -Xmx8G -jar $EBROOTPILON/pilon.jar
-Adjust the memory value according to the size of your input files
-Pilon version 1.23 Mon Nov 26 16:04:05 2018 -0500
-Genome: consensus.fasta
+Pilon version 1.24 Thu Jan 28 13:00:45 2021 -0500
+Genome: ../medaka/consensus.fasta
 Fixing snps, indels, gaps, local
-Input genome size: 14973646
+Input genome size: 14961385
 Scanning BAMs
-short_read_alignment.bam: 932261 reads, 0 filtered, 873025 mapped, 0 proper, 0 stray, Unpaired 100% 3401+/-3002, max 12408
-Processing contig_98:1-17822
-Processing contig_27:1-7734
-Processing contig_156:1-10738
-Processing contig_106:1-9517
-Processing contig_147:1-98783
-Processing contig_96:1-15421
-Processing contig_12:1-7084
-Processing contig_15:1-70238
-Processing contig_129:1-6453
-Processing contig_39:1-5805
-Processing contig_152:1-14830
-Processing contig_33:1-7570
-Processing contig_50:1-4058
+short_read_alignment.bam: 97413971 reads, 0 filtered, 97027227 mapped, 0 proper, 0 stray, Unpaired 100% 147+/-55, max 313
+Processing contig_47:1-12303
+unpaired short_read_alignment.bam: coverage 3
+Total Reads: 532, Coverage: 3, minDepth: 5
+Confirmed 3506 of 12303 bases (28.50%)
+Corrected 25 snps; 0 ambiguous bases; corrected 18 small insertions totaling 22 bases, 28 small deletions totaling 32 bases
+# Attempting to fix local continuity breaks
+# fix break: contig_47:10552-11713 0 -0 +0 NoSolution
+contig_47:1-12303 log:
+Finished processing contig_47:1-12303
 ~~~
 {: .output}
 
 When Pilon finishes the end of the file will contain something like:
 ~~~
-Writing updated contig_77_pilon to pilon/pilon.fasta
-Writing contig_107:1-4213 changes to pilon/pilon.changes
-Writing updated contig_107_pilon to pilon/pilon.fasta
-Writing contig_34:1-156470 changes to pilon/pilon.changes
-Writing updated contig_34_pilon to pilon/pilon.fasta
-Writing contig_38:1-59388 changes to pilon/pilon.changes
-Writing updated contig_38_pilon to pilon/pilon.fasta
-Writing contig_44:1-22564 changes to pilon/pilon.changes
-Writing updated contig_44_pilon to pilon/pilon.fasta
-Mean unpaired coverage: 165
-Mean total coverage: 165
+Writing updated contig_86_pilon to pilon.fasta
+Writing updated contig_90_pilon to pilon.fasta
+Writing updated contig_30_pilon to pilon.fasta
+Writing updated contig_136_pilon to pilon.fasta
+Writing updated contig_107_pilon to pilon.fasta
+Mean unpaired coverage: 535
+Mean total coverage: 535
 ~~~
 {: .output}
 
-We can navigate into the pilon directory and have a look at the output files Pilon has produced.
+If not already in there, we can navigate into the `pilon` directory and have a look at the output files Pilon has produced.
 ~~~
-cd pilon
+cd ~/analysis/pilon
 ls
 ~~~
 {: .bash}
 ~~~
-pilon.fasta
+alignment.out  pilon.fasta  pilon.out  short_read_alignment.bam  short_read_alignment.bam.bai
 ~~~
 {: .output}
 
-We can see pilon has produced a fasta file, which is the newly polished assembly.
+We can see pilon has produced a fasta file `pilon.fasta`, which is the newly polished assembly.
 This file is now our assembly, in the next episode we will be assessing the quality of this assembly and compare the quality to the previous draft assemblies.
 
 > ## Recommended reading:
