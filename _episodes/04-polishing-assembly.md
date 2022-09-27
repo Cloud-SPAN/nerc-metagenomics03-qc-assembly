@@ -37,7 +37,7 @@ If you want to compare the sequence in your assembly against a database to find 
 
 This is not a big problem if you are not looking at annotations below the genus level, as the distance to the nearest match may remain the same. However one of the main advantages of using whole genome sequencing rather than amplicon sequencing; is that you can assign annotations to the species level.  
 
-There are other situations in which polishing is necessary. For example, if you are using your sequence to match against structural domains to identify the **functional of your organism**, or you are using it to generate protein predictions, you may end up with confounding errors downstream. This is discussed in more detail in [Errors in long-read assemblies can critically affect protein prediction](https://www.nature.com/articles/s41587-018-0004-z).  
+There are other situations in which polishing is necessary. For example, if you are using your sequence to match against structural domains to identify the function of your organism, or you are using it to generate protein predictions, you may end up with confounding errors downstream. This is discussed in more detail in [Errors in long-read assemblies can critically affect protein prediction](https://www.nature.com/articles/s41587-018-0004-z).  
 
 We will be using two polishing "strategies" in combination, using both long and short reads. In the further reading of this session, you can read about how different combinations of polishing tools can increase assembly accuracy.   
 
@@ -48,15 +48,15 @@ We will follow this with a short read polisher called [Pilon](https://github.com
 
 ## Polishing an assembly with long reads
 
-We're first going to use the filtered raw long reads to polish the draft Flye assembly.
+First we will polish the draft Flye assembly using the filtered raw long reads. 
 As with the assembly, we need to use polishing software that is especially written for long read raw reads.
 
 [Medaka](https://github.com/nanoporetech/medaka) is a command line tool built by Oxford Nanopore Technologies which will polish an assembly by generating a consensus from raw Nanopore sequences using a recurrent neural network.
 
-We will be using the command medaka_consensus, which is a pipeline that will first align the raw reads to the draft assembly, processes this alignment to generate a pileup which is presented to a recurrent neural network in order to produce a consensus sequence.
+We will be using the command medaka_consensus. This is a pipeline that will first align the raw reads to the draft assembly, then process this alignment to generate a pileup. The pileup is presented to a recurrent neural network in order to produce a consensus sequence.
 
-Medaka has been pre-installed on the instance so, first we can look at the help page for `medaka_consensus`.
-Note: because this is a pipeline made up multiple steps we will be looking at the help documentation for `medaka_consensus` (no space!)
+Medaka has been pre-installed on the instance so first we can look at the help page for `medaka_consensus`.
+Note: this is a pipeline made up multiple steps so there are multiple Medaka commands. We will be looking specifically at the help documentation for `medaka_consensus` (no space!)
 
 ~~~
 medaka_consensus -h
@@ -90,8 +90,12 @@ medaka_consensus -h
 > {: .output}
 {: .solution}
 
-* From this we can see that `-i` for the input basecalls (meaning Nanopore raw-reads) and `-d` for the assembly are required.  
-* As Medaka uses recurrent neural networks we need to pick an appropriate model (`-m`) for the data we're using. From the [documentation](https://github.com/nanoporetech/medaka#models), Medaka models are named to indicate i) the pore type, ii) the sequencing device (MinION or PromethION), iii) the basecaller variant, and iv) the basecaller version, with the format: `{pore}_{device}_{caller variant}_{caller version}`. Medaka doesn't offer an exact model for our dataset while it is possible to train a model yourself we will not be doing that here and instead will use the closest available model. This is the model `r941_prom_fast_g303`, so we also need to add that to our command as that isn't medakas default.  
+* From this we can see that the flags `-i` and `-d` are required.
+  - `-i` indicates the input basecalls (i.e. Nanopore raw-reads)
+  - `-d` indicates the assembly
+* As Medaka uses recurrent neural networks we need to pick an appropriate model (`-m`) for the data we're using. 
+  - From the [documentation](https://github.com/nanoporetech/medaka#models), Medaka models are named to indicate i) the pore type, ii) the sequencing device (MinION or PromethION), iii) the basecaller variant, and iv) the basecaller version, with the format: `{pore}_{device}_{caller variant}_{caller version}`. Medaka doesn't offer an exact model for our dataset. While it is possible to train a model yourself we will not be doing that here and instead will use the closest available model. This is the model `r941_prom_fast_g303`, so we also need to add that to our command as this is not the default.
+* We can use the `-o` flag to specify which directory the output of the command should go into  
 * Finally, to speed this step up we need to specify the number of threads with `-t`.
 
 This gives us the command:
@@ -100,7 +104,7 @@ cd analysis/
 medaka_consensus -i ../data/ERR3152367_sub5_filtered.fastq -d assembly/assembly.fasta -m r941_prom_fast_g303 -o medaka -t 4 &> medaka.out &
 ~~~
 {: .bash}
-Note, we have added `&> medaka.out &` to redirect the output and run the command in the background. Medaka shouldn't take as long as Flye did in the previous step (probably around 20 mins), but it's a good idea to run things in the background so that you can do other things while the program is running.
+Note that we have added `&> medaka.out &` to redirect the output and run the command in the background. Medaka shouldn't take as long as Flye did in the previous step (probably around 20 mins), but it's a good idea to run things in the background so that you can do other things while the program is running.
 
 Similar to Flye, we can look in the output file (`medaka.out`) to check the progress of the command.
 ~~~
@@ -126,7 +130,8 @@ Constructing minimap index.
 [M::mm_idx_stat::0.910*1.28] distinct minimizers: 2598367 (94.68% are singletons); average occurrences: 1.076; average spacing: 5.350; total length: 14953273
 ~~~
 {: .output}
-Medaka first looks for the other programs that it needs (known as dependencies) and their versions, which have also been pre-installed on the instance. Once it confirms they are preset it begins by aligning the raw reads (basecalls) to the assembly using minimap.
+Medaka first looks for the other programs that it needs (known as dependencies) and their versions. These dependencies have been pre-installed on the instance. Once it confirms they are present it begins by aligning the raw reads (basecalls) to the assembly using minimap.
+
 Once medaka has completed the end of the file will contain something like:
 ~~~
 [20:51:16 - DataIndx] Loaded 1/1 (100.00%) sample files.
@@ -156,20 +161,23 @@ calls_to_draft.bam  calls_to_draft.bam.bai  consensus.fasta  consensus.fasta.gap
 ~~~
 {: .output}
 
-We can see that medaka has created multiple files, these are the following:
+Medaka has created multiple files:
 
-* `calls_to_draft.bam` - this is a BAM file contaning the alignment of the raw reads (basecalls) to the draft assembly
-* `calls_to_draft.bam.bai` - this is an index file of the above BAM file
-* `consensus.fasta` - this is the consensus sequence, or polished assembly in our case in FASTA format
-* `consensus.fasta.gaps_in_draft_coords.bed` - this is a BED file containing information about the location of any gaps in the consensus sequence which can be used when visualising the assembly
-* `consensus_probs.hdf` - this is a file that contains the output of the neural network calculations and is not an output for end-users, so we don't need to worry about this file
+* `calls_to_draft.bam` - a BAM file contaning the alignment of the raw reads (basecalls) to the draft assembly
+* `calls_to_draft.bam.bai` - an index file of the above BAM file
+* `consensus.fasta` - the consensus sequence, or polished assembly in our case in FASTA format
+* `consensus.fasta.gaps_in_draft_coords.bed` - a BED file containing information about the location of any gaps in the consensus sequence which can be used when visualising the assembly
+* `consensus_probs.hdf` - a file that contains the output of the neural network calculations and is not an output for end-users, so we don't need to worry about this file
 
-`consensus.fasta` is the file we're interested in, which in our case is the polished assembly.
+In our case we're interested in the polished assembly, so we want the `consensus.fasta` file.
 
 > ## BAM and SAM Files
-> A [SAM file](https://genome.sph.umich.edu/wiki/SAM), is a tab-delimited text file that contains information for each individual read and its alignment to the genome. While we do not have time to go into detail about the features of the SAM format, the paper by [Heng Li et al.](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) provides a lot more detail on the specification.  
+> A [SAM file](https://genome.sph.umich.edu/wiki/SAM), is a tab-delimited text file that contains information for each individual read and its alignment to the genome. While we do not have time to go into detail about the features of the SAM format, the paper by [Heng Li et al.](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) provides a lot more detail on the specification.
+> 
 > The compressed binary version of SAM is called a BAM file. We use this version to reduce size and to allow for indexing, which enables efficient random access of the data contained within the file.  
-> The file begins with a header, which is optional. The header is used to describe the source of data, reference sequence, method of alignment, etc., this will change depending on the aligner being used. Following the header is the alignment section. Each line that follows corresponds to alignment information for a single read. Each alignment line has 11 mandatory fields for essential mapping information and a variable number of other fields for aligner specific information. An example entry from a SAM file is displayed below with the different fields highlighted.  
+>
+> The file begins with a header, which is optional. The header describes the source of data, reference sequence, method of alignment etc. - these will change depending on the aligner being used. Following the header is the alignment section. Each line that follows corresponds to alignment information for a single read. There are 11 mandatory fields for essential mapping information and a variable number of other fields for aligner specific information. An example entry from a SAM file is displayed below with the different fields highlighted.  
+>
 > See [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html) for a deeper dive.  
 {: .callout}
 
