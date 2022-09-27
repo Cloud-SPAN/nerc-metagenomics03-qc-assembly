@@ -185,7 +185,7 @@ In our case we're interested in the polished assembly, so we want the `consensus
 
 We will be using the program [Pilon](https://github.com/broadinstitute/pilon) to further polish the draft assembly using the raw short reads. Pilon will improve a draft assembly by filling gaps, fixing misassemblies and correcting bases. You can read more about how it works in the paper [Pilon: An Integrated Tool for Comprehensive Microbial Variant Detection and Genome Assembly Improvement](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0112963).
 
-Bioinformatics programs are not built equally. Some programs like Flye or Medaka will require very few input files as they will generate any that they need within the pipeline. Some programs however, require a lot of user input to generate the input files that are needed.  
+Bioinformatics programs are not built equally. Some programs, like Flye or Medaka, require very few input files as they will generate any that they need within the pipeline. Some programs however, require a lot of user input to generate the input files that are needed.  
 
 Pilon is in the latter group of bioinformatics software, so we will need to do some pre-processing using other programs to create some of the inputs needed.
 
@@ -217,7 +217,7 @@ Once the indexing is complete you should see an output like:
 
 This will generate five additional files in the `medaka` directory with the file extensions `.pac`, `.bwt`, `.ann`, `.amb` and `.sa`. These files are used by BWA in the next step of this process.
 
-Once we've made an output directory, we can then align the short reads to the draft assembly.
+Next we will make an output directory before we align the short reads to the draft assembly.
 
 ~~~
 cd ~/analysis/
@@ -226,17 +226,18 @@ cd pilon
 ~~~
 {: .bash}
 
-To do this alignment will be adapting and combining the commands we used in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html), it would be worth reminding yourself of these commands in more detail.
+To do this alignment we will be adapting and combining the commands used in [Genomics - Variant Calling](https://cloud-span.github.io/04genomics/01-variant_calling/index.html). You may find it useful to go back and remind yourself of these commands before continuing..
 
 > ## Chaining together commands with a pipe
 > It is possible to chain together commands in unix using a process known as "piping". This allows the output from one command to be directly passed to another command for further processing. This is especially useful for situations where you may not need the intermediate file again. To do this we use the pipe `|` character.  
+>
 > You can find the pipe (<kbd>|</kbd>) character on your keyboard, usually by typing <kbd>⇧ Shift</kbd> + <kbd>\</kbd>.
 > You can use multiple pipes in one command but data will only go from the left to the right.
 > I.e.
 > `command1 | command2 | command3 | .... |`
 {: .callout}
 
-We will be using two pipes to join three separate steps in order to align the raw reads to the draft assembly and then sort this alignment to generate a sorted BAM file. Chaining them together will only generate one final output file, avoiding the need to generate large intermediary files we don't need again between the other two steps.
+We will be using two pipes to join three separate steps. First we will align the raw reads to the draft assembly, then convert the output to BAM format, before finally sorting this alignment to generate a sorted BAM file. Chaining the steps together together will only generate one final output file, avoiding the need to generate large intermediary files we don't need again between the other two steps.
 
 * First we will generate the alignment using BWA mem:
  `bwa mem -t 4 consensus.fasta ../data/illumina_fastq/ERR2935805.fastq`
@@ -245,9 +246,9 @@ We will be using two pipes to join three separate steps in order to align the ra
 * Finally we will sort the alignment with:
   `samtools sort`  
 
-This will take around 30 minutes so we will use `&> alignment.out &` to redirect the commands process to a file and to run the command in the background.
+This will take around 30 minutes so we will use `&> alignment.out &` to redirect the process to a file and to run the command in the background.
 
-After adding the pipes in between steps this makes the command we will run:
+After adding the pipes in between steps the command looks like this:
 ~~~
 bwa mem -t 4 ../medaka/consensus.fasta ../../data/illumina_fastq/ERR2935805.fastq | samtools view - -Sb | samtools sort - -@4 -o short_read_alignment.bam &> alignment.out &
 ~~~
@@ -289,20 +290,27 @@ Once completed, the end of the `alignment.out` file should contain something lik
 [bam_sort_core] merging from 4 files and 4 in-memory blocks...
 ~~~
 {: .output}
-We should now have generated the `short_read_alignment.bam` file - this is a binary file (meaning it's not human readable) so we won't be checking it's contents.
+We have now generated the `short_read_alignment.bam` file - this is a binary file (meaning it's not human readable) so we won't be checking its contents.
 
-We then need to run the following command to index the aligment. We haven't added this command to the above pipe as we need the BAM file from above for further analysis and to be able to index it!
-~~~
+We then index the alignment using the following command.
+
 samtools index short_read_alignment.bam
 ~~~
 {: .bash}
+
+> Why didn't we include this command in the sequence of pipes in the previous step? The answer is that we will need access to the BAM file produced for further analysis. 
+> If we included this step as part of a pipe the intermediate BAM file would not be saved.
+{: .callout}
+~~~
 This command will take around a minute so we don't need to run it in the background.
 
 Once your prompt has returned you should also have a file named `short_read_alignment.bam.bai` which is the index.
 
 ### Running Pilon
-Now we have generated the necessary input files we can, finally, run Pilon. First navigate into the `pilon` directory we created earlier when generating the required files.
-Pilon has been preinstalled on the instance so we can first view the help documentation with:
+Now we have generated the necessary input files we can finally run Pilon. 
+
+First navigate into the `pilon` directory we created earlier when generating the required files.
+Pilon has been preinstalled on the instance so we can first view the help documentation using:
 
 ~~~
 cd pilon
@@ -432,10 +440,10 @@ pilon --help
 
 You can read more about the possible outputs Pilon can produce in the [Wiki](https://github.com/broadinstitute/pilon/wiki/Output-File-Descriptions).
 
-We can see there are many different options for pilon, we will be using the defaults for our assembly.
+We can see there are many different options for pilon. We will be using the defaults for our assembly.
 * `--genome` - this will be the output assembly from medaka
-* `--unpaired` - the short reads we used to create the BAM alignment were unpaired, so we need to specify the unpaired flag
-* `--outdir` - we are also going to get pilon to generate a directory for all the output
+* `--unpaired` - the short reads we used to create the BAM alignment were unpaired, so we need to specify this using this flag
+* `--outdir` - this will generate a directory for all the output
 
 ~~~
 pilon --genome consensus.fasta --unpaired short_read_alignment.bam &> pilon.out &
@@ -488,10 +496,12 @@ alignment.out  pilon.fasta  pilon.out  short_read_alignment.bam  short_read_alig
 {: .output}
 
 We can see pilon has produced a fasta file `pilon.fasta`, which is the newly polished assembly.
-This file is now our assembly, in the next episode we will be assessing the quality of this assembly and compare the quality to the previous draft assemblies.
+This file is now our assembly.
+
+In the next episode we will be assessing the quality of this assembly and compare the quality to the previous draft assemblies.
 
 > ## Recommended reading:
-> While you're waiting for the polishing to finish here's some things you might want to read about:
+> While you're waiting for the polishing to finish, here's some things you might want to read about:
 > * Comparison of combined assembly and polishing method [Trycycler: consensus long-read assemblies for bacterial genomes](https://link.springer.com/article/10.1186/s13059-021-02483-z)
 > * Polishing strategy for ONT and Pacbio Hifi reads [Polishing high-quality genome assemblies](https://www.nature.com/articles/s41592-022-01515-1)
 > * Comparison of polishing of ONT data with alignment free tool Jasper compared to POLCA,NextPolish and ntEdit [JASPER: a fast genome polishing tool that improves accuracy and creates population-specific reference genomes](https://www.biorxiv.org/content/10.1101/2022.06.14.496115v1.full)
