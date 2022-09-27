@@ -31,18 +31,19 @@ We have covered this previously in our Experimental Design course in the episode
 
 ## Why bother polishing?
 
-Depending on your downstream use, polishing your assembly may not be essential.
-However, one of the first questions we ask of our metagenome is often, what is in here? To answer this question, which we will cover in [Taxonomic annotations](https://cloud-span.github.io/metagenomics03-taxonomic-anno/), it is necessary to compare the sequence in your assembly against a database.  
-If the sequence contains errors such as SNPs and you haven't polished your assembly, you may end up with an incorrect annotation. This is not a big problem if you are not looking at annotations below the genus level, as the distance to the nearest match may remain the same. However one of the main advantages of using whole genome sequencing rather than amplicon sequencing; is that you can assign annotations to the species level.  
-Not polishing can also have other consequences. For example if you are using your sequence to match against structural domains to identify the functional of your organism, or you are using it to generate protein predictions, you may end up with confounding errors downstream. This is discuss in more detail in [Errors in long-read assemblies can critically affect protein prediction](https://www.nature.com/articles/s41587-018-0004-z).  
+Polishing your assembly may not be essential. It depends on your downstream use.
 
-We will be using two polishing "strategies" in combination. We will be performing a long-read polishing and following this by polishing with short reads. In the further reading of this session, you can read about how different combinations of polishing tools can increase assembly accuracy.  
+If you want to compare the sequence in your assembly against a database to find out what it contains (which we will cover in [Taxonomic annotations](https://cloud-span.github.io/metagenomics03-taxonomic-anno/)), polishing is necessary. If the sequence contains errors such as SNPs and you haven't polished your assembly, you may end up with an incorrect annotation. 
 
-Typically we would perform the short read polishing step 3 times, increasing the base accuracy each time. To reduce the compute requirements and the time required to finish the assembly, we will be performing both of these steps only once here.  
+This is not a big problem if you are not looking at annotations below the genus level, as the distance to the nearest match may remain the same. However one of the main advantages of using whole genome sequencing rather than amplicon sequencing; is that you can assign annotations to the species level.  
+
+There are other situations in which polishing is necessary. For example, if you are using your sequence to match against structural domains to identify the **functional of your organism**, or you are using it to generate protein predictions, you may end up with confounding errors downstream. This is discussed in more detail in [Errors in long-read assemblies can critically affect protein prediction](https://www.nature.com/articles/s41587-018-0004-z).  
+
+We will be using two polishing "strategies" in combination, using both long and short reads. In the further reading of this session, you can read about how different combinations of polishing tools can increase assembly accuracy.   
 
 Polishing with long-reads uses the raw long-reads mapped to the assembly to identify misassemblies, typically repeats and contigs that have been incorrectly joined. We will be doing this using a tool called [Medaka](https://github.com/nanoporetech/medaka).  
 
-Then we will follow this with a short read polisher called [Pilon](https://github.com/broadinstitute/pilon), which uses the higher quality sequence to substitute errors in our assembly using an alignment of the short-reads to the assembly to correct SNPs and increase poor-quality bases.  
+We will follow this with a short read polisher called [Pilon](https://github.com/broadinstitute/pilon), which uses the higher quality sequence to substitute errors in our assembly using an alignment of the short-reads to the assembly to correct SNPs and increase poor-quality bases. Typically we would perform the short read polishing step 3 times, increasing the base accuracy each time. To reduce the compute requirements and the time required to finish the assembly, we will be performing both of these steps only once here. 
 
 
 ## Polishing an assembly with long reads
