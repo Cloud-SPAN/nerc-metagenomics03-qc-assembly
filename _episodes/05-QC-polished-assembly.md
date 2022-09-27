@@ -260,126 +260,128 @@ metaquast.py -h
 
 > ## MetaQUAST help documentation
 > ~~~
+> MetaQUAST: Quality Assessment Tool for Metagenome Assembliesewers
+> Version: 5.2.0                        Do not report SNPs (may significantly reduce memory consumption on large genomes)
+>     --no-gc                           Do not compute GC% and GC-distribution
+> Usage: python /mnt/lustre/users/ac1513/conda/.conda/quast/bin/metaquast.py [options] <files_with_contigs> are specified)
+>     --no-read-stats                   Do not align reads to assemblies
+> Options:                              Reads will be aligned to reference and used for coverage analysis,
+> -o  --output-dir  <dirname>       Directory to store all result files [default: quast_results/results_<datetime>]
+> -r   <filename,filename,...>      Comma-separated list of reference genomes or directory with reference genomes
+> --references-list <filename>      Text file with list of reference genome names for downloading from NCBI
+> -g  --features [type:]<filename>  File with genomic feature coordinates in the references (GFF, BED, NCBI or TXT)
+>                                   Optional 'type' can be specified for extracting only a specific feature type from GFF
+> -m  --min-contig  <int>           Lower threshold for contig length [default: 500] step to stdout (log file is not affected)
+> -t  --threads     <int>           Maximum number of threads [default: 25% of CPUs] folder, output to quast_test_output
 >
->             FastQC - A high throughput sequence QC analysis tool
+> Advanced options:
+> -s  --split-scaffolds                 Split assemblies by continuous fragments of N's and add such "contigs" to the comparison
+> -l  --labels "label, label, ..."      Names of assemblies to use in reports, comma-separated. If contain spaces, use quotes
+> -L                                    Take assembly names from their parent directory names
+> -e  --eukaryote                       Genome is eukaryotic (primarily affects gene prediction)
+>     --fungus                          Genome is fungal (primarily affects gene prediction)
+>     --large                           Use optimal parameters for evaluation of large genomes
+>                                       In particular, imposes '-e -m 3000 -i 500 -x 7000' (can be overridden manually)
+> -k  --k-mer-stats                     Compute k-mer-based quality metrics (recommended for large genomes)
+>                                       This may significantly increase memory and time consumption on large genomes
+>     --k-mer-size                      Size of k used in --k-mer-stats [default: 101]
+>     --circos                          Draw Circos plot
+> -f  --gene-finding                    Predict genes using MetaGeneMark
+>     --glimmer                         Use GlimmerHMM for gene prediction (instead of the default finder, see above)
+>     --gene-thresholds <int,int,...>   Comma-separated list of threshold lengths of genes to search with Gene Finding module
+>                                       [default: 0,300,1500,3000]
+>     --rna-finding                     Predict ribosomal RNA genes using Barrnap
+> -b  --conserved-genes-finding         Count conserved orthologs using BUSCO (only on Linux)
+>     --operons  <filename>             File with operon coordinates in the reference (GFF, BED, NCBI or TXT)
+>     --max-ref-number <int>            Maximum number of references (per each assembly) to download after looking in SILVA database.
+>                                       Set 0 for not looking in SILVA at all [default: 50]
+>     --blast-db <filename>             Custom BLAST database (.nsq file). By default, MetaQUAST searches references in SILVA database
+>     --use-input-ref-order             Use provided order of references in MetaQUAST summary plots (default order: by the best average value)
+>     --contig-thresholds <int,int,...> Comma-separated list of contig length thresholds [default: 0,1000,5000,10000,25000,50000]
+>     --x-for-Nx <int>                  Value of 'x' for Nx, Lx, etc metrics reported in addition to N50, L50, etc (0, 100) [default: 90]
+>     --reuse-combined-alignments       Reuse the alignments from the combined_reference stage on runs_per_reference stages.
+> -u  --use-all-alignments              Compute genome fraction, # genes, # operons in QUAST v1.* style.
+>                                       By default, QUAST filters Minimap's alignments to keep only best ones
+> -i  --min-alignment <int>             The minimum alignment length [default: 65]
+>     --min-identity <float>            The minimum alignment identity (80.0, 100.0) [default: 90.0]
+> -a  --ambiguity-usage <none|one|all>  Use none, one, or all alignments of a contig when all of them
+>                                       are almost equally good (see --ambiguity-score) [default: one]
+>     --ambiguity-score <float>         Score S for defining equally good alignments of a single contig. All alignments are sorted
+>                                       by decreasing LEN * IDY% value. All alignments with LEN * IDY% < S * best(LEN * IDY%) are
+>                                       discarded. S should be between 0.8 and 1.0 [default: 0.99]
+>     --unique-mapping                  Disable --ambiguity-usage=all for the combined reference run,
+>                                       i.e. use user-specified or default ('one') value of --ambiguity-usage
+>     --strict-NA                       Break contigs in any misassembly event when compute NAx and NGAx.
+>                                       By default, QUAST breaks contigs only by extensive misassemblies (not local ones)
+> -x  --extensive-mis-size  <int>       Lower threshold for extensive misassembly size. All relocations with inconsistency
+>                                       less than extensive-mis-size are counted as local misassemblies [default: 1000]
+>     --local-mis-size  <int>           Lower threshold on local misassembly size. Local misassemblies with inconsistency
+>                                       less than local-mis-size are counted as (long) indels [default: 200]
+>     --scaffold-gap-max-size  <int>    Max allowed scaffold gap length difference. All relocations with inconsistency
+>                                       less than scaffold-gap-size are counted as scaffold gap misassemblies [default: 10000]
+>     --unaligned-part-size  <int>      Lower threshold for detecting partially unaligned contigs. Such contig should have
+>                                       at least one unaligned fragment >= the threshold [default: 500]
+>     --skip-unaligned-mis-contigs      Do not distinguish contigs with >= 50% unaligned bases as a separate group
+>                                       By default, QUAST does not count misassemblies in them
+>     --fragmented                      Reference genome may be fragmented into small pieces (e.g. scaffolded reference)
+>     --fragmented-max-indent  <int>    Mark translocation as fake if both alignments are located no further than N bases
+>                                       from the ends of the reference fragments [default: 200]
+>                                       Requires --fragmented option
+>     --upper-bound-assembly            Simulate upper bound assembly based on the reference genome and reads
+>     --upper-bound-min-con  <int>      Minimal number of 'connecting reads' needed for joining upper bound contigs into a scaffold
+>                                       [default: 2 for mate-pairs and 1 for long reads]
+>     --est-insert-size  <int>          Use provided insert size in upper bound assembly simulation [default: auto detect from reads or 255]
+>     --report-all-metrics              Keep all quality metrics in the main report even if their values are '-' for all assemblies or
+>                                       if they are not applicable (e.g., reference-based metrics in the no-reference mode)
+>     --plots-format  <str>             Save plots in specified format [default: pdf].
+>                                       Supported formats: emf, eps, pdf, png, ps, raw, rgba, svg, svgz
+>     --memory-efficient                Run everything using one thread, separately per each assembly.
+>                                       This may significantly reduce memory consumption on large genomes
+>     --space-efficient                 Create only reports and plots files. Aux files including .stdout, .stderr, .coords will not be created.
+>                                       This may significantly reduce space consumption on large genomes. Icarus viewers also will not be built
+> -1  --pe1     <filename>              File with forward paired-end reads (in FASTQ format, may be gzipped)
+> -2  --pe2     <filename>              File with reverse paired-end reads (in FASTQ format, may be gzipped)
+>     --pe12    <filename>              File with interlaced forward and reverse paired-end reads. (in FASTQ format, may be gzipped)
+>     --mp1     <filename>              File with forward mate-pair reads (in FASTQ format, may be gzipped)
+>     --mp2     <filename>              File with reverse mate-pair reads (in FASTQ format, may be gzipped)
+>     --mp12    <filename>              File with interlaced forward and reverse mate-pair reads (in FASTQ format, may be gzipped)
+>     --single  <filename>              File with unpaired short reads (in FASTQ format, may be gzipped)
+>     --pacbio     <filename>           File with PacBio reads (in FASTQ format, may be gzipped)
+>     --nanopore   <filename>           File with Oxford Nanopore reads (in FASTQ format, may be gzipped)
+>     --ref-sam <filename>              SAM alignment file obtained by aligning reads to reference genome file
+>     --ref-bam <filename>              BAM alignment file obtained by aligning reads to reference genome file
+>     --sam     <filename,filename,...> Comma-separated list of SAM alignment files obtained by aligning reads to assemblies
+>                                       (use the same order as for files with contigs)
+>     --bam     <filename,filename,...> Comma-separated list of BAM alignment files obtained by aligning reads to assemblies
+>                                       (use the same order as for files with contigs)
+>                                       Reads (or SAM/BAM file) are used for structural variation detection and
+>                                       coverage histogram building in Icarus
+>     --sv-bedpe  <filename>            File with structural variations (in BEDPE format)
 >
-> SYNOPSIS
+> Speedup options:
+>     --no-check                        Do not check and correct input fasta files. Use at your own risk (see manual)
+>     --no-plots                        Do not draw plots
+>     --no-html                         Do not build html reports and Icarus viewers
+>     --no-icarus                       Do not build Icarus viewers
+>     --no-snps                         Do not report SNPs (may significantly reduce memory consumption on large genomes)
+>     --no-gc                           Do not compute GC% and GC-distribution
+>     --no-sv                           Do not run structural variation detection (make sense only if reads are specified)
+>     --no-read-stats                   Do not align reads to assemblies
+>                                       Reads will be aligned to reference and used for coverage analysis,
+>                                       upper bound assembly simulation, and structural variation detection.
+>                                       Use this option if you do not need read statistics for assemblies.
+>     --fast                            A combination of all speedup options except --no-check
 >
->       fastqc seqfile1 seqfile2 .. seqfileN
+> Other:
+>     --silent                          Do not print detailed information about each step to stdout (log file is not affected)
+>     --test                            Run MetaQUAST on the data from the test_data folder, output to quast_test_output
+>     --test-no-ref                     Run MetaQUAST without references on the data from the test_data folder, output to quast_test_output.
+>                                       MetaQUAST will download SILVA 16S rRNA database (~170 Mb) for searching reference genomes
+>                                       Internet connection is required
+> -h  --help                            Print full usage message
+> -v  --version                         Print version
 >
->     fastqc [-o output dir] [--(no)extract] [-f fastq|bam|sam]
->            [-c contaminant file] seqfile1 .. seqfileN
->
-> DESCRIPTION
->
->     FastQC reads a set of sequence files and produces from each one a quality
->     control report consisting of a number of different modules, each one of
->     which will help to identify a different potential type of problem in your
->     data.
->     
->     If no files to process are specified on the command line then the program
->     will start as an interactive graphical application.  If files are provided
->     on the command line then the program will run with no user interaction
->     required.  In this mode it is suitable for inclusion into a standardised
->     analysis pipeline.
->     
->     The options for the program as as follows:
->     
->     -h --help       Print this help file and exit
->     
->     -v --version    Print the version of the program and exit
->     
->     -o --outdir     Create all output files in the specified output directory.
->                     Please note that this directory must exist as the program
->                     will not create it.  If this option is not set then the
->                     output file for each sequence file is created in the same
->                     directory as the sequence file which was processed.
->                     
->     --casava        Files come from raw casava output. Files in the same sample
->                     group (differing only by the group number) will be analysed
->                     as a set rather than individually. Sequences with the filter
->                     flag set in the header will be excluded from the analysis.
->                     Files must have the same names given to them by casava
->                     (including being gzipped and ending with .gz) otherwise they
->                     won't be grouped together correctly.
->                     
->     --nano          Files come from nanopore sequences and are in fast5 format. In
->                     this mode you can pass in directories to process and the program
->                     will take in all fast5 files within those directories and produce
->                     a single output file from the sequences found in all files.                    
->                     
->     --nofilter      If running with --casava then don't remove read flagged by
->                     casava as poor quality when performing the QC analysis.
->                    
->     --extract       If set then the zipped output file will be uncompressed in
->                     the same directory after it has been created.  By default
->                     this option will be set if fastqc is run in non-interactive
->                     mode.
->                     
->     -j --java       Provides the full path to the java binary you want to use to
->                     launch fastqc. If not supplied then java is assumed to be in
->                     your path.
->                    
->     --noextract     Do not uncompress the output file after creating it.  You
->                     should set this option if you do not wish to uncompress
->                     the output when running in non-interactive mode.
->                     
->     --nogroup       Disable grouping of bases for reads >50bp. All reports will
->                     show data for every base in the read.  WARNING: Using this
->                     option will cause fastqc to crash and burn if you use it on
->                     really long reads, and your plots may end up a ridiculous size.
->                     You have been warned!
->                     
->     --min_length    Sets an artificial lower limit on the length of the sequence
->                     to be shown in the report.  As long as you set this to a value
->                     greater or equal to your longest read length then this will be
->                     the sequence length used to create your read groups.  This can
->                     be useful for making directly comaparable statistics from
->                     datasets with somewhat variable read lengths.
->                     
->     -f --format     Bypasses the normal sequence file format detection and
->                     forces the program to use the specified format.  Valid
->                     formats are bam,sam,bam_mapped,sam_mapped and fastq
->                     
->     -t --threads    Specifies the number of files which can be processed
->                     simultaneously.  Each thread will be allocated 250MB of
->                     memory so you shouldn't run more threads than your
->                     available memory will cope with, and not more than
->                     6 threads on a 32 bit machine
->                   
->     -c              Specifies a non-default file which contains the list of
->     --contaminants  contaminants to screen overrepresented sequences against.
->                     The file must contain sets of named contaminants in the
->                     form name[tab]sequence.  Lines prefixed with a hash will
->                     be ignored.
->
->     -a              Specifies a non-default file which contains the list of
->     --adapters      adapter sequences which will be explicity searched against
->                     the library. The file must contain sets of named adapters
->                     in the form name[tab]sequence.  Lines prefixed with a hash
->                     will be ignored.
->                     
->     -l              Specifies a non-default file which contains a set of criteria
->     --limits        which will be used to determine the warn/error limits for the
->                     various modules.  This file can also be used to selectively
->                     remove some modules from the output all together.  The format
->                     needs to mirror the default limits.txt file found in the
->                     Configuration folder.
->                     
->    -k --kmers       Specifies the length of Kmer to look for in the Kmer content
->                     module. Specified Kmer length must be between 2 and 10. Default
->                     length is 7 if not specified.
->                     
->    -q --quiet       Supress all progress messages on stdout and only report errors.
->    
->    -d --dir         Selects a directory to be used for temporary files written when
->                     generating report images. Defaults to system temp directory if
->                     not specified.
->                     
-> BUGS
->
->     Any bugs in fastqc should be reported either to simon.andrews@babraham.ac.uk
->     or in www.bioinformatics.babraham.ac.uk/bugzilla/
+> Online QUAST manual is available at http://quast.sf.net/manual
 > ~~~
 > {: .output}
 {: .solution}
