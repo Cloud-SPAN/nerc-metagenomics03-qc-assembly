@@ -257,13 +257,14 @@ metaquast.py -h
 {: .bash}
 
 
+
 > ## MetaQUAST help documentation
 > ~~~
 >
 > ~~~
 > {: .output}
 {: .solution}
-
+  
 
 MetaQUAST command
 ~~~
