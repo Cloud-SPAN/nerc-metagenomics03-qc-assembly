@@ -71,13 +71,13 @@ seqkit stats --help
 
 ### The N50 length
 
-As mentioned previously, N50 length is a statistic used when looking at sequences of varying length that indicates that 50% of the total sequence is in segments that are that size or larger. See [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
+As we touched on in a previous lesson, the N50 length is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in segments that are that size or larger. See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
 
 This is a useful statistic to describe an assembly as it indicates the average size of the contigs the assembly software has produced.
 
 A higher N50 length means that more of the assembly is in longer fragments. That means the chunks of sequence produced by the assembler are, on average, larger.
 
-While it isn't calculated by default, `seqkit stats` has an option to calculate the N50 length. Use the `seqkit stats` help documentation to answer the exercise below.
+While it isn't calculated by default, `seqkit stats` has an option to calculate the N50 length. Using the help documentation for seqkit stats answer the exercise below.
 
 > ## Exercise X: Flag to get the N50 length
 > a) Using the help documentation, what flag can we add to get the N50 length for this assembly?  
@@ -120,7 +120,7 @@ Next, run the command on the original draft assembly (`~/analysis/assembly/assem
 
 ### Generating statistics for all three assemblies
 
-Instead of passing just one FASTA file to `seqkit stats` we can use all three FASTA files at once.
+Instead of passing one FASTA file to `seqkit stats` at once we will can use all three FASTA files we have generated.
 
 First we need to navigate into the analysis directory.
 ~~~
@@ -165,13 +165,11 @@ While we can compare the basic assembly statistics, these do not tell the full s
 
 We will use [MetaQUAST](http://quast.sourceforge.net/metaquast) to further evaluate our metagenomic assemblies. MetaQUAST is based on the QUAST genome quality tool but accounts for high species divesity and misassemblies.
 
-MetaQUAST assesses the quality of assemblies using alignment to close references, so we need to determine which references are appropriate for our data. MetaQUAST can automatically select reference genomes to align the assembly too, however it does not always pick the most appropriate references. 
-
-In this case we know what organisms make up our metagenome, so we will be supplying a file containing the references we want instead. If you use MetaQUAST on your own data you could use the default references MetaQUAST selects or provide your own if you have an idea what organisms could be in your dataset.
+As MetaQUAST assesses the quality of assemblies using alignments to close references we need to determine which references are appropriate for our data. MetaQUAST can automatically select reference genomes to align the assembly too, however it does not always pick the most appropriate references. As we know what organisms make up our metagenome we will be supplying a file containing the references we want to use instead. If you use MetaQUAST on your own data you could use the default references MetaQUAST selects or provide your own if you have an idea what organisms could be in your dataset.
 
 ### Making a file to list our reference Metagenomes
 
-First we need to generate a text file on the instance to pass to MetaQUAST. There are multiple ways of creating a text file on command line, we will be using the program Nano (no relation to Oxford Nanopore!) here.
+We need to generate a text file on the instance to pass to MetaQUAST. There are multiple ways of creating a text file on command line, we will be using the program Nano (no relation to Oxford Nanopore!) here.
 
 
 > ## Text editors
@@ -190,7 +188,7 @@ cd metaquast
 ~~~
 {: .output}
 
-To open nano we type the command `nano` followed by the name of the text file we want to generate.
+To use nano we type the command followed by the name of the text file we want to generate.
 
 ~~~
 nano reference_genomes.txt
@@ -217,7 +215,7 @@ Staphylococcus aureus
 
 **Note on pasting in GitBASH!**
 
-To continue, press <kbd>Ctrl</kbd>+<kbd>O</kbd> to save the file. You will the be prompted with `File Name to Write: reference_genomes.txt` - as we named the file when we first used the command we don't need to change this name and can press enter to save the file. You can then exit from Nano with <kbd>Ctrl</kbd>+<kbd>X</kbd>.
+Then press <kbd>Ctrl</kbd>+<kbd>O</kbd> to save the file. You will the be prompted with `File Name to Write: reference_genomes.txt` - as we named the file when we first used the command we don't need to change this name and can press enter to save the file. You can then exit from Nano with <kbd>Ctrl</kbd>+<kbd>X</kbd>.
 
 > ## Control, Ctrl, or ^ Key
 >
@@ -251,14 +249,16 @@ reference_genomes.txt
 ~~~
 {: .output}
 
-Once we have our list of reference genomes we can run MetaQUAST on the original assembly and the two polished assemblies.
+Once we have our list of reference genomes we can run MetaQUAST on the original assembly and the two iterative assemblies.
 
-First we should look at the help documentation to work out which commands are right for us.
+First we can look at the help documentation to work out which commands are right for us.
 
 ~~~
 metaquast.py -h
 ~~~
 {: .bash}
+
+
 
 > ## MetaQUAST help documentation
 > ~~~
@@ -388,14 +388,17 @@ metaquast.py -h
 > {: .output}
 {: .solution}
 
+From this we can see we need `--references-list` to supply our list of reference organisms, followed by our three assemblies separated by a space.
 
 MetaQUAST command
 ~~~
-metaquast.py --references-list reference_genomes.txt assembly/assembly.fasta medaka/consensus.fasta pilon/pilon.fasta
+metaquast.py --references-list reference_genomes.txt ../assembly/assembly.fasta ../medaka/consensus.fasta ../pilon/pilon.fasta
 ~~~
 {: .bash}
 
+This should take around 5 minutes so we will be leaving it running in the foreground.
 
+Once starting the command you should see something like this and metaQUAST will start downloading the reference species selected.
 
 ~~~
 Version: 5.2.0
@@ -435,6 +438,7 @@ Trying to download found references from NCBI. Totally 10 organisms to try.
 ~~~
 {: .output}
 
+Once MetaQUAST has finished you should see an output like:
 ~~~
 MetaQUAST finished.
   Log is saved to analysis/metaquast/quast_results/results_2022_09_26_17_26_13/metaquast.log
@@ -446,3 +450,33 @@ Total NOTICEs: 13; WARNINGs: 1; non-fatal ERRORs: 0
 Thank you for using QUAST!
 ~~~
 {: .output}
+
+We can now navigate into the `quast_results` directory MetaQUAST generated. Within this directory there will be a folder for each time MetaQUAST has been run in this directory. We can navigate then navigate into the results file generated which will be in the format `results_YYYY_MM_DD_HH_MM_SS`. (There is also a symbolic link called `latest` in this directory that is a shortcut to the newest MetaQUAST run).
+
+~~~
+cd quast_results/results_YYYY_MM_DD_HH_MM_SS/
+ls
+~~~
+{: .bash}
+
+~~~
+combined_reference  icarus.html  icarus_viewers  metaquast.log  not_aligned  quast_downloaded_references  report.html  runs_per_reference  summary
+~~~
+{: .output}
+
+Once in this directory, we can see that MetaQUAST has generated multiple different files.
+
+If you want to explore all the files you can download this whole directory using `scp`, with `-r` flag to download all directories and what they contain. This will require ~500MB of space.
+
+However, most of this information is in the `report.html` file so we can download only that one instead.
+As this is a HTML file we will first need to download it to our local computer in order to open it.
+
+~~~
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/metaquast/results_YYYY_MM_DD_HH_MM_SS/report.html .
+~~~
+{: .bash}
+
+Make sure you replace both the NNN with your particular number and also the directory name of the results file.
+The `results.html` file relies on some of the other files generated by MetaQUAST so with only the one file you won't have full functionality but we can still view the information we want.
+
+If you haven't managed to download the file you can view our example [report.html]({{ page.root }}/files/report.html)
