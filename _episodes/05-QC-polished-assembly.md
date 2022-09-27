@@ -256,6 +256,7 @@ metaquast.py -h
 ~~~
 {: .bash}
 
+
 > ## MetaQUAST help documentation
 > ~~~
 > MetaQUAST: Quality Assessment Tool for Metagenome Assemblies
@@ -271,7 +272,7 @@ metaquast.py -h
 >                                   Optional 'type' can be specified for extracting only a specific feature type from GFF
 > -m  --min-contig  <int>           Lower threshold for contig length [default: 500]
 > -t  --threads     <int>           Maximum number of threads [default: 25% of CPUs]
->>
+>
 > Advanced options:
 > -s  --split-scaffolds                 Split assemblies by continuous fragments of N's and add such "contigs" to the comparison
 > -l  --labels "label, label, ..."      Names of assemblies to use in reports, comma-separated. If contain spaces, use quotes
