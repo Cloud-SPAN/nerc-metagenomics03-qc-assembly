@@ -20,17 +20,13 @@ keypoints:
 ---
 
 
-## Background
+## What is the difference between Genomics and Metagenomics?
 
-Unlike genetics, which typically considers single or small sets of genes and their influence on an organism, genomics considers the whole genetic content of an organism. 
-
-We study genomics through sequencing the DNA content. However, there are also lots of other "'omics" fields that are related, such as transcriptomics which covers RNA content and proteomics which focuses on protein content. Other common 'omics areas of study are outlined [here](https://en.wikipedia.org/wiki/Omics).
-
-The key difference between metagenomics and genomics is that a genomic sample contains the genome of one organism, whereas a metagenomic sample contains the genomes of multiple coexisting microorganisms.
+In genomics, we sequence and analyse the genome of a a single species. We often have a known reference genome to which we can align all our reads. In metagenomics we sequence samples composed of many genomes. These might be environmental samples from soil or anaerobic digestors for example, or microbiome samples from the skin or digestive tracts of animals. Such samples typically include species that are difficult to culture and thus lack reference genomes. The challenge in metagenomics is to assemble this mix of genomes into separate genomes.
 
 ## Metagenomics
-As mentioned above, a metagenome refers to a collections of genomic sequences from various (micro)organisms coexisting in a
-given space. They are like snapshots that can give us information about the taxonomic and even metabolic or functional composition of the communities that we decide to study. Examples of well studied metagenomes include the human gut, the ocean floor and soil microbiomes. 
+A metagenome is a collection of genomic sequences from various (micro)organisms coexisting in a
+given space. They are snapshots that tell us about the taxonomic and even metabolic or functional composition of the communities that we decide to study. Examples of well studied metagenomes include the human gut, the ocean floor and soil microbiomes. 
 
 Because we are trying to analyse multiple instead of individual organisms, this introduces additional analysis complexity. This causes two additional analysis considerations. 
 1. How we can assign genomic sequences to the multiple organisms that we know are present.
