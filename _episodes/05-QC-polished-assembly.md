@@ -251,6 +251,8 @@ reference_genomes.txt
 
 Once we have our list of reference genomes we can run MetaQUAST on the original assembly and the two iterative assemblies.
 
+First we can look at the help documentation to work out which commands are right for us.
+
 ~~~
 metaquast.py -h
 ~~~
@@ -260,19 +262,19 @@ metaquast.py -h
 
 > ## MetaQUAST help documentation
 > ~~~
-> MetaQUAST: Quality Assessment Tool for Metagenome Assembliesewers
-> Version: 5.2.0                        Do not report SNPs (may significantly reduce memory consumption on large genomes)
->     --no-gc                           Do not compute GC% and GC-distribution
-> Usage: python /mnt/lustre/users/ac1513/conda/.conda/quast/bin/metaquast.py [options] <files_with_contigs> are specified)
->     --no-read-stats                   Do not align reads to assemblies
-> Options:                              Reads will be aligned to reference and used for coverage analysis,
+> MetaQUAST: Quality Assessment Tool for Metagenome Assemblies
+> Version: 5.2.0
+>
+> Usage: python metaquast.py [options] <files_with_contigs>
+>
+> Options:
 > -o  --output-dir  <dirname>       Directory to store all result files [default: quast_results/results_<datetime>]
 > -r   <filename,filename,...>      Comma-separated list of reference genomes or directory with reference genomes
 > --references-list <filename>      Text file with list of reference genome names for downloading from NCBI
 > -g  --features [type:]<filename>  File with genomic feature coordinates in the references (GFF, BED, NCBI or TXT)
 >                                   Optional 'type' can be specified for extracting only a specific feature type from GFF
-> -m  --min-contig  <int>           Lower threshold for contig length [default: 500] step to stdout (log file is not affected)
-> -t  --threads     <int>           Maximum number of threads [default: 25% of CPUs] folder, output to quast_test_output
+> -m  --min-contig  <int>           Lower threshold for contig length [default: 500]
+> -t  --threads     <int>           Maximum number of threads [default: 25% of CPUs]
 >
 > Advanced options:
 > -s  --split-scaffolds                 Split assemblies by continuous fragments of N's and add such "contigs" to the comparison
