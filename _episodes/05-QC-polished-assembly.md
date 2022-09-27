@@ -355,7 +355,7 @@ metaquast.py -h
 >                                       Reads (or SAM/BAM file) are used for structural variation detection and
 >                                       coverage histogram building in Icarus
 >     --sv-bedpe  <filename>            File with structural variations (in BEDPE format)
->>
+>
 > Speedup options:
 >     --no-check                        Do not check and correct input fasta files. Use at your own risk (see manual)
 >     --no-plots                        Do not draw plots
