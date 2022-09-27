@@ -483,7 +483,7 @@ If you haven't managed to download the file you can view our example [report.htm
 
 You should take a few minutes to explore the file before answering the following exercise.
 
-<img align="centre" width="500" height="489" src="{{ page.root }}/fig/05_metaquast_output.png" alt="MetaQUAST statistics output" /> 
+<img align="centre" width="500" height="489" src="{{ page.root }}/fig/05-metaquast_output.png" alt="MetaQUAST statistics output" /> 
 
 
 > ## Comparing assemblies using MetaQUAST
