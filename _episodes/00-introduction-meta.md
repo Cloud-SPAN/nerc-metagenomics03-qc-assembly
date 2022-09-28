@@ -101,10 +101,9 @@ A low-complexity microbial community is made up of fewer organisms and as a resu
 There's no official definition for what makes a community low or high complexity. But some examples of a low complexity microbial community include natural whey starter cultures, made up of around three different organisms, which are used in cheese production: see [Somerville _et al._, 2019](https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-019-1500-0).
 
 > ## Defining our community
-> Knowing now how we can define a metagenomic community and what organisms make up our dataset, how complex would you say this metagenome is? and why?
+> How many organisms are in the [mock metagenome community](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) we are using? Do you think this is high or low complexity compared to your own samples?
 > > ## Solution
-> > As we stated above there's no hard and fast rules for defining the complexity of a community.
-> > However, given this community is made up of 10 organisms we could argue that it is a low complexity metagenome when compared to, for example, the natural soil metagenome which is potentially made up of thousands of different organisms.
+> > There are 10 species. This is low complexity compared to the human gut microbiome which itself is low compared to a soil microbiome. 
 > {: .solution}
 {: .challenge}
 
