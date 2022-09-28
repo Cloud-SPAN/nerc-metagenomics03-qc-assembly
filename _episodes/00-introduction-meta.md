@@ -36,8 +36,10 @@ A typical metagenomic workflow is designed to answer two questions:
 1. What species are present in the sample and what are their relative abundances?
 2. What is the functional capacity of the organisms or the community?
 
-## 
-<img align="left" width="325" height="880.5" src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt=""Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis" />
+## Steps in Metagenomics
+
+<img align="left" width="325" height="880.5" src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis" />
+
 #### Experimental design
 #### Sampling
 #### DNA extraction
