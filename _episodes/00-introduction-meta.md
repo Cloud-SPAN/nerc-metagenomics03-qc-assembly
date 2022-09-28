@@ -36,6 +36,18 @@ A typical metagenomic workflow is designed to answer two questions:
 1. What species are present in the sample and what are their relative abundances?
 2. What is the functional capacity of the organisms or the community?
 
+## 
+<img align="left" width="325" height="880.5" src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt=""Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis" />
+#### Experimental design
+#### Sampling
+#### DNA extraction
+#### Sequencing
+#### Read quality
+#### Assembly
+#### Binning
+#### Bin quality
+#### Data analysis
+
 
 ## Metagenomics sequencing approaches
 There are two technologies used in metagenome sequencing which have different use cases, advantages and disadvantages: **Whole genome metagenomics** and **Amplicon/(16S) sequencing**.
@@ -60,10 +72,6 @@ Because only one small region is amplified through PCR, rather than the whole ge
 For organisms that are well characterised, establishing identity can give you information about functional capacity of the community. For organisms which are not well characterised - and these are common in such samples - we will know little other than relative abundances in the community.
 
 Despite this, there are workflows such as [QIIME2](https://qiime2.org/), which are free and community led, which use database annotations of the reference versions of the organisms identified from the amplicon, to suggest what metabolic functions maybe present. The amplicon sequence is also limited because species may have genomic differences, but may be indistinguishable from the amplicon sequence alone. This means that amplicon sequencing can rarely resolve to less than a genus level.
-
-<a href="{{ page.root }}/fig/analysis_flowchart_v3.png">
-  <img src="{{ page.root }}/fig/analysis_flowchart_v3.png" width="325" height="880.5" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis"  />
-</a>
 
 | Attribute       | Amplicon | Whole genome metagenomics |
 |-------|--------------|
