@@ -71,13 +71,13 @@ seqkit stats --help
 
 ### The N50 length
 
-As we touched on in a previous lesson, the N50 length is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in segments that are that size or larger. See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
+As mentioned previously, N50 length is a statistic used when looking at sequences of varying length that indicates that 50% of the total sequence is in segments that are that size or larger. See [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
 
 This is a useful statistic to describe an assembly as it indicates the average size of the contigs the assembly software has produced.
 
 A higher N50 length means that more of the assembly is in longer fragments. That means the chunks of sequence produced by the assembler are, on average, larger.
 
-While it isn't calculated by default, `seqkit stats` has an option to calculate the N50 length. Using the help documentation for seqkit stats answer the exercise below.
+While it isn't calculated by default, `seqkit stats` has an option to calculate the N50 length. Use the `seqkit stats` help documentation to answer the exercise below.
 
 > ## Exercise X: Flag to get the N50 length
 > a) Using the help documentation, what flag can we add to get the N50 length for this assembly?  
@@ -120,7 +120,7 @@ Next, run the command on the original draft assembly (`~/analysis/assembly/assem
 
 ### Generating statistics for all three assemblies
 
-Instead of passing one FASTA file to `seqkit stats` at once we will can use all three FASTA files we have generated.
+Instead of passing just one FASTA file to `seqkit stats` we can use all three FASTA files at once.
 
 First we need to navigate into the analysis directory.
 ~~~
@@ -169,7 +169,7 @@ As MetaQUAST assesses the quality of assemblies using alignments to close refere
 
 ### Making a file to list our reference Metagenomes
 
-We need to generate a text file on the instance to pass to MetaQUAST. There are multiple ways of creating a text file on command line, we will be using the program Nano (no relation to Oxford Nanopore!) here.
+First we need to generate a text file on the instance to pass to MetaQUAST. There are multiple ways of creating a text file on command line, we will be using the program Nano (no relation to Oxford Nanopore!) here.
 
 
 > ## Text editors
@@ -188,7 +188,7 @@ cd metaquast
 ~~~
 {: .output}
 
-To use nano we type the command followed by the name of the text file we want to generate.
+To open nano we type the command `nano` followed by the name of the text file we want to generate.
 
 ~~~
 nano reference_genomes.txt
@@ -215,7 +215,7 @@ Staphylococcus aureus
 
 **Note on pasting in GitBASH!**
 
-Then press <kbd>Ctrl</kbd>+<kbd>O</kbd> to save the file. You will the be prompted with `File Name to Write: reference_genomes.txt` - as we named the file when we first used the command we don't need to change this name and can press enter to save the file. You can then exit from Nano with <kbd>Ctrl</kbd>+<kbd>X</kbd>.
+To continue, press <kbd>Ctrl</kbd>+<kbd>O</kbd> to save the file. You will the be prompted with `File Name to Write: reference_genomes.txt` - as we named the file when we first used the command we don't need to change this name and can press enter to save the file. You can then exit from Nano with <kbd>Ctrl</kbd>+<kbd>X</kbd>.
 
 > ## Control, Ctrl, or ^ Key
 >
@@ -249,9 +249,9 @@ reference_genomes.txt
 ~~~
 {: .output}
 
-Once we have our list of reference genomes we can run MetaQUAST on the original assembly and the two iterative assemblies.
+Once we have our list of reference genomes we can run MetaQUAST on the original assembly and the two polished assemblies.
 
-First we can look at the help documentation to work out which commands are right for us.
+First we should look at the help documentation to work out which commands are right for us.
 
 ~~~
 metaquast.py -h
