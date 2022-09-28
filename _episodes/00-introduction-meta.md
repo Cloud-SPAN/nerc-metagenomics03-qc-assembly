@@ -26,7 +26,7 @@ In genomics, we sequence and analyse the genome of a a single species. We often 
 
 ## Metagenomics
 A metagenome is a collection of genomic sequences from various (micro) organisms coexisting in a
-given space. They are snapshots that tell us about the taxonomic and even metabolic or functional composition of the communities that we study. 
+given space. They are snapshots that tell us about the taxonomic, metabolic or functional composition of the communities that we study. 
 
 Analysing multiple genomes rather than individual genomes introduces additional complexity:
 - Taxonomic assignment: How can we separate the sequences to the different putative organisms or taxonomic units
@@ -40,26 +40,13 @@ A typical metagenomic workflow is designed to answer two questions:
 ## Metagenomics sequencing approaches
 There are two technologies used in metagenome sequencing which have different use cases, advantages and disadvantages: **Whole genome metagenomics** and **Amplicon/(16S) sequencing**.
 
+### Whole metagenome sequencing (WMS)
 
-|        | Amplicon | Whole genome metagenomics |
-|-------|--------------|
-| Cost | Cheap | Expensive |
-| Coverage depth | High | Lower - medium^1 |
-| Taxonomy detection | Specific to amplicons used^2 | All in sample |
-| Genome coverage | Only region amplified | All of genome |
-| Turnaround time | Fast | Slower - more computational time for analysis needed |
+Random parts of the all of genomes present in a sample are sequenced in WGS. We aim to find what organism, or taxonomic unit, they come from, what part of their genome they come from, and what functions they encode. 
 
-1. This depends on the amount of sequencing done and the uniformity in abundance of the different organisms in the sample. 
-2. Amplicon sequencing is often referred to as 16S, however 16S is specific to bacteria. Amplicon sequencing for fungi uses ITS sequences, and that for protozoa uses 18S sequences.
+Depending on the complexity of the metagenome and the amount of sequencing done, we may be able obtain full individual genomes from WMS and a strong understanding of the functional capacity of the microbiome.
 
-
-### Whole metagenome sequencing
-
-With **Whole genome Metagenomics**, we sequence random parts of the genomes present in a sample. We can search the origin of these pieces (_i.e._ their taxonomy) and try to find to what part of the genome they correspond to.
-
-Depending on the complexity of the metagenome, and with enough sequences, it is even possible to obtain full individual genomes from a whole genome metagenome. These can identify not only the identities of the individuals in the sample, but also their functional abilities. 
-
-For abundant organisms in your metagenome sample, there are likely to be enough data to generate reasonable genome coverage. However, this is not the case for low abundance organisms. Often deeper sequencing/ more total sequencing data is required to assemble the genomes of these organisms. 
+For abundant organisms in a metagenome sample, there are likely to be enough data to generate reasonable genome coverage. However, this is not the case for low abundance organisms. Often deeper sequencing/ more total sequencing data is required to assemble the genomes of these organisms. If you research question can be addressed by considering the most abundant organisms, you need do less sequencing than if you question requires an understanding of the rarest organisms.
 
 Depending on the question your dataset is trying to answer and how many samples you will need to sequence, the cost of both preparing the samples and the computational effort required to analyse them can become prohibitively expensive quickly. This is especially the case when you are trying to include biological or technical replication in your experimental design. 
 
@@ -67,12 +54,10 @@ For more information on considerations for experimental design in sequencing see
 
 ### Amplicon sequencing
 
-In comparison **Amplicon sequencing** tends to be cheaper,
-which makes it more affordable to include additional replicates.  Only one small region is amplified through PCR, rather than the whole genome. This means that this region needs to be present in all the individuals in the community that you want to identify. 
+An amplicon is a small piece of DNA or RNA that will be amplified. Amplicon sequencing is cheaper than WMS because only a smal part of the genome is sequenced. This makes it affordable to include additional replicates.
+Because only one small region is amplified through PCR, rather than the whole genome, the region needs to be present in all the individuals in the community that you want to identify. Consequently, we use 16S rRNA which is part of every bacterial and archaeal genome and is highly conserved, to identify bacteria and archeae. 18S rRNA or ITS regions are the amplicons used to identify eukarotic organisms. 
 
-The region varies between the organisms you are trying to profile. For bacteria, the 16S rRNA sequence is used to identify bacteria, whereas the ITs region is used for fungi, and the 18S rRNA sequence for protozoa. 
-
-This means irrespective of depth, if an organism in the community does not contain the amplified region, it will not be present. This can be useful for removing host contamination, but this also limits our information about the organisms present to their relative abundance only.
+For organisms that are well characterised, establishing identity can give you information about functional capacity of the community. For organisms which are not well characterised - and these are common in such samples - we will know little other than relative abundances in the community.
 
 Despite this, there are workflows such as [QIIME2](https://qiime2.org/), which are free and community led, which use database annotations of the reference versions of the organisms identified from the amplicon, to suggest what metabolic functions maybe present. The amplicon sequence is also limited because species may have genomic differences, but may be indistinguishable from the amplicon sequence alone. This means that amplicon sequencing can rarely resolve to less than a genus level.
 
@@ -80,9 +65,16 @@ Despite this, there are workflows such as [QIIME2](https://qiime2.org/), which a
   <img src="{{ page.root }}/fig/analysis_flowchart_v3.png" width="325" height="880.5" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis"  />
 </a>
 
+| Attribute       | Amplicon | Whole genome metagenomics |
+|-------|--------------|
+| Cost | Cheap | Expensive |
+| Coverage depth | High | Lower - medium |
+| Taxonomy detection | Specific to amplicons used  | All in sample |
+| Genome coverage | Only region amplified | All of genome |
+| Taxonomic resolution | lower  | higher |
+| Turnaround time | Fast | Slower - more computational time for analysis needed |
 
 ## Bioinformatic workflows
-
 
 <img align="right" width="325" height="506" src="{{ page.root }}/fig/short_analysis_flowchart.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
 
