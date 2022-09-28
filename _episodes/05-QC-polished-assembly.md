@@ -487,7 +487,7 @@ You should take a few minutes to explore the file before answering the following
 
 
 > ## Comparing assemblies using MetaQUAST
-> Using the above image how has the iterative polishing from assembly>consensus>pilon improved the assembly? How 
+> Using the above image how has the iterative polishing from assembly>consensus>pilon improved the assembly?  
 >> ## Answer
 >>
 >>
