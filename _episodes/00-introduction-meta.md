@@ -41,14 +41,31 @@ A typical metagenomic workflow is designed to answer two questions:
 <img align="left" width="325" height="880.5" src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis" />
 
 #### Experimental design
+All experiments need experimental design to ensure the data generated address the research questions effectively. In this module, we start from the point after data have been generated. To learn more, consider another module: [Statistically useful experimental design course](https://cloud-span.github.io/experimental_design00-overview/)
+
 #### Sampling
+The process of collecting the samples according the experimental design, that will be sequenced.
+
 #### DNA extraction
+A standard metagenomic DNA extraction protocol which is applied to all the samples is important since the extraction method can influence the result.
+
 #### Sequencing
+The sequencing methods evolve rapidly. A discussion of sequencing platforms is covered [Statistically useful experimental design course](https://cloud-span.github.io/experimental_design00-overview/).
+
 #### Read quality
+Raw sequencing data requires quality control before assembly. The process involves trimming and filtering reads so that only sections where base identity is uncertain are removed. This is covered in this module in [Assessing Read Quality, Trimming and Filtering](https://cloud-span.github.io/metagenomics01-qc-assembly/02-QC-quality-raw-reads/index.html)
+
 #### Assembly
+The process of joining smaller fragments of DNA (i.e., reads) to make longer contigs. This is covered in this module in [Metagenome Assembly](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html). Typically, assemblies need 'polishing' - correcting errors - and quality control.
+
 #### Binning
+To analyze the species composition of our our sample we need place the assemblies contigs into different 'bins' of related sequences called Metagenome-Assembled Genomes (MAGs). This is covered in this module in [Binning]([https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html](https://cloud-span.github.io/metagenomics02-binning/)).
+
 #### Bin quality
+This process checks how complete (is the MAG a complete genome?) and 'pure' (does the MAG contain only one genome?) a MAG is.
+
 #### Data analysis
+Once we have some good quality MAGs we can assign taxonomy, evaluate sample diversity and functionally annotate the samples. These are covered in this module: [Taxonomic Annotations](https://cloud-span.github.io/metagenomics03-taxonomic-anno/) and [Functional Annotations](https://cloud-span.github.io/metagenomics04-functional-anno/)
 
 
 ## Metagenomics sequencing approaches
@@ -63,8 +80,6 @@ Depending on the complexity of the metagenome and the amount of sequencing done,
 For abundant organisms in a metagenome sample, there are likely to be enough data to generate reasonable genome coverage. However, this is not the case for low abundance organisms. Often deeper sequencing/ more total sequencing data is required to assemble the genomes of these organisms. If you research question can be addressed by considering the most abundant organisms, you need do less sequencing than if you question requires an understanding of the rarest organisms.
 
 Depending on the question your dataset is trying to answer and how many samples you will need to sequence, the cost of both preparing the samples and the computational effort required to analyse them can become prohibitively expensive quickly. This is especially the case when you are trying to include biological or technical replication in your experimental design. 
-
-For more information on considerations for experimental design in sequencing see our other course [Statistical Design - Understanding Experimental design](https://cloud-span.github.io/experimental_design01-principles/02-design/index.html) or [Statistical Design - Statistical analysis](https://cloud-span.github.io/experimental_design01-principles/03-statistical-analysis/index.html).
 
 ### Amplicon sequencing
 
