@@ -38,7 +38,7 @@ A typical metagenomic workflow is designed to answer two questions:
 
 ## Steps in Metagenomics
 
-<img align="left" width="325" height="880.5" src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis" />
+<img align="right" width="309" height="836.5" src="{{ page.root }}/fig/analysis_flowchart_v3.png" alt="Flow chart that show the steps: Experimental design, Sampling, DNA extraction, Sequencing, Read quality, Assembly, Binning, Bin quality and Data analysis" />
 
 #### Experimental design
 All experiments need experimental design to ensure the data generated address the research questions effectively. In this module, we start from the point after data have been generated. To learn more, consider another module: [Statistically useful experimental design course](https://cloud-span.github.io/experimental_design00-overview/)
