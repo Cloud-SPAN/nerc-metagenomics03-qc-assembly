@@ -22,47 +22,35 @@ keypoints:
 
 ## What is the difference between Genomics and Metagenomics?
 
-In genomics, we sequence and analyse the genome of a a single species. We often have a known reference genome to which we can align all our reads. In metagenomics we sequence samples composed of many genomes. These might be environmental samples from soil or anaerobic digestors for example, or microbiome samples from the skin or digestive tracts of animals. Such samples typically include species that are difficult to culture and thus lack reference genomes. The challenge in metagenomics is to assemble this mix of genomes into separate genomes.
+In genomics, we sequence and analyse the genome of a a single species. We often have a known reference genome to which we can align all our reads. In metagenomics we sequence samples composed of many genomes. These might be environmental samples from soil or anaerobic digestors for example, or samples from the skin or digestive tracts of animals. Such samples typically include species that are difficult to culture and thus lack reference genomes. The challenge in metagenomics is to assemble this mix of genomes into separate genomes.
 
 ## Metagenomics
-A metagenome is a collection of genomic sequences from various (micro)organisms coexisting in a
-given space. They are snapshots that tell us about the taxonomic and even metabolic or functional composition of the communities that we decide to study. Examples of well studied metagenomes include the human gut, the ocean floor and soil microbiomes. 
+A metagenome is a collection of genomic sequences from various (micro) organisms coexisting in a
+given space. They are snapshots that tell us about the taxonomic and even metabolic or functional composition of the communities that we study. 
 
-Because we are trying to analyse multiple instead of individual organisms, this introduces additional analysis complexity. This causes two additional analysis considerations. 
-1. How we can assign genomic sequences to the multiple organisms that we know are present.
-2. Identifying abundances of different organisms and using this abundance to separate the data into putative organisms, which we will cover in greater depth in the [assembly section of this course](https://cloud-span.github.io/metagenomics01-qc-assembly/03-assembly/index.html). This is because in most metagenomes the organisms in the community are not present in equal abundances.
+Analysing multiple genomes rather than individual genomes introduces additional complexity:
+- Taxonomic assignment: How can we separate the sequences to the different putative organisms or taxonomic units
+- Community Composition: How can we quantify the relative abundances of the taxonomic units present
 
-Since metagenomes are mixtures of sequences that belong to different species, a metagenomic workflow is designed to answer two questions:
-1. What species are represented in the sample?
-2. What are they capable of doing?
+A typical metagenomic workflow is designed to answer two questions:
+1. What species are present in the sample and what are their relative abundances?
+2. What is the functional capacity of the organisms or the community?
 
-To find which species are present in a niche, we have
-to do a taxonomic assignation of the obtained sequences.
-To find out their capabilities, we can
-look at the genes directly encoded in the metagenome or the
-genes associated with the species that we found. In order to
-know which methodology we should use, it is important to
-know what questions do we want to answer.
 
 ## Metagenomics sequencing approaches
-There are two paths to obtain information from a complex sample:
-1. **Whole genome metagenomics**  
-2. **Amplicon/(16S) sequencing**.
+There are two technologies used in metagenome sequencing which have different use cases, advantages and disadvantages: **Whole genome metagenomics** and **Amplicon/(16S) sequencing**.
 
-Each is named after the sequencing methodology employed
-and have particular use cases, with inherent advantages and disadvantages which are summarised below.
 
 |        | Amplicon | Whole genome metagenomics |
 |-------|--------------|
-| Expense | Cheap | Expensive |
-| Coverage depth | High | Lower - medium* |
-| Taxonomy detection | Specific to amplicons used** | All in sample |
+| Cost | Cheap | Expensive |
+| Coverage depth | High | Lower - medium^1 |
+| Taxonomy detection | Specific to amplicons used^2 | All in sample |
 | Genome coverage | Only region amplified | All of genome |
 | Turnaround time | Fast | Slower - more computational time for analysis needed |
 
-__* This depends on the amount of sequencing done and the uniformity in abundance of the different organisms in the sample. There are often log fold differences in the abundances of different organisms in a metagenome. Given that only a small region is used to assign taxonomy, with amplicon-only sequencing there is lower resolution for closely related taxa, and so taxonomical assignment lower than genus is often not possible.__
-
-__**Often amplicon sequencing is referred to as 16S, however this will only amplify and sequence bacteria. If you were amplifying funghi you would need to use ITS sequences, and for protozoa 18S sequences.__
+1. This depends on the amount of sequencing done and the uniformity in abundance of the different organisms in the sample. 
+2. Amplicon sequencing is often referred to as 16S, however 16S is specific to bacteria. Amplicon sequencing for fungi uses ITS sequences, and that for protozoa uses 18S sequences.
 
 
 ### Whole metagenome sequencing
