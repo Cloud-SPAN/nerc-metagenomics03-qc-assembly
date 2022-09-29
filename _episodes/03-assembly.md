@@ -15,6 +15,7 @@ keypoints:
 - "Certain statistics can be used to describe the quality of an assembly."
 ---
 
+  
 > ## WARNING
 > This lesson will take several hours to run and complete! You can find some recommended reading at the end of the page that you might want to read whilst you're waiting.
 {: .callout}
