@@ -712,9 +712,9 @@ In the command above we use redirection (`>`) to generate a new file `data/nano_
 We can now re-run NanoPlot on the filtered file to see how it has changed.
 
 ~~~
-cd analysis/qc/ # move into the qc directory
+cd analysis/qc/
 
-NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --outdir nano_qc_trim --threads 4 --loglength
+NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --outdir nano_qc_filt --threads 4 --loglength
 ~~~
 {: .bash}
 
