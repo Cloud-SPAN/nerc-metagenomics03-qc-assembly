@@ -15,7 +15,7 @@ keypoints:
 - "Certain statistics can be used to describe the quality of an assembly."
 ---
 
-  
+
 > ## WARNING
 > This lesson will take several hours to run and complete! You can find some recommended reading at the end of the page that you might want to read whilst you're waiting.
 {: .callout}
@@ -215,11 +215,11 @@ The above output gives us a bit of information about how to run Flye but we can 
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
 
-We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/data/nano_fastq/ERR3152367_sub5_filtered.fastq` - this follows the --nano-raw flag.
+We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq` - this follows the --nano-raw flag.
 We're also going to get Flye to create the `assembly` directory as its output directory using the --out-dir flag.
 
 ~~~
- flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
+ flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
      --threads 4 \
      --iterations 3 \
@@ -252,7 +252,7 @@ The final thing to do is redirect the output Flye reports to the terminal into a
 
 Once we add these symbols into our command we get the following:
 ~~~
-flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
+flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
      --threads 4 \
      --iterations 3 \
@@ -283,7 +283,7 @@ jobs
 ~~~
 {: .bash}
 ~~~
-[1]+  Running                 flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye.out &
+[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye_output.txt &
 ~~~
 {: .output}
 
@@ -299,13 +299,16 @@ less assembly/flye.log
 The contents of the file will depend on how far through the assembly Flye is.
 At the start of an assembly you'll probably see something like this:
 ~~~
-[2022-08-15 19:58:59] INFO: Starting Flye 2.9-b1778
-[2022-08-15 19:58:59] INFO: >>>STAGE: configure
-[2022-08-15 19:58:59] INFO: Configuring run
-[2022-08-15 19:59:55] INFO: Total read length: 3082258211
-[2022-08-15 19:59:55] INFO: Reads N50/N90: 5373 / 2571
-[2022-08-15 19:59:55] INFO: Minimum overlap set to 3000
-[2022-08-15 19:59:56] INFO: >>>STAGE: assembly
+[2022-10-05 17:22:03] root: INFO: Starting Flye 2.9.1-b1780
+[2022-10-05 17:22:03] root: DEBUG: Cmd: /home/csuser/bin/flye --nano-raw /home/csuser/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta
+[2022-10-05 17:22:03] root: INFO: >>>STAGE: configure
+[2022-10-05 17:22:03] root: INFO: Configuring run
+[2022-10-05 17:22:17] root: INFO: Total read length: 3023658929
+[2022-10-05 17:22:17] root: INFO: Reads N50/N90: 5389 / 2607
+[2022-10-05 17:22:17] root: INFO: Minimum overlap set to 3000
+[2022-10-05 17:22:17] root: INFO: >>>STAGE: assembly
+[2022-10-05 17:22:17] root: INFO: Assembling disjointigs
+[2022-10-05 17:22:17] root: DEBUG: -----Begin assembly log------
 ~~~
 {: .output}
 
@@ -328,7 +331,7 @@ Note: this log file will contain similar to the `flye_output.txt` file we're gen
 Flye is likely to take a **couple of hours** to finish assembling.
 You don't need to remain connected to the instance during this time but once you have disconnected it does make it harder to track the progress of Flye.
 
-In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources below with recommended reading.
+In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources at the end with recommended reading.
 
 ### Determining if the assembly has finished
 
@@ -337,14 +340,14 @@ After leaving it at least a couple of hours (or even longer!), Flye should have 
 If you remained connected to the instance during the process you will get the following output in your terminal when the command has finished.
 
 ~~~
-[2]+  Done      flye --nano-raw ~/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye.out &
+[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye.out &
 ~~~
 {: .output}
 
-If you disconnected from the instance for whatever reason during the assembly process we need to check the `flye.log` file.  
+If you disconnected from the instance for whatever reason during the assembly process after you have logged in, we need to check the `flye.log` file in the `assembly` directory.  
 
 ~~~
-cd ~/analysis/assembly/
+cd ~/cs_course/analysis/assembly/
 less flye.log
 ~~~
 {: .bash}
@@ -361,7 +364,7 @@ If you navigate to the end of the file you should see something like:
         Scaffolds:      0
         Mean coverage:  178
 
-[2022-08-11 14:03:52] INFO: Final assembly: ~/analysis/assembly/assembly.fasta
+[2022-08-11 14:03:52] INFO: Final assembly: ~/cs_course/analysis/assembly/assembly.fasta
 ~~~
 {: .output}
 
