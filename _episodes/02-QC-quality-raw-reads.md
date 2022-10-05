@@ -1,7 +1,7 @@
 ---
 title: "Assessing Read Quality, Trimming and Filtering"
 teaching: 45
-exercises: 15
+exercises: 45
 questions:
 - "How can I describe the quality of my data?"
 - "How can we get rid of sequence data that doesn't meet our quality standards?"
@@ -95,12 +95,13 @@ We have previously used `mkdir` to make one directory at once, however it is pos
 Using the `-p` flag for `mkdir` allows it to create a new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory.
 
 ~~~
- cd
- mkdir -p analysis/qc/illumina_qc
- ls
+ cd ~
+ mkdir -p ~/cs_course/analysis/qc/illumina_qc
+ cd ~/cs_course/analysis/qc/illumina_qc
+ pwd
 ~~~
 {: .bash}
-We can navigate through using `cd` and see that all three directories have been made.
+We can `pwd` and see that all three directories have been made.
 
 Now we have created the directories we are ready to start the quality control of the Illumina data.
 
@@ -281,6 +282,7 @@ The FastQC program has created two new files within our
 `analysis/illumina_qc/` directory. Let's take a look at them.
 
 ~~~
+ cd illumina_qc
  ls
 ~~~
 {: .bash}
@@ -316,7 +318,8 @@ $ scp -i login-key-instanceNNN.pem 'csuser@instanceNNN.cloud-span.aws.york.ac.uk
 
 As the file is downloading you will see an output like:
 ~~~
-TO FILL
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/illumina_qc/ERR2935805_fastqc.html .
+ERR2935805_fastqc.html         100%  591KB   1.8MB/s   00:00  
 ~~~
 {: .output}
 
@@ -543,13 +546,13 @@ ls
 ~~~
 {: .bash}
 ~~~
-Dynamic_Histogram_Read_length.html            NanoPlot-report.html
-HistogramReadlength.png                       NanoPlot_20220804_1931.log
-LengthvsQualityScatterPlot_dot.png            NanoStats.txt
-LengthvsQualityScatterPlot_kde.png            Weighted_HistogramReadlength.png
-LengthvsQualityScatterPlot_loglength_dot.png  Weighted_LogTransformed_HistogramReadlength.png
-LengthvsQualityScatterPlot_loglength_kde.png  Yield_By_Length.png
-LogTransformed_HistogramReadlength.png
+LengthvsQualityScatterPlot_dot.html            LengthvsQualityScatterPlot_loglength_kde.png         Non_weightedLogTransformed_HistogramReadlength.png
+LengthvsQualityScatterPlot_dot.png             NanoPlot_20221005_1630.log                           WeightedHistogramReadlength.html
+LengthvsQualityScatterPlot_kde.html            NanoPlot-report.html                                 WeightedHistogramReadlength.png
+LengthvsQualityScatterPlot_kde.png             NanoStats.txt                                        WeightedLogTransformed_HistogramReadlength.html
+LengthvsQualityScatterPlot_loglength_dot.html  Non_weightedHistogramReadlength.html                 WeightedLogTransformed_HistogramReadlength.png
+LengthvsQualityScatterPlot_loglength_dot.png   Non_weightedHistogramReadlength.png                  Yield_By_Length.html
+LengthvsQualityScatterPlot_loglength_kde.html  Non_weightedLogTransformed_HistogramReadlength.html  Yield_By_Length.png
 ~~~
 {: .output}
 
@@ -572,7 +575,8 @@ scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/
 Remember to replace NNN with the instance number specific to you.
 As the file is downloading you will see an output like:
 ~~~
-TO FILL
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/nano_qc/NanoPlot-report.html .
+NanoPlot-report.html                                  100% 3281KB   2.3MB/s   00:01
 ~~~
 {: .output}
 
