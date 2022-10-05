@@ -299,18 +299,17 @@ less assembly/flye.log
 The contents of the file will depend on how far through the assembly Flye is.
 At the start of an assembly you'll probably see something like this:
 ~~~
-[2022-10-05 17:22:03] root: INFO: Starting Flye 2.9.1-b1780
-[2022-10-05 17:22:03] root: DEBUG: Cmd: /home/csuser/bin/flye --nano-raw /home/csuser/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta
-[2022-10-05 17:22:03] root: INFO: >>>STAGE: configure
-[2022-10-05 17:22:03] root: INFO: Configuring run
-[2022-10-05 17:22:17] root: INFO: Total read length: 3023658929
-[2022-10-05 17:22:17] root: INFO: Reads N50/N90: 5389 / 2607
-[2022-10-05 17:22:17] root: INFO: Minimum overlap set to 3000
-[2022-10-05 17:22:17] root: INFO: >>>STAGE: assembly
-[2022-10-05 17:22:17] root: INFO: Assembling disjointigs
-[2022-10-05 17:22:17] root: DEBUG: -----Begin assembly log------
+[2022-10-05 17:22:03] INFO: Starting Flye 2.9.1-b1780
+[2022-10-05 17:22:03] INFO: >>>STAGE: configure
+[2022-10-05 17:22:03] INFO: Configuring run
+[2022-10-05 17:22:17] INFO: Total read length: 3023658929
+[2022-10-05 17:22:17] INFO: Reads N50/N90: 5389 / 2607
+[2022-10-05 17:22:17] INFO: Minimum overlap set to 3000
+[2022-10-05 17:22:17] INFO: >>>STAGE: assembly
 ~~~
 {: .output}
+
+Different steps in the assembly process take different amounts of time so it will likely look like it's stuck on certain steps - but as long as you have run the job in the backgroun its probably still running!
 
 Note: this log file will contain similar to the `flye_output.txt` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
 
@@ -328,8 +327,8 @@ Note: this log file will contain similar to the `flye_output.txt` file we're gen
 {: .callout}
 
 
-Flye is likely to take a **couple of hours** to finish assembling.
-You don't need to remain connected to the instance during this time but once you have disconnected it does make it harder to track the progress of Flye.
+Flye is likely to take a **couple of hours** to finish assembling - so feel free to leave this running overnight and come back to it tomorrow. You don't need to remain connected to the instance during this time (and you can turn your computer off!) but once you have disconnected from the instance it does mean you can no longer use `jobs` to track the job.
+
 
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources at the end with recommended reading.
 
