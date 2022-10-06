@@ -215,13 +215,13 @@ The above output gives us a bit of information about how to run Flye but we can 
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
 
-We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq` - this follows the --nano-raw flag.
-We're also going to get Flye to create the `assembly` directory as its output directory using the --out-dir flag.
+We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq` - this follows the `--nano-raw` flag.
+We're also going to get Flye to create the `assembly` directory as its output directory using the `--out-dir` flag.
 
 ~~~
  flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
-     --threads 4 \
+     --threads 8 \
      --iterations 3 \
      --meta
 ~~~
@@ -254,7 +254,7 @@ Once we add these symbols into our command we get the following:
 ~~~
 flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
-     --threads 4 \
+     --threads 8 \
      --iterations 3 \
      --meta &> flye_output.txt &
 ~~~
@@ -283,7 +283,7 @@ jobs
 ~~~
 {: .bash}
 ~~~
-[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye_output.txt &
+[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
 ~~~
 {: .output}
 
@@ -339,7 +339,7 @@ After leaving it at least a couple of hours (or even longer!), Flye should have 
 If you remained connected to the instance during the process you will get the following output in your terminal when the command has finished.
 
 ~~~
-[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 4 --iterations 3 --meta &> flye.out &
+[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye.out &
 ~~~
 {: .output}
 
