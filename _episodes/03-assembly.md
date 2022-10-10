@@ -309,7 +309,7 @@ At the start of an assembly you'll probably see something like this:
 ~~~
 {: .output}
 
-Different steps in the assembly process take different amounts of time so it will likely look like it's stuck on certain steps - but as long as you have run the job in the backgroun its probably still running!
+Different steps in the assembly process take different amounts of time so it will likely look like it's stuck on certain steps - but as long as you have run the job in the background its probably still running!
 
 Note: this log file will contain similar to the `flye_output.txt` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
 
@@ -327,8 +327,7 @@ Note: this log file will contain similar to the `flye_output.txt` file we're gen
 {: .callout}
 
 
-Flye is likely to take a **couple of hours** to finish assembling - so feel free to leave this running overnight and come back to it tomorrow. You don't need to remain connected to the instance during this time (and you can turn your computer off!) but once you have disconnected from the instance it does mean you can no longer use `jobs` to track the job.
-
+Flye is likely to take a **a few hours** to finish assembling - so feel free to leave this running overnight and come back to it tomorrow. You don't need to remain connected to the instance during this time (and you can turn your computer off!) but once you have disconnected from the instance it does mean you can no longer use `jobs` to track the job.
 
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources at the end with recommended reading.
 
@@ -475,6 +474,7 @@ We can see there's many different options available, however we don't need many 
 
 First we're going to use the default options to get the statistics.
 ~~~
+cd ~/cs_course/analysis/assembly/
 seqkit stats assembly.fasta
 ~~~
 {: .bash}
@@ -483,12 +483,12 @@ SeqKit is fast so we are running this directly in the terminal foreground. It sh
 
 Once it has finished you should see an output table like this:
 ~~~
-file            format  type  num_seqs     sum_len  min_len    avg_len    max_len
-assembly.fasta  FASTA   DNA        148  14,941,594    3,164  100,956.7  6,068,569
+file            format  type  num_seqs     sum_len  min_len   avg_len    max_len
+assembly.fasta  FASTA   DNA        154  15,042,667    3,164  97,679.7  6,068,626
 ~~~
 {: .output}
 
-In this table we can see the input file, the format of the file, the type of sequence and other statistics.
+In this table we can see the input file, the format of the file, the type of sequence and other statistics. Yours may differ a little to ours as some steps of the process can introduce variation which can result in a slightly different assembly.
 
 Using this table of statistics, answer the questions below.
 > ## Exercise X: Looking at basic statistics
@@ -497,9 +497,9 @@ Using this table of statistics, answer the questions below.
 > b) How many bases in total have been assembled?  
 > c) What is the shortest and longest contig produced by this assembly?  
 >> ## Solution
->> a) From `num_seqs` we can see that this assembly is made up of 148 contigs  
->> b) Looking at `sum_length` we can see that the assembly is 14,941,594bp in total (almost 15 million bp!)  
->> c) From `min_length` we can see the shortest contig is 3,164bp and from `max_length` the longest contig is 6,068,569bp  
+>> a) From `num_seqs` we can see that this assembly is made up of 154 contigs  
+>> b) Looking at `sum_length` we can see that the assembly is 15,042,667bp in total (over 15 million bp!)  
+>> c) From `min_length` we can see the shortest contig is 3,164bp and from `max_length` the longest contig is 6,068,626bp  
 > {: .solution}
 {: .challenge}
 
