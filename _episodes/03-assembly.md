@@ -16,41 +16,35 @@ keypoints:
 ---
 
 
-> ## WARNING
-> This lesson will take several hours to run and complete! You can find some recommended reading at the end of the page that you might want to read whilst you're waiting.
+> ## IMPORTANT
+> The analyses in this lesson will take several hours to complete! You can find some recommended reading at the end of the page that you might want to read whilst you're waiting.
 {: .callout}
 
 ## Assembling reads
 <img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
-Now we have put our raw reads through quality control we are going to move onto the next step in the process, which is assembly of the metagenome.
-
-
-### Genomic assembly
-
-Genomic assembly refers to the act of joining smaller fragments of DNA (i.e. reads) to make longer segments to try and reconstruct the original genome.
-
-You can think of this like a jigsaw puzzle: each raw read corresponds to a piece of the puzzle and you're aiming to complete the puzzle by joining these pieces together.
-
-There are two main strategies for genome assembly.
-1. a reference-mapping approach when you have a reference genome of what you have sequenced to map your smaller reads onto
-2. a _de novo_ approach, this is an assembly approach that doesn't use a reference and instead assembles reads together based on the content of the reads (the specific approach depends on which assembly software you are using)
+In the last episode, we put both the longs raw reads and the short raw reads through quality control. They are now ready to be assembled into a metagenome. Genomic assembly is the process of joining smaller fragments of DNA (_i.e._, reads) to make longer segments to try and reconstruct the original genomes.
 
 <br clear="right"/>
 
-<img align="center" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+### Genomic assembly
 
+You can think of Genomic assembly as a jigsaw puzzle: each raw read corresponds to a piece of the puzzle and you are aiming to complete the puzzle by joining these pieces together in the right order.
 
+There are two main strategies for genome assembly:
+1. Mapping to a reference genome - requires that there is a complete genome of the organism you have sequenced, or a closely related organism. This is the approach you would take if you were trying to identify variants for well-characterised species, such as humans.
+2. _De novo_ assembly - does not use a reference but instead assembles reads together based on the content of the reads (the specific approach depends on which assembly software you are using). This appraoch is common for environmental samples.
 
-
-Continuing the jigsaw analogy, the reference-mapping approach would be when you have an image of the final puzzle to compare your assembly to. Whereas, a _de novo_ approach you would have no image to look at and have to determine which pieces fit together based on their shape and their content.
+Continuing the jigsaw analogy, mapping to a reference genome would be equivalent to having an image of the final puzzle to compare your assembly to. In contrast, in _de novo_ assembly you would have to depend entirely on which pieces fit together.
 
 ### Metagenomic assembly
 
-Metagenomic sequencing adds another layer to the challenge of assembly. Instead of having one organism to assemble you now have multiple! Depending on the complexity of a metagenome you could have anywhere from a handful of organisms in a community to thousands.
+Metagenomic sequencing adds another layer to the challenge of assembly! Instead of having one organism to assemble you now have many! Depending on the complexity of a metagenome you could have anywhere from a handful of organisms in a community to thousands.
 
-This means the single jigsaw puzzle of a genome assembly has now become multiple different jigsaw puzzles in one.
+You no longer have one jigsaw puzzle, but many with all the pieces mixed together.
 
+<img align="center" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
+----------here
 As many of the communities sequenced using metagenomics contain previously uncultured microbes (often known as microbial dark matter) they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
 
 <br clear="right"/>
