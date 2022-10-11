@@ -34,6 +34,7 @@ Before assembling our metagenome from the the short-read Illumina sequences and 
 > ## Reminder of the FASTQ format
 > ![A diagram showing that each read in a FASTQ file comprises 4 lines of information.](../fig\fastq_file_format.png){:width="600px"}
 > In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information:
+> 
 > |Line|Description|
 > |----|-----------|
 > |1|Always begins with '@' and then information about the read|
