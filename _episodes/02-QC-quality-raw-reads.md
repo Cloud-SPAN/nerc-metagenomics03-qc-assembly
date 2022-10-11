@@ -21,32 +21,25 @@ keypoints:
 
 <img align="left" width="325" height="226" src="{{ page.root }}/fig/short_analysis_flowchart_crop1.png" alt="Analysis flow diagram that shows the steps: Sequence reads and Quality control." />
 
-We will now assess the quality of the sequence reads contained in our FASTQ files.
-We will be adapting the quality control workflow from [Cloud-SPAN Genomics](https://cloud-span.github.io/00genomics/) for the metagenomics dataset used in this course.  
+Before assembling our metagenome from the the short-read Illumina sequences and the long-read Nanopore sequences, We need to apply quality control to both. The two types of sequence data require different QC methods. We will use:
 
-You may want to revisit [Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) or [Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to remind yourself of key concepts.
-
-We have two different types of sequencing data (short-read Illumina sequence and long-read Nanopore sequence) available for this metagenome.
-We will be using them both in a hybrid approach to assemble and analyse this metagenome.
-
-Because the two types of sequences are different in length and quality, we need to use different programs for each of them that are built to handle the different strengths and weaknesses each technology provides.
+- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to trim and filter the short-read Illumina data
+- [NanoPlot](https://github.com/wdecoster/NanoPlot) to trim and filter the long-read Nanopore data
 
 <br clear="left"/>
 
 
-## Illumina Quality control
-
-We will first quality control the raw Illumina data.
-We will be adapting the methods for short reads used in [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to use with our Illumina short read data.
+## Illumina Quality control using FastQC
 
 > ## Reminder of the FASTQ format
-> See [Genomics - Assessing Read Quality](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a more in-depth reminder about the FASTQ format.
->
+> ![A diagram showing that each read in a FASTQ file comprises 4 lines of information.](../fig\fastq_file_format.png){:width="600px"}
 > In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information:
-> 1. The first line always starts with an '@' followed by the sequence identifier (also called the header) and may contain other information about the read such as the length.
-> 2. The second line is the sequence of bases itself
-> 3. The third line is a separator line which starts with a ‘+’ and may repeat the information from line 1
-> 4. The fourth line is a string of characters representing the quality scores for each base
+> |Line|Description|
+> |----|-----------|
+> |1|Always begins with '@' and then information about the read|
+> |2|The actual DNA sequence|
+> |3|Always begins with a '+' and sometimes the same info in line 1|
+> |4|Has a string of characters which represent the quality scores; must have same number of characters as line 2|
 {: .callout}
 
 As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
