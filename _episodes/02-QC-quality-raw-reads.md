@@ -33,24 +33,28 @@ Before assembling our metagenome from the the short-read Illumina sequences and 
 
 > ## Reminder of the FASTQ format
 > ![A diagram showing that each read in a FASTQ file comprises 4 lines of information.](../fig\fastq_file_format.png){:width="600px"}
-> In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is described in four lines of information:
+> In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is composed of four lines:
 > 
 > |Line|Description|
 > |----|-----------|
-> |1|Always begins with '@' and then information about the read|
+> |1|Always begins with '@' and gives the sequence identifier and an optional description|
 > |2|The actual DNA sequence|
 > |3|Always begins with a '+' and sometimes the same info in line 1|
-> |4|Has a string of characters which represent the quality scores; must have same number of characters as line 2|
+> |4|Has a string of characters which represent the PHRED quality score for each of the bases in line 2; must have same number of characters as line 2|
 {: .callout}
 
-As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
-
+We can examine the first read in the FASTQ file using `head` to print the first four lines.
+Move into the directory containing the illumina FASTQ files using `cd`:
 ~~~
- cd ~/cs_course/data/illumina_fastq/
- head -n 4 ERR2935805.fastq
+ cd cs_course/data/illumina_fastq/
 ~~~
 {: .bash}
 
+Now use `head` to view the first 4 lines of the `ERR2935805.fastq` file
+~~~
+ head -n 4 ERR2935805.fastq
+~~~
+{: .bash}
 ~~~
 @ERR2935805.1 HWI-C00124:284:HWTT2BCXY:1:1101:1247:2214 length=202
 GATGGCGATAGAAGTCAAGTCTTTATTTTATGAAACCGCCATCATTAGTAGTATTTTATTTGGGCTCCCTTTTATAGGGACGGATATTTATGAGAATCAGCNAAAAAATCTACNCCTTCCTGAAANNANNAACNNNCAGGGTCTGACGATTTTCCTGCTGGGGTGGGAAATTGCCAGATAAAACAATATTGTGATTATCTCT
@@ -59,7 +63,7 @@ GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIG
 ~~~
 {: .output}
 
-Line 4 shows us the quality score of this read.
+The quality score of this read is on line 4.
 
 ~~~
 GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIGGGGAGGGAGGGIAGGGGGGGA#<GGAIIIIIGI#<<GGGIGGGGA##<##<<G###<<GAGGIGGIIIIIIIIIGGIIIIIIIIIIGIIGGGGGAGGGGIIIGGIIGIGIGIGGIGGIGGG.
@@ -74,32 +78,34 @@ GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIG
 >~~~
 > {: .output}
 >
-> See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) for a reminder about how PHRED scores work.                          
+> Quality is interpreted as the probability of an incorrect base call. To make it possible to line up each individual nucleotide with its quality score, the numerical score is encoded by a single character. The quality score represents the probability that the corresponding nucleotide call is incorrect. It is a logarithmic scale so a quality score of 10 reflects a base call accuracy of 90%, but a quality score of 20 reflects a base call accuracy of 99%.                   
 {: .callout}
 
-Based on the PHRED quality scores we can see that the quality score for the majority of the bases in this read is between 31-41.
+The PHRED quality scores for the majority of the bases in this read are between 31-41.
 
-Rather than assessing every read in the raw data by hand we can use the program [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), which we previously used in Genomics, to visualise the quality of the whole sequencing file.
+Rather than assessing every read in the raw data by hand we can use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to visualise the quality of the whole sequencing file.
 
 First, we are going to organise our analysis by creating a directory to contain the output of all of the analysis we generate in this course.
-As in [Prenomics](https://cloud-span.github.io/prenomics00-intro/) and [Genomics](https://cloud-span.github.io/00genomics/), we will be using the command `mkdir` to create these directories.
 
-We have previously used `mkdir` to make one directory at once, however it is possible to make directories inside other directories.
+The `mkdir` command can be used to make a new directory. Using the `-p` flag for `mkdir` allows it to create a new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory.
 
-Using the `-p` flag for `mkdir` allows it to create a new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory.
-
+Return to your home directory (`/home/csuser`)
 ~~~
- cd ~
- mkdir -p ~/cs_course/analysis/qc/illumina_qc
- cd ~/cs_course/analysis/qc/illumina_qc
- pwd
+ cd 
 ~~~
 {: .bash}
-We can `pwd` and see that all three directories have been made.
+
+Create the directories `analysis/qc/illumina_qc` inside `cs_course`
+~~~
+ mkdir -p cs_course/analysis/qc/illumina_qc
+~~~
+{: .bash}
+
+You might want to use `ls` to check those nested directories have been made.
 
 Now we have created the directories we are ready to start the quality control of the Illumina data.
 
-FastQC has been pre-installed on your instance so we can pull up the help documentation to remind ourselves of the parameters available.
+FastQC has been installed on your instance so we can pull up the help documentation to remind ourselves of the parameters available.
 
 ~~~
 $ fastqc -h
