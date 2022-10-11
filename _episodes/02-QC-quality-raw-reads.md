@@ -105,7 +105,7 @@ You might want to use `ls` to check those nested directories have been made.
 
 Now we have created the directories we are ready to start the quality control of the Illumina data.
 
-FastQC has been installed on your instance so we can pull up the help documentation to remind ourselves of the parameters available.
+FastQC has been installed on your instance and we can run it with the `-h` flag to display the help documentation and remind ourselves how to use it and all the parameters available:
 
 ~~~
 $ fastqc -h
@@ -238,18 +238,21 @@ $ fastqc -h
 > {: .output}
 {: .solution}
 
-If you're not already there, we need to navigate to our qc directory,
+We need to use just an input file and the -o flag to give the output directory: `fastqc _inputfile_ -o _outputdirectory_`
+
+Navigate to your `qc/` directory,
 ~~~
   cd ~/cs_course/analysis/qc/
 ~~~
 {: .bash}
 
-As we are using only one FASTQ file we can specify `fastqc` and then the location of the FASTQ file we want to be analysed, which is in our `data` directory and also the `illumina_qc` output directory:
+As we are using only one FASTQ file we can specify `fastqc` and then the location of the FASTQ file we want to analyse, and the `illumina_qc` output directory:
 
 ~~~
  fastqc ~/cs_course/data/illumina_fastq/ERR2935805.fastq -o illumina_qc/
 ~~~
 {: .bash}
+
 
 Press enter and you will see an automatically updating output message telling you the progress of the analysis. It should start like this:
 
@@ -264,7 +267,7 @@ Approx 30% complete for ERR2935805.fastq
 ~~~
 {: .output}
 
-In total, it should take around ten minutes for FastQC to run on the fastq file (however, this depends on the size and number of files you give it).
+In total, it should take around ten minutes for FastQC to run on this fastq file (however, this depends on the size and number of files you give it).
 When the analysis completes, your prompt will return. So your screen will look something like this:
 
 ~~~
@@ -279,12 +282,11 @@ $
 {: .output}
 
 The FastQC program has created two new files within our
-`analysis/illumina_qc/` directory. Let's take a look at them.
+`analysis/illumina_qc/` directory. We can see them by listing the contents of the `illumina_qc` folder
 
 ~~~
- cd illumina_qc
- ls
-~~~
+ ls illumina_qc/
+ ~~~
 {: .bash}
 
 ~~~
@@ -292,14 +294,24 @@ ERR2935805_fastqc.html  ERR2935805_fastqc.zip
 ~~~
 {: .output}
 
-For each input FASTQ file, FastQC has created a `.zip` file and a `.html` file. The `.zip` file extension indicates that this is actually a compressed set of multiple output files. We'll be working with the `.html` file which is a stable webpage displaying the summary report for each of our samples.
+For each input FASTQ file, FastQC has created a `.zip` file and a `.html` file. The `.zip` file extension indicates that this is actually a compressed set of multiple output files. A summary report for our data is in the he `.html` file.
 
-We can't open the .html file in the terminal as it requires a web browser, so we need to transfer the file to our own computer.
+You need to transfer `ERR2935805_fastqc.html` from your AWS instance to your local computer to view it with a web browser.
 
-To do this we will use the `scp` (secure copy protocol) command, which we have used previously (see [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html)).
+To do this we will use the `scp` (secure copy protocol) command. You need to start a second terminal window that is **_not_** logged into the cloud instance and ensure you are in your `cloudspan` directory. This is important because it contains your pem file which will allow the `scp` command access to your AWS instance to copy the file.
 
-In a new terminal window that is **_not_** logged into the cloud instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
-Once you're in the directory where you want the file to be available from, use `scp` to download the file.
+> ## Starting a new new terminal
+> 
+> 1. Open your file manager and navigate to the `cloudspan` folder which should contain the login key file 
+> 
+> 2. Open your machine's command line interface:
+>    Windows users: Right click anywhere inside the blank space of the file manager, then select **Git Bash Here**.
+>    Mac users: Open **Terminal** and type `cd` followed by the absolute path that leads to your `cloudspan` folder. Press enter.  
+> 3. Check that you are in the right folder using `pwd`
+> 
+{: .callout}
+
+Now use `scp` to download the file.
 
 The command will look something like:
 ~~~
@@ -308,14 +320,6 @@ scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/
 {: .bash}
 Remember to replace NNN with your instance number.
 
-> ## zsh: no matches found?
-> On some set ups, you may get an error because of the `*`, a special character, in the location. This can be resolved by using quotes:
-~~~
-$ scp -i login-key-instanceNNN.pem 'csuser@instanceNNN.cloud-span.aws.york.ac.uk:/home/csuser/cs_course/analysis/qc/illumina_qc/ERR2935805_fastqc.html
-~~~
-{: .bash}
-{: .callout}
-
 As the file is downloading you will see an output like:
 ~~~
 scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/illumina_qc/ERR2935805_fastqc.html .
@@ -323,8 +327,7 @@ ERR2935805_fastqc.html         100%  591KB   1.8MB/s   00:00
 ~~~
 {: .output}
 
-Once the file has downloaded, using your native file system (e.g. File Explorer or Finder) you can find the file and double click to open.
-This is an HTML file so it should open up in your browser.  
+Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the file and open it - it should open up in your browser.  
 
 > ## Help!
 > If you had trouble downloading and viewing the file you can view it here: [ERR2935805_fastqc.html]({{ page.root }}/files/ERR2935805_fastqc.html)
@@ -339,7 +342,7 @@ First we will look at the "Per base sequence quality" graph.
 The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 202 bp long.
 
 Each position has a box-and-whisker plot showing the distribution of quality scores for all reads at that position.
-- The horizontal red line indicates the median quality score.
+- The horizontal red line indicates the median quality score. 
 - The yellow box shows the 1st to 3rd quartile range (this means that 50% of reads have a quality score that falls within the range of the yellow box at that position).
 - The whiskers show the absolute range, which covers the lowest (0th quartile) to highest (4th quartile) values.
 
@@ -348,7 +351,7 @@ The plot background is also color-coded to identify good (green), acceptable (ye
 In this sample, the quality values do not drop much lower than 32 at any position. This is a high quality score meaning the sequence is high quality. This means that we do not need to do any filtering. Lucky us!
 
 We should also have a look at the "Adapter Content" graph which will show us where adapter sequences occur in the reads.
-Adapter sequences are short sequences that are added to the sample to aid during the preparation of the DNA library. They therefore don't tell us anything biologically important and should be removed if they are present in high numbers. They might also be removed in the case pf certain applications, such as ones when the base sequence needs to be particularly accurate.
+Adapter sequences are short sequences that are added to the sample to aid during the preparation of the DNA library. They therefore don't tell us anything biologically important and should be removed if they are present in high numbers. They might also be removed in the case of certain applications, such as ones when the base sequence needs to be particularly accurate.
 
 <img align="center" width="800" height="600" src="{{ page.root }}/fig/02_fastqc_adap_ill.png" alt="Adapter content graph from the Fastqc output we generated above">
 
@@ -358,21 +361,24 @@ This graph shows us that this sequencing file has a low percentage (~2-3%) of ad
 > While the sequencing in this example is high quality this will not always be the case.  
 >
 > Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png).
-> See [Genomics - Quality Control](https://cloud-span.github.io/03genomics/01-quality-control/index.html) to remind yourself how to determine what is a good and what is a bad plot.
+> See [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to learn more about trimming and filtering poor quality reads.
 >
-> You can also remind yourself how to clean lower quality reads in [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html).
->
-> In this example we used a quality cut off score of 20 and trimmed adapter sequencing.
 {: .callout}
 
 ## Nanopore quality control
 
 Next we will assess the quality of the Nanopore raw reads. These are found in the file located at `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
 
-As before, we can view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
+Let us again view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
+Move to the folder containing the Nanopore data:
 ~~~
  cd ~/cs_course/data/nano_fastq/
+~~~
+{: .bash}
+
+Use `head` to look at the first four line of the fastq file:
+~~~
  head -n 4 ERR3152367_sub5.fastq
 ~~~
 {: .bash}
@@ -386,7 +392,7 @@ $$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$
 {: .output}
 
 
-This read is longer than the Illumina reads we looked at earlier. The length of a raw read from Nanopore sequencing varies depends on the length of the length of the DNA strand being sequenced.
+This read is 320 bp, longer than the Illumina reads we looked at earlier. The length of a raw read from Nanopore sequencing varies depends on the length of the length of the DNA strand being sequenced.
 
 
 Line 4 shows us the quality score of this read.
@@ -398,14 +404,14 @@ $$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$
 
 Based on the PHRED quality scores (see above for a reminder) we can see that the quality score of the bases in this read are between 1-10, which is lower than the Illumina sequencing above.
 
-Instead of using FastQC we will use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is preinstalled on the instance, to create some plots for the whole sequencing file. NanoPlot is specially built for Nanopore sequences.
+Instead of using FastQC we will use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is installed on the instance, to create some plots for the whole sequencing file. NanoPlot is specially built for Nanopore sequences.
 
 >## Other programs for Nanopore QC
 >Another popular program for QC of Nanopore reads is [PycoQC](https://github.com/a-slide/pycoQC).
 >
->Along with producing similar plots to NanoPlot, PycoQC will also give you information about the overall Nanopore sequencing run. In order to generate these, PycoQC uses a `sequencing summary` file generated by the Nanopore sequencer (e.g. MiniION or PromethION).  
+> It produces similar plots to NanoPlot but will also give you information about the overall Nanopore sequencing run. In order to generate these, PycoQC uses a `sequencing summary` file generated by the Nanopore sequencer (e.g. MiniION or PromethION).  
 >
->This file isn't avaiable for the sub-setted dataset we're using which is why we've used NanoPlot instead. PycoQC have example output files available online such as [Guppy-2.1.3_basecall-1D_DNA_barcode.html](https://a-slide.github.io/pycoQC/pycoQC/results/Guppy-2.1.3_basecall-1D_DNA_barcode.html), if you would like to see how the output differs.
+> We are using NanoPlot because the `sequencing summary` that PycoQC needs is not avaiable for this dataset. You can see   example output files from PycoQC here: [Guppy-2.1.3_basecall-1D_DNA_barcode.html](https://a-slide.github.io/pycoQC/pycoQC/results/Guppy-2.1.3_basecall-1D_DNA_barcode.html).
 {: .callout}
 
 We first need to navigate to the `qc` directory we made earlier `cs_course/analysis/qc`.
@@ -518,16 +524,16 @@ NanoPlot --help
 > {: .output}
 {: .solution}
 
-There are four flags to use when we run the NanoPlot command:
-As our data is in FASTQ format we use the `--fastq` flag to specify the file. We also use `--outdir` to specify an output directory. We're also going to use the flag `--loglength` to produce plots with a log scale and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
+We will use four flags when we run the NanoPlot command:
+ We also use `--outdir` to specify an output directory. We're also going to use the flag `--loglength` to produce plots with a log scale and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
-- The `--fastq` flag specifies the file to analyse. The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq` and we will use this full absolute path in the NanoPlot command.
+- `--fastq` to specify the filetype and file to analyse. The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq` and we will use this full absolute path in the NanoPlot command.
 
-- The `--outdir` flag specifies where the command should output its results to. We are already in our `qc` directory, so we are going to specify `nano_qc` so that NanoPlot will create a new directory within this directory to put the files it generates. (Note: with NanoPlot you don't need to create this directory before running the command, however this varies depending on the program you are using.)
+- `--outdir` to specify the where the output files should be written. We are going to specify `nano_qc` so that NanoPlot will create a new directory in our current directory (`qc`) and write its output files to it. Note: with NanoPlot you don't need to create this directory before running the command.
 
-- The `--threads` flag specifies how many threads to run the program on (more threads = more compute power = faster). We will specify 4 to indicate that four threads should be used.
+- `--threads` specifies how many threads to run the program on (more threads = more compute power = faster). We will specify 4 to indicate that four threads should be used.
 
-- The `--loglength` flag produces plots with a log scale.
+- `--loglength` specifies that we want plots with a log scale.
 
 ~~~
 NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc --threads 4 --loglength
@@ -560,14 +566,11 @@ LengthvsQualityScatterPlot_loglength_kde.html  Non_weightedLogTransformed_Histog
 We can see that NanoPlot has generated a lot of different files.
 
 Like before, we can't view most of these files in our terminal as we can't open images or HTML files. Instead we'll download the core information to our own computer.
-Luckily the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer.
+Luckily, the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer using `scp`.
 
-Once again we will use `scp`.
+Use a terminal  that is **_not_** logged into the cloud instance and ensure you are in your `cloudspan` directory. You may have one from earlier. If you do not, use the instructions above to start one.
 
-In a new terminal window that's **_not_** logged into the instance, navigate to your Cloud-SPAN directory (that contains your pem file) using `cd`.
-Once you're in the directory you want to download this file into we will use `scp` to download the file.
-
-The command will look something like:
+Use `scp` to copy the file - the command will look something like:
 ~~~
 scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/nano_qc/NanoPlot-report.html .
 ~~~
@@ -580,8 +583,7 @@ NanoPlot-report.html                                  100% 3281KB   2.3MB/s   00
 ~~~
 {: .output}
 
-Once the file has downloaded, using your file system (e.g. File explorer or Finder) you can find the file and double click it to open.
-As this is a HTML file it should open up in your browser.  
+Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the file and open it - it should open up in your browser.  
 
 > ## Help!
 > If you had trouble downloading and viewing the file you can view it here: [NanoPlot-report.html]({{ page.root }}/files/NanoPlot-report.html)
@@ -611,8 +613,6 @@ Looking at the summary statistics table answer the following questions:
 > read quality, different sequencing machines use different encoding systems. This means that,
 > depending on which sequencer you use to generate your data, a `#` may not be an indicator of
 > a poor quality base call.
->
-> This mainly relates to older Solexa/Illumina data.
 >
 > This means it's essential that you know which sequencing platform was
 > used to generate your data, so that you can tell your quality control program which encoding
