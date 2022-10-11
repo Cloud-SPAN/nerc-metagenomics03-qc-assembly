@@ -609,16 +609,13 @@ Looking at the summary statistics table answer the following questions:
 
 > ## Quality Encodings Vary
 >
-> Although we've used a particular quality encoding system to demonstrate interpretation of
-> read quality, different sequencing machines use different encoding systems. This means that,
-> depending on which sequencer you use to generate your data, a `#` may not be an indicator of
-> a poor quality base call.
+> Note that not all sequencing machines use the same encoding for quality. So `#` might not always mean 3, a poor quality score.
 >
 > This means it's essential that you know which sequencing platform was
 > used to generate your data, so that you can tell your quality control program which encoding
 > to use. If you choose the wrong encoding, you run the risk of throwing away good reads or
 > (even worse) not throwing away bad reads!
-> Nanopore quality encodings are no exception. You can read more about the differences with Nanopore sequencing on [EPI2ME - Quality Scores](https://labs.epi2me.io/quality-scores/) if you're interested.
+> Nanopore quality encodings are no exception. You can read more about the differences with Nanopore sequencing here: [EPI2ME - Quality Scores](https://labs.epi2me.io/quality-scores/).
 {: .callout}
 
 > ## N50
@@ -635,9 +632,7 @@ We can also look at some of the plots produced by NanoPlot.
 One useful plot is the plot titled "Read lengths vs Average read quality plot using dots after log transformation of read lengths".
 <img align="centre" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 
-This plot shows the read length of the sequences compared to the average quality of the sequence.
-
-We can see that the majority of the sequences have a quality score of 4 and above, and many of those with an average quality score of 4 are shorter in length.
+This plot shows the average quality of the sequence against the read lengths. We can see that the majority of the sequences have a quality score at least 4, and low quality scores come from very short reads.
 This means that for this dataset we should remove those with a lower quality score in order to improve the overall quality of the raw sequences before assembling the metagenome.
 
 <br clear="left"/>
