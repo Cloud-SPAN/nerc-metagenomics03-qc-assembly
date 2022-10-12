@@ -33,7 +33,7 @@ You can think of Genomic assembly as a jigsaw puzzle: each raw read corresponds 
 
 There are two main strategies for genome assembly:
 1. Mapping to a reference genome - requires that there is a complete genome of the organism you have sequenced, or a closely related organism. This is the approach you would take if you were trying to identify variants for well-characterised species, such as humans.
-2. _De novo_ assembly - does not use a reference but instead assembles reads together based on the content of the reads (the specific approach depends on which assembly software you are using). This appraoch is common for environmental samples.
+2. _De novo_ assembly - does not use a reference but instead assembles reads together based on the content of the reads (the specific approach depends on which assembly software you are using). It is commonly used for environmental samples which usually contain many organisms that have not been cultured previously.
 
 Continuing the jigsaw analogy, mapping to a reference genome would be equivalent to having an image of the final puzzle to compare your assembly to. In contrast, in _de novo_ assembly you would have to depend entirely on which pieces fit together.
 
@@ -44,8 +44,8 @@ Metagenomic sequencing adds another layer to the challenge of assembly! Instead 
 You no longer have one jigsaw puzzle, but many with all the pieces mixed together.
 
 <img align="center" width="775" height="717" src="{{ page.root }}/fig/03_genomics_v_metagenomics.png" alt="Metagenomic flow diagram with the steps raw reads, assembly and polishing and binning ." />
-----------here
-As many of the communities sequenced using metagenomics contain previously uncultured microbes (often known as microbial dark matter) they are unlikely to have a reference genome you can use and often you don't know before sequencing what organisms make up a community.
+
+Many of the communities sequenced using metagenomics contain previously uncultured microbes (often known as microbial dark matter) so they are unlikely to have reference genomes. In addition, you don't usually know what you are sequencing - the community of organisms is unknown.
 
 <br clear="right"/>
 
@@ -54,7 +54,7 @@ As many of the communities sequenced using metagenomics contain previously uncul
 > This means we could use a reference-mapping approach to assemble this metagenome, but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial.
 {: .callout}
 
-Assembling our metaphorical jigsaw will be a challenge. Not only are there now potentially thousands of jigsaws to solve, we also don't have any images to refer back to.
+Assembling our metaphorical jigsaw will be a challenge. We have many, perhaps thousands, of jigsaws to assemble and no pictures
 
 Luckily there are programs, known as assemblers, that will do this for us!
 
@@ -77,12 +77,16 @@ We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-
 {: .callout}
 
 
-First navigate to the `analysis` directory you made in a previous step.
-Let's see what happens if we enter the `flye` command on our terminal.
-
+Navigate to the `analysis` directory you made in a previous step.
 ~~~
  cd ~
  cd cs_course/analysis
+~~~
+{: .source}
+
+Run the `flye` command without any arguments to see a short description of its use:
+
+~~~
  flye
 ~~~
 {: .source}
@@ -102,9 +106,8 @@ flye: error: the following arguments are required: -o/--out-dir
 ~~~
 {: .output}
 
-The reason we're seeing this is because we haven't provided any arguments for Flye to be able to run the assembly.
 
-The above output gives us a bit of information about how to run Flye but we can use the help command to show it in full.
+A full description can be displayed by using the `--help` flag:
 ~~~
   flye --help
 ~~~
@@ -190,20 +193,19 @@ The above output gives us a bit of information about how to run Flye but we can 
 {: .solution}
 
 
-**We can see that Flye has multiple different options available so we need to work out which ones are appropriate for our dataset.**
-- The program used to basecall the reads will determine how we input the data file. If we look back at the paper [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468) we can see that our reads were basecalled with Guppy v2.2.2.
+Flye has multiple different options available and we need to work out which ones are appropriate for our dataset.
+- We have to choose one of `(--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw | --nano-corr | --nano-hq )` to indicates what program used used to basecall the reads in `file1`. Our reads were basecalled with we can see that our reads were basecalled with Guppy v2.2.2. (See [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468)) 
   - We will therefore input our data using the flag `--nano-raw` for "ONT regular reads, pre-Guppy5 (<20% error)" followed by the relative path of the input file (the filtered fastq file we produced last lesson).
 - We use the `-o` or `--outdir` to specify (using a relative path) where the flye output should be stored
-- We also use the `-t` or `--threads` flag in order to run the assembly on more compute in order to speed it up.
+- We also use the `-t` or `--threads` flag in order to run the assembly on multiple threads in order to speed it up.
 - After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing.
   - We can specify the number of times `flye` will polish this data using `-i` or `--iterations` - `number of polishing iterations [1]`. By default the number of iterations is 1 however 3 iterations is often used as standard.
 - Finally we need to use the `--meta` option for `metagenome / uneven coverage mode` to indicate that the dataset is a metagenome
 
 > ## Unused parameters
-> There's a lot of parameters that we won't be using; some are deprecated, some are only appropriate for certain types of data (e.g. `--pacbio-raw`) and some are useful to allow tweaking to try further improve an assembly (e.g. `--genome-size` and `--read-error`).
+> There are many parameters that we don't need. Some of these are deprecated and some are only appropriate for certain types of data. Others are useful to allow tweaking to try to further improve an assembly (e.g. `--genome-size` and `--read-error`).
 >   
-> Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program.  
->
+> Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program.  >
 > The [Flye Manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) contains a lot of further information about the parameters avaiable. If you're going to try using Flye on your own long-read dataset this is a good place to start.  
 {: .callout}
 
@@ -226,25 +228,23 @@ We're also going to get Flye to create the `assembly` directory as its output di
 Now we've built our command we could stop here **but** metagenomic assembly takes a long time.
 If we were to run this command as is we'd have to stay logged into the instance (aka leaving your computer running) for hours.
 
-Luckily we don't have to do that as we're using a remote computer (as that's what the instance/cloud computing is).
+Luckily we don't have to do that as we're using a remote computer.
 
 ### Running a command in the background
 
-The commands we've previously run in this course have all been in the foreground, meaning they've been run directly in the terminal window we're using and occupy the window until they've finished.
+All the commands we have run so far have been in the "foreground", meaning they've been run directly in the terminal window, the prompt disappears and we can't use the terminal again until the command is finished.
 
-Instead we can run a job in the background so it doesn't take over the terminal window.
+Commands can also be run in the "background" so the prompt is returned before the command is finished and we can continue using our terminal. Commands run in the background are often called "jobs".
 
-To do this we take the command we want to run and then follow it with an ampersand (`&`) symbol.
-
-This puts the job into the background so we can do other things in the terminal.
+To run a command in the background, we follow it with an ampersand (`&`) symbol.
 
 > ## Warning
-> The command will run in the background **as long as you are logged into the instance**. It **will** still stop running if you log out of the instance.  
+> **You still need to be logged into the instance**. If you log out of your instance while a command is running in the background, that command will stop running.  
 {: .callout}
 
-The final thing to do is redirect the output Flye reports to the terminal into a file with `>`.
+The final thing to add to our `flye` command is "redirection": `&> flye_output.txt` will send any output that would be sent to the terminal to a file, `flye_output.txt` instead
 
-Once we add these symbols into our command we get the following:
+The complete command is:
 ~~~
 flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
      --out-dir assembly \
@@ -257,21 +257,24 @@ flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
 `&>` redirects any logging information by the program that would originally come to the terminal and save to file. Note the lack of a space between `&>`. The second `&` then runs this command in the background.
 
 We can now press enter to run the command.
-Unlike when we have previously run code, your prompt should immediately return. This doesn't mean that the code has finished already: it is now running in the background.
+Your prompt should immediately return. This doesn't mean that the code has finished already: it is now running in the background.
 
 > ## Running commands on different servers
-> There are many different ways to run commands in the background in terminal.  
-> How you run these commands (also known as jobs) will depend on the computing resources (and their fair use policies) you are running the command on.  
+> There are many different ways to run jobs in the background in a terminal.  
+> How you run these commands will depend on the computing resources (and their fair use policies) you are using
 > The main options include:
 > * `&`, which we've covered here. Depending on the infrastructure you're running the command on, you may also need to use [`nohup`](https://www.digitalocean.com/community/tutorials/nohup-command-in-linux) to prevent the background job from being killed when you close the terminal.  
 > * The command line program [`screen`](https://linuxize.com/post/how-to-use-linux-screen/), which allows you to create a shell session that can be completely detached from a terminal and re-attached when needed.
 > * Queuing system - many shared computing resources, like  the High Performance Computing (HPC)  clusters owned by some Universities, operate a queuing system (e.g. SLURM or SGE) so each user gets their fair share of computing resources. With these you submit your command / job to the queueing system, which will then handle when to run the job on the resources available.
 {: .callout}
 
-As we're running the command in the background we no longer see the output on the terminal. Luckily we have two options available for us to check on the progress of the assembly.
+As we're running the command in the background we no longer see the output on the terminal but we can still check on the progress of the assembly. There are two options to do this.
 
-One option is to view all the currently running background commands with the command `jobs`. The output of this looks like:
+1. Using the command `jobs` to view what is running
+2. Examining the log file created by `flye` using `less`
 
+### Checking progress: `jobs`
+Jobs command is used to list the jobs that you are running in the background and in the foreground. If the prompt is returned with no information no commands are being run.
 ~~~
 jobs
 ~~~
@@ -281,9 +284,11 @@ jobs
 ~~~
 {: .output}
 
-Note: if you disconnect from the instance while Flye is running you won't be able to track the jobs progress through this method.
+The `[1]` is the job number. If you need to stop the job running, you can use `kill %1`, where 1 is the job number.
 
-The other option is via the Flye program itself. Flye generates a log file when running, which is stored in the output folder it has generated.
+### Checking progress: the log file
+
+Flye generates a log file when running, which is stored in the output folder it has generated.
 Using `less` we can navigate through this file.
 ~~~
 less assembly/flye.log
@@ -303,7 +308,7 @@ At the start of an assembly you'll probably see something like this:
 ~~~
 {: .output}
 
-Different steps in the assembly process take different amounts of time so it will likely look like it's stuck on certain steps - but as long as you have run the job in the background its probably still running!
+Different steps in the assembly process take different amounts of time so it might appear stuck. However, it is almost certainly still running if it was run in the background.
 
 Note: this log file will contain similar to the `flye_output.txt` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
 
@@ -329,42 +334,43 @@ In the meantime, if you wanted to read more about assembly and metagenomics ther
 
 After leaving it at least a couple of hours (or even longer!), Flye should have finished assembling.
 
-If you remained connected to the instance during the process you will get the following output in your terminal when the command has finished.
+If you remained connected to the instance during the process you will be able to tell it has finished because you get the following output in your terminal when the command has finished.
 
 ~~~
 [2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye.out &
 ~~~
 {: .output}
 
-If you disconnected from the instance for whatever reason during the assembly process after you have logged in, we need to check the `flye.log` file in the `assembly` directory.  
+This message won't be displayed if you disconnected from the instance for whatever reason during the assembly process. However, you can still examine the `flye.log` file in the `assembly` directory.  If the assembly has finished the log file will have summary statistics and information about the location of the assembly at the end.
 
+Move to the `assembly` directory and use `less` to examine the contents of the log file:
 ~~~
 cd ~/cs_course/analysis/assembly/
 less flye.log
 ~~~
 {: .bash}
 
-If you navigate to the end of the file you should see something like:
+Navigate to the end of the file using <kbd>G</kbd>. You should see something like:
 ~~~
-[2022-08-11 14:03:51] INFO: >>>STAGE: finalize
-[2022-08-11 14:03:52] INFO: Assembly statistics:
+[2022-10-06 15:20:58] root: INFO: Assembly statistics:
 
-        Total length:   14941594
-        Fragments:      148
-        Fragments N50:  2976491
-        Largest frg:    6068569
+        Total length:   15042667
+        Fragments:      154
+        Fragments N50:  2976488
+        Largest frg:    6068626
         Scaffolds:      0
-        Mean coverage:  178
+        Mean coverage:  187
 
-[2022-08-11 14:03:52] INFO: Final assembly: ~/cs_course/analysis/assembly/assembly.fasta
+[2022-10-06 15:20:58] root: INFO: Final assembly: /home/csuser/cs_course/analysis/assembly/assembly.fasta
+
 ~~~
 {: .output}
 
-It also contains some basic statistics about the assembly created.
+There are some basic statistics about the final assembly created.
 
-### Assembly Output
+### What is the Assembly output?
 
-If we `ls` in the assembly directory we can see the that Flye has created many different files.
+If we `ls` in the `assembly` directory we can see the that Flye has created many different files.
 
 ~~~
 00-assembly   20-repeat     40-polishing    assembly_graph.gfa  assembly_info.txt  params.json
@@ -372,7 +378,7 @@ If we `ls` in the assembly directory we can see the that Flye has created many d
 ~~~
 {: .output}
 
-We've already looked at `flye.log` which contains all the info Flye generates during an assembly.
+One of these is `flye.log` which we have already looked at.
 
 * Flye generates a directory to contain the output for each step of the assembly process. (These are the `00-assembly`, `10-consensus`, `20-repeat`, `30-contigger` and `40-polishing` directories.)  
 * We also have a file containing the parameters we ran the assembly under `params.json` which is useful to keep our analysis reproducible.  
@@ -381,6 +387,8 @@ We've already looked at `flye.log` which contains all the info Flye generates du
 * Finally we have two files for a repeat graph (`assembly_graph.{gfa|gv}`) which is a visual way to view the assembly - see the optional exercise below.    
 
 You can see more about the output for Flye in the [documentation on GitHub](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#output).
+
+-----------here
 
 > ## Contigs vs. reads
 > We have seen reads in the raw sequencing data - these are our individual jigsaw pieces.
