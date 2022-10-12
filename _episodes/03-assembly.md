@@ -420,7 +420,7 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > > * Click the <kbd>draw graph</kbd> button to draw the graph.
 > > Bandage will take some time to draw the graph, though this depends on the size of the graph.  You should then see the graph of the assembly and be able to change colours, zoom and save using File | Save image. Note: Your output may look a little different to this as Bandage may have drawn your graph a little differently.
 > > More information about Bandage can be found here: [Getting Started](https://github.com/rrwick/Bandage/wiki/Getting-started) 
-> > {: .solution}
+> {: .solution}
 {: .challenge}
 
 
