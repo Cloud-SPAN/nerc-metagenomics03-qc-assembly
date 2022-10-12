@@ -403,14 +403,15 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > ## Optional exercise: Viewing the repeat graph
 >   
 > A repeat or assembly graph will show the final contigs of an assembly and how they interact with each other - see [graph theory](https://en.wikipedia.org/wiki/Graph_theory) for more information about what we mean by graph in this context. The repeat graph can be viewed with a program called [Bandage](https://rrwick.github.io/Bandage/) which needs to be installed on your computer
-> ## Here's one we made earlier!
->  
+> > ## Here's one we made earlier!
+> >
 >  We drew the a repeat graph for our assembly. There are two large circularised contigs, indicating that they're likely complete genomes. The larger of the two has a smaller blue circle attached which could be a plasmid or some form of insertion, though it also could be an artifact of the assembly.
-> This contig could be run through BLAST to work out its identity but in this course we will be using a different analysis workflow here that's more appropriate for read world metagenomes. 
-> The rest of the contigs are a lot shorter with few interactions between them.
-> <a href="{{ page.root }}/fig/03_bandage_graph.png">
-> <img align="center" width="713" height="611" src="{{ page.root }}/fig/03_bandage_graph.png" alt="Repeat graph of the assembly showing some contigs joined together in a circle, and some more with small fragments" />
-> </a>
+> > This contig could be run through BLAST to work out its identity but in this course we will be using a different analysis workflow here that's more appropriate for read world metagenomes. 
+> > The rest of the contigs are a lot shorter with few interactions between them.
+> > <a href="{{ page.root }}/fig/03_bandage_graph.png">
+> > <img align="center" width="713" height="611" src="{{ page.root }}/fig/03_bandage_graph.png" alt="Repeat graph of the assembly showing some contigs joined together in a circle, and some more with small fragments" />
+> > /a>
+>  {: .solution}
 > > ## Optional Exercise: Using Bandage to draw your own repeat graph
 > > * Download and install Bandage from the [Website](https://rrwick.github.io/Bandage/) choosing the correct version for your operating system.   
 > > * Download `assembly_graph.gfa` from your AWS instance to your local computer using `scp` 
