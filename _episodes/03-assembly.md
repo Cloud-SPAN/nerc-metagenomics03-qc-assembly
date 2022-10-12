@@ -239,7 +239,7 @@ Commands can also be run in the "background" so the prompt is returned before th
 To run a command in the background, we follow it with an ampersand (`&`) symbol.
 
 > ## Warning
-> **You still need to be logged into the instance**. If you log out of your instance while a command is running in the background, that command will stop running.  
+> If you **haven't** run the job in the background it will stop as soon as you log out of the instance!  
 {: .callout}
 
 The final thing to add to our `flye` command is "redirection": `&> flye_output.txt` will send any output that would be sent to the terminal to a file, `flye_output.txt` instead
