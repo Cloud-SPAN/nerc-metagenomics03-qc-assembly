@@ -23,8 +23,8 @@ keypoints:
 
 Before assembling our metagenome from the the short-read Illumina sequences and the long-read Nanopore sequences, We need to apply quality control to both. The two types of sequence data require different QC methods. We will use:
 
-- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to trim and filter the short-read Illumina data
-- [NanoPlot](https://github.com/wdecoster/NanoPlot) to trim and filter the long-read Nanopore data
+- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to examine the quality the short-read Illumina data
+- [NanoPlot](https://github.com/wdecoster/NanoPlot) to examine the quality the long-read Nanopore data and [Seqkit](https://bioinf.shenwei.me/seqkit/) to trim and filter them.
 
 <br clear="left"/>
 
@@ -361,7 +361,7 @@ This graph shows us that this sequencing file has a low percentage (~2-3%) of ad
 > While the sequencing in this example is high quality this will not always be the case.  
 >
 > Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png).
-> See [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to learn more about trimming and filtering poor quality reads.
+> The programe [cutadapt](https://github.com/marcelm/cutadapt) can be used to filter poor quality reads and trim poor quality bases. See [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to learn more about trimming and filtering poor quality reads.
 >
 {: .callout}
 
