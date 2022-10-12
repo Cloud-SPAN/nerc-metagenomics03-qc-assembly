@@ -234,13 +234,15 @@ Luckily we don't have to do that as we're using a remote computer.
 
 All the commands we have run so far have been in the "foreground", meaning they've been run directly in the terminal window, the prompt disappears and we can't use the terminal again until the command is finished.
 
-Commands can also be run in the "background" so the prompt is returned before the command is finished and we can continue using our terminal. Commands run in the background are often called "jobs".
+Commands can also be run in the "background" so the prompt is returned before the command is finished and we can continue using our terminal. Commands run in the background are often called "jobs". A major advantage of running a long job in the background is that you can log out of your instance without the killing the process.
+
+> ## Warning
+> If you run the job in the foreground it will stop as soon as you log out of the instance!  Running jobs in the background is your friend!
+{: .callout}
 
 To run a command in the background, we follow it with an ampersand (`&`) symbol.
 
-> ## Warning
-> If you **haven't** run the job in the background it will stop as soon as you log out of the instance!  
-{: .callout}
+
 
 The final thing to add to our `flye` command is "redirection": `&> flye_output.txt` will send any output that would be sent to the terminal to a file, `flye_output.txt` instead
 
