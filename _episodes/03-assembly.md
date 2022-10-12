@@ -423,6 +423,7 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > {: .solution}
 {: .challenge}
 
+ ------ here
 
 ## Assembly Statistics
 
