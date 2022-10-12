@@ -427,7 +427,7 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 
 ## Assembly Statistics
 
-As we've just seen, Flye has finished the draft assembly and given us some basic statistics about the size of the assembly. Not every assembler will give you this information so we will be using the assembly FASTA file (`assembly.fasta`) and the program [Seqkit](https://bioinf.shenwei.me/seqkit/), but this time with a different command, `stats`, to generate basic statistics.
+Flye gave us basic statistics about the size of the assembly but not all assemblers do. We can use [Seqkit](https://bioinf.shenwei.me/seqkit/), but this time with a different command, `stats`, to generate basic statistics.
 
 
 ~~~
