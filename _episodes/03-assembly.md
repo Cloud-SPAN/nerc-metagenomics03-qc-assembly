@@ -194,7 +194,7 @@ A full description can be displayed by using the `--help` flag:
 
 
 Flye has multiple different options available and we need to work out which ones are appropriate for our dataset.
-- We have to choose one of `(--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw | --nano-corr | --nano-hq )` to indicates what program used used to basecall the reads in `file1`. Our reads were basecalled with we can see that our reads were basecalled with Guppy v2.2.2. (See [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468)) 
+- We have to choose one of `(--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw | --nano-corr | --nano-hq )` to indicate what program was used to basecall the reads with. We can see that our reads were basecalled with Guppy v2.2.2. (See [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468))
   - We will therefore input our data using the flag `--nano-raw` for "ONT regular reads, pre-Guppy5 (<20% error)" followed by the relative path of the input file (the filtered fastq file we produced last lesson).
 - We use the `-o` or `--outdir` to specify (using a relative path) where the flye output should be stored
 - We also use the `-t` or `--threads` flag in order to run the assembly on multiple threads in order to speed it up.
