@@ -423,8 +423,6 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > {: .solution}
 {: .challenge}
 
- ------ here
-
 ## Assembly Statistics
 
 Flye gave us basic statistics about the size of the assembly but not all assemblers do. We can use [Seqkit](https://bioinf.shenwei.me/seqkit/) to calculate summary statistics from the assembly. We previously used another `Seqkit` command, `seq` to Filter our Nanopore sequences by quality. This time we will use the command `stats`.
