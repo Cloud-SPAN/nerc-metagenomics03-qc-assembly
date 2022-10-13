@@ -256,7 +256,7 @@ flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
 ~~~
 {: .bash}
 
-`&>` redirects any logging information by the program that would originally come to the terminal and save to file. Note the lack of a space between `&>`. The second `&` then runs this command in the background.
+`&>` redirects sends information that would normally go to the terminal to a file instead. This means any logging and progress information `flye` creates will be saved in `flye_output.txt`. Note the lack of a space between `&>`. The second `&` then runs this command in the background.
 
 We can now press enter to run the command.
 Your prompt should immediately return. This doesn't mean that the code has finished already: it is now running in the background.
@@ -427,16 +427,16 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 
 ## Assembly Statistics
 
-Flye gave us basic statistics about the size of the assembly but not all assemblers do. We can use [Seqkit](https://bioinf.shenwei.me/seqkit/), but this time with a different command, `stats`, to generate basic statistics.
+Flye gave us basic statistics about the size of the assembly but not all assemblers do. We can use [Seqkit](https://bioinf.shenwei.me/seqkit/) to calculate summary statistics from the assembly. We previously used another `Seqkit` command, `seq` to Filter our Nanopore sequences by quality. This time we will use the command `stats`.
 
-
+Make sure you are in the `assembly` folder then run `seqkit stats` on `assembly.fasta`:
 ~~~
 cd ~/cs_course/analysis/assembly/
 seqkit stats assembly.fasta
 ~~~
 {: .bash}
 
-SeqKit is fast so we are running this directly in the terminal foreground. It should take just a couple of seconds to process this assembly (however, it can take longer with more sequencing data).
+`SeqKit` is fast so we have run the command in the terminal foreground. It should take just a couple of seconds to process this assembly. Assemblies with more sequencing data can take a bit longer.
 
 Once it has finished you should see an output table like this:
 ~~~
@@ -445,7 +445,7 @@ assembly.fasta  FASTA   DNA        154  15,042,667    3,164  97,679.7  6,068,626
 ~~~
 {: .output}
 
-In this table we can see the input file, the format of the file, the type of sequence and other statistics. Yours may differ a little to ours as some steps of the process can introduce variation which can result in a slightly different assembly.
+This table shows the input file, the format of the file, the type of sequence and other statistics. The assembly process introduces small random variations in the assemly so your table will likely differ slightly. However, you should expect the numbers to be very similar.
 
 Using this table of statistics, answer the questions below.
 > ## Exercise X: Looking at basic statistics
@@ -454,6 +454,7 @@ Using this table of statistics, answer the questions below.
 > b) How many bases in total have been assembled?  
 > c) What is the shortest and longest contig produced by this assembly?  
 >> ## Solution
+>>  From our table:  
 >> a) From `num_seqs` we can see that this assembly is made up of 154 contigs  
 >> b) Looking at `sum_length` we can see that the assembly is 15,042,667bp in total (over 15 million bp!)  
 >> c) From `min_length` we can see the shortest contig is 3,164bp and from `max_length` the longest contig is 6,068,626bp  
