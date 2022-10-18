@@ -2,5 +2,20 @@
 layout: lesson
 root: .
 ---
+A metagenome is a collection of genomic sequences from various (micro) organisms coexisting in a sample. They are snapshots that tell us about the taxonomic, metabolic or functional composition of the communities that we study.
 
-In this lesson we will discuss how we define metagenomics and the challenges that do not arise in a non-metagenomic genomics experiment. We will cover logging into the amazon web instance you will use for metagenomic analyses, how to quality control your data before read assembly and assembling a metagenome. We will then cover how to assess the quality of the metagenome and how we can improve it by removing errors through _polishing_. 
+In this lesson we will discuss how to define metagenomics and consider the challenges that this type of analysis can present. We will also discuss a workflow for metagenomics analysis.
+
+We will then log into our cloud instance for the first time and take a look at some data. Then, we'll go through the first two steps in our workflow: quality control and metagenome assembly.
+
+By the end of this lesson you will be able to:
+- explain what metagenomics is, and the challenges it presents
+- interpret a FastQC plot summarizing per-base quality across all reads.
+- interpret the NanoPlot output summarizing a Nanopore sequencing run
+- filter Nanopore reads based on quality using the command line tool SeqKit
+- run a metagenomic assembly workflow
+- assess the quality of an assembly using SeqKit
+
+> ## IMPORTANT
+> You should be aware that some of the analyses in this lesson can take several hours to run - these will be completed outside of the taught lesson. You will receive guidance about this from your course instructors.
+{: .callout}
