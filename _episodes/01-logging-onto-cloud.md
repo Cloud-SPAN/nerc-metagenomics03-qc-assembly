@@ -185,9 +185,6 @@ For now we will use the file explorer to move the `.pem` file around.
 
     The command `chmod` (change access mode) makes your login key file accessible to you only (and non-accessible to any other potential users of your computer), a condition that is required and checked by the program `ssh` that you will use next to login to your AWS instance. You will learn about file access permissions later in the course.
 
-
-If you were skipping the steps above having already made your `cloudspan` folder, here is where you shoud pay attention again.
-
 ## Login into your instance with ssh
 
 1. Copy and paste the command in the Code box below to your *terminal*, but **replace** `NNN` with the number in your login key file name.
