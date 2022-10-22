@@ -125,7 +125,7 @@ This course uses data from a mock metagenome community published from [Ultra-dee
 
 This community contains eight bacteria (three gram positive and five gram negative) and two yeasts. These organisms are present in log abundances relative to each other. The organisms present and their known percentage of the total metagenome content is given in the table below.
 
-This dataset contains whole metagenome sequencing. The short read data are generated on the Illumina platorm and the long reads are generated using Oxford Nanopore Technology's Nanopore platform. Other popular long read sequencing platforms exist, such as PacBio, though we will not be covering PacBio specific methodology here. Despite this, the same principle stages exist in the workflow, and often only different parameters are required to adapt analysis to different platforms.
+This dataset contains whole metagenome sequencing. The short read data are generated on the Illumina platform and the long reads are generated using Oxford Nanopore Technology's Nanopore platform. Other popular long read sequencing platforms exist, such as PacBio, though we will not be covering PacBio specific methodology here. Despite this, the same principle stages exist in the workflow, and often only different parameters are required to adapt analysis to different platforms.
 
 
 
@@ -147,7 +147,7 @@ This dataset contains whole metagenome sequencing. The short read data are gener
 
 Elsewhere [(see here)](https://cloud-span.github.io/experimental_design01-principles/01-platform/index.html)we have covered information about how to use your research question to guide your preference of platform (Illumina/Nanopore)when designing an experiment. However typically the equivalent question for metagenomics is whether to sequence the whole genome, or whether amplicon sequencing will be preferable.
 
-For non-metagenomic analyses, you can choose to do either a reference based or *de novo* approach. This will be dependent on whether there is a reasonable reference for your organism. 
+For non-metagenomic analyses, you can choose to do either a reference based or *de novo* approach for assembly. This will be dependent on whether there is a reasonable reference for your organism. 
 
 However, for whole metagenome sequencing, reference genomes will exist that can be compared to organisms identified from your metagenome. However, this will be at the binning stage and a reference will not exist for your metagenome as a whole. Due to this, all of the assembly stages of the metagenome analysis pipeline are *de novo*. As a result, there is a bigger advantage to using long read sequencing over short read sequencing to assemble a metagenome if you were to choose only one method.
 
