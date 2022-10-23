@@ -328,13 +328,13 @@ Note: this log file will contain similar to the `flye_output.txt` file we're gen
 {: .callout}
 
 
-Flye is likely to take a **a few hours** to finish assembling - so feel free to leave this running overnight and come back to it tomorrow. You don't need to remain connected to the instance during this time (and you can turn your computer off!) but once you have disconnected from the instance it does mean you can no longer use `jobs` to track the job.
+Flye is likely to take a **4 - 6 hours** to finish assembling - so feel free to leave this running overnight and come back to it tomorrow. You don't need to remain connected to the instance during this time (and you can turn your computer off!) but once you have disconnected from the instance it does mean you can no longer use `jobs` to track the job.
 
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources at the end with recommended reading.
 
 ### Determining if the assembly has finished
 
-After leaving it at least a couple of hours (or even longer!), Flye should have finished assembling.
+After leaving it severa lhours, Flye should have finished assembling.
 
 If you remained connected to the instance during the process you will be able to tell it has finished because you get the following output in your terminal when the command has finished.
 
