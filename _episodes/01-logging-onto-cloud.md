@@ -226,6 +226,11 @@ For now we will use the file explorer to move the `.pem` file around.
 
     Note that you did not need to give a password to login to your instance --- you are using your login-key file for authentication.
 
+## Exploring the file system
+Take a moment to explore the file system on the instance using `cd` and `ls`. You can read more about the file structure on the [data page](https://cloud-span.github.io/metagenomics01-qc-assembly/data/index.html) which can be found in the navbar at the top of the page.
+
+This page is available in the same place every episode, so you can refer back to it whenever you need to. Don't forget, though that you'll be creating lots more files and directories as you go along.
+
 ## Logging off your cloud instance
 
 Logging off your instance is a lot like logging out of your local computer but it doesn't shut the computer off. **Be aware that AWS instances accrue charges whenever they are running, even if you are logged off**. Today, however, you do not need to worry about this!
