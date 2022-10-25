@@ -80,9 +80,10 @@ In theory you can make your Cloud-SPAN directory anywhere in your file system bu
 
 
 > ## Reminder of Absolute vs relative paths
->There are two ways of writing a file path - absolute paths and relative paths.
+>There are two ways of writing a file path - absolute paths and relative paths. Let's use a pretend file hierarchy to remind ourselves how they differ:
+>![A file tree](file_system_hierarchy_graphic.png){:width="400px"}
 >
->An absolute path contains the complete list of directories needed to locate a file on your computer. This allows you to reach the file no matter where you are. The example just given (home/docs/data/doc3.txt) is an absolute path.
+>An absolute path contains the complete list of directories needed to locate a file on your computer. This allows you to reach the file no matter where you are. The absolute path for the file `doc3.txt` would be `home/docs/data/doc3.txt`.
 >
 >A relative path describes the location of a file relative to your current working directory. For example, if you were already in the folder called docs, the relative path for doc3.txt would be data/doc3.txt. There is no need to give instructions to navigate a route you have already taken.
 >
