@@ -205,14 +205,11 @@ Flye has multiple different options available and we need to work out which ones
 > ## Unused parameters
 > There are many parameters that we don't need. Some of these are deprecated and some are only appropriate for certain types of data. Others are useful to allow tweaking to try to further improve an assembly (e.g. `--genome-size` and `--read-error`).
 >   
-> Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program.  >
-> The [Flye Manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) contains a lot of further information about the parameters avaiable. If you're going to try using Flye on your own long-read dataset this is a good place to start.  
+> Most bioinformatics programs have an associated website (which is often a GitHub page) with a whole manual to use the program.
+> The [Flye Manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) contains a lot of further information about the parameters available. If you're going to try using Flye on your own long-read dataset this is a good place to start.  
 {: .callout}
 
-Now we've worked out what parameters are appropriate for our data we can put them all together in one command.
-
-We will be using the filtered Nanopore file we generated in the previous step which should be in the location `~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq` - this follows the `--nano-raw` flag.
-We're also going to get Flye to create the `assembly` directory as its output directory using the `--out-dir` flag.
+Now we've worked out what parameters are appropriate for our data we can put them all together in one command. Since the command is quite long, we will use backward slashes to allow it to span several lines. `\`  basically means "start a new line and carry on reading without submitting the command".
 
 ~~~
  flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
@@ -222,6 +219,12 @@ We're also going to get Flye to create the `assembly` directory as its output di
      --meta
 ~~~
 {: .bash}
+
+- `--nano-raw` tells Flye that it is receiving pre-Guppy reads and that the **input** is found at the path `~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
+- `--out-dir` tells Flye that the **output** should be saved in the `assembly/` directory
+- `--threads` indicates that the number of parallel cores is `8`
+- `--iterations` indicates that the data will be polished `3` times
+- `--meta` indicates that the dataset is a metagenome
 
 **<span style="color:red"> Don't run this command yet! If you have, you can press <kbd>Ctrl</kbd>+<kbd>z</kbd> to stop the command.</span>**
 
@@ -241,8 +244,6 @@ Commands can also be run in the "background" so the prompt is returned before th
 {: .callout}
 
 To run a command in the background, we follow it with an ampersand (`&`) symbol.
-
-
 
 The final thing to add to our `flye` command is "redirection": `&> flye_output.txt` will send any output that would be sent to the terminal to a file, `flye_output.txt` instead
 
@@ -334,7 +335,7 @@ In the meantime, if you wanted to read more about assembly and metagenomics ther
 
 ### Determining if the assembly has finished
 
-After leaving it severa lhours, Flye should have finished assembling.
+After leaving it several hours, Flye should have finished assembling.
 
 If you remained connected to the instance during the process you will be able to tell it has finished because you get the following output in your terminal when the command has finished.
 
