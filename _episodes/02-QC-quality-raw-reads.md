@@ -21,10 +21,10 @@ keypoints:
 
 <img align="left" width="325" height="226" src="{{ page.root }}/fig/short_analysis_flowchart_crop1.png" alt="Analysis flow diagram that shows the steps: Sequence reads and Quality control." />
 
-Before assembling our metagenome from the the short-read Illumina sequences and the long-read Nanopore sequences, We need to apply quality control to both. The two types of sequence data require different QC methods. We will use:
+Before assembling our metagenome from the the short-read Illumina sequences and the long-read Nanopore sequences, we need to apply quality control to both. The two types of sequence data require different QC methods. We will use:
 
-- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to examine the quality the short-read Illumina data
-- [NanoPlot](https://github.com/wdecoster/NanoPlot) to examine the quality the long-read Nanopore data and [Seqkit](https://bioinf.shenwei.me/seqkit/) to trim and filter them.
+- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to examine the quality of the short-read Illumina data
+- [NanoPlot](https://github.com/wdecoster/NanoPlot) to examine the quality of the long-read Nanopore data and [Seqkit](https://bioinf.shenwei.me/seqkit/) to trim and filter them.
 
 <br clear="left"/>
 

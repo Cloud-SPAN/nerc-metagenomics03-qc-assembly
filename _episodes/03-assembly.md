@@ -23,7 +23,7 @@ keypoints:
 ## Assembling reads
 <img align="right" width="325" height="316" src="{{ page.root }}/fig/03_short_analysis_flowchart_short_asm.png" alt="Analysis flow diagram that shows the steps: Sequence reads, Quality control and assembly." />
 
-In the last episode, we put both the longs raw reads and the short raw reads through quality control. They are now ready to be assembled into a metagenome. Genomic assembly is the process of joining smaller fragments of DNA (_i.e._, reads) to make longer segments to try and reconstruct the original genomes.
+In the last episode, we put both the long and short raw reads through quality control. They are now ready to be assembled into a metagenome. Genomic assembly is the process of joining smaller fragments of DNA (_i.e._, reads) to make longer segments to try and reconstruct the original genomes.
 
 <br clear="right"/>
 
