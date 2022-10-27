@@ -69,7 +69,9 @@ Despite this, there are workflows such as [QIIME2](https://qiime2.org/), which a
 
 ## Bioinformatic workflows
 
-<img align="right" width="325" height="506" src="{{ page.root }}/fig/short_analysis_flowchart.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
+<img align="left" src="{{ page.root }}/fig/full_workflow_with_programs.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
+
+<img align="right" width="325" height="506" src="{{ page.root }}/fig/short_analysis_flowchart.png" alt="Flow diagram that shows the full workflow followed in the course from long and short reads through to assembly and taxonomic/functional analysis" />
 
 When working with high-throughput sequencing data, the raw reads you get off of the sequencer need to pass
 through a number of  different tools in order to generate your final desired output.  
