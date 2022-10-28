@@ -69,8 +69,6 @@ Despite this, there are workflows such as [QIIME2](https://qiime2.org/), which a
 
 ## Bioinformatic workflows
 
-<img align="left" width="450" height="765" src="{{ page.root }}/fig/full_workflow_with_programs.png" alt="Flow diagram that shows the full workflow followed in the course from long and short reads through to assembly and taxonomic/functional analysis"/>
-
 <img align="right" width="325" height="506" src="{{ page.root }}/fig/short_analysis_flowchart.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy"/>
 
 When working with high-throughput sequencing data, the raw reads you get off of the sequencer need to pass
@@ -90,6 +88,8 @@ description of each step.
 Workflows in bioinformatics often adopt a plug-and-play approach so the output of one tool can be easily used as input to another tool.
 The use of standard data formats in bioinformatics (such as FASTA or FASTQ, which we will be using here) makes this possible.
 The tools that are used to analyze data at different stages of the workflow are therefore built under the assumption that the data will be provided in a specific format.
+
+You can find a [more detailed version of the workflow](extras/workflow.md) we will be following by going to `Extras` and selecting `Workflow Reference`. This diagram contains all of the steps followed over the course alongside program names.
 
 <br clear="right"/>
 
