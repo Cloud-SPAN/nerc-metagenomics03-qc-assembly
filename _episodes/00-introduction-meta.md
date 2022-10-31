@@ -36,8 +36,8 @@ A typical metagenomic workflow is designed to answer two questions:
 1. What species are present in the sample and what are their relative abundances?
 2. What is the functional capacity of the organisms or the community?
 
-## Metagenomics sequencing approaches
-There are two technologies used in metagenome sequencing which have different use cases, advantages and disadvantages: **Whole genome metagenomics** and **Amplicon/(16S) sequencing**.
+## Community sequencing approaches
+There are two technologies used in mixed community sequencing which have different use cases, advantages and disadvantages: **Whole genome metagenomics** and **Amplicon/(16S) sequencing**.
 
 ### Whole metagenome sequencing (WMS)
 
