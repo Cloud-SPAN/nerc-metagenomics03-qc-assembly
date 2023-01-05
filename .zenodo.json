@@ -1,90 +1,62 @@
 {
+  "@context": "https://schema.org",
+  "@id": "https://cloud-span.github.io/metagenomics01-qc-assembly/",
+  "@type": "TrainingMaterial",
+  "abstract": "This Cloud-SPAN Metagenomics lesson teaches an introduction to metagenomics, interpreting FastQC and NanoPlot outputs for quality control, filtering reads using SeqKit and running a metagenomic assembly workflow.",
+  "datePublished": "2022-10-01",
+  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "description": "First lesson of Cloud-SPAN Metagenomics course.",
+  "educationalLevel": "Intermediate",
+  "identifier": [
+    {
+      "@id": "10.5281/zenodo.7504048",
+      "@type": "PropertyValue"
+    }
+  ],
+  "inLanguage": [
+    "en-UK"
+  ],
+  "keywords": [
+    "metagenomics",
+    "assembly",
+    "cloud computing",
+    "command line tools",
+    "data analysis"
+  ],
+  "license": [
+    {
+      "@id": "CC-BY 4.0",
+      "@type": "CreativeWork"
+    }
+  ],
+  "name": "Cloud-SPAN Metagenomics Course Session 1: QC & Assembly",
+  "url": "https://cloud-span.github.io/metagenomics01-qc-assembly/",
   "contributors": [
     {
-      "type": "Editor",
-      "name": "Roselyn Lemus"
+      "name": "Emma Rand",
+      "orcid": "0000-0002-1358-8275"
     },
     {
-      "type": "Editor",
-      "name": "Mateusz Kuzak",
-      "orcid": "0000-0003-0087-6021"
+      "name": "James Chong",
+      "orcid": "0000-0001-9447-7421"
     },
     {
-      "type": "Editor",
-      "name": "Rayna Harris",
-      "orcid": "0000-0002-7943-5650"
+      "name": "Jorge Buenabad-Chavez",
+      "orcid": ""
     },
     {
-      "type": "Editor",
-      "name": "Peter Hoyt",
-      "orcid": "0000-0002-2767-0923"
+      "name": "Evelyn Greeves",
+      "orcid": "0000-0003-4800-3422"
     }
   ],
   "creators": [
     {
-      "name": "Peter R. Hoyt",
-      "orcid": "0000-0002-2767-0923"
+      "name": "Annabel Cansdale",
+      "orcid": "0000-0001-9548-3110"
     },
     {
-      "name": "Deborah Paul",
-      "orcid": "0000-0003-2639-7520"
-    },
-    {
-      "name": "Tracy Teal",
-      "orcid": "0000-0002-9180-9598"
-    },
-    {
-      "name": "Amanda Charbonneau",
-      "orcid": "0000-0001-7376-7702"
-    },
-    {
-      "name": "Erin Alison Becker",
-      "orcid": "0000-0002-6832-0233"
-    },
-    {
-      "name": "François Michonneau",
-      "orcid": "0000-0002-9092-966X"
-    },
-    {
-      "name": "Taylor Reiter",
-      "orcid": "0000-0002-7388-421X"
-    },
-    {
-      "name": "Rayna Michelle Harris",
-      "orcid": "0000-0002-7943-5650"
-    },
-    {
-      "name": "Toby Hodges",
-      "orcid": "0000-0003-1766-456X"
-    },
-    {
-      "name": "Jason Williams",
-      "orcid": "0000-0003-3049-2010"
-    },
-    {
-      "name": "Bérénice Batut",
-      "orcid": "0000-0001-9852-1987"
-    },
-    {
-      "name": "Kevin Weitemier",
-      "orcid": "0000-0002-5793-0343"
-    },
-    {
-      "name": "Laura Williams"
-    },
-    {
-      "name": "Daniel O. S. Ouso",
-      "orcid": "0000-0003-0994-2558"
-    },
-    {
-      "name": "Juan A. Ugalde"
-    },
-    {
-      "name": "Paula Andrea Martinez",
-      "orcid": "0000-0002-8990-1985"
+      "name": "Sarah Forrester",
+      "orcid": "0000-0001-8332-7196"
     }
-  ],
-  "license": {
-    "id": "CC-BY-4.0"
-  }
+  ]
 }
