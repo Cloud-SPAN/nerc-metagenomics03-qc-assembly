@@ -13,9 +13,6 @@
       "@type": "PropertyValue"
     }
   ],
-  "inLanguage": [
-    "en-UK"
-  ],
   "keywords": [
     "metagenomics",
     "assembly",
@@ -23,38 +20,37 @@
     "command line tools",
     "data analysis"
   ],
-  "license": [
-    {
-      "@id": "CC-BY 4.0",
-      "@type": "CreativeWork"
-    }
-  ],
   "name": "Cloud-SPAN Metagenomics Course Session 1: QC & Assembly",
   "url": "https://cloud-span.github.io/metagenomics01-qc-assembly/",
   "contributors": [
     {
+      "@type": "Person",
       "name": "Emma Rand",
       "orcid": "0000-0002-1358-8275"
     },
     {
+      "@type": "Person",
       "name": "James Chong",
       "orcid": "0000-0001-9447-7421"
     },
     {
-      "name": "Jorge Buenabad-Chavez",
-      "orcid": ""
+      "@type": "Person",
+      "name": "Jorge Buenabad-Chavez"
     },
     {
+      "@type": "Person",
       "name": "Evelyn Greeves",
       "orcid": "0000-0003-4800-3422"
     }
   ],
   "creators": [
     {
+      "@type": "Person",
       "name": "Annabel Cansdale",
       "orcid": "0000-0001-9548-3110"
     },
     {
+      "@type": "Person",
       "name": "Sarah Forrester",
       "orcid": "0000-0001-8332-7196"
     }
