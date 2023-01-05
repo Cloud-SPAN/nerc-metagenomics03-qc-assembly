@@ -191,8 +191,8 @@ For now we will use the file explorer to move the `.pem` file around.
 1. Copy and paste the command in the Code box below to your *terminal*, but **replace** `NNN` with the number in your login key file name.
 
     Windows Git Bash users only:
-    - **copy** the command the usual Windows way: (1) highlight it with the mouse pointer while pressing the mouse left button and (2) press Ctrl-v (keys Ctrl and v simultaneously).
-    - but **paste** it the Linux/Unix way: by pressing the mouse middle button while hovering the mouse pointer over the Git Bash window. (Try with the right button if the middle button doesn't work.)
+    - **copy** the command the usual Windows way: (1) highlight the command with the mouse pointer while pressing the mouse left button and (2) press Ctrl-c (keys Ctrl and c simultaneously).
+    - but **paste** the command the Linux/Unix way: by pressing the mouse middle button while hovering the mouse pointer over the Git Bash window. (Try with the right button if the middle button doesn't work.)
 
     ~~~
     $ ssh -i login-key-instanceNNN.pem  csuser@instanceNNN.cloud-span.aws.york.ac.uk

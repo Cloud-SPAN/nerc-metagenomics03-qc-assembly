@@ -447,7 +447,7 @@ assembly.fasta  FASTA   DNA        154  15,042,667    3,164  97,679.7  6,068,626
 This table shows the input file, the format of the file, the type of sequence and other statistics. The assembly process introduces small random variations in the assemly so your table will likely differ slightly. However, you should expect the numbers to be very similar.
 
 Using this table of statistics, answer the questions below.
-> ## Exercise X: Looking at basic statistics
+> ## Exercise 1: Looking at basic statistics
 > Using the output for seqkit stats above, answer the following questions.
 > a) How many contigs are in this assembly?  
 > b) How many bases in total have been assembled?  
