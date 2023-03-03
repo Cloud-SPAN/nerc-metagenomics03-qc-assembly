@@ -17,6 +17,48 @@ keypoints:
 - "Due to differences in the sequencing technology Nanopore data must be handled differently."
 ---
 
+## Getting started
+
+The first thing we need to do is log in to our cloud instance.
+
+1. **Open the *cloudspan* folder you created for the course**
+
+    Open your file manager and navigate to the `cloudspan` folder (hint: we recommended you make the folder in your *Desktop* directory - but you might have made it somewhere else). If you cannot find the folder, you can remind yourself where it is stored by looking at the absolute path you wrote down in the previous episode.
+
+    The folder should contain the login key file we downloaded in the previous episode and nothing else.
+
+2. **Right-click and open your machine's command line interface**
+
+    Now we can open the command line.
+
+    For Windows users:
+
+    - Right click anywhere inside the blank space of the file manager, then select **Git Bash Here**.
+  
+    For Mac users:
+
+    You have two options. 
+    
+    EITHER
+    - Open **Terminal** in one window and type `cd` followed by a space. Do not press enter! Now open **Finder** in another window. Drag and drop the `cloudspan` folder from the Finder to the Terminal. You should see the file path leading to your `cloudspan` folder appear. Now press enter to navigate to the folder.
+
+    OR
+    - Open **Terminal** and type `cd` followed by the absolute path that leads to your `cloudspan` folder. Press enter. 
+    
+3. **Login into your instance**
+
+    ~~~
+    $ ssh -i login-key-instanceNNN.pem  csuser@instanceNNN.cloud-span.aws.york.ac.uk
+    ~~~
+    {: .bash}
+
+  *Be sure to replace NNN with your own number, twice.*
+
+## Reminder: our file structure
+
+Before we start, here's a reminder of what our file structure looks like as a hierarchy tree:
+![A file hierarchy tree](../fig/blank_instance_file_tree_with_hidden.png){:width="400px"}. Keep this in mind as we continue to navigate the file system, and don't hesitate to refer back to it if needed.
+
 ## Quality control
 
 <img align="left" width="325" height="226" src="{{ page.root }}/fig/short_analysis_flowchart_crop1.png" alt="Analysis flow diagram that shows the steps: Sequence reads and Quality control." />
@@ -31,59 +73,30 @@ Before assembling our metagenome from the the short-read Illumina sequences and 
 
 ## Illumina Quality control using FastQC
 
-> ## Reminder of the FASTQ format
-> ![A diagram showing that each read in a FASTQ file comprises 4 lines of information.](../fig\fastq_file_format.png){:width="600px"}
-> In the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format), each ‘read’ (i.e. sequence) is composed of four lines:
-> 
-> |Line|Description|
-> |----|-----------|
-> |1|Always begins with '@' and gives the sequence identifier and an optional description|
-> |2|The actual DNA sequence|
-> |3|Always begins with a '+' and sometimes the same info in line 1|
-> |4|Has a string of characters which represent the PHRED quality score for each of the bases in line 2; must have same number of characters as line 2|
-{: .callout}
+In previous lessons we had a look at our data files and found they were in FASTQ format, a common format for sequencing data. We used `grep` to look for 'bad reads' containing more than three consecutive Ns and put these reads into their own text file.
 
-We can examine the first read in the FASTQ file using `head` to print the first four lines.
-Move into the directory containing the illumina FASTQ files using `cd`:
-~~~
- cd cs_course/data/illumina_fastq/
-~~~
-{: .bash}
+This could be rather time consuming and isn't very nuanced. Luckily, there's a better way! Rather than assessing every read in the raw data by hand we can use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to visualise the quality of the whole sequencing file.
 
-Now use `head` to view the first 4 lines of the `ERR2935805.fastq` file
-~~~
- head -n 4 ERR2935805.fastq
-~~~
-{: .bash}
-~~~
-@ERR2935805.1 HWI-C00124:284:HWTT2BCXY:1:1101:1247:2214 length=202
-GATGGCGATAGAAGTCAAGTCTTTATTTTATGAAACCGCCATCATTAGTAGTATTTTATTTGGGCTCCCTTTTATAGGGACGGATATTTATGAGAATCAGCNAAAAAATCTACNCCTTCCTGAAANNANNAACNNNCAGGGTCTGACGATTTTCCTGCTGGGGTGGGAAATTGCCAGATAAAACAATATTGTGATTATCTCT
-+ERR2935805.1 HWI-C00124:284:HWTT2BCXY:1:1101:1247:2214 length=202
-GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIGGGGAGGGAGGGIAGGGGGGGA#<GGAIIIIIGI#<<GGGIGGGGA##<##<<G###<<GAGGIGGIIIIIIIIIGGIIIIIIIIIIGIIGGGGGAGGGGIIIGGIIGIGIGIGGIGGIGGG.
-~~~
-{: .output}
+### About FastQC
+Rather than looking at quality scores for each individual read, FastQC looks at quality collectively across all reads within a sample. The image below shows one FastQC-generated plot that indicates a very high quality sample:
 
-The quality score of this read is on line 4.
+<img align="center" width="800" height="600" src="{{ page.root }}/fig/good_quality1.8.png" alt="Example of high quality sample - all bars are in green section">
 
-~~~
-GAGGGGIIIIIIGIIGIGIIGIGIGIIIIGIIGGGIGGGGGGGIIGIIIIIIIGGIGGIIIIGGGGGGIIGIIIGGGIIGGGGAGGGAGGGIAGGGGGGGA#<GGAIIIIIGI#<<GGGIGGGGA##<##<<G###<<GAGGIGGIIIIIIIIIGGIIIIIIIIIIGIIGGGGGAGGGGIIIGGIIGIGIGIGGIGGIGGG.
-~~~
-{: .output}
+The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 40 bp long.
 
-> ## PHRED score reminder
->~~~
->Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
->                   |         |         |         |         |
->Quality score:    01........11........21........31........41   
->~~~
-> {: .output}
->
-> Quality is interpreted as the probability of an incorrect base call. To make it possible to line up each individual nucleotide with its quality score, the numerical score is encoded by a single character. The quality score represents the probability that the corresponding nucleotide call is incorrect. It is a logarithmic scale so a quality score of 10 reflects a base call accuracy of 90%, but a quality score of 20 reflects a base call accuracy of 99%.                   
-{: .callout}
+Each position has a box-and-whisker plot showing the distribution of quality scores for all reads at that position.
+- The horizontal red line indicates the median quality score.
+- The yellow box shows the 1st to 3rd quartile range (this means that 50% of reads have a quality score that falls within the range of the yellow box at that position).
+- The whiskers show the absolute range, which covers the lowest (0th quartile) to highest (4th quartile) values.
+- The plot background is also color-coded to identify good (green), acceptable (yellow), and bad (red) quality scores.
 
-The PHRED quality scores for the majority of the bases in this read are between 31-41.
+Now let’s take a look at a quality plot on the other end of the spectrum.
 
-Rather than assessing every read in the raw data by hand we can use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to visualise the quality of the whole sequencing file.
+<img align="center" width="800" height="600" src="{{ page.root }}/fig/bad_quality1.8.png" alt="Example of low quality sample - all bars are in green section">
+
+Here, we see positions within the read in which the boxes span a much wider range. Also, quality scores drop quite low into the “bad” range, particularly on the tail end of the reads. The FastQC tool produces several other diagnostic plots to assess sample quality, in addition to the one plotted above.
+
+### Getting started with FastQC
 
 First, we are going to organise our analysis by creating a directory to contain the output of all of the analysis we generate in this course.
 
@@ -238,69 +251,84 @@ $ fastqc -h
 > {: .output}
 {: .solution}
 
-We need to use just an input file and the -o flag to give the output directory: `fastqc _inputfile_ -o _outputdirectory_`
+This documentation tells us that to run FastQC we use the format `fastqc seqfile1 seqfile2 .. seqfileN`. 
+Running the command will produce some files. By default, these are placed in the working directory from where you ran the command. We will use the `-o` option to specify a different directory for the output instead.
 
-Navigate to your `qc/` directory,
-~~~
-  cd ~/cs_course/analysis/qc/
-~~~
-{: .bash}
+FastQC can accept multiple file names as input so we can use the *.fastqc wildcard to run FastQC on both of the FASTQ files in our `illumina_fastq` directory.
 
-As we are using only one FASTQ file we can specify `fastqc` and then the location of the FASTQ file we want to analyse, and the `illumina_qc` output directory:
-
+First, navigate to your `illumina_fastq/` directory.
 ~~~
- fastqc ~/cs_course/data/illumina_fastq/ERR2935805.fastq -o illumina_qc/
+  cd ~/cs_course/data/illumina_fastq
 ~~~
 {: .bash}
 
+Now you can enter the command, using `-o` to tell FastQC to put its output files into our newly-made `illumina_qc` directory.
+
+~~~
+ fastqc *.fastq -o ~/cs_course/analysis/qc/illumina_qc/
+~~~
+{: .bash}
 
 Press enter and you will see an automatically updating output message telling you the progress of the analysis. It should start like this:
 
 ~~~
-Started analysis of ERR2935805.fastq
-Approx 5% complete for ERR2935805.fastq
-Approx 10% complete for ERR2935805.fastq
-Approx 15% complete for ERR2935805.fastq
-Approx 20% complete for ERR2935805.fastq
-Approx 25% complete for ERR2935805.fastq
-Approx 30% complete for ERR2935805.fastq
+Started analysis of ERR4998593_1.fastq
+Approx 5% complete for ERR4998593_1.fastq
+Approx 10% complete for ERR4998593_1.fastq
+Approx 15% complete for ERR4998593_1.fastq
+Approx 20% complete for ERR4998593_1.fastq
+Approx 25% complete for ERR4998593_1.fastq
+Approx 30% complete for ERR4998593_1.fastq
 ~~~
 {: .output}
 
-In total, it should take around ten minutes for FastQC to run on this fastq file (however, this depends on the size and number of files you give it).
+In total, it should take around ten minutes for FastQC to run on our fastq files (however, this will depend on the size and number of files you give it).
 When the analysis completes, your prompt will return. So your screen will look something like this:
 
 ~~~
-Approx 75% complete for ERR2935805.fastq
-Approx 80% complete for ERR2935805.fastq
-Approx 85% complete for ERR2935805.fastq
-Approx 90% complete for ERR2935805.fastq
-Approx 95% complete for ERR2935805.fastq
-Analysis complete for ERR2935805.fastq
+Approx 75% complete for ERR4998593_2.fastq
+Approx 80% complete for ERR4998593_2.fastq
+Approx 85% complete for ERR4998593_2.fastq
+Approx 90% complete for ERR4998593_2.fastq
+Approx 95% complete for ERR4998593_2.fastq
+Analysis complete for ERR4998593_2.fastq
 $
 ~~~
 {: .output}
 
-The FastQC program has created two new files within our
-`analysis/illumina_qc/` directory. We can see them by listing the contents of the `illumina_qc` folder
+### Looking at FastQC outputs
+The FastQC program has created four new files (two for each .fastq file) within our
+`analysis/qc/illumina_qc/` directory. We can see them by listing the contents of the `illumina_qc` folder
 
 ~~~
- ls illumina_qc/
+ ls ~/cs_course/analysis/qc/illumina_qc/
  ~~~
 {: .bash}
 
 ~~~
-ERR2935805_fastqc.html  ERR2935805_fastqc.zip     
+ERR4998593_1_fastqc.html  ERR4998593_1_fastqc.zip  ERR4998593_2_fastqc.html  ERR4998593_2_fastqc.zip   
 ~~~
 {: .output}
 
-For each input FASTQ file, FastQC has created a `.zip` file and a `.html` file. The `.zip` file extension indicates that this is actually a compressed set of multiple output files. A summary report for our data is in the he `.html` file.
+For each input FASTQ file, FastQC has created a `.zip` file and a `.html` file. The `.zip` file extension indicates that this is actually a compressed set of multiple output files. A summary report for our data is in the the `.html` file.
 
-You need to transfer `ERR2935805_fastqc.html` from your AWS instance to your local computer to view it with a web browser.
+If we were working on our local computers, we’d be able to look at each of these HTML files by opening them in a web browser.
 
-To do this we will use the `scp` (secure copy protocol) command. You need to start a second terminal window that is **_not_** logged into the cloud instance and ensure you are in your `cloudspan` directory. This is important because it contains your pem file which will allow the `scp` command access to your AWS instance to copy the file.
+However, these files are currently sitting on our remote AWS instance, where our local computer can’t see them. And, since we are only logging into the AWS instance via the command line, it doesn’t have any web browser setup to display these files either.
 
-> ## Starting a new new terminal
+So the easiest way to look at these webpage summary reports will be to transfer them to our local computers (i.e. your laptop).
+
+To do this we will use the `scp` (secure copy protocol) command. `scp` stands for ‘secure copy protocol’, and is a widely used UNIX tool for moving files between computers. This is run in your **local terminal**.
+
+The scp command takes this form:
+~~~
+ scp <file I want to move> <where I want to move it>
+ ~~~
+{: .bash}
+
+You need to start a second terminal window that is **_not_** logged into the cloud instance and ensure you are in your `cloudspan` directory. This is important because it contains your pem file which will allow the `scp` command access to your AWS instance to copy the file.
+
+> ## Starting a new terminal
 > 
 > 1. Open your file manager and navigate to the `cloudspan` folder which should contain the login key file 
 > 
@@ -311,26 +339,28 @@ To do this we will use the `scp` (secure copy protocol) command. You need to sta
 > 
 {: .callout}
 
-Now use `scp` to download the file.
+Now use `scp` to download the file. We need to add in our PEM file, like when we log in, and we'll also use the symbol `.` (this directory) to tell the command where to deposit the downloaded files.
 
 The command will look something like:
 ~~~
-scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/illumina_qc/ERR2935805_fastqc.html .
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/illumina_qc/*_fastqc.html .
 ~~~
 {: .bash}
+
 Remember to replace NNN with your instance number.
 
 As the file is downloading you will see an output like:
 ~~~
-scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/illumina_qc/ERR2935805_fastqc.html .
-ERR2935805_fastqc.html         100%  591KB   1.8MB/s   00:00  
+scp -i login-key-instanceNNN.pem csuser@instanceNNN.cloud-span.aws.york.ac.uk:~/cs_course/analysis/qc/illumina_qc/*_fastqc.html .
+ERR4998593_1_fastqc.html         100%  543KB   1.8MB/s   00:00  
+ERR4998593_2_fastqc.html         47%  539KB   1.8MB/s   00:00 
 ~~~
 {: .output}
 
-Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the file and open it - it should open up in your browser.  
+Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the files and open them - they should open up in your browser.  
 
 > ## Help!
-> If you had trouble downloading and viewing the file you can view it here: [ERR2935805_fastqc.html]({{ page.root }}/files/ERR2935805_fastqc.html)
+> If you had trouble downloading and viewing the files you can view them here: [ERR4998593_1_fastqc.html]({{ page.root }}/files/ERR4998593_1_fastqc.html) and [ERR4998593_2_fastqc.html]({{ page.root }}/files/ERR4998593_2_fastqc.html)
 {: .bash}
 {: .callout}
 
