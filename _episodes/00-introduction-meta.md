@@ -43,7 +43,7 @@ There are two technologies used in mixed community sequencing which have differe
 
 Random parts of **all of the genomes** present in a sample are sequenced in WMS. We aim to find what organism, or "taxonomic unit", they come from, what part of their genome they come from, and what functions they encode. This can be done by cross-referencing the sequences obtained with databases of information.
 
-If the metagenome is complex and deeply sequenced enough, we may even be able obtain full individual genomes from WMS. and a strong understanding of the functional capacity of the microbiome.
+If the metagenome is complex and deeply sequenced enough, we may even be able obtain full individual genomes from WMS and a strong understanding of the functional capacity of the microbiome.
 
 For abundant organisms in a metagenome sample, there are likely to be enough data to generate reasonable genome coverage. However, this is not the case for low abundance organisms. Often deeper sequencing/ more total sequencing data is required to assemble the genomes of these organisms. If your research question can be addressed by considering the most abundant organisms, you need do less sequencing than if your question requires an understanding of the rarest organisms present.
 

@@ -393,7 +393,9 @@ This graph shows us that these sequencing file have a low percentage (~1-2%) of 
 
 ## Nanopore quality control
 
-Next we will assess the quality of the Nanopore raw reads. These are found in the file located at `~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq`.
+Next we will assess the quality of the Nanopore raw reads. These are found in the file located at `~/cs_course/data/nano_fastq/ERR5000342_sub15.fastq`.
+
+This file contains a subset of 15% of the Nanopore reads from our site of interest (hence `sub15`). The reason we aren't using all of the reads is because there are so many that our remote computer would be overwhelmed! We will be using the `sub15` data for the time being, but later in the course you will be given an assembly for analysis which was assembled using the full set of reads.
 
 Let us again view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 

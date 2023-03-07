@@ -47,13 +47,6 @@ You no longer have one jigsaw puzzle, but many with all the pieces mixed togethe
 
 Many of the communities sequenced using metagenomics contain previously uncultured microbes (often known as microbial dark matter) so they are unlikely to have reference genomes. In addition, you don't usually know what you are sequencing - the community of organisms is unknown.
 
-<br clear="right"/>
-
-> ## Note
-> The data we're using is a mock metagenome so we _do_ actually know what organisms make up the community and have reference sequences for them.
-> This means we could use a reference-mapping approach to assemble this metagenome, but as this is unlikely with real-world data we're going to use a _de novo_ approach in this tutorial.
-{: .callout}
-
 Assembling our metaphorical jigsaw will be a challenge. We have many, perhaps thousands, of jigsaws to assemble and no pictures
 
 Luckily there are programs, known as assemblers, that will do this for us!
@@ -72,7 +65,7 @@ We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-
 ## Flye is a long-read assembler
 
 > ## Hint
-> Important: Make sure you're still logged into your cloud instance. If you can't remember how to log on, visit [logging onto the Cloud](https://cloud-span.github.io/metagenomics01-qc-assembly/01-logging-onto-cloud/index.html).
+> Important: Make sure you're still logged into your cloud instance. If you can't remember how to log on, visit [https://cloud-span.github.io/nerc-metagenomics03-qc-assembly/01-QC-quality-raw-reads/index.html).
 {: .bash}
 {: .callout}
 
@@ -194,13 +187,20 @@ A full description can be displayed by using the `--help` flag:
 
 
 Flye has multiple different options available and we need to work out which ones are appropriate for our dataset.
-- We have to choose one of `(--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw | --nano-corr | --nano-hq )` to indicate what program was used to basecall the reads with. We can see that our reads were basecalled with Guppy v2.2.2. (See [Nicholls _et al._ 2019](https://academic.oup.com/gigascience/article/8/5/giz043/5486468))
-  - We will therefore input our data using the flag `--nano-raw` for "ONT regular reads, pre-Guppy5 (<20% error)" followed by the relative path of the input file (the filtered fastq file we produced last lesson).
-- We use the `-o` or `--outdir` to specify (using a relative path) where the flye output should be stored
-- We also use the `-t` or `--threads` flag in order to run the assembly on multiple threads in order to speed it up.
-- After making the initial assembly, flye will continue to further improve the assembly using the original raw data using a process called polishing.
-  - We can specify the number of times `flye` will polish this data using `-i` or `--iterations` - `number of polishing iterations [1]`. By default the number of iterations is 1 however 3 iterations is often used as standard.
-- Finally we need to use the `--meta` option for `metagenome / uneven coverage mode` to indicate that the dataset is a metagenome
+
+The most important thing to know is which program was used to basecall our reads, as this determines which of `(--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw | --nano-corr | --nano-hq )` we choose. In the [Methods section of our source paper](https://environmentalmicrobiome.biomedcentral.com/articles/10.1186/s40793-022-00424-2#Sec2) the authors state that:
+
+<img src="{{ page.root }}/fig/ERR4998593_1_pbsq.png" width="700"/>
+
+This means we should use the `--nano-raw` option, as the reads were called with a version of Guppy that precedes v5 (Guppy is a program used to convert the signals that come out of a sequencer into an actual string of bases). This option will be followed by the relative path to the long-read .fastq file.
+
+We also need to choose how many times we want Flye to 'polish' the data after assembly. Polishing is a way to improve the accuracy of the assembly. The number of rounds of polishing is specified using `-i` or `--iterations`. We will do three rounds of polishing, which is a standard practice (though the default in Flye is one round only)
+
+The other options are a bit easier:
+
+- We use `-o` or `--outdir` to specify (using a relative path) where the flye output should be stored
+- We also use the `-t` or `--threads` flag in order to run the assembly on multiple threads (aka running several processes at once) in order to speed it up.
+- Finally we indicate that the dataset is a metagenome using the `--meta` option
 
 > ## Unused parameters
 > There are many parameters that we don't need. Some of these are deprecated and some are only appropriate for certain types of data. Others are useful to allow tweaking to try to further improve an assembly (e.g. `--genome-size` and `--read-error`).
@@ -211,8 +211,17 @@ Flye has multiple different options available and we need to work out which ones
 
 Now we've worked out what parameters are appropriate for our data we can put them all together in one command. Since the command is quite long, we will use backward slashes to allow it to span several lines. `\`  basically means "start a new line and carry on reading without submitting the command".
 
+First let's make sure we're in the `analysis` directory, and make a new directory called  `assembly` for the Flye output.
 ~~~
- flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
+cd ~/cs_course/analysis/
+mkdir assembly
+~~~
+{: .bash}
+
+Now we can start constructing our command!
+
+~~~
+ flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq \
      --out-dir assembly \
      --threads 8 \
      --iterations 3 \
@@ -220,7 +229,7 @@ Now we've worked out what parameters are appropriate for our data we can put the
 ~~~
 {: .bash}
 
-- `--nano-raw` tells Flye that it is receiving pre-Guppy reads and that the **input** is found at the path `~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq`
+- `--nano-raw` tells Flye that it is receiving pre-Guppy5 reads and that the **input** is found at the path `~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq`
 - `--out-dir` tells Flye that the **output** should be saved in the `assembly/` directory
 - `--threads` indicates that the number of parallel cores is `8`
 - `--iterations` indicates that the data will be polished `3` times
@@ -249,7 +258,7 @@ The final thing to add to our `flye` command is "redirection": `&> flye_output.t
 
 The complete command is:
 ~~~
-flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq \
+flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq \
      --out-dir assembly \
      --threads 8 \
      --iterations 3 \
@@ -283,7 +292,7 @@ jobs
 ~~~
 {: .bash}
 ~~~
-[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
+[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
 ~~~
 {: .output}
 
@@ -329,7 +338,7 @@ Note: this log file will contain similar to the `flye_output.txt` file we're gen
 {: .callout}
 
 
-Flye is likely to take a **4 - 6 hours** to finish assembling - so feel free to leave this running overnight and come back to it tomorrow. You don't need to remain connected to the instance during this time (and you can turn your computer off!) but once you have disconnected from the instance it does mean you can no longer use `jobs` to track the job.
+Flye is likely to take **up to 5 hours** to finish assembling - so feel free to leave this running overnight and come back to it tomorrow. You don't need to remain connected to the instance during this time (and you can turn your computer off!) but once you have disconnected from the instance it does mean you can no longer use `jobs` to track the job.
 
 In the meantime, if you wanted to read more about assembly and metagenomics there's a few papers and resources at the end with recommended reading.
 
@@ -340,7 +349,7 @@ After leaving it several hours, Flye should have finished assembling.
 If you remained connected to the instance during the process you will be able to tell it has finished because you get the following output in your terminal when the command has finished.
 
 ~~~
-[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
+[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
 ~~~
 {: .output}
 
@@ -355,17 +364,16 @@ less flye.log
 
 Navigate to the end of the file using <kbd>G</kbd>. You should see something like:
 ~~~
-[2022-10-06 15:20:58] root: INFO: Assembly statistics:
+[2023-02-24 14:41:27] root: INFO: Assembly statistics:
 
-        Total length:   15042667
-        Fragments:      154
-        Fragments N50:  2976488
-        Largest frg:    6068626
+        Total length:   18872828
+        Fragments:      1161
+        Fragments N50:  20921
+        Largest frg:    118427
         Scaffolds:      0
-        Mean coverage:  187
+        Mean coverage:  7
 
-[2022-10-06 15:20:58] root: INFO: Final assembly: /home/csuser/cs_course/analysis/assembly/assembly.fasta
-
+[2023-02-24 14:41:27] root: INFO: Final assembly: /home/csuser/cs_course/analysis/assembly/assembly.fasta
 ~~~
 {: .output}
 
@@ -387,7 +395,7 @@ One of these is `flye.log` which we have already looked at.
 * We also have a file containing the parameters we ran the assembly under `params.json` which is useful to keep our analysis reproducible.  
 * The assembled contigs are in FASTA format (`assembly.fasta`).  
 * There's a text file which contains more information about each contig created (`assembly_info.txt`).
-* Finally we have two files for a repeat graph (`assembly_graph.gfa` or `assembly_graph.gv`) which is a visual way to view the assembly - see the optional exercise below.    
+* Finally we have two files for a repeat graph (`assembly_graph.gfa` or `assembly_graph.gv`) which is a visual way to view the assembly.
 
 You can see more about the output for Flye in the [documentation on GitHub](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#output).
 
@@ -399,30 +407,6 @@ You can see more about the output for Flye in the [documentation on GitHub](http
 > Contigs (from the word *contiguous*) are longer fragments of DNA produced after raw reads are joined together by the assembly process. These are like the chunks of the jigsaw puzzle the assembler has managed to complete.
 > Contigs are usually much longer than raw reads but vary in length and number depending on how successful the assembly has been.  
 {: .callout}
-
-
-> ## Optional exercise: Viewing the repeat graph
->   
-> A repeat or assembly graph will show the final contigs of an assembly and how they interact with each other - see [graph theory](https://en.wikipedia.org/wiki/Graph_theory) for more information about what we mean by graph in this context. The repeat graph can be viewed with a program called [Bandage](https://rrwick.github.io/Bandage/) which needs to be installed on your computer
-> > ## Here's one we made earlier!
-> >
->  We drew the a repeat graph for our assembly. There are two large circularised contigs, indicating that they're likely complete genomes. The larger of the two has a smaller blue circle attached which could be a plasmid or some form of insertion, though it also could be an artifact of the assembly.
-> > This contig could be run through BLAST to work out its identity but in this course we will be using a different analysis workflow here that's more appropriate for read world metagenomes. 
-> > The rest of the contigs are a lot shorter with few interactions between them.
-> > <a href="{{ page.root }}/fig/03_bandage_graph.png">
-> > <img align="center" width="713" height="611" src="{{ page.root }}/fig/03_bandage_graph.png" alt="Repeat graph of the assembly showing some contigs joined together in a circle, and some more with small fragments" />
-> > /a>
->  {: .solution}
-> > ## Optional Exercise: Using Bandage to draw your own repeat graph
-> > * Download and install Bandage from the [Website](https://rrwick.github.io/Bandage/) choosing the correct version for your operating system.   
-> > * Download `assembly_graph.gfa` from your AWS instance to your local computer using `scp` 
-> > * Open Bandage. 
-> > * Load the assembly graph, `assembly_graph.gfa` by choosing 'Load graph' from the 'File' menu. 
-> > * Click the <kbd>draw graph</kbd> button to draw the graph.
-> > Bandage will take some time to draw the graph, though this depends on the size of the graph.  You should then see the graph of the assembly and be able to change colours, zoom and save using File | Save image. Note: Your output may look a little different to this as Bandage may have drawn your graph a little differently.
-> > More information about Bandage can be found here: [Getting Started](https://github.com/rrwick/Bandage/wiki/Getting-started) 
-> {: .solution}
-{: .challenge}
 
 ## Assembly Statistics
 
@@ -439,14 +423,16 @@ seqkit stats assembly.fasta
 
 Once it has finished you should see an output table like this:
 ~~~
-file            format  type  num_seqs     sum_len  min_len   avg_len    max_len
-assembly.fasta  FASTA   DNA        154  15,042,667    3,164  97,679.7  6,068,626
+file            format  type  num_seqs     sum_len  min_len   avg_len  max_len
+assembly.fasta  FASTA   DNA      1,161  18,872,828      528  16,255.7  118,427
+
 ~~~
 {: .output}
 
 This table shows the input file, the format of the file, the type of sequence and other statistics. The assembly process introduces small random variations in the assemly so your table will likely differ slightly. However, you should expect the numbers to be very similar.
 
 Using this table of statistics, answer the questions below.
+
 > ## Exercise 1: Looking at basic statistics
 > Using the output for seqkit stats above, answer the following questions.
 > a) How many contigs are in this assembly?  
@@ -454,9 +440,9 @@ Using this table of statistics, answer the questions below.
 > c) What is the shortest and longest contig produced by this assembly?  
 >> ## Solution
 >>  From our table:  
->> a) From `num_seqs` we can see that this assembly is made up of 154 contigs  
->> b) Looking at `sum_length` we can see that the assembly is 15,042,667bp in total (over 15 million bp!)  
->> c) From `min_length` we can see the shortest contig is 3,164bp and from `max_length` the longest contig is 6,068,626bp  
+>> a) From `num_seqs` we can see that this assembly is made up of 1,161 contigs  
+>> b) Looking at `sum_length` we can see that the assembly is 18,872,828bp in total (over 18 million bp!)  
+>> c) From `min_length` we can see the shortest contig is 528bp and from `max_length` the longest contig is 118,427bp  
 > {: .solution}
 {: .challenge}
 
