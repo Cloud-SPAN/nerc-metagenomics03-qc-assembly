@@ -365,7 +365,11 @@ Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the
 {: .callout}
 
 
-First we will look at the "Per base sequence quality" graphs for `ERR4998593_1.fastq` and `ERR4998593_2`.
+First we will look at the "Per base sequence quality" graphs for `ERR4998593_1.fastq` and `ERR4998593_2.fastq`.
+
+| ERR4998593_1.fastq | ERR4998593_2.fastq |
+| ----- | ----- |
+| <img src="{{ page.root }}/fig/ERR4998593_1_pbsq.png" width="600"/> | <img src="{{ page.root }}/fig/ERR4998593_2_pbsq.png" width="600" /> |
 
 <p float="left">
   <img src="{{ page.root }}/fig/ERR4998593_1_pbsq.png" width="400" />
