@@ -57,7 +57,7 @@ The first thing we need to do is log in to our cloud instance.
 ## Reminder: our file structure
 
 Before we start, here's a reminder of what our file structure looks like as a hierarchy tree:
-![A file hierarchy tree](../fig/blank_instance_file_tree_with_hidden.png){:width="400px"}. Keep this in mind as we continue to navigate the file system, and don't hesitate to refer back to it if needed.
+![A file hierarchy tree](../fig/blank_instance_file_tree_with_hidden.png){:width="400px"} Keep this in mind as we continue to navigate the file system, and don't hesitate to refer back to it if needed.
 
 ## Quality control
 
@@ -365,20 +365,18 @@ Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the
 {: .callout}
 
 
-First we will look at the "Per base sequence quality" graph.
+First we will look at the "Per base sequence quality" graphs for `ERR4998593_1.fastq` and `ERR4`.
 
-<img align="center" width="800" height="600" src="{{ page.root }}/fig/02_fastqc_ill_quality.png" alt="Per base sequence quality graph from the Fastqc output we generated above">
+<p float="left">
+  <img src="/fig/ERR4998593_1_pbsq.png" width="200" />
+  <img src="/fig/ERR4998593_2_pbsq.png" width="200" />
+</p>
 
-The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 202 bp long.
+<img align="center" width="800" height="600" src="{{ page.root }}/fig/ERR4998593_1_pbsq.png" alt="Per base sequence quality graph from the Fastqc output we generated above">
 
-Each position has a box-and-whisker plot showing the distribution of quality scores for all reads at that position.
-- The horizontal red line indicates the median quality score. 
-- The yellow box shows the 1st to 3rd quartile range (this means that 50% of reads have a quality score that falls within the range of the yellow box at that position).
-- The whiskers show the absolute range, which covers the lowest (0th quartile) to highest (4th quartile) values.
+The x-axis displays the base position in the read, and the y-axis shows quality scores. The blue line represents the mean quality across samples.
 
-The plot background is also color-coded to identify good (green), acceptable (yellow), and bad (red) quality scores.
-
-In this sample, the quality values do not drop much lower than 32 at any position. This is a high quality score meaning the sequence is high quality. This means that we do not need to do any filtering. Lucky us!
+In this sample, the mean quality values do not drop much lower than 34 at any position. This is a high quality score meaning the sequences are high quality. This means that we do not need to do any filtering. Lucky us!
 
 We should also have a look at the "Adapter Content" graph which will show us where adapter sequences occur in the reads.
 Adapter sequences are short sequences that are added to the sample to aid during the preparation of the DNA library. They therefore don't tell us anything biologically important and should be removed if they are present in high numbers. They might also be removed in the case of certain applications, such as ones when the base sequence needs to be particularly accurate.
