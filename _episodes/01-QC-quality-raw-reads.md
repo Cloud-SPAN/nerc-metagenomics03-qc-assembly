@@ -367,32 +367,26 @@ Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the
 
 First we will look at the "Per base sequence quality" graphs for `ERR4998593_1.fastq` and `ERR4998593_2.fastq`.
 
-| ERR4998593_1.fastq | ERR4998593_2.fastq |
-| ----- | ----- |
+| **ERR4998593_1.fastq** | **ERR4998593_2.fastq** |
+| :-----: | :-----: |
 | <img src="{{ page.root }}/fig/ERR4998593_1_pbsq.png" width="600"/> | <img src="{{ page.root }}/fig/ERR4998593_2_pbsq.png" width="600" /> |
-
-<p float="left">
-  <img src="{{ page.root }}/fig/ERR4998593_1_pbsq.png" width="400" />
-  <img src="{{ page.root }}/fig/ERR4998593_2_pbsq.png" width="400" />
-</p>
-
-<img align="center" width="800" height="600" src="{{ page.root }}/fig/ERR4998593_1_pbsq.png" alt="Per base sequence quality graph from the Fastqc output we generated above">
 
 The x-axis displays the base position in the read, and the y-axis shows quality scores. The blue line represents the mean quality across samples.
 
-In this sample, the mean quality values do not drop much lower than 34 at any position. This is a high quality score meaning the sequences are high quality. This means that we do not need to do any filtering. Lucky us!
+In both samples, the mean quality values do not drop much lower than 34 at any position. This is a high quality score meaning the sequences are high quality. That means that we do not need to do any filtering. Lucky us!
 
 We should also have a look at the "Adapter Content" graph which will show us where adapter sequences occur in the reads.
 Adapter sequences are short sequences that are added to the sample to aid during the preparation of the DNA library. They therefore don't tell us anything biologically important and should be removed if they are present in high numbers. They might also be removed in the case of certain applications, such as ones when the base sequence needs to be particularly accurate.
 
-<img align="center" width="800" height="600" src="{{ page.root }}/fig/02_fastqc_adap_ill.png" alt="Adapter content graph from the Fastqc output we generated above">
+| **ERR4998593_1.fastq** | **ERR4998593_2.fastq** |
+| :-----: | :-----: |
+| <img src="{{ page.root }}/fig/ERR4998593_1_adapter.png" width="600"/> | <img src="{{ page.root }}/fig/ERR4998593_2_adapter.png" width="600" /> |
 
-This graph shows us that this sequencing file has a low percentage (~2-3%) of adapter sequences in the reads, which means we do not need to trim any adapter sequences either.
+This graph shows us that these sequencing file have a low percentage (~1-2%) of adapter sequences in the reads, which means we do not need to trim any adapter sequences either.
 
 > ## When sequencing is poor(er) Quality
 > While the sequencing in this example is high quality this will not always be the case.  
 >
-> Here is an example of a [good quality FastQC output](https://cloud-span.github.io/03genomics/img/good_quality1.8.png) and a [bad quality FastQC output](https://cloud-span.github.io/03genomics/img/bad_quality1.8.png).
 > The programe [cutadapt](https://github.com/marcelm/cutadapt) can be used to filter poor quality reads and trim poor quality bases. See [Genomics - Trimming and Filtering](https://cloud-span.github.io/03genomics/02-trimming/index.html) to learn more about trimming and filtering poor quality reads.
 >
 {: .callout}
@@ -411,26 +405,26 @@ Move to the folder containing the Nanopore data:
 
 Use `head` to look at the first four line of the fastq file:
 ~~~
- head -n 4 ERR3152367_sub5.fastq
+ head -n 4 ERR5000342_sub15.fastq
 ~~~
 {: .bash}
 
 ~~~
-@ERR3152367.34573250 d8c83b24-b46e-4f1a-836f-768f835acf68 length=320
-GGTTGGTTATGTGCATGTTTTCAGTTACATATTGCATCTGTGGGAGCATATTCTTGTTTATGGGTTATGTGTTGGTGGTTGCATGTGGTGTGTTGTTGTGTTAACAAGTGTGGAACCTGTTCATTGGGTTATGAACAACGACACAAGTGTTGCGTGTTGAGCTAGTTAACGTGTGTGTTGTTATTCTTCTGAACCAGTTAACTTATTTGTTTTGTTGGGTGTGAAGCAGTGGGCGTGAAGGTGAGCGATGAAGCGGCGTTGTTCTGTTGCGTGTTTGATTGTGTTGTGTTGCGTGAAGAAGCGTCGTTGTTGGGTGGTTC
+@ERR5000342.1 1 length=407
+GGTATGCTTCGTTCAGTTACGTATTGCTGTTTCGTGGCTGACCAGCAACCCGGCACCGGCGCCGAAACCGGCTCGGCGGGAATCGAGGCCCACAGCGGCACCTGCGGCGCCACCGGCAGGAACGCCACCGCGACAGCGGCCAGCGCAACGGCCACCAAAGTCGTGCCATGCGGCCCGCCGCGCACCGCTAGCAACACCGACACCGCAATCGCGAGCGCACCCCCGCCGCCACTGACGCGGCGACTGCATTCGTCAGCCGATCGCGACCGTCGCGCCTAGCCAGTTGGATAACAAACGCGAGGATCCACCAGAGTGGCGAGCACTCCGGCCAGCCCGCGCACGTTGGCCCGGTCGTGCGTGCGCAGCAAGACGATGTCGGCTGCAACGAGCAATACGTAACTTCACCA
 +
-$$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$$#$%#$#$%$$$##$%%#&$#$#$$$$$%$$%$$%%$$#"$#$$$#&$$$$$#$$$$$######$#$#$$###$%###$$$$%$$&%$$$#$#$$%#%$##$##%#$&$$$$$#$$$%$$$##%#%$##$%%$$#$$$$%#%$###$$$####%$%%$$'$$%$$$$$%$#$$&$$%$#$##$%%$$%$$%%$%&'##$##%$#$$%$###$$$$$#$$$$#$&%##$$#$$%$$$%###
+*-/00*CD;>AEJ4/?FF7:73../A@@?DFBA0((+&%'&'&-)-().:B:?>=FD.3HJ@A50%$$(%'$$//24%(*06A59<:BGHM:FD@@8<G@HHG/73*#-%'%)/')'&%$$8>;>=:G;BDCD*'7B)-<<:CC6355=48BC76C=;.6B9751+,((('')89?;A@@B943BA540.+5<>>DEA87AEEA4?CDIA792*.G<B<LGDD@ALL@8:;><98:?=&*;77864C2@A>*'<;;GDCAMH;811@A@IF>A/+,'&2285>C9+(EBBC@LKDH9<;;A75H?=44-/$)12145&&('&6<=@7:@<9B6A<;A.*)213847;@B&,@C@GB?7D:B3,)18%(*-(::=?9=47A@EADHF77DHACKGA774%"%)%##$$
 ~~~
 {: .output}
 
 
-This read is 320 bp, longer than the Illumina reads we looked at earlier. The length of a raw read from Nanopore sequencing varies depends on the length of the length of the DNA strand being sequenced.
+This read is 408 bp, longer than the Illumina reads we looked at earlier. The length of a raw read from Nanopore sequencing varies depends on the length of the length of the DNA strand being sequenced.
 
 
 Line 4 shows us the quality score of this read.
 
 ~~~
-$$##$$###$#%###%##$%%$$###$#$$#$%##%&$$$$$$%#$$$$#$%#%$##$#$%#%$$#$$$%#$$#$%$$$$$#$%#$#$%$$$##$%%#&$#$#$$$$$%$$%$$%%$$#"$#$$$#&$$$$$#$$$$$######$#$#$$###$%###$$$$%$$&%$$$#$#$$%#%$##$##%#$&$$$$$#$$$%$$$##%#%$##$%%$$#$$$$%#%$###$$$####%$%%$$'$$%$$$$$%$#$$&$$%$#$##$%%$$%$$%%$%&'##$##%$#$$%$###$$$$$#$$$$#$&%##$$#$$%$$$%###
+*-/00*CD;>AEJ4/?FF7:73../A@@?DFBA0((+&%'&'&-)-().:B:?>=FD.3HJ@A50%$$(%'$$//24%(*06A59<:BGHM:FD@@8<G@HHG/73*#-%'%)/')'&%$$8>;>=:G;BDCD*'7B)-<<:CC6355=48BC76C=;.6B9751+,((('')89?;A@@B943BA540.+5<>>DEA87AEEA4?CDIA792*.G<B<LGDD@ALL@8:;><98:?=&*;77864C2@A>*'<;;GDCAMH;811@A@IF>A/+,'&2285>C9+(EBBC@LKDH9<;;A75H?=44-/$)12145&&('&6<=@7:@<9B6A<;A.*)213847;@B&,@C@GB?7D:B3,)18%(*-(::=?9=47A@EADHF77DHACKGA774%"%)%##$$
 ~~~
 {: .output}
 
@@ -557,9 +551,8 @@ NanoPlot --help
 {: .solution}
 
 We will use four flags when we run the NanoPlot command:
- We also use `--outdir` to specify an output directory. We're also going to use the flag `--loglength` to produce plots with a log scale and finally we're going to use `--threads` to run the program on more than one thread to speed it up.
 
-- `--fastq` to specify the filetype and file to analyse. The raw Nanopore data is in the location `/cs_workshop/data/nano_fastq/ERR3152367_sub5.fastq` and we will use this full absolute path in the NanoPlot command.
+- `--fastq` to specify the filetype and file to analyse. The raw Nanopore data is in the location `/cs_course/p/data/nano_fastq/ERR5000342_sub15.fastq` and we will use this full absolute path in the NanoPlot command.
 
 - `--outdir` to specify the where the output files should be written. We are going to specify `nano_qc` so that NanoPlot will create a new directory in our current directory (`qc`) and write its output files to it. Note: with NanoPlot you don't need to create this directory before running the command.
 
@@ -568,7 +561,7 @@ We will use four flags when we run the NanoPlot command:
 - `--loglength` specifies that we want plots with a log scale.
 
 ~~~
-NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5.fastq --outdir nano_qc --threads 4 --loglength
+NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR5000342_sub15.fastq --outdir nano_qc --threads 4 --loglength
 ~~~
 {: .bash}
 
@@ -585,7 +578,7 @@ ls
 {: .bash}
 ~~~
 LengthvsQualityScatterPlot_dot.html            LengthvsQualityScatterPlot_loglength_kde.png         Non_weightedLogTransformed_HistogramReadlength.png
-LengthvsQualityScatterPlot_dot.png             NanoPlot_20221005_1630.log                           WeightedHistogramReadlength.html
+LengthvsQualityScatterPlot_dot.png             NanoPlot_202303307_1630.log                           WeightedHistogramReadlength.html
 LengthvsQualityScatterPlot_kde.html            NanoPlot-report.html                                 WeightedHistogramReadlength.png
 LengthvsQualityScatterPlot_kde.png             NanoStats.txt                                        WeightedLogTransformed_HistogramReadlength.html
 LengthvsQualityScatterPlot_loglength_dot.html  Non_weightedHistogramReadlength.html                 WeightedLogTransformed_HistogramReadlength.png
@@ -618,7 +611,7 @@ NanoPlot-report.html                                  100% 3281KB   2.3MB/s   00
 Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the file and open it - it should open up in your browser.  
 
 > ## Help!
-> If you had trouble downloading and viewing the file you can view it here: [NanoPlot-report.html]({{ page.root }}/files/NanoPlot-report.html)
+> If you had trouble downloading and viewing the file you can view it here: [NanoPlot-report.html]({{ page.root }}/files/ERR5000342_sub15_nanoplot.html)
 {: .bash}
 {: .callout}
 
@@ -633,9 +626,9 @@ Looking at the summary statistics table answer the following questions:
 > 3. What is the length of the longest read in the file and its associated mean quality score?
 >
 >> ## Solution
->>   1. There are 692,758 sequences (also known as reads) in this file
->>   2. There are 3,082,258,211 bases (bp) in total in this FASTQ file
->>   3. The longest read in this file is 413,847 bp and it has a mean quality score of 3.7
+>>   1. There are 316,251 sequences (also known as reads) in this file
+>>   2. There are 	1,324,863,094 bases (bp) in total in this FASTQ file
+>>   3. The longest read in this file is 	49893 bp and it has a mean quality score of 9.3
 > {: .solution}
 {: .challenge}
 
@@ -653,7 +646,7 @@ Looking at the summary statistics table answer the following questions:
 > ## N50
 > The N50 length is a useful statistic when looking at sequences of varying length as it indicates that 50% of the total sequence is in reads (i.e. chunks) that are that size or larger.
 >
-> For this FASTQ file 50% of the total bases are in reads that have a length of 5,373 bp or longer.
+> For this FASTQ file 50% of the total bases are in reads that have a length of 5,974 bp or longer.
 >
 > See the webpage [What's N50?](https://www.molecularecologist.com/2017/03/29/whats-n50/) for a good explanation.
 > We will be coming back to this statistic in more detail when we get to the assembly step.
@@ -662,10 +655,9 @@ Looking at the summary statistics table answer the following questions:
 We can also look at some of the plots produced by NanoPlot.
 
 One useful plot is the plot titled "Read lengths vs Average read quality plot using dots after log transformation of read lengths".
-<img align="centre" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_log.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
+<img align="centre" width="816" height="785" src="{{ page.root }}/fig/LengthvsQualityScatterPlot_loglength_dot.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 
-This plot shows the average quality of the sequence against the read lengths. We can see that the majority of the sequences have a quality score at least 4, and low quality scores come from very short reads.
-This means that for this dataset we should remove those with a lower quality score in order to improve the overall quality of the raw sequences before assembling the metagenome.
+This plot shows the average quality of the sequence against the read lengths. We can see that the majority of the sequences have a quality score at least 7. We don't necessarily need to trim these reads, as this is a good score, but we will do it anyway to show you how.
 
 <br clear="left"/>
 
@@ -673,9 +665,9 @@ This means that for this dataset we should remove those with a lower quality sco
 
 We can use the program [Seqkit](https://bioinf.shenwei.me/seqkit/) (which contains many tools for FASTQ/A file manipulation) to filter our reads. We will be using the command `seqkit seq` to create a new file containing only the sequences with an average quality above a certain value.
 
-After returning to our home directory, we can view the `seqkit seq` help documentation with the following command:
+After returning to our `nano_fastq` directory, we can view the `seqkit seq` help documentation with the following command:
 ~~~
-cd ~/cs_course/
+cd ~/cs_course/data/nano_fastq
 seqkit seq -h
 ~~~
 {: .bash}
@@ -727,35 +719,32 @@ seqkit seq -h
 
 From this we can see that the flag `-Q` will "only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)".
 
-From the plot above we identified that many of the lower quality reads below 4 were shorter _more here_ so we should set the minimum limit to 4.
+From the plot above we identified that most of the reads had a quality score of at least 7. To make sure some filtering happens, we'll use a minimum limit of 8.
 
 ~~~
-seqkit seq -Q 4 data/nano_fastq/ERR3152367_sub5.fastq > data/nano_fastq/ERR3152367_sub5_filtered.fastq
+seqkit seq -Q 8 ERR5000342_sub15.fastq > ERR5000342_sub15_filtered.fastq
 ~~~
 {: .bash}
 
-In the command above we use redirection (`>`) to generate a new file `data/nano_fastq/ERR3152367_sub5_filtered.fastq` containing only the reads with an average quality of 4 or above.
+In the command above we use redirection (`>`) to generate a new file `data/nano_fastq/ERR5000342_sub15_filtered.fastq` containing only the reads with an average quality of 4 or above.
 
 We can now re-run NanoPlot on the filtered file to see how it has changed.
 
 ~~~
-cd analysis/qc/
+cd ~/cs_course/analysis/qc/
 
-NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR3152367_sub5_filtered.fastq --outdir nano_qc_filt --threads 4 --loglength
+NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --outdir nano_qc_filt --threads 4 --loglength
 ~~~
 {: .bash}
 
 Once again, wait for the command to finish and then `scp` the `NanoPlot-report.html` to your local computer.
 
 > ## Help!
-> If you had trouble downloading the file you can view it here: [NanoPlot-filtered-report.html]({{ page.root }}/files/NanoPlot-filtered-report.html)
+> If you had trouble downloading the file you can view it here: [NanoPlot-filtered-report.html]({{ page.root }}/files/ERR5000342_sub15_filt_nanoplot.html)
 {: .bash}
 {: .callout}
 
-<img align="centre" width="816" height="785" src="{{ page.root }}/fig/02_lengthvsquality_filtered_log.png" alt="NanoPlot KDE plot of the filtered raw reads Read lengths vs Average read quality plot using dots after log transformation of read lengths">
-<br clear="left"/>
-
-**Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/NanoPlot-report.html) and [after filtering]({{ page.root }}/files/NanoPlot-filtered-report.html)  and answer the questions below.**
+**Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/ERR5000342_sub15_nanoplot.html) and [after filtering]({{ page.root }}/files/ERR5000342_sub15_filt_nanoplot.html)  and answer the questions below.**
 
 > ## Exercise 2:
 >
@@ -764,8 +753,8 @@ Once again, wait for the command to finish and then `scp` the `NanoPlot-report.h
 > 3. What is the length of the new longest read and its associated average quality score?
 >
 >> ## Solution
->>   1. Initially there were 692,758 reads in the filtered file there are 666,597 reads so 26,161 reads have been removed by the quality filtering
->>   2. Initially there were 3,082,258,211 bases and after filtering there are 	3,023,658,929 base which means filtering has removed 58,599,282 bases
->>   3. The longest read in the filtered file is 229,804bp and it has a mean quality score of 6.7
+>>   1. Initially there were 316,251 reads; in the filtered file there are 	311,172 reads; so 5079 reads have been removed by the quality filtering
+>>   2. Initially there were 	1,324,863,094 bases and after filtering there are 		1,303,931,978 base which means filtering has removed 20,931,116 bases
+>>   3. The longest read in the filtered file is the same as before: 49893bp and it has a mean quality score of 9.3.
 > {: .solution}
 {: .challenge}
