@@ -430,7 +430,7 @@ Line 4 shows us the quality score of this read.
 ~~~
 {: .output}
 
-Based on the PHRED quality scores (see above for a reminder) we can see that the quality score of the bases in this read are between 1-10, which is lower than the Illumina sequencing above.
+Based on the PHRED quality scores (see above for a reminder) we can see that the quality scores of the bases in this read range widely, between. Overall they are lower than the scores for Illumina reads we looked at previously.
 
 Instead of using FastQC we will use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is installed on the instance, to create some plots for the whole sequencing file. NanoPlot is specially built for Nanopore sequences.
 

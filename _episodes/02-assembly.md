@@ -64,9 +64,8 @@ We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-
 
 ## Flye is a long-read assembler
 
-> ## Hint
-> Important: Make sure you're still logged into your cloud instance. If you can't remember how to log on, visit [https://cloud-span.github.io/nerc-metagenomics03-qc-assembly/01-QC-quality-raw-reads/index.html).
-{: .bash}
+> ## Important
+> Make sure you're still logged into your cloud instance. If you can't remember how to log on, visit [the instructions from earlier today](https://cloud-span.github.io/nerc-metagenomics03-qc-assembly/01-QC-quality-raw-reads/index.html).
 {: .callout}
 
 
@@ -190,16 +189,16 @@ Flye has multiple different options available and we need to work out which ones
 
 The most important thing to know is which program was used to basecall our reads, as this determines which of `(--pacbio-raw | --pacbio-corr | --pacbio-hifi | --nano-raw | --nano-corr | --nano-hq )` we choose. In the [Methods section of our source paper](https://environmentalmicrobiome.biomedcentral.com/articles/10.1186/s40793-022-00424-2#Sec2) the authors state that:
 
-<img src="{{ page.root }}/fig/ERR4998593_1_pbsq.png" width="700"/>
+<img src="{{ page.root }}/fig/methods_guppy_version.png" width="700"/>
 
 This means we should use the `--nano-raw` option, as the reads were called with a version of Guppy that precedes v5 (Guppy is a program used to convert the signals that come out of a sequencer into an actual string of bases). This option will be followed by the relative path to the long-read .fastq file.
 
-We also need to choose how many times we want Flye to 'polish' the data after assembly. Polishing is a way to improve the accuracy of the assembly. The number of rounds of polishing is specified using `-i` or `--iterations`. We will do three rounds of polishing, which is a standard practice (though the default in Flye is one round only)
+We also need to choose how many times we want Flye to 'polish' the data after assembly. Polishing is a way to improve the accuracy of the assembly. The number of rounds of polishing is specified using `-i` or `--iterations`. We will do three rounds of polishing, which is a standard practice (though the default in Flye is one round only).
 
 The other options are a bit easier:
 
-- We use `-o` or `--outdir` to specify (using a relative path) where the flye output should be stored
-- We also use the `-t` or `--threads` flag in order to run the assembly on multiple threads (aka running several processes at once) in order to speed it up.
+- We use `-o` or `--outdir` to specify (using a relative path) where the Flye output should be stored
+- We also use the `-t` or `--threads` flag in order to run the assembly on multiple threads (aka running several processes at once) in order to speed it up
 - Finally we indicate that the dataset is a metagenome using the `--meta` option
 
 > ## Unused parameters
@@ -218,7 +217,7 @@ mkdir assembly
 ~~~
 {: .bash}
 
-Now we can start constructing our command!
+Now we can start constructing our command! You can type/copy this code into your command line but don't press enter just yet.
 
 ~~~
  flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq \
@@ -229,7 +228,7 @@ Now we can start constructing our command!
 ~~~
 {: .bash}
 
-- `--nano-raw` tells Flye that it is receiving pre-Guppy5 reads and that the **input** is found at the path `~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq`
+- `--nano-raw` tells Flye that it is receiving pre-Guppy5 reads and that the **input** is found at the path `~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq` (note that we are using our 'filtered reads' - there'd be no point doing quality control and filtering otherwise!)
 - `--out-dir` tells Flye that the **output** should be saved in the `assembly/` directory
 - `--threads` indicates that the number of parallel cores is `8`
 - `--iterations` indicates that the data will be polished `3` times
@@ -393,7 +392,7 @@ One of these is `flye.log` which we have already looked at.
 
 * Flye generates a directory to contain the output for each step of the assembly process. (These are the `00-assembly`, `10-consensus`, `20-repeat`, `30-contigger` and `40-polishing` directories.)  
 * We also have a file containing the parameters we ran the assembly under `params.json` which is useful to keep our analysis reproducible.  
-* The assembled contigs are in FASTA format (`assembly.fasta`).  
+* The assembled contigs are in FASTA format (`assembly.fasta`), a common standard file type for storing sequence data without its quality scores.  
 * There's a text file which contains more information about each contig created (`assembly_info.txt`).
 * Finally we have two files for a repeat graph (`assembly_graph.gfa` or `assembly_graph.gv`) which is a visual way to view the assembly.
 
@@ -435,6 +434,7 @@ Using this table of statistics, answer the questions below.
 
 > ## Exercise 1: Looking at basic statistics
 > Using the output for seqkit stats above, answer the following questions.
+>
 > a) How many contigs are in this assembly?  
 > b) How many bases in total have been assembled?  
 > c) What is the shortest and longest contig produced by this assembly?  
