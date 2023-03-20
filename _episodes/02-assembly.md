@@ -65,7 +65,7 @@ We will be using [Flye](https://github.com/fenderglass/Flye), which is a **long-
 ## Flye is a long-read assembler
 
 > ## Important
-> Make sure you're still logged into your cloud instance. If you can't remember how to log on, visit [the instructions from earlier today](https://cloud-span.github.io/nerc-metagenomics03-qc-assembly/01-QC-quality-raw-reads/index.html).
+> Make sure you're still logged into your cloud instance. If you can't remember how to log on, visit [the instructions from earlier today](../01-QC-quality-raw-reads#getting-started).
 {: .callout}
 
 
@@ -245,7 +245,7 @@ Luckily we don't have to do that as we're using a remote computer.
 
 All the commands we have run so far have been in the "foreground", meaning they've been run directly in the terminal window, the prompt disappears and we can't use the terminal again until the command is finished.
 
-Commands can also be run in the "background" so the prompt is returned before the command is finished and we can continue using our terminal. Commands run in the background are often called "jobs". A major advantage of running a long job in the background is that you can log out of your instance without the killing the process.
+Commands can also be run in the "background" so the prompt is returned before the command is finished and we can continue using our terminal. Commands run in the background are often called "jobs". A major advantage of running a long job in the background is that you can log out of your instance without killing the process.
 
 > ## Warning
 > If you run the job in the foreground it will stop as soon as you log out of the instance!  Running jobs in the background is your friend!
@@ -321,7 +321,7 @@ At the start of an assembly you'll probably see something like this:
 
 Different steps in the assembly process take different amounts of time so it might appear stuck. However, it is almost certainly still running if it was run in the background.
 
-Note: this log file will contain similar to the `flye_output.txt` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
+Note: this log file will contain data similar to the data in the `flye_output.txt` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
 
 >## Navigation commands in `less`:
 >
@@ -380,7 +380,7 @@ There are some basic statistics about the final assembly created.
 
 ### What is the Assembly output?
 
-If we `ls` in the `assembly` directory we can see the that Flye has created many different files.
+If we use `ls` in the `assembly` directory we can see the that Flye has created many different files.
 
 ~~~
 00-assembly   20-repeat     40-polishing    assembly_graph.gfa  assembly_info.txt  params.json
@@ -451,7 +451,7 @@ Using this table of statistics, answer the questions below.
 > While you're waiting for the assembly to finish here's some things you might want to read about:
 > * An overall background to the history of DNA sequencing in [DNA sequencing at 40: past, present and future](https://www.nature.com/articles/nature24286)  
 > * An overview of a metagenomics project  [Shotgun metagenomics, from sampling to analysis](https://www.nature.com/articles/nbt.3935) - though note this paper is from 2017 so some techniques and software will be different now.  
-> * The challenges of genomic and metagenomic assembly and the algorithms have been built to overcome these in [Assembly Algorithms for Next-Generation Sequencing Data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/)  
+> * The challenges of genomic and metagenomic assembly and the algorithms that have been built to overcome these in [Assembly Algorithms for Next-Generation Sequencing Data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/)  
 > * The approach Flye uses to assemble metagenomes is covered in [metaFlye: scalable long-read metagenome assembly using repeat graphs](https://www.nature.com/articles/s41592-020-00971-x)
 > * Comparison of genome assembly for bacteria [Comparison of De Novo Assembly Strategies for Bacterial Genomes](https://www.mdpi.com/1422-0067/22/14/7668/htm)
 > * Benchmarking of assemblers including flye in prokaryotes [Benchmarking of long-read assemblers for prokaryote whole genome sequencing](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6966772/)

@@ -20,7 +20,7 @@ keypoints:
 ---
 ## What is the difference between Genomics and Metagenomics?
 
-In **genomics**, we sequence and analyse the genome of a a single species. We often have a known reference genome to which we can align all our reads. 
+In **genomics**, we sequence and analyse the genome of a single species. We often have a known reference genome to which we can align all our reads. 
 
 In **metagenomics** we sequence samples composed of many genomes. These might be environmental samples from soil or anaerobic digestors for example, or samples from the skin or digestive tracts of animals. Such samples typically include species that are difficult to culture and thus lack reference genomes. The challenge in metagenomics is to assemble this mix of diverse genomes into its constituent genomes.
 
@@ -51,7 +51,7 @@ The cost of both preparing the samples and the computational effort required to 
 
 ### Amplicon sequencing
 
-An **amplicon** is a small piece of DNA or RNA that will be amplified through PCR. Amplicon sequencing is cheaper than WMS because only a small part of the genome is sequenced. This makes it affordable to include additional replicates.
+An **amplicon** is a small piece of DNA or RNA that will be amplified through PCR (Polymerase Chain Reaction). Amplicon sequencing is cheaper than WMS because only a small part of the genome is sequenced. This makes it affordable to include additional replicates.
 
 The region being amplified needs to be present in all the individuals in the community being characterised, and be highly conserved. 16 rRNA is often used for amplicon sequencing in bacteria for this reason (for eukaryotes 18S rRNA is used instead).
 
@@ -83,11 +83,11 @@ However, for metagenome analysis, if you were to use only short read sequencing 
 |        | Short reads | Long reads |
 |-------|-----------|
 | Technologies | Illumina | Nanopore and pacbio |
-| Number of reads generated | 800 million paired end* | Depends on read length, and instrument, but usually only 10s of thousands** |
+| Number of reads generated | 800 million paired end**\*** | Depends on read length, and instrument, but usually only 10s of thousands**\*\*** |
 | Base accuracy | Very high | Low |
 | Ease of assembly | Very difficult | Easier |
 | Format output files | Fastq | Fastq, Fast5 |
-| Read length | 150-300bp | Commonly 10-30kb*** |
+| Read length | 150-300bp | Commonly 10-30kb**\*\*\*** |
 
 
 __* As of July 2022, the NextSeq 550 high-output system runs were capable of generating upto [800 million paired-end reads](https://emea.illumina.com/systems/sequencing-platforms/nextseq/specifications.html) in one run__

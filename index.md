@@ -6,7 +6,7 @@ A metagenome is a collection of genomic sequences from various (micro) organisms
 
 In this lesson we will discuss how to define metagenomics and consider the challenges that this type of analysis can present. We will also discuss a workflow for metagenomics analysis.
 
-We will then log into our cloud instance for the first time and take a look at some data. Then, we'll go through the first two steps in our workflow: quality control and metagenome assembly.
+We will then log into our cloud instance and take a look at some data. Then, we'll go through the first two steps in our workflow: quality control and metagenome assembly.
 
 By the end of this lesson you will be able to:
 - explain what metagenomics is, and the challenges it presents

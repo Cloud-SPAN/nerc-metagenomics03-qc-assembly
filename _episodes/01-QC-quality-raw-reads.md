@@ -75,14 +75,14 @@ Before assembling our metagenome from the the short-read Illumina sequences and 
 
 In previous lessons we had a look at our data files and found they were in FASTQ format, a common format for sequencing data. We used `grep` to look for 'bad reads' containing more than three consecutive Ns and put these reads into their own text file.
 
-This could be rather time consuming and isn't very nuanced. Luckily, there's a better way! Rather than assessing every read in the raw data by hand we can use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to visualise the quality of the whole sequencing file.
+This could be rather time consuming and is very nuanced. Luckily, there's a better way! Rather than assessing every read in the raw data by hand we can use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to visualise the quality of the whole sequencing file.
 
 ### About FastQC
 Rather than looking at quality scores for each individual read, FastQC looks at quality collectively across all reads within a sample. The image below shows one FastQC-generated plot that indicates a very high quality sample:
 
 <img align="center" width="800" height="600" src="{{ page.root }}/fig/good_quality1.8.png" alt="Example of high quality sample - all bars are in green section">
 
-The x-axis displays the base position in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 40 bp long.
+The x-axis displays the base position (bp) in the read, and the y-axis shows quality scores. In this example, the sample contains reads that are 40 bp long.
 
 Each position has a box-and-whisker plot showing the distribution of quality scores for all reads at that position.
 - The horizontal red line indicates the median quality score.
@@ -318,11 +318,11 @@ However, these files are currently sitting on our remote AWS instance, where our
 
 So the easiest way to look at these webpage summary reports will be to transfer them to our local computers (i.e. your laptop).
 
-To do this we will use the `scp` (secure copy protocol) command. `scp` stands for ‘secure copy protocol’, and is a widely used UNIX tool for moving files between computers. This is run in your **local terminal**.
+To do this we will use the `scp` command. `scp` stands for ‘secure copy protocol’, and is a widely used UNIX tool for moving files between computers. You must **run** `scp` in your **local terminal** in your laptop.
 
 The scp command takes this form:
 ~~~
- scp <file I want to move> <where I want to move it>
+ scp <file I want to copy> <where I want the copy to be placed>
  ~~~
 {: .bash}
 
@@ -339,7 +339,7 @@ You need to start a second terminal window that is **_not_** logged into the clo
 > 
 {: .callout}
 
-Now use `scp` to download the file. We need to add in our PEM file, like when we log in, and we'll also use the symbol `.` (this directory) to tell the command where to deposit the downloaded files.
+Now use `scp` to download the file. We need to add in our PEM file, like when we log in, and we'll also use the symbol `.` (this directory) to tell the `scp` command where to deposit the downloaded files.
 
 The command will look something like:
 ~~~
@@ -357,7 +357,7 @@ ERR4998593_2_fastqc.html         47%  539KB   1.8MB/s   00:00
 ~~~
 {: .output}
 
-Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the files and open them - they should open up in your browser.  
+Once the files have downloaded, use File Explorer (Windows) or Finder (Mac) to find the files and open them - they should open up in your browser.  
 
 > ## Help!
 > If you had trouble downloading and viewing the files you can view them here: [ERR4998593_1_fastqc.html]({{ page.root }}/files/ERR4998593_1_fastqc.html) and [ERR4998593_2_fastqc.html]({{ page.root }}/files/ERR4998593_2_fastqc.html)
@@ -376,7 +376,7 @@ The x-axis displays the base position in the read, and the y-axis shows quality 
 In both samples, the mean quality values do not drop much lower than 34 at any position. This is a high quality score meaning the sequences are high quality. That means that we do not need to do any filtering. Lucky us!
 
 We should also have a look at the "Adapter Content" graph which will show us where adapter sequences occur in the reads.
-Adapter sequences are short sequences that are added to the sample to aid during the preparation of the DNA library. They therefore don't tell us anything biologically important and should be removed if they are present in high numbers. They might also be removed in the case of certain applications, such as ones when the base sequence needs to be particularly accurate.
+Adapter sequences are short sequences that are added to the sample to aid during the preparation of the DNA library. They therefore don't tell us anything biologically important and should be removed if they are present in high numbers. They might also be removed in the case of certain applications, such as when the base sequence needs to be particularly accurate.
 
 | **ERR4998593_1.fastq** | **ERR4998593_2.fastq** |
 | :-----: | :-----: |
@@ -430,7 +430,7 @@ Line 4 shows us the quality score of this read.
 ~~~
 {: .output}
 
-Based on the PHRED quality scores (see above for a reminder) we can see that the quality scores of the bases in this read range widely, between. Overall they are lower than the scores for Illumina reads we looked at previously.
+Based on the PHRED quality scores (see above for a reminder) we can see that the quality scores of the bases in this read range widely. Overall they are lower than the scores for Illumina reads we looked at previously.
 
 Instead of using FastQC we will use a program called [NanoPlot](https://github.com/wdecoster/NanoPlot), which is installed on the instance, to create some plots for the whole sequencing file. NanoPlot is specially built for Nanopore sequences.
 
@@ -556,7 +556,7 @@ We will use four flags when we run the NanoPlot command:
 
 - `--fastq` to specify the filetype and file to analyse. The raw Nanopore data is in the location `/cs_course/p/data/nano_fastq/ERR5000342_sub15.fastq` and we will use this full absolute path in the NanoPlot command.
 
-- `--outdir` to specify the where the output files should be written. We are going to specify `nano_qc` so that NanoPlot will create a new directory in our current directory (`qc`) and write its output files to it. Note: with NanoPlot you don't need to create this directory before running the command.
+- `--outdir` to specify the where the output files should be written. We are going to specify `nano_qc` so that NanoPlot will create a new directory in our current directory (`qc`) and write its output files to it. **Note**: with NanoPlot you **don't need to create this directory** before running the command.
 
 - `--threads` specifies how many threads to run the program on (more threads = more compute power = faster). We will specify 4 to indicate that four threads should be used.
 
@@ -569,7 +569,7 @@ NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR5000342_sub15.fastq --outdir nan
 
 Now we have the command set up we can press enter and wait for NanoPlot to finish.
 
-This will take a couple of minutes. You will know it is finished once your cursor has returned (i.e. you can type in the terminal again).  
+This will take a couple of minutes. You will know it is finished once your terminal **prompt** has returned (i.e. you can type in the terminal again).  
 
 Once NanoPlot has finished we can have a look at the output.
 First we need to navigate into the `nano_qc` directory NanoPlot created, then list the files.
@@ -595,7 +595,18 @@ We can see that NanoPlot has generated a lot of different files.
 Like before, we can't view most of these files in our terminal as we can't open images or HTML files. Instead we'll download the core information to our own computer.
 Luckily, the `NanoPlot-report.html` file contains all of the plots and information held in the other files so we only need to download that one onto our local computer using `scp`.
 
-Use a terminal  that is **_not_** logged into the cloud instance and ensure you are in your `cloudspan` directory. You may have one from earlier. If you do not, use the instructions above to start one.
+Use a terminal  that is **_not_** logged into the cloud instance and ensure you are in your `cloudspan` directory. You may have one from earlier. If you do not, unveil the instructions below to start one.
+
+> ## Starting a new terminal
+> 
+> 1. Open your file manager and navigate to the `cloudspan` folder which should contain the login key file 
+> 
+> 2. Open your machine's command line interface:
+>    Windows users: Right click anywhere inside the blank space of the file manager, then select **Git Bash Here**.
+>    Mac users: Open **Terminal** and type `cd` followed by the absolute path that leads to your `cloudspan` folder. Press enter.  
+> 3. Check that you are in the right folder using `pwd`
+> 
+{: .solution}
 
 Use `scp` to copy the file - the command will look something like:
 ~~~
@@ -610,7 +621,7 @@ NanoPlot-report.html                                  100% 3281KB   2.3MB/s   00
 ~~~
 {: .output}
 
-Once the file has downloaded File Explorer (Windows) or Finder (Mac) to find the file and open it - it should open up in your browser.  
+Once the file has downloaded, use the File Explorer (Windows) or Finder (Mac) to find the file and open it - it should open up in your browser.  
 
 > ## Help!
 > If you had trouble downloading and viewing the file you can view it here: [NanoPlot-report.html]({{ page.root }}/files/ERR5000342_sub15_nanoplot.html)
@@ -728,7 +739,7 @@ seqkit seq -Q 8 ERR5000342_sub15.fastq > ERR5000342_sub15_filtered.fastq
 ~~~
 {: .bash}
 
-In the command above we use redirection (`>`) to generate a new file `data/nano_fastq/ERR5000342_sub15_filtered.fastq` containing only the reads with an average quality of 4 or above.
+In the command above we use redirection (`>`) to generate a new file `data/nano_fastq/ERR5000342_sub15_filtered.fastq` containing only the reads with an average quality of 8 or above.
 
 We can now re-run NanoPlot on the filtered file to see how it has changed.
 
