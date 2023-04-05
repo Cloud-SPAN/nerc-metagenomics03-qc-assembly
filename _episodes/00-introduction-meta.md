@@ -126,7 +126,7 @@ Workflows in bioinformatics often adopt a plug-and-play approach so the output o
 The use of standard data formats in bioinformatics (such as FASTA or FASTQ, which we will be using here) makes this possible.
 The tools that are used to analyze data at different stages of the workflow are therefore built under the assumption that the data will be provided in a specific format.
 
-You can find a [more detailed version of the workflow](https://cloud-span.github.io/metagenomics01-qc-assembly/workflow/index.html) we will be following by going to `Extras` and selecting `Workflow Reference`. This diagram contains all of the steps followed over the course alongside program names.
+You can find a [more detailed version of the workflow](https://cloud-span.github.io/nerc-metagenomics03-qc-assembly/workflow/index.html) we will be following by going to `Extras` and selecting `Workflow Reference`. This diagram contains all of the steps followed over the course alongside program names.
 
 <br clear="right"/>
 
