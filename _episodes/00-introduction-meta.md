@@ -107,7 +107,7 @@ Towards the end of the course we'll compare some of the data from our site with 
 
 ## Bioinformatic workflows
 
-<img align="right" width="325" height="506" src="{{ page.root }}/fig/short_analysis_flowchart.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy"/>
+<img align="right" width="325" height="506" src="{{ page.root }}/fig/metagenomics_flowchart_short.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy"/>
 
 When working with high-throughput sequencing data, the raw reads you get off of the sequencer need to pass
 through a number of  different tools in order to generate your final desired output.  
@@ -126,7 +126,7 @@ Workflows in bioinformatics often adopt a plug-and-play approach so the output o
 The use of standard data formats in bioinformatics (such as FASTA or FASTQ, which we will be using here) makes this possible.
 The tools that are used to analyze data at different stages of the workflow are therefore built under the assumption that the data will be provided in a specific format.
 
-You can find a [more detailed version of the workflow](https://cloud-span.github.io/metagenomics01-qc-assembly/workflow/index.html) we will be following by going to `Extras` and selecting `Workflow Reference`. This diagram contains all of the steps followed over the course alongside program names.
+You can find a [more detailed version of the workflow](https://cloud-span.github.io/nerc-metagenomics03-qc-assembly/workflow/index.html) we will be following by going to `Extras` and selecting `Workflow Reference`. This diagram contains all of the steps followed over the course alongside program names.
 
 <br clear="right"/>
 

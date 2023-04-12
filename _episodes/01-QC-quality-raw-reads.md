@@ -668,13 +668,13 @@ Looking at the summary statistics table answer the following questions:
 We can also look at some of the plots produced by NanoPlot.
 
 One useful plot is the plot titled "Read lengths vs Average read quality plot using dots after log transformation of read lengths".
-<img align="centre" width="816" height="785" src="{{ page.root }}/fig/LengthvsQualityScatterPlot_loglength_dot.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
+<img align="centre" width="816" src="{{ page.root }}/fig/LengthvsQualityScatterPlot_loglength_dot.png" alt="NanoPlot KDE plot with the title Read lengths vs Average read quality plot using dots after log transformation of read lengths">
 
 This plot shows the average quality of the sequence against the read lengths. We can see that the majority of the sequences have a quality score at least 7. We don't necessarily need to trim these reads, as this is a good score, but we will do it anyway to show you how.
 
 <br clear="left"/>
 
-## Filtering Nanopore sequences by quality
+## Filtering Nanopore sequences by quality score
 
 We can use the program [Seqkit](https://bioinf.shenwei.me/seqkit/) (which contains many tools for FASTQ/A file manipulation) to filter our reads. We will be using the command `seqkit seq` to create a new file containing only the sequences with an average quality above a certain value.
 
@@ -750,11 +750,16 @@ NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --o
 ~~~
 {: .bash}
 
-Once again, wait for the command to finish and then `scp` the `NanoPlot-report.html` to your local computer.
+Once again, wait for the command to finish and then `scp` the report to your local computer. First, though, make sure you rename the file so you know which is the filtered report and which isn't.
+
+~~~
+cd nano_qc_filt
+mv NanoPlot-report.html NanoPlot-report-filtered.html
+~~~
+{: .bash}
 
 > ## Help!
 > If you had trouble downloading the file you can view it here: [NanoPlot-filtered-report.html]({{ page.root }}/files/ERR5000342_sub15_filt_nanoplot.html)
-{: .bash}
 {: .callout}
 
 **Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/ERR5000342_sub15_nanoplot.html) and [after filtering]({{ page.root }}/files/ERR5000342_sub15_filt_nanoplot.html)  and answer the questions below.**
