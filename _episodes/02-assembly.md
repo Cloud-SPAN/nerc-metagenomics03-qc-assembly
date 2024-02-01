@@ -253,7 +253,7 @@ Commands can also be run in the "background" so the prompt is returned before th
 
 To run a command in the background, we follow it with an ampersand (`&`) symbol.
 
-The final thing to add to our `flye` command is "redirection": `&> flye_output.txt` will send any output that would be sent to the terminal to a file, `flye_output.txt` instead
+The final thing to add to our `flye` command is "redirection": `&> flye_output.log` will send any output that would be sent to the terminal to a file, `flye_output.log` instead
 
 The complete command is:
 ~~~
@@ -261,11 +261,11 @@ flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq \
      --out-dir assembly \
      --threads 8 \
      --iterations 3 \
-     --meta &> flye_output.txt &
+     --meta &> flye_output.log &
 ~~~
 {: .bash}
 
-`&>` redirects sends information that would normally go to the terminal to a file instead. This means any logging and progress information `flye` creates will be saved in `flye_output.txt`. Note the lack of a space between `&>`. The second `&` then runs this command in the background.
+`&>` redirects sends information that would normally go to the terminal to a file instead. This means any logging and progress information `flye` creates will be saved in `flye_output.log`. Note the lack of a space between `&>`. The second `&` then runs this command in the background.
 
 We can now press enter to run the command.
 Your prompt should immediately return. This doesn't mean that the code has finished already: it is now running in the background.
@@ -291,7 +291,7 @@ jobs
 ~~~
 {: .bash}
 ~~~
-[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
+[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.log &
 ~~~
 {: .output}
 
@@ -321,7 +321,7 @@ At the start of an assembly you'll probably see something like this:
 
 Different steps in the assembly process take different amounts of time so it might appear stuck. However, it is almost certainly still running if it was run in the background.
 
-Note: this log file will contain data similar to the data in the `flye_output.txt` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
+Note: this log file will contain data similar to the data in the `flye_output.log` file we're generating when redirecting the terminal output. But it's easier to look at the log file as flye will always generate that even if you're running the command differently (e.g. in the foreground).
 
 >## Navigation commands in `less`:
 >
@@ -348,7 +348,7 @@ After leaving it several hours, Flye should have finished assembling.
 If you remained connected to the instance during the process you will be able to tell it has finished because you get the following output in your terminal when the command has finished.
 
 ~~~
-[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
+[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.log &
 ~~~
 {: .output}
 
