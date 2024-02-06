@@ -220,7 +220,7 @@ mkdir assembly
 Now we can start constructing our command! You can type/copy this code into your command line but don't press enter just yet.
 
 ~~~
- flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq \
+ flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub12_filtered.fastq \
      --out-dir assembly \
      --threads 8 \
      --iterations 3 \
@@ -228,7 +228,7 @@ Now we can start constructing our command! You can type/copy this code into your
 ~~~
 {: .bash}
 
-- `--nano-raw` tells Flye that it is receiving pre-Guppy5 reads and that the **input** is found at the path `~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq` (note that we are using our 'filtered reads' - there'd be no point doing quality control and filtering otherwise!)
+- `--nano-raw` tells Flye that it is receiving pre-Guppy5 reads and that the **input** is found at the path `~/cs_course/data/nano_fastq/ERR5000342_sub12_filtered.fastq` (note that we are using our 'filtered reads' - there'd be no point doing quality control and filtering otherwise!)
 - `--out-dir` tells Flye that the **output** should be saved in the `assembly/` directory
 - `--threads` indicates that the number of parallel cores is `8`
 - `--iterations` indicates that the data will be polished `3` times
@@ -257,7 +257,7 @@ The final thing to add to our `flye` command is "redirection": `&> flye_output.t
 
 The complete command is:
 ~~~
-flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq \
+flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub12_filtered.fastq \
      --out-dir assembly \
      --threads 8 \
      --iterations 3 \
@@ -291,7 +291,7 @@ jobs
 ~~~
 {: .bash}
 ~~~
-[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
+[1]+  Running                 flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub12_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
 ~~~
 {: .output}
 
@@ -348,7 +348,7 @@ After leaving it several hours, Flye should have finished assembling.
 If you remained connected to the instance during the process you will be able to tell it has finished because you get the following output in your terminal when the command has finished.
 
 ~~~
-[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
+[2]+  Done      flye --nano-raw ~/cs_course/data/nano_fastq/ERR5000342_sub12_filtered.fastq --out-dir assembly --threads 8 --iterations 3 --meta &> flye_output.txt &
 ~~~
 {: .output}
 
@@ -423,7 +423,7 @@ seqkit stats assembly.fasta
 Once it has finished you should see an output table like this:
 ~~~
 file            format  type  num_seqs     sum_len  min_len   avg_len  max_len
-assembly.fasta  FASTA   DNA      1,161  18,872,828      528  16,255.7  118,427
+assembly.fasta  FASTA   DNA      790    11,957,486      511  15,136.1    95,862
 
 ~~~
 {: .output}
@@ -440,15 +440,15 @@ Using this table of statistics, answer the questions below.
 > c) What is the shortest and longest contig produced by this assembly?  
 >> ## Solution
 >>  From our table:  
->> a) From `num_seqs` we can see that this assembly is made up of 1,161 contigs  
->> b) Looking at `sum_length` we can see that the assembly is 18,872,828bp in total (over 18 million bp!)  
->> c) From `min_length` we can see the shortest contig is 528bp and from `max_length` the longest contig is 118,427bp  
+>> a) From `num_seqs` we can see that this assembly is made up of 790 contigs  
+>> b) Looking at `sum_length` we can see that the assembly is 11,957,486bp in total (over 11 million bp!)  
+>> c) From `min_length` we can see the shortest contig is 511p and from `max_length` the longest contig is 95,862bp  
 > {: .solution}
 {: .challenge}
 
 
 > ## Recommended reading:
-> While you're waiting for the assembly to finish here's some things you might want to read about:
+> While you're waiting for the assembly to finish here are some things you might want to read about:
 > * An overall background to the history of DNA sequencing in [DNA sequencing at 40: past, present and future](https://www.nature.com/articles/nature24286)  
 > * An overview of a metagenomics project  [Shotgun metagenomics, from sampling to analysis](https://www.nature.com/articles/nbt.3935) - though note this paper is from 2017 so some techniques and software will be different now.  
 > * The challenges of genomic and metagenomic assembly and the algorithms that have been built to overcome these in [Assembly Algorithms for Next-Generation Sequencing Data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874646/)  

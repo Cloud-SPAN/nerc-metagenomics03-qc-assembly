@@ -393,9 +393,9 @@ This graph shows us that these sequencing file have a low percentage (~1-2%) of 
 
 ## Nanopore quality control
 
-Next we will assess the quality of the Nanopore raw reads. These are found in the file located at `~/cs_course/data/nano_fastq/ERR5000342_sub15.fastq`.
+Next we will assess the quality of the Nanopore raw reads. These are found in the file located at `~/cs_course/data/nano_fastq/ERR5000342_sub12.fastq`.
 
-This file contains a subset of 15% of the Nanopore reads from our site of interest (hence `sub15`). The reason we aren't using all of the reads is because there are so many that our remote computer would be overwhelmed! We will be using the `sub15` data for the time being, but later in the course you will be given an assembly for analysis which was assembled using the full set of reads.
+This file contains a subset of 12% of the Nanopore reads from our site of interest (hence `sub12`). The reason we aren't using all of the reads is because there are so many that our remote computer would be overwhelmed! We will be using the `sub12` data for the time being, but later in the course you will be given an assembly for analysis which was assembled using the full set of reads.
 
 Let us again view the first complete read in one of the files from our dataset by using `head` to look at the first four lines.
 
@@ -407,7 +407,7 @@ Move to the folder containing the Nanopore data:
 
 Use `head` to look at the first four line of the fastq file:
 ~~~
- head -n 4 ERR5000342_sub15.fastq
+ head -n 4 ERR5000342_sub12.fastq
 ~~~
 {: .bash}
 
@@ -554,7 +554,7 @@ NanoPlot --help
 
 We will use four flags when we run the NanoPlot command:
 
-- `--fastq` to specify the filetype and file to analyse. The raw Nanopore data is in the location `/cs_course/p/data/nano_fastq/ERR5000342_sub15.fastq` and we will use this full absolute path in the NanoPlot command.
+- `--fastq` to specify the filetype and file to analyse. The raw Nanopore data is in the location `/cs_course/p/data/nano_fastq/ERR5000342_sub12.fastq` and we will use this full absolute path in the NanoPlot command.
 
 - `--outdir` to specify the where the output files should be written. We are going to specify `nano_qc` so that NanoPlot will create a new directory in our current directory (`qc`) and write its output files to it. **Note**: with NanoPlot you **don't need to create this directory** before running the command.
 
@@ -563,7 +563,7 @@ We will use four flags when we run the NanoPlot command:
 - `--loglength` specifies that we want plots with a log scale.
 
 ~~~
-NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR5000342_sub15.fastq --outdir nano_qc --threads 4 --loglength
+NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR5000342_sub12.fastq --outdir nano_qc --threads 4 --loglength
 ~~~
 {: .bash}
 
@@ -624,7 +624,7 @@ NanoPlot-report.html                                  100% 3281KB   2.3MB/s   00
 Once the file has downloaded, use the File Explorer (Windows) or Finder (Mac) to find the file and open it - it should open up in your browser.  
 
 > ## Help!
-> If you had trouble downloading and viewing the file you can view it here: [NanoPlot-report.html]({{ page.root }}/files/ERR5000342_sub15_nanoplot.html)
+> If you had trouble downloading and viewing the file you can view it here: [NanoPlot-report.html]({{ page.root }}/files/ERR5000342_sub12_nanoplot.html)
 {: .bash}
 {: .callout}
 
@@ -735,18 +735,18 @@ From this we can see that the flag `-Q` will "only print sequences with average 
 From the plot above we identified that most of the reads had a quality score of at least 7. To make sure some filtering happens, we'll use a minimum limit of 8.
 
 ~~~
-seqkit seq -Q 8 ERR5000342_sub15.fastq > ERR5000342_sub15_filtered.fastq
+seqkit seq -Q 8 ERR5000342_sub12.fastq > ERR5000342_sub12_filtered.fastq
 ~~~
 {: .bash}
 
-In the command above we use redirection (`>`) to generate a new file `data/nano_fastq/ERR5000342_sub15_filtered.fastq` containing only the reads with an average quality of 8 or above.
+In the command above we use redirection (`>`) to generate a new file `data/nano_fastq/ERR5000342_sub12_filtered.fastq` containing only the reads with an average quality of 8 or above.
 
 We can now re-run NanoPlot on the filtered file to see how it has changed.
 
 ~~~
 cd ~/cs_course/analysis/qc/
 
-NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR5000342_sub15_filtered.fastq --outdir nano_qc_filt --threads 4 --loglength
+NanoPlot --fastq ~/cs_course/data/nano_fastq/ERR5000342_sub12_filtered.fastq --outdir nano_qc_filt --threads 4 --loglength
 ~~~
 {: .bash}
 
@@ -759,10 +759,10 @@ mv NanoPlot-report.html NanoPlot-report-filtered.html
 {: .bash}
 
 > ## Help!
-> If you had trouble downloading the file you can view it here: [NanoPlot-filtered-report.html]({{ page.root }}/files/ERR5000342_sub15_filt_nanoplot.html)
+> If you had trouble downloading the file you can view it here: [NanoPlot-filtered-report.html]({{ page.root }}/files/ERR5000342_sub12_filt_nanoplot.html)
 {: .callout}
 
-**Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/ERR5000342_sub15_nanoplot.html) and [after filtering]({{ page.root }}/files/ERR5000342_sub15_filt_nanoplot.html)  and answer the questions below.**
+**Compare the NanoPlot statistics of the Nanopore raw reads [before filtering]({{ page.root }}/files/ERR5000342_sub12_nanoplot.html) and [after filtering]({{ page.root }}/files/ERR5000342_sub12_filt_nanoplot.html)  and answer the questions below.**
 
 > ## Exercise 2:
 >
